@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "1090298493103",
+    "project_id": "f2-guide-up",
+    "storage_bucket": "f2-guide-up.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1090298493103:android:2ab5d2efd7800c6b92fc5a",
+        "android_client_info": {
+          "package_name": "com.guide_up.guide_up"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1090298493103-sb9lasag2mc5spa07nkan6r5t5f03gnk.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCb4E4P8sLXQm_4ZAFo0NJiFuaBInbnmME"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1090298493103-sb9lasag2mc5spa07nkan6r5t5f03gnk.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
