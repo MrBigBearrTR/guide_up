@@ -21,7 +21,7 @@
 
 # Ürün ile ilgili Bilgiler
 ## Takım ve Görevler
-![team](https://github.com/MrBigBearrTR/guide_up/assets/59195666/805beb7d-7cbf-4329-a4b5-f5746cbfd32e)
+![team](https://github.com/MrBigBearrTR/guide_up/assets/59195666/a0c41996-a486-4576-bb67-a0f205ab5f52)
 
 ## Ürün İsmi
 --Guide Up--
@@ -44,6 +44,8 @@ Guide Up bir Mentor ve Menti platformudur.Guide Up hedefi için önündeki engel
 - 'Top Guide' olarak en çok uplanmış guideleri görüntüleyebilir.
 - 'Sana Uygun Mentorler' kısmından yetenek ve meslek olarak sizin için uygun olan mentorleri bulabilirsiniz.
 - 'Arama' kısmından Merak ettiğin konu ağacımızdan konu seçip arama kelimeni yazarak istenilen mentorlar ve guideler listelenir.
+- 'Profil' kısmından bilgilerini güncelleyebilir uygulama ayarlarını düzenleyebilir.
+- 'Guide' kısmından topluluk sorularına erişebilir yorum yapabilir veya yeni bir guide açabilir.
 - 'Dashboard' tarafında Mentor ve Menti ekranlarına göz atabilir. Aşağıdaki başlıkların bilgilerini görüntüleyebilir
   - Menti İçin
     - Kaç tane Guide yazılmış
@@ -55,3 +57,12 @@ Guide Up bir Mentor ve Menti platformudur.Guide Up hedefi için önündeki engel
     - Kaç kişiye Mentorluk verdi
     - Ne kadar yorumlandı
     - Ne kadar kazandı
+
+** Hedef Kitle
+ - Hedefini seçmekte kararsız olanlar
+ - Hedefinde yardıma ihtiyacı olanlar
+ - Belirli konularda takılıp tecrübe desteğine ihtiyaç duyanlar
+ - Tecrübesi olup doğrudan ihtiyacı olana yardım etmek isteyen kişiler
+ - Mesleki statüsünü geliştirmek isteyen kişiler
+ - Tanınır biri olmak isteyen tecrübe sahipleri
+ - Tecrübesi ölçüsünde mentorluk yaparak para kazanmak isteyen kişiler
