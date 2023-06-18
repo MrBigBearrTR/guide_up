@@ -3,7 +3,9 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:guide_up/main.dart';
 import 'package:guide_up/pages/login/login_page.dart';
+import 'package:guide_up/pages/profile/profile_main.dart';
 
+import '../pages/home/home_screen_page.dart';
 import '../pages/other/error_page.dart';
 import '../pages/other/test_data_conrol_page.dart';
 
@@ -35,7 +37,11 @@ class RouteGenerator {
       case '/testDataControl':
         return _createRoute(const TestDataControl(), settings);
       case '/':
+        return _createRoute(HomeScreen(), settings);
+      case '/login':
         return _createRoute(const LoginPage(), settings);
+      case '/profile':
+        return _createRoute(const ProfileMain(), settings);
       default:
         return _createRoute(const ErrorPage(), settings);
     }

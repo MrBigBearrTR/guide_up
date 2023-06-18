@@ -137,7 +137,7 @@ class _HomeScreenBodyState extends State<HomeScreenBody> {
                   Container(
                     margin: EdgeInsets.fromLTRB(30, 10, 0, 0),
                     color: Color.fromARGB(221, 241, 238, 238),
-                    child: Column(
+                    child: const Column(
                       children: [
                         CircleAvatar(
                           backgroundImage: NetworkImage(
