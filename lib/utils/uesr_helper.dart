@@ -1,5 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 
 class UserHelper {
   late FirebaseAuth _auth;
@@ -46,6 +47,12 @@ class UserHelper {
   }
 
   void signOut() {
+    if(GoogleSignIn().currentUser!=null){
+      GoogleSignIn().disconnect();
+      debugPrint("++ Googldan çıkış yapıldı");
+    }else{
+      debugPrint("-- Google hesabı ile giriş bulunamadı");
+    }
     if (_auth.currentUser != null) {
       _auth.signOut();
       debugPrint("++"+"Çıkış yapıldı.");
