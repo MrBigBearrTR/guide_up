@@ -66,3 +66,37 @@ Guide Up bir Mentor ve Menti platformudur.Guide Up hedefi için önündeki engel
  - Mesleki statüsünü geliştirmek isteyen kişiler
  - Tanınır biri olmak isteyen tecrübe sahipleri
  - Tecrübesi ölçüsünde mentorluk yaparak para kazanmak isteyen kişiler
+
+## Sprint 1 
+Sprint içinde tamamlanması tahmin edilen puan: 100 Puan
+
+Puan tamamlama mantığı: Toplamda proje boyunca tamamlanması gereken 340 puanlık backlog bulunmaktadır. 3 sprint'e bölündüğünde ilk sprint'in en azından 100 ile başlaması gerektiğine karar verildi.
+
+Daily Scrum:  Daily Scrum toplantıları takım olarak oluşturduğumuz WhatssApp grubu üzerinden toplantı günleri ve saatlerini belirleyip Discord üzerinden sesli ve görüntülü olarak yapılmasına ayrıca yine WhatssApp grubu üzerinen toplantı harici yapılan çalışmalar ve yapılmakta olan çalışmalar ile gün içinde irtibatta kalma üzerine karar alınmıştır. Daily Scrum toplantısı örneği  word dosyası içerisinde ekran görüntüleri ile paylaşılmıştır. Bu ekran görüntüleri whatssApp grubu konuşmalarrıdır. Discord konuşmlaraımız ortalama 4 saat sürdüğü için kayıt almamız sorun yaratmıştır.  Daily Scrum Toplantı örneği (https://drive.google.com/file/d/1h3IaxpDLrY9biUqc5BkPJZPQU_sBSnRC/view?usp=sharing)
+
+Sprint board update: Sprint board screenshotları: Tamamını görmek için (https://miro.com/app/board/uXjVMBG0TQU=/)
+![BOOTCAMP SPRİNTLER (3)](https://github.com/MrBigBearrTR/guide_up/assets/91954062/73111e89-4613-4a1b-8791-13316f78d830)
+
+
+Ürün Durumu Ekran Görüntüleri : 
+
+![home page ](https://github.com/MrBigBearrTR/guide_up/assets/91954062/6183bd1c-d180-4f50-ba07-0d9cd48630bf)
+![profile ](https://github.com/MrBigBearrTR/guide_up/assets/91954062/b85fd8f1-1589-4618-8c45-4ef21ddf5b91)
+
+Video Görüntüleri :  
+
+https://github.com/MrBigBearrTR/guide_up/assets/91954062/142aa230-0209-45a0-b089-fb1658310f65
+https://github.com/MrBigBearrTR/guide_up/assets/91954062/a1cc9932-0ec3-424f-9295-d1317a4e01d6
+
+## Sprint 1 Review 
+
+Review: Figma ile uygulamanın temel tasarımları yapılmış. Veri yapıları oluşturulmuştur. Kodlama kısmında ise Uygulama ilk açılış ekranı, homepage ekranı, profil sekmesi ve firebase bağlantıları oluşturulmuştur. 
+
+Sprint Retrospective:
+- Daha hızlı olunmalı ve verilen görevler eksiksiz ve tam vaktinde yerine getirilmesi kararı alınmıştır. 
+
+
+
+
+
+
