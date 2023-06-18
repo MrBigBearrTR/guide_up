@@ -5,6 +5,7 @@ import 'package:guide_up/main.dart';
 import 'package:guide_up/pages/login/login_page.dart';
 
 import '../pages/other/error_page.dart';
+import '../pages/other/test_data_conrol_page.dart';
 
 class RouteGenerator {
   static Route<dynamic>? _createRoute(
@@ -31,6 +32,8 @@ class RouteGenerator {
     switch (settings.name) {
       case '/main':
         return _createRoute(const MyApp(), settings);
+      case '/testDataControl':
+        return _createRoute(const TestDataControl(), settings);
       case '/':
         return _createRoute(const LoginPage(), settings);
       default:
