@@ -68,6 +68,13 @@ Guide Up bir Mentor ve Menti platformudur.Guide Up hedefi için önündeki engel
  - Tecrübesi ölçüsünde mentorluk yaparak para kazanmak isteyen kişiler
 
 ## Sprint 1 
+Sprint 1  notları:
+-Bu sprintte harita oluşturarak gitmeye karar verildi
+-İlk olarak fikir bulundu. 
+-Miro ile gerekli görevlendirmeler yapıldı 
+-Fikre bağlı olarak  Figma ile tasarım yapıldı veri şeması çıkarıldı ve harita tamamlanıp kod kısmına geçildi. 
+-Diğer sprintlerde de bu oluşturulan harita üzerinden gidilecektir. 
+
 Sprint içinde tamamlanması tahmin edilen puan: 100 Puan
 
 Puan tamamlama mantığı: Toplamda proje boyunca tamamlanması gereken 340 puanlık backlog bulunmaktadır. 3 sprint'e bölündüğünde ilk sprint'in en azından 100 ile başlaması gerektiğine karar verildi.
