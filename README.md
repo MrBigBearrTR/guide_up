@@ -66,3 +66,10 @@ Guide Up bir Mentor ve Menti platformudur.Guide Up hedefi için önündeki engel
  - Mesleki statüsünü geliştirmek isteyen kişiler
  - Tanınır biri olmak isteyen tecrübe sahipleri
  - Tecrübesi ölçüsünde mentorluk yaparak para kazanmak isteyen kişiler
+
+## Sprint 1 
+Sprint içinde tamamlanması tahmin edilen puan: 100 Puan
+
+Puan tamamlama mantığı: Toplamda proje boyunca tamamlanması gereken 340 puanlık backlog bulunmaktadır. 3 sprint'e bölündüğünde ilk sprint'in en azından 100 ile başlaması gerektiğine karar verildi.
+
+Daily Scrum: Daily Scrum toplantıları takım olarak oluşturduğumuz WhatssApp grubu üzerinden toplantı günleri ve saatlerini belirleyip Discord üzerinden sesli ve görüntülü olarak yapılmasına ayrıca yine WhatssApp grubu üzerinen toplantı harici yapılan çalışmalar ve yapılmakta olan çalışmalar ile gün içinde irtibatta kalma üzerine karar alınmıştır. Daily Scrum toplantısı örneği  word dosyası içerisinde ekran görüntüleri ile paylaşılmıştır. Bu ekran görüntüleri whatssApp grubu konuşmalarrıdır. Discord konuşmlaraımız ortalama 4 saat sürdüğü için kayıt almamız sorun yaratmıştır.  Daily Scrum Toplantı örneği (https://drive.google.com/file/d/1jVjdP-QVfqjfrOyErg4doYGLktSNory3/view?usp=sharing)
