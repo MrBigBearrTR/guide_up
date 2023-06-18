@@ -75,4 +75,9 @@ Puan tamamlama mantığı: Toplamda proje boyunca tamamlanması gereken 340 puan
 Daily Scrum:  Daily Scrum toplantıları takım olarak oluşturduğumuz WhatssApp grubu üzerinden toplantı günleri ve saatlerini belirleyip Discord üzerinden sesli ve görüntülü olarak yapılmasına ayrıca yine WhatssApp grubu üzerinen toplantı harici yapılan çalışmalar ve yapılmakta olan çalışmalar ile gün içinde irtibatta kalma üzerine karar alınmıştır. Daily Scrum toplantısı örneği  word dosyası içerisinde ekran görüntüleri ile paylaşılmıştır. Bu ekran görüntüleri whatssApp grubu konuşmalarrıdır. Discord konuşmlaraımız ortalama 4 saat sürdüğü için kayıt almamız sorun yaratmıştır.  Daily Scrum Toplantı örneği (https://drive.google.com/file/d/1jVjdP-QVfqjfrOyErg4doYGLktSNory3/view?usp=sharing)
 
 Sprint board update: Sprint board screenshotları: 
-<iframe width="768" height="432" src="https://miro.com/app/live-embed/uXjVMBG0TQU=/?moveToViewport=677,494,4103,7890&embedId=92805769814" frameborder="0" scrolling="no" allow="fullscreen; clipboard-read; clipboard-write" allowfullscreen></iframe>
+![BOOTCAMP SPRİNTLER (3)](https://github.com/MrBigBearrTR/guide_up/assets/91954062/73111e89-4613-4a1b-8791-13316f78d830)
+![BOOTCAMP SPRİNTLER (2)](https://github.com/MrBigBearrTR/guide_up/assets/91954062/f4c5f80b-f79d-442e-aa9d-bf9777513d5e)
+![BOOTCAMP SPRİNTLER (1)](https://github.com/MrBigBearrTR/guide_up/assets/91954062/42ddf616-b988-491b-bc5d-44cac064bc79)
+
+Ürün Durumu Ekran Görüntüleri : 
+
