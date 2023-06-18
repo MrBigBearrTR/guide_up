@@ -14,7 +14,15 @@
       },
       "oauth_client": [
         {
-          "client_id": "1090298493103-sb9lasag2mc5spa07nkan6r5t5f03gnk.apps.googleusercontent.com",
+          "client_id": "1090298493103-6sf00ofvm79nbng4nt5190jkbfaq648i.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.guide_up.guide_up",
+            "certificate_hash": "7d064414b0053d4198a7e8f6d4b3a4121d8730f1"
+          }
+        },
+        {
+          "client_id": "1090298493103-vmfd6nor1c66c1qsvfq05igd2gd0vsuv.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
@@ -29,6 +37,13 @@
             {
               "client_id": "1090298493103-sb9lasag2mc5spa07nkan6r5t5f03gnk.apps.googleusercontent.com",
               "client_type": 3
+            },
+            {
+              "client_id": "1090298493103-u3ofug8dntsrqhledi9pm65uk4bvhgoj.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.guideup.guideUp"
+              }
             }
           ]
         }

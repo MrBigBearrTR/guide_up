@@ -1,5 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 import 'package:guide_up/utils/uesr_helper.dart';
 
 class LoginPage extends StatefulWidget {
@@ -22,6 +23,15 @@ class _LoginPageState extends State<LoginPage> {
     //
     super.initState();
     auth = FirebaseAuth.instance;
+
+    auth.authStateChanges().listen((User? user) {
+      if (user == null) {
+        print("User oturumu kapalı");
+      } else {
+        print(
+            "User oturumu açık ${user.email} ve emeail durumu ${user.emailVerified}");
+      }
+    });
   }
 
   void createBox() async {
@@ -55,7 +65,7 @@ class _LoginPageState extends State<LoginPage> {
           children: [
             Container(),
             Container(
-              padding: EdgeInsets.only(left: 35, top: 130),
+              padding: EdgeInsets.only(left: 35, top: 50),
               child: Text(
                 'HoşGeldiniz',
                 style: TextStyle(color: Colors.white, fontSize: 33),
@@ -64,7 +74,7 @@ class _LoginPageState extends State<LoginPage> {
             SingleChildScrollView(
               child: Container(
                 padding: EdgeInsets.only(
-                    top: MediaQuery.of(context).size.height * 0.5),
+                    top: MediaQuery.of(context).size.height * 0.2),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
@@ -120,23 +130,59 @@ class _LoginPageState extends State<LoginPage> {
                           Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
-                              Text(
-                                'Sign in',
-                                style: TextStyle(
-                                    fontSize: 27, fontWeight: FontWeight.w700),
-                              ),
-                              CircleAvatar(
-                                radius: 30,
-                                backgroundColor: Color(0xff4c505b),
-                                child: IconButton(
-                                    color: Colors.white,
-                                    onPressed: () {
-                                      login();
-                                    },
-                                    icon: Icon(
-                                      Icons.arrow_forward,
-                                    )),
-                              )
+                              TextButton(
+                                  onPressed: () {
+                                    login();
+                                  },
+                                  child: const Text(
+                                    'login',
+                                    style: TextStyle(
+                                      decoration: TextDecoration.underline,
+                                      color: Color(0xff4c505b),
+                                      fontSize: 18,
+                                    ),
+                                  )),
+                              TextButton(
+                                  onPressed: () {
+                                    signInWithGoogle();
+                                  },
+                                  child: const Text(
+                                    'googleLogin',
+                                    style: TextStyle(
+                                      decoration: TextDecoration.underline,
+                                      color: Color(0xff4c505b),
+                                      fontSize: 18,
+                                    ),
+                                  )),
+                            ],
+                          ),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              TextButton(
+                                  onPressed: () {
+                                    checkUser();
+                                  },
+                                  child: const Text(
+                                    'kullanıcıyı test et',
+                                    style: TextStyle(
+                                      decoration: TextDecoration.underline,
+                                      color: Color(0xff4c505b),
+                                      fontSize: 18,
+                                    ),
+                                  )),
+                              TextButton(
+                                  onPressed: () {
+                                    signOut();
+                                  },
+                                  child: const Text(
+                                    'çıkış',
+                                    style: TextStyle(
+                                      decoration: TextDecoration.underline,
+                                      color: Color(0xff4c505b),
+                                      fontSize: 18,
+                                    ),
+                                  )),
                             ],
                           ),
                           SizedBox(
@@ -186,7 +232,49 @@ class _LoginPageState extends State<LoginPage> {
 
   void login() async {
     //UserHelper().createUser(email.value.text, password.value.text);
-    await UserHelper().login(email.value.text, password.value.text);
-    Navigator.pushNamed(context, "error");
+    User? user =
+        await UserHelper().login(email.value.text, password.value.text);
+    if (user == null) {
+      print("Hata giriş yapılamdı");
+    } else {
+      Navigator.pushNamed(context, "testDataControl");
+    }
+    Navigator.pushNamed(context, "/testDataControl");
+  }
+
+  Future<UserCredential> signInWithGoogle() async {
+    // Trigger the authentication flow
+    final GoogleSignInAccount? googleUser = await GoogleSignIn().signIn();
+
+    // Obtain the auth details from the request
+    final GoogleSignInAuthentication? googleAuth =
+        await googleUser?.authentication;
+
+    // Create a new credential
+    final credential = GoogleAuthProvider.credential(
+      accessToken: googleAuth?.accessToken,
+      idToken: googleAuth?.idToken,
+    );
+
+    // Once signed in, return the UserCredential
+    UserCredential? credentiall =
+        await FirebaseAuth.instance.signInWithCredential(credential);
+    Navigator.pushNamed(context, "/testDataControl");
+    return credentiall;
+  }
+
+  void checkUser() async {
+    auth.authStateChanges().listen((User? user) {
+      if (user == null) {
+        print("User oturumu kapalı");
+      } else {
+        print(
+            "User oturumu açık ${user.email} ve emeail durumu ${user.emailVerified}");
+      }
+    });
+  }
+
+  void signOut() async {
+    UserHelper().signOut();
   }
 }
