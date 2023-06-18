@@ -79,10 +79,13 @@ Sprint board update: Sprint board screenshotları: Tamamını görmek için (htt
 
 
 Ürün Durumu Ekran Görüntüleri : 
-https://github.com/MrBigBearrTR/guide_up/assets/91954062/a1cc9932-0ec3-424f-9295-d1317a4e01d6
+
 ![home page ](https://github.com/MrBigBearrTR/guide_up/assets/91954062/6183bd1c-d180-4f50-ba07-0d9cd48630bf)
-https://github.com/MrBigBearrTR/guide_up/assets/91954062/142aa230-0209-45a0-b089-fb1658310f65
 ![profile ](https://github.com/MrBigBearrTR/guide_up/assets/91954062/b85fd8f1-1589-4618-8c45-4ef21ddf5b91)
+Video Görüntüleri :  
+
+https://github.com/MrBigBearrTR/guide_up/assets/91954062/142aa230-0209-45a0-b089-fb1658310f65
+https://github.com/MrBigBearrTR/guide_up/assets/91954062/a1cc9932-0ec3-424f-9295-d1317a4e01d6
 
 ##Sprint 1 Review 
 Review: Figma ile uygulamanın temel tasarımları yapılmış. Veri yapıları oluşturulmuştur. Kodlama kısmında ise Uygulama ilk açılış ekranı, homepage ekranı, porfil sekmesi ve firebase bağlantıları oluşturulmuştur. 
