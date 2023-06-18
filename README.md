@@ -90,7 +90,7 @@ https://github.com/MrBigBearrTR/guide_up/assets/91954062/a1cc9932-0ec3-424f-9295
 
 ## Sprint 1 Review 
 
-Review: Figma ile uygulamanın temel tasarımları yapılmış. Veri yapıları oluşturulmuştur. Kodlama kısmında ise Uygulama ilk açılış ekranı, homepage ekranı, porfil sekmesi ve firebase bağlantıları oluşturulmuştur. 
+Review: Figma ile uygulamanın temel tasarımları yapılmış. Veri yapıları oluşturulmuştur. Kodlama kısmında ise Uygulama ilk açılış ekranı, homepage ekranı, profil sekmesi ve firebase bağlantıları oluşturulmuştur. 
 
 Sprint Retrospective:
 - Daha hızlı olunmalı ve verilen görevler eksiksiz ve tam vaktinde yerine getirilmesi kararı alınmıştır. 
