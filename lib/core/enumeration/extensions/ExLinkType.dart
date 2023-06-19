@@ -23,7 +23,7 @@ extension ExLinksType on EnLinkType {
     }
   }
 
-  static EnLinkType? getLink(String name) {
+  static EnLinkType? getEnum(String name) {
     for (EnLinkType en in EnLinkType.values) {
       if (en.name == name) {
         return en;

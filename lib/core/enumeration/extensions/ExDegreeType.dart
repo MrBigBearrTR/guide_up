@@ -31,4 +31,14 @@ extension ExDegreeType on EnDegreeType {
         return '';
     }
   }
+
+  static EnDegreeType? getEnum(String name) {
+    for (EnDegreeType en in EnDegreeType.values) {
+      if (en.name == name) {
+        return en;
+      }
+    }
+
+    return null;
+  }
 }

@@ -65,7 +65,7 @@ class UserLinks extends GeneralFields {
       setLink(map['link']);
     }
     if (map.containsKey('enLinkType')) {
-      setEnLinkType(ExLinksType.getLink(map['enLinkType']));
+      setEnLinkType(ExLinksType.getEnum(map['enLinkType']));
     }
   }
 }
