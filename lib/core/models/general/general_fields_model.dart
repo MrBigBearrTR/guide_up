@@ -18,7 +18,7 @@ class GeneralFields {
     return _createDate;
   }
 
-  void setCreateDate(DateTime createDate) {
+  void setCreateDate(DateTime? createDate) {
     _createDate = createDate;
   }
 
@@ -26,7 +26,7 @@ class GeneralFields {
     return _createUser;
   }
 
-  void setCreateUser(String createUser) {
+  void setCreateUser(String? createUser) {
     _createUser = createUser;
   }
 
@@ -34,7 +34,7 @@ class GeneralFields {
     return _updateDate;
   }
 
-  void setUpdateDate(DateTime updateDate) {
+  void setUpdateDate(DateTime? updateDate) {
     _updateDate = updateDate;
   }
 
@@ -42,7 +42,7 @@ class GeneralFields {
     return _updateUser;
   }
 
-  void setUpdateUser(String updateUser) {
+  void setUpdateUser(String? updateUser) {
     _updateUser = updateUser;
   }
 
@@ -55,5 +55,26 @@ class GeneralFields {
     map['updateUser']=getUpdateUser();
     return map;
   }
+
+  toGeneralClass(Map<String, dynamic> map){
+
+    if(map.containsKey('_isActive')) {
+      setIsActive(map['_isActive']);
+    }
+    if(map.containsKey('createDate')) {
+      setCreateDate(map['createDate']);
+    }
+    if(map.containsKey('createUser')) {
+      setCreateUser(map['createUser']);
+    }
+    if(map.containsKey('updateDate')) {
+      setUpdateDate(map['updateDate']);
+    }
+    if(map.containsKey('updateUser')) {
+      setUpdateUser(map['updateUser']);
+    }
+
+  }
+
 
 }

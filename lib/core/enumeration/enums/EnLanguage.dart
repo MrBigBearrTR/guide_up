@@ -1,0 +1,4 @@
+enum EnLanguage{
+  turkish,
+  english
+}
