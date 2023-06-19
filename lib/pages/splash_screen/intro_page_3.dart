@@ -55,7 +55,7 @@ class _IntroPage3State extends State<IntroPage3>
                     child: Transform.scale(
                       scale: _animation.value,
                       child: Image.asset(
-                        'assets/3.png',
+                        'assets/img/3.png',
                         height: 300,
                         width: 300,
                       ),

@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
+import 'package:guide_up/core/constant/constants.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 import 'intro_page_1.dart';
 import 'intro_page_2.dart';
@@ -17,6 +19,7 @@ class SplashScreen extends StatefulWidget {
 class _SplashScreenState extends State<SplashScreen> {
   PageController _controller = PageController();
   int currentPage = 0;
+  FlutterSecureStorage preference = const FlutterSecureStorage();
 
   @override
   Widget build(BuildContext context) {
@@ -54,7 +57,7 @@ class _SplashScreenState extends State<SplashScreen> {
                       );
                     },
                     style: ElevatedButton.styleFrom(
-                      primary: Color(0xFFFAA828),
+                      backgroundColor: Color(0xFFFAA828),
                       padding: EdgeInsets.symmetric(horizontal: 120),
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(20),
@@ -74,13 +77,15 @@ class _SplashScreenState extends State<SplashScreen> {
                 ElevatedButton(
                   onPressed: () {
                     if (currentPage == 4) {
-                      Navigator.pushNamed(context, '/');
+
+                      preference.write(key: Constants.FIRST_SIGIN_KEY, value: "Y");
+                      Navigator.pushReplacementNamed(context, '/');
                     } else {
                       _controller.jumpToPage(4); // Ana sayfaya git
                     }
                   },
                   style: ElevatedButton.styleFrom(
-                    primary: Colors.white,
+                    backgroundColor: Colors.white,
                     padding: EdgeInsets.symmetric(horizontal: 130),
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(20),

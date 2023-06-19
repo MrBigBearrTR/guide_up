@@ -55,7 +55,7 @@ class _IntroPage4State extends State<IntroPage4>
                     child: Transform.scale(
                       scale: _animation.value,
                       child: Image.asset(
-                        'assets/4.png',
+                        'assets/img/4.png',
                         height: 300,
                         width: 300,
                       ),
@@ -70,7 +70,7 @@ class _IntroPage4State extends State<IntroPage4>
                 child: FadeTransition(
                   opacity: _opacityAnimation,
                   child: Text(
-                    'İHTİYACIN OLAN HER ŞEY ',
+                    'İHTİYACIN OLAN HER ŞEY İÇİN',
                     textAlign: TextAlign.center,
                     style: TextStyle(
                       height: -1,
@@ -88,7 +88,7 @@ class _IntroPage4State extends State<IntroPage4>
                 child: FadeTransition(
                   opacity: _opacityAnimation,
                   child: Text(
-                    'GUİDUPTA',
+                    'GUIDE UP',
                     textAlign: TextAlign.center,
                     style: TextStyle(
                       fontSize: 29,
