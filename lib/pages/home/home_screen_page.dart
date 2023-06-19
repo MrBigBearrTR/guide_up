@@ -1,6 +1,10 @@
 import 'package:curved_navigation_bar/curved_navigation_bar.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
+import 'package:guide_up/core/constant/constants.dart';
+
+import '../splash_screen/splash_screen.dart';
 
 final List<String> imgList = [
   'https://teach.com/wp-content/uploads/sites/56/2022/03/what-is-a-mentor.png',
@@ -22,6 +26,13 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen> {
   String userName = 'Helin';
+  late FlutterSecureStorage preference ;
+  @override
+  void initState() {
+    getSecurityStorage();
+    // TODO: implement initState
+    super.initState();
+  }
 
   //const HomeScreen({super.key});
 
@@ -74,6 +85,14 @@ class _HomeScreenState extends State<HomeScreen> {
       ),
       body: HomeScreenBody(),
     );
+  }
+
+  void getSecurityStorage( ) async {
+    preference = const FlutterSecureStorage();
+    var gelen= await preference.containsKey(key: Constants.FIRST_SIGIN_KEY) ;
+    if(!gelen)  {
+      MaterialPageRoute(builder:(context)=> const SplashScreen());
+    }
   }
 }
 

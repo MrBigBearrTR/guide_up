@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:guide_up/main.dart';
 import 'package:guide_up/pages/login/login_page.dart';
 import 'package:guide_up/pages/profile/profile_main.dart';
+import 'package:guide_up/pages/splash_screen/splash_screen.dart';
 
 import '../pages/home/home_screen_page.dart';
 import '../pages/other/error_page.dart';
@@ -40,6 +41,8 @@ class RouteGenerator {
         return _createRoute(HomeScreen(), settings);
       case '/login':
         return _createRoute(const LoginPage(), settings);
+      case '/splashScreen':
+        return _createRoute(const SplashScreen(), settings);
       case '/profile':
         return _createRoute(const ProfileMain(), settings);
       default:
