@@ -1,9 +1,5 @@
-import 'dart:convert';
-
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:guide_up/core/enum/EnumLinkType.dart';
 import 'package:guide_up/core/models/users/user_model.dart';
 
 class TestDataControl extends StatefulWidget {
@@ -14,7 +10,6 @@ class TestDataControl extends StatefulWidget {
 }
 
 class _TestDataControlState extends State<TestDataControl> {
-
   FirebaseFirestore _firestore = FirebaseFirestore.instance;
 
   @override
@@ -44,15 +39,14 @@ class _TestDataControlState extends State<TestDataControl> {
   }
 
   void veriEklemeAdd() async {
-
-    User userModel=User();
+    User userModel = User();
     userModel.setEmail("aliyalcin");
     userModel.setPassword("pass");
     userModel.setUsername("MrBigBear");
     userModel.setIsMentor(true);
     print(userModel.toMap());
 
-   /* Map<String,dynamic> _eklenecekUser={};
+    /* Map<String,dynamic> _eklenecekUser={};
     _eklenecekUser['username']="ali";
     _eklenecekUser['password']="123";
     _eklenecekUser['email']="ali@yalcin.com";
@@ -62,22 +56,24 @@ class _TestDataControlState extends State<TestDataControl> {
     _eklenecekUser['update_date']=FieldValue.serverTimestamp();
     _eklenecekUser['update_user']="admin";
     //_eklenecekUser['link_type']=EnumLinkType.INSTAGRAM;*/
-    var veri=await _firestore.collection('users').add(userModel.toMap());
+    var veri = await _firestore.collection('users').add(userModel.toMap());
 
     print(veri);
   }
 
-  void veriEklemeSet() async{
-    Map<String,dynamic> _eklenecekUser={};
-    _eklenecekUser['username']="aliEdited3";
-    await _firestore.doc('users/k4ZkoHi7iYGZoltkVGYk').set(_eklenecekUser,SetOptions(merge: true));
+  void veriEklemeSet() async {
+    Map<String, dynamic> _eklenecekUser = {};
+    _eklenecekUser['username'] = "aliEdited3";
+    await _firestore
+        .doc('users/k4ZkoHi7iYGZoltkVGYk')
+        .set(_eklenecekUser, SetOptions(merge: true));
   }
 
-  void sorgula() async{
-    CollectionReference<Map<String, dynamic>> gelen=await _firestore.collection("users/");
-    var _sorgu= await gelen.where('username',isEqualTo: 'ali').get();
+  void sorgula() async {
+    CollectionReference<Map<String, dynamic>> gelen =
+        await _firestore.collection("users/");
+    var _sorgu = await gelen.where('username', isEqualTo: 'ali').get();
 
     print(_sorgu.docs);
   }
-
 }

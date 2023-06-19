@@ -1,5 +1,0 @@
-enum EnumLinkType{
-  INSTAGRAM,
-  GITHUB,
-  PERSONAL_PAGE
-}
