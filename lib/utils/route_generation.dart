@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:guide_up/main.dart';
+import 'package:guide_up/pages/login/auth_page.dart';
 import 'package:guide_up/pages/login/login_page.dart';
 import 'package:guide_up/pages/profile/profile_main.dart';
 import 'package:guide_up/pages/splash_screen/splash_screen.dart';
@@ -39,8 +40,10 @@ class RouteGenerator {
         return _createRoute(const TestDataControl(), settings);
       case '/':
         return _createRoute(HomeScreen(), settings);
-      case '/login':
-        return _createRoute(const LoginPage(), settings);
+      case '/loginPage':
+        return _createRoute( LoginPage(), settings);
+      case '/authPage':
+        return _createRoute( const AuthPage(), settings);
       case '/splashScreen':
         return _createRoute(const SplashScreen(), settings);
       case '/profile':
