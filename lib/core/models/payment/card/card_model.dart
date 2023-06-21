@@ -1,7 +1,7 @@
 import 'package:guide_up/core/enumeration/enums/EnPaymentCardType.dart';
 import 'package:guide_up/core/models/general/general_fields_model.dart';
 
-import '../../enumeration/extensions/ExPaymentCardType.dart';
+import '../../../enumeration/extensions/ExPaymentCardType.dart';
 
 class Card extends GeneralFields {
 
