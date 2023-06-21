@@ -1,6 +1,7 @@
 import 'package:guide_up/core/enumeration/enums/EnDegreeType.dart';
 
 extension ExDegreeType on EnDegreeType {
+
   String getDisplayName() {
     switch (this) {
       case EnDegreeType.associateDegree:

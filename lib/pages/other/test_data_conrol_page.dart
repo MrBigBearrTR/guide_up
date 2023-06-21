@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:guide_up/core/models/users/user_detail/user_detail_model.dart';
 import 'package:guide_up/core/models/users/user_model.dart';
 
 class TestDataControl extends StatefulWidget {
@@ -23,7 +24,7 @@ class _TestDataControlState extends State<TestDataControl> {
           children: [
             ElevatedButton(
                 onPressed: () => veriEklemeAdd(),
-                child: const Text("Veri ekle add")),
+                child: Text(readUserDetail("aa").getName()!)),
             ElevatedButton(
                 onPressed: () => veriEklemeSet(),
                 style: ElevatedButton.styleFrom(backgroundColor: Colors.green),
@@ -43,7 +44,7 @@ class _TestDataControlState extends State<TestDataControl> {
     userModel.setEmail("aliyalcin");
     userModel.setPassword("pass");
     userModel.setUsername("MrBigBear");
-    userModel.setIsMentor(true);
+    userModel.setMentor(true);
     print(userModel.toMap());
 
     /* Map<String,dynamic> _eklenecekUser={};
@@ -75,5 +76,12 @@ class _TestDataControlState extends State<TestDataControl> {
     var _sorgu = await gelen.where('username', isEqualTo: 'ali').get();
 
     print(_sorgu.docs);
+  }
+
+
+  UserDetail readUserDetail(String userId){
+    UserDetail det=UserDetail();
+    det.setName("Helin");
+    return det;
   }
 }

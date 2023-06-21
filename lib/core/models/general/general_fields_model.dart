@@ -10,7 +10,7 @@ class GeneralFields {
     return _isActive;
   }
 
-  void setIsActive(bool isActive) {
+  void setActive(bool isActive) {
     _isActive = isActive;
   }
 
@@ -59,7 +59,7 @@ class GeneralFields {
   toGeneralClass(Map<String, dynamic> map){
 
     if(map.containsKey('_isActive')) {
-      setIsActive(map['_isActive']);
+      setActive(map['_isActive']);
     }
     if(map.containsKey('createDate')) {
       setCreateDate(map['createDate']);
