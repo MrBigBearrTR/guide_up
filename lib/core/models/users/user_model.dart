@@ -43,7 +43,7 @@ class User extends GeneralFields {
     return _isMentor;
   }
 
-  void setIsMentor(bool isMentor) {
+  void setMentor(bool isMentor) {
     _isMentor = isMentor;
   }
 
@@ -73,7 +73,7 @@ class User extends GeneralFields {
       setEmail(map['email']);
     }
     if (map.containsKey('isMentor')) {
-      setIsMentor(map['isMentor']);
+      setMentor(map['isMentor']);
     }
   }
 }

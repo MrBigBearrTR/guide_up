@@ -1,0 +1,4 @@
+enum EnLikeSaveType{
+  like,
+  save
+}
