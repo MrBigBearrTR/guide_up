@@ -1,7 +1,8 @@
 import 'package:guide_up/core/enumeration/enums/EnLinkType.dart';
 
 extension ExLinksType on EnLinkType {
-  String get stringDefination {
+
+  String getDisplayName() {
     switch (this) {
       case EnLinkType.linkedin:
         return "LinkedIn";
@@ -20,6 +21,8 @@ extension ExLinksType on EnLinkType {
 
       case EnLinkType.github:
         return "GitHub";
+      default:
+        return "";
     }
   }
 
