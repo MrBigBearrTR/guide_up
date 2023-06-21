@@ -1,6 +1,8 @@
 import 'package:curved_navigation_bar/curved_navigation_bar.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
+import 'package:guide_up/core/constant/constants.dart';
 
 final List<String> imgList = [
   'https://teach.com/wp-content/uploads/sites/56/2022/03/what-is-a-mentor.png',
@@ -22,11 +24,21 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen> {
   String userName = 'Helin';
+  FlutterSecureStorage preference = const FlutterSecureStorage();
+
+  void getSecurityStorage(BuildContext context ) async {
+
+    if(!(await preference.containsKey(key: Constants.FIRST_SIGIN_KEY)))  {
+      Navigator.pushReplacementNamed(context, "/splashScreen");
+     // MaterialPageRoute(builder:(context)=> const SplashScreen());
+    }
+  }
 
   //const HomeScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
+    getSecurityStorage(context);
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.white,
