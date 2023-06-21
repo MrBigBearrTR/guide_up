@@ -2,7 +2,9 @@ import 'package:curved_navigation_bar/curved_navigation_bar.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
+import 'package:guide_up/core/constant/RouterConstants.dart';
 import 'package:guide_up/core/constant/constants.dart';
+import 'package:guide_up/utils/user_helper.dart';
 
 final List<String> imgList = [
   'https://teach.com/wp-content/uploads/sites/56/2022/03/what-is-a-mentor.png',
@@ -26,11 +28,10 @@ class _HomeScreenState extends State<HomeScreen> {
   String userName = 'Helin';
   FlutterSecureStorage preference = const FlutterSecureStorage();
 
-  void getSecurityStorage(BuildContext context ) async {
-
-    if(!(await preference.containsKey(key: Constants.FIRST_SIGIN_KEY)))  {
+  void getSecurityStorage(BuildContext context) async {
+    if (!(await preference.containsKey(key: Constants.FIRST_SIGIN_KEY))) {
       Navigator.pushReplacementNamed(context, "/splashScreen");
-     // MaterialPageRoute(builder:(context)=> const SplashScreen());
+      // MaterialPageRoute(builder:(context)=> const SplashScreen());
     }
   }
 
@@ -63,8 +64,12 @@ class _HomeScreenState extends State<HomeScreen> {
             color: const Color.fromARGB(255, 23, 89, 201),
           ),
           IconButton(
-            onPressed: () {
-                  Navigator.pushNamed(context, "/loginPage");
+            onPressed: () async {
+              if (await UserHelper().checkUser()) {
+                Navigator.pushNamed(context, RouterConstants.profilePage);
+              } else {
+                Navigator.pushNamed(context, RouterConstants.loginPage);
+              }
             },
             icon: const Icon(Icons.person),
             color: const Color.fromARGB(255, 23, 89, 201),
@@ -291,7 +296,9 @@ class _HomeScreenBodyState extends State<HomeScreenBody> {
                   ),
                 ],
               ),
-              SizedBox(height: 30,),
+              SizedBox(
+                height: 30,
+              ),
               Text(
                 'Yaklaşan Etkinlikler',
                 style: TextStyle(
@@ -490,4 +497,4 @@ class _HomeScreenBodyState extends State<HomeScreenBody> {
   }
 }
 
-// En sevilen 4-5 tane kaydırmalı manuel 
+// En sevilen 4-5 tane kaydırmalı manuel
