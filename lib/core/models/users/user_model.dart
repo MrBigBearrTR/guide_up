@@ -1,6 +1,6 @@
 import 'package:guide_up/core/models/general/general_fields_model.dart';
 
-class User extends GeneralFields{
+class User extends GeneralFields {
   String? _id;
   String? _username;
   String? _password;
@@ -43,17 +43,37 @@ class User extends GeneralFields{
     return _isMentor;
   }
 
-  void setIsMentor(bool isMentor) {
+  void setMentor(bool isMentor) {
     _isMentor = isMentor;
   }
 
-  Map<String, dynamic> toMap(){
-    Map<String, dynamic> map=toGeneralMap();
-    map['id']=getId();
-    map['username']=getUsername();
-    map['password']=getPassword();
-    map['email']=getEmail();
-    map['isMentor']=isMentor();
+  Map<String, dynamic> toMap() {
+    Map<String, dynamic> map = toGeneralMap();
+    map['id'] = getId();
+    map['username'] = getUsername();
+    map['password'] = getPassword();
+    map['email'] = getEmail();
+    map['isMentor'] = isMentor();
     return map;
+  }
+
+  toClass(Map<String, dynamic> map) {
+    toGeneralClass(map);
+
+    if (map.containsKey('id')) {
+      setId(map['id']);
+    }
+    if (map.containsKey('username')) {
+      setUsername(map['username']);
+    }
+    if (map.containsKey('password')) {
+      setPassword(map['password']);
+    }
+    if (map.containsKey('email')) {
+      setEmail(map['email']);
+    }
+    if (map.containsKey('isMentor')) {
+      setMentor(map['isMentor']);
+    }
   }
 }
