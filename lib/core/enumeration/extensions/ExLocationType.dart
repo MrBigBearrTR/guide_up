@@ -1,6 +1,7 @@
 import 'package:guide_up/core/enumeration/enums/EnLocationType.dart';
 
 extension ExLocationType on EnLocationType {
+
   String getDisplayName() {
     switch (this) {
       case EnLocationType.onSite:
