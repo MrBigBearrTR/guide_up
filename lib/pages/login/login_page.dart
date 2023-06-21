@@ -3,8 +3,8 @@ import 'package:guide_up/core/constant/colors.dart';
 import 'package:guide_up/pages/home/home_screen_page.dart';
 import 'package:guide_up/pages/login/companenets/my_textfield.dart';
 import 'package:guide_up/utils/uesr_helper.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 
-import '../../core/models/users/user_model.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({Key? key}) : super(key: key);
@@ -21,8 +21,8 @@ class _LoginPageState extends State<LoginPage> {
 
   void signInWithGoogle() async {
     try {
-      User? user = (await Authentication.signInWithGoogle(context: context)) as User?;
-      if (user != null) {
+    User? fireUser = await Authentication.signInWithGoogle(context: context);
+      if (fireUser != null) {
         // Giriş başarılı, kullanıcıyı kullanabilirsiniz
         Navigator.pushReplacement(
           context,
