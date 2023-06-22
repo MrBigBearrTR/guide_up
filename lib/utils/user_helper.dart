@@ -65,9 +65,7 @@ class UserHelper {
     );
 
     // Once signed in, return the UserCredential
-    UserCredential? credentiall =
-        await FirebaseAuth.instance.signInWithCredential(credential);
-    return credentiall;
+    return FirebaseAuth.instance.signInWithCredential(credential);
   }
 
   void sendEmailVerification(User user) async {
