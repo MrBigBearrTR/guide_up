@@ -44,6 +44,7 @@ dependencies:
   line_awesome_flutter: ^2.0.0
   smooth_page_indicator: ^1.1.0
   flutter_secure_storage: ^8.0.0
+  google_fonts: ^5.1.0
 dev_dependencies:
   flutter_test:
     sdk: flutter

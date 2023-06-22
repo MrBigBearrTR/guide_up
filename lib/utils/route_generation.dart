@@ -1,7 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:guide_up/main.dart';
+import 'package:guide_up/core/constant/router_constants.dart';
+import 'package:guide_up/pages/login/auth_page.dart';
 import 'package:guide_up/pages/login/login_page.dart';
 import 'package:guide_up/pages/profile/profile_main.dart';
 import 'package:guide_up/pages/splash_screen/splash_screen.dart';
@@ -33,17 +34,17 @@ class RouteGenerator {
 
   static Route<dynamic>? routeGeneration(RouteSettings settings) {
     switch (settings.name) {
-      case '/main':
-        return _createRoute(const MyApp(), settings);
-      case '/testDataControl':
+      case RouterConstants.testDateControllerPage:
         return _createRoute(const TestDataControl(), settings);
-      case '/':
+      case RouterConstants.homePage:
         return _createRoute(HomeScreen(), settings);
-      case '/login':
+      case RouterConstants.loginPage:
         return _createRoute(const LoginPage(), settings);
-      case '/splashScreen':
+      case RouterConstants.authPage:
+        return _createRoute(const AuthPage(), settings);
+      case RouterConstants.splashScreenPage:
         return _createRoute(const SplashScreen(), settings);
-      case '/profile':
+      case RouterConstants.profilePage:
         return _createRoute(const ProfileMain(), settings);
       default:
         return _createRoute(const ErrorPage(), settings);
