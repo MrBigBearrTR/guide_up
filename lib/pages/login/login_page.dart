@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:guide_up/core/constant/RouterConstants.dart';
-import 'package:guide_up/core/constant/colors.dart';
+import 'package:guide_up/core/constant/router_constants.dart';
+import 'package:guide_up/core/constant/color_constants.dart';
 import 'package:guide_up/pages/home/home_screen_page.dart';
 import 'package:guide_up/pages/login/companenets/my_textfield.dart';
 import 'package:guide_up/utils/user_helper.dart';
@@ -30,7 +30,7 @@ class _LoginPageState extends State<LoginPage> {
           context: context,
           builder: (context) {
             return AlertDialog(
-              backgroundColor: itemWhite,
+              backgroundColor: ColorConstants.itemWhite,
               title: const Text('Hata'),
               content: const Text('Google ile giriş yaparken bir hata oluştu.'),
               actions: [
@@ -41,7 +41,7 @@ class _LoginPageState extends State<LoginPage> {
                   child: const Text(
                     'Tamam',
                     style: TextStyle(
-                      color: itemBlack,
+                      color: ColorConstants.itemBlack,
                     ),
                   ),
                 ),
@@ -56,7 +56,7 @@ class _LoginPageState extends State<LoginPage> {
         context: context,
         builder: (context) {
           return AlertDialog(
-            backgroundColor: itemWhite,
+            backgroundColor: ColorConstants.itemWhite,
             title: const Text('Hata'),
             content: Text('Google ile giriş yaparken bir hata oluştu: $e'),
             actions: [
@@ -67,7 +67,7 @@ class _LoginPageState extends State<LoginPage> {
                 child: const Text(
                   'Tamam',
                   style: TextStyle(
-                    color: itemBlack,
+                    color: ColorConstants.itemBlack,
                   ),
                 ),
               ),
@@ -117,7 +117,7 @@ class _LoginPageState extends State<LoginPage> {
         context: context,
         builder: (context) {
           return AlertDialog(
-            backgroundColor: itemWhite,
+            backgroundColor: ColorConstants.itemWhite,
             title: const Text('Hata'),
             content: Text('Şifre veya E-mail Hatalı Girildi'),
             actions: [
@@ -127,7 +127,7 @@ class _LoginPageState extends State<LoginPage> {
                 },
                 child: const Text(
                   'Tamam',
-                  style: TextStyle(color: itemBlack),
+                  style: TextStyle(color: ColorConstants.itemBlack),
                 ),
               ),
             ],
@@ -149,10 +149,10 @@ class _LoginPageState extends State<LoginPage> {
                 decoration: const BoxDecoration(
                     gradient: LinearGradient(
                   colors: [
-                    appcolor2,
-                    appcolor2,
-                    appcolor1,
-                    appcolor1,
+                    ColorConstants.appcolor2,
+                    ColorConstants.appcolor2,
+                    ColorConstants.appcolor1,
+                    ColorConstants.appcolor1,
                   ],
                   begin: Alignment.bottomRight,
                   end: Alignment.topCenter,
@@ -174,7 +174,7 @@ class _LoginPageState extends State<LoginPage> {
                         child: Text(
                           'GuideUp ',
                           style: TextStyle(
-                            color: itemWhite,
+                            color: ColorConstants.itemWhite,
                             fontSize: 40,
                             fontFamily: 'Lato',
                             fontWeight: FontWeight.bold,
@@ -187,7 +187,7 @@ class _LoginPageState extends State<LoginPage> {
                         child: Text(
                           'Seni Burada Görmek Güzel  ',
                           style: TextStyle(
-                            color: itemWhite,
+                            color: ColorConstants.itemWhite,
                             fontSize: 20,
                             fontFamily: 'Lato',
                             fontWeight: FontWeight.normal,
@@ -225,7 +225,7 @@ class _LoginPageState extends State<LoginPage> {
                               child: const Text(
                                 "Şifremi Unuttum",
                                 style: TextStyle(
-                                  color: itemWhite,
+                                  color: ColorConstants.itemWhite,
                                   fontSize: 14,
                                   fontFamily: 'Lato',
                                   fontWeight: FontWeight.bold,
@@ -242,13 +242,13 @@ class _LoginPageState extends State<LoginPage> {
                         child: ElevatedButton(
                           onPressed: signUserIn,
                           style: ElevatedButton.styleFrom(
-                            foregroundColor: appcolor4,
-                            backgroundColor: appcolor2,
+                            foregroundColor: ColorConstants.appcolor4,
+                            backgroundColor: ColorConstants.appcolor2,
                             padding: const EdgeInsets.all(10),
                             shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(8),
                             ),
-                            //shadowColor: appcolor2.withOpacity(0.1),
+                            //shadowColor: ColorConstants.appcolor2.withOpacity(0.1),
                           ),
                           child: const Row(
                             mainAxisAlignment: MainAxisAlignment.center,
@@ -276,7 +276,7 @@ class _LoginPageState extends State<LoginPage> {
                             Expanded(
                               child: Divider(
                                 thickness: 2,
-                                color: itemWhite,
+                                color: ColorConstants.itemWhite,
                               ),
                             ),
                             Padding(
@@ -293,7 +293,7 @@ class _LoginPageState extends State<LoginPage> {
                             Expanded(
                                 child: Divider(
                               thickness: 2,
-                              color: itemWhite,
+                              color: ColorConstants.itemWhite,
                             ))
                           ],
                         ),
@@ -309,8 +309,8 @@ class _LoginPageState extends State<LoginPage> {
                             signInWithGoogle(context);
                           },
                           style: ElevatedButton.styleFrom(
-                            foregroundColor: appcolor4,
-                            backgroundColor: appcolor1,
+                            foregroundColor: ColorConstants.appcolor4,
+                            backgroundColor: ColorConstants.appcolor1,
                             padding: const EdgeInsets.all(10),
                             shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(8),
@@ -349,7 +349,7 @@ class _LoginPageState extends State<LoginPage> {
                           Text(
                             'Üye değil misiniz ? ',
                             style:
-                                TextStyle(color: itemWhite, fontFamily: 'Lato'),
+                                TextStyle(color: ColorConstants.itemWhite, fontFamily: 'Lato'),
                           ),
                           SizedBox(height: 8),
                           TextButton(

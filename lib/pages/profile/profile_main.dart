@@ -1,5 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:guide_up/core/constant/router_constants.dart';
+import 'package:guide_up/utils/user_helper.dart';
 import 'package:line_awesome_flutter/line_awesome_flutter.dart';
 
 class ProfileMain extends StatelessWidget {
@@ -106,6 +108,10 @@ class ProfileMain extends StatelessWidget {
             ),
 
             ListTile(
+              onTap: (){
+                UserHelper().signOut();
+                Navigator.pushReplacementNamed(context, RouterConstants.homePage);
+              },
                 leading: Container(
                   width:30, height: 40,
                   decoration: BoxDecoration(

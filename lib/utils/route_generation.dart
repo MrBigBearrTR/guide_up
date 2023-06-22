@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:guide_up/core/constant/RouterConstants.dart';
+import 'package:guide_up/core/constant/router_constants.dart';
 import 'package:guide_up/pages/login/auth_page.dart';
 import 'package:guide_up/pages/login/login_page.dart';
 import 'package:guide_up/pages/profile/profile_main.dart';
