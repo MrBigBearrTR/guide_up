@@ -68,7 +68,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 Navigator.pushNamed(context, RouterConstants.profilePage);
 
               } else {
-                Navigator.pushNamed(context, "/555");
+                Navigator.pushNamed(context, RouterConstants.loginPage);
               }
             },
             icon: const Icon(Icons.person),
