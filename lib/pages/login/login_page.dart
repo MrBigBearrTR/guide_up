@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:guide_up/core/constant/router_constants.dart';
 import 'package:guide_up/core/constant/color_constants.dart';
-import 'package:guide_up/pages/home/home_screen_page.dart';
 import 'package:guide_up/pages/login/companenets/my_textfield.dart';
-import 'package:guide_up/pages/register_page/register_page.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
 import '../../core/utils/user_helper.dart';
@@ -25,7 +23,6 @@ class _LoginPageState extends State<LoginPage> {
       if (fireUser != null) {
         // Giriş başarılı, kullanıcıyı kullanabilirsiniz
         Navigator.pushReplacementNamed(context, RouterConstants.homePage);
-
       } else {
         // Giriş başarısız, hata mesajını ele alabilirsiniz
         showDialog(
@@ -80,7 +77,7 @@ class _LoginPageState extends State<LoginPage> {
     }
   }
 
-  void signUserIn() async {
+  void signUserIn(BuildContext context) async {
     showDialog(
       context: context,
       builder: (context) {
@@ -111,8 +108,7 @@ class _LoginPageState extends State<LoginPage> {
     try {
       await UserHelper().login(emailController.text, passwordController.text);
       Navigator.pop(context);
-      Navigator.pushReplacement(
-          context, MaterialPageRoute(builder: (context) => HomeScreen()));
+      Navigator.pushNamed(context, RouterConstants.homePage);
     } catch (e) {
       Navigator.pop(context);
       showDialog(
@@ -211,7 +207,7 @@ class _LoginPageState extends State<LoginPage> {
                         hintText: 'Şifre',
                         obscureText: true,
                         onSubmitted: () {
-                          signUserIn();
+                          signUserIn(context);
                         },
                       ),
                       const SizedBox(height: 2),
@@ -242,7 +238,9 @@ class _LoginPageState extends State<LoginPage> {
                       SizedBox(
                         width: 320,
                         child: ElevatedButton(
-                          onPressed: signUserIn,
+                          onPressed: () {
+                            signUserIn(context);
+                          },
                           style: ElevatedButton.styleFrom(
                             foregroundColor: ColorConstants.appcolor4,
                             backgroundColor: ColorConstants.appcolor2,
@@ -307,7 +305,7 @@ class _LoginPageState extends State<LoginPage> {
                       SizedBox(
                         width: 320,
                         child: ElevatedButton(
-                          onPressed: (){
+                          onPressed: () {
                             signInWithGoogle(context);
                           },
                           style: ElevatedButton.styleFrom(
@@ -350,14 +348,15 @@ class _LoginPageState extends State<LoginPage> {
                         children: [
                           const Text(
                             'Üye değil misiniz ? ',
-                            style:
-                                TextStyle(color: ColorConstants.itemWhite, fontFamily: 'Lato'),
+                            style: TextStyle(
+                                color: ColorConstants.itemWhite,
+                                fontFamily: 'Lato'),
                           ),
                           const SizedBox(height: 8),
                           TextButton(
                             onPressed: () {
-                              Navigator.pushReplacement(
-                                  context, MaterialPageRoute(builder: (context) => RegisterPage()));
+                              Navigator.pushReplacementNamed(
+                                  context, RouterConstants.registerPage);
                             },
                             child: const Text(
                               'Hemen Üye Olun',

@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:guide_up/core/constant/color_constants.dart';
+import 'package:guide_up/core/constant/router_constants.dart';
 import 'package:guide_up/pages/login/companenets/my_textfield.dart';
 import 'package:guide_up/pages/login/login_page.dart';
-import 'package:guide_up/utils/user_helper.dart';
+
+import '../../core/utils/user_helper.dart';
 
 class RegisterPage extends StatefulWidget {
   const RegisterPage({Key? key}) : super(key: key);
@@ -33,7 +35,7 @@ class _RegisterPageState extends State<RegisterPage> {
     super.dispose();
   }
 
-  void _register() async {
+  void _register(BuildContext context) async {
     if (_password.text == _confirmPassword.text) {
       // Passwords match, proceed with registration logic
       _passwordsMatch = true;
@@ -48,10 +50,7 @@ class _RegisterPageState extends State<RegisterPage> {
           selectedRole ?? "",
         );
         // Registration successful, navigate to login page
-        Navigator.pushReplacement(
-          context,
-          MaterialPageRoute(builder: (context) => LoginPage()),
-        );
+        Navigator.pushReplacementNamed(context, RouterConstants.loginPage);
       } catch (e) {
         // Registration failed, handle the error
         showDialog(
@@ -155,7 +154,10 @@ class _RegisterPageState extends State<RegisterPage> {
                 height: MediaQuery.of(context).size.height,
                 decoration: const BoxDecoration(
                   gradient: LinearGradient(
-                    colors: [ColorConstants.appcolor2, ColorConstants.appcolor3],
+                    colors: [
+                      ColorConstants.appcolor2,
+                      ColorConstants.appcolor3
+                    ],
                   ),
                   borderRadius: BorderRadius.only(
                     topRight: Radius.circular(50),
@@ -185,7 +187,6 @@ class _RegisterPageState extends State<RegisterPage> {
                         onSubmitted: () {},
                       ),
                       const SizedBox(height: 12),
-
                       MyTextField(
                         controller: _email,
                         hintText: 'E-mail',
@@ -193,7 +194,6 @@ class _RegisterPageState extends State<RegisterPage> {
                         onSubmitted: () {},
                       ),
                       const SizedBox(height: 12),
-
                       MyTextField(
                         controller: _password,
                         hintText: 'Şifreniz',
@@ -201,31 +201,36 @@ class _RegisterPageState extends State<RegisterPage> {
                         onSubmitted: () {},
                       ),
                       const SizedBox(height: 12),
-
                       MyTextField(
                         controller: _confirmPassword,
                         hintText: 'Şifre Tekrarı',
                         obscureText: false,
                         onSubmitted: () {},
-                        errorText: _passwordsMatch ? null : 'Parolalar uyuşmuyor',
+                        errorText:
+                            _passwordsMatch ? null : 'Parolalar uyuşmuyor',
                       ),
-                      SizedBox(height: 20,) ,
+                      SizedBox(
+                        height: 20,
+                      ),
                       SizedBox(
                         width: 410,
                         height: 60,
                         child: Container(
                           alignment: Alignment.topLeft,
                           decoration: BoxDecoration(
-                            color: Colors.transparent, // Background color
-                            borderRadius: BorderRadius.circular(3.0),
-                            border:  Border.all(
-                              color: Colors.white ,
-                              width: 1.0,
-                            )// Radius
-                          ),
+                              color: Colors.transparent, // Background color
+                              borderRadius: BorderRadius.circular(3.0),
+                              border: Border.all(
+                                color: Colors.white,
+                                width: 1.0,
+                              ) // Radius
+                              ),
                           child: DropdownButton<String>(
                             value: selectedRole,
-                            hint: const Text('Kullanıcı Seçiniz?', style: TextStyle( color: Colors.white),),
+                            hint: const Text(
+                              'Kullanıcı Seçiniz?',
+                              style: TextStyle(color: Colors.white),
+                            ),
                             onChanged: (newValue) {
                               setState(() {
                                 selectedRole = newValue;
@@ -250,11 +255,15 @@ class _RegisterPageState extends State<RegisterPage> {
                           ),
                         ),
                       ),
-                      SizedBox(height: 20,) ,
+                      SizedBox(
+                        height: 20,
+                      ),
                       SizedBox(
                         width: 320,
                         child: ElevatedButton(
-                            onPressed: _register,
+                          onPressed: () {
+                            _register(context);
+                          },
                           style: ElevatedButton.styleFrom(
                             foregroundColor: ColorConstants.appcolor4,
                             backgroundColor: ColorConstants.appcolor2,
@@ -281,22 +290,13 @@ class _RegisterPageState extends State<RegisterPage> {
                         ),
                       ),
                     ],
-
                   ),
-
                 ),
               ),
-
-
             ],
           ),
-
         ),
-
       ),
-
     );
-
   }
 }
-
