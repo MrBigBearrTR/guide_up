@@ -5,6 +5,7 @@ import 'package:guide_up/core/constant/router_constants.dart';
 import 'package:guide_up/pages/login/auth_page.dart';
 import 'package:guide_up/pages/login/login_page.dart';
 import 'package:guide_up/pages/profile/profile_main.dart';
+import 'package:guide_up/pages/register_page/register_page.dart';
 import 'package:guide_up/pages/splash_screen/splash_screen.dart';
 
 import '../pages/home/home_screen_page.dart';
@@ -46,6 +47,8 @@ class RouteGenerator {
         return _createRoute(const SplashScreen(), settings);
       case RouterConstants.profilePage:
         return _createRoute(const ProfileMain(), settings);
+    case '/registerPage':
+    return _createRoute( RegisterPage(), settings);
       default:
         return _createRoute(const ErrorPage(), settings);
     }
