@@ -1,10 +1,11 @@
-import 'package:curved_navigation_bar/curved_navigation_bar.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:guide_up/core/constant/router_constants.dart';
 import 'package:guide_up/core/constant/constants.dart';
-import 'package:guide_up/utils/user_helper.dart';
+
+import '../../core/utils/user_helper.dart';
+import '../../ui/material/custom_material.dart';
 
 final List<String> imgList = [
   'https://images1.welcomesoftware.com/Zz0xYWZiMThkNjI1NDYxMWVkODJkZjdhNjM2MmRjMGQ2OA==?width=800&q=80',
@@ -19,6 +20,8 @@ final List<String> eventList = [
 ];
 
 class HomeScreen extends StatefulWidget {
+  const HomeScreen({Key? key}) : super(key: key);
+
   @override
   State<HomeScreen> createState() => _HomeScreenState();
 }
@@ -76,22 +79,9 @@ class _HomeScreenState extends State<HomeScreen> {
           ),
         ],
       ),
-      backgroundColor: Colors.white,
-      bottomNavigationBar: CurvedNavigationBar(
-        backgroundColor: Colors.amber,
-        items: const <Widget>[
-          Icon(Icons.home, size: 25),
-          Icon(Icons.search, size: 25),
-          Icon(Icons.dashboard, size: 25),
-          Icon(Icons.diversity_1, size: 25),
-          Icon(Icons.comment, size: 25),
-        ],
-
-        // onTap: (index) {
-        //   //Handle button tap
-        // },
-      ),
-      body: HomeScreenBody(),
+      body: Container(
+          decoration: CustomMaterial.backgroundBoxDecoration,
+          child: const HomeScreenBody()),
     );
   }
 }
@@ -349,7 +339,7 @@ class _HomeScreenBodyState extends State<HomeScreenBody> {
                   Container(
                     margin: EdgeInsets.fromLTRB(30, 10, 0, 0),
                     color: Color.fromARGB(221, 241, 238, 238),
-                    child: Column(
+                    child: const Column(
                       children: [
                         CircleAvatar(
                           backgroundImage: NetworkImage(

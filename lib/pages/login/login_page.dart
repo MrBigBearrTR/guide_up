@@ -3,8 +3,9 @@ import 'package:guide_up/core/constant/router_constants.dart';
 import 'package:guide_up/core/constant/color_constants.dart';
 import 'package:guide_up/pages/home/home_screen_page.dart';
 import 'package:guide_up/pages/login/companenets/my_textfield.dart';
-import 'package:guide_up/utils/user_helper.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+
+import '../../core/utils/user_helper.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({Key? key}) : super(key: key);

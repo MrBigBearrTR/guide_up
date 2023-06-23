@@ -1,15 +1,15 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:guide_up/core/constant/router_constants.dart';
-import 'package:guide_up/pages/login/auth_page.dart';
-import 'package:guide_up/pages/login/login_page.dart';
-import 'package:guide_up/pages/profile/profile_main.dart';
-import 'package:guide_up/pages/splash_screen/splash_screen.dart';
 
-import '../pages/home/home_screen_page.dart';
-import '../pages/other/error_page.dart';
-import '../pages/other/test_data_conrol_page.dart';
+import '../../pages/login/auth_page.dart';
+import '../../pages/login/login_page.dart';
+import '../../pages/other/error_page.dart';
+import '../../pages/other/test_data_conrol_page.dart';
+import '../../pages/profile/profile_main.dart';
+import '../../pages/splash_screen/splash_screen.dart';
+import '../../ui/navigator/navigator_page.dart';
+import '../constant/router_constants.dart';
 
 class RouteGenerator {
   static Route<dynamic>? _createRoute(
@@ -37,7 +37,7 @@ class RouteGenerator {
       case RouterConstants.testDateControllerPage:
         return _createRoute(const TestDataControl(), settings);
       case RouterConstants.homePage:
-        return _createRoute(HomeScreen(), settings);
+        return _createRoute(const NavigatorPage(), settings);
       case RouterConstants.loginPage:
         return _createRoute(const LoginPage(), settings);
       case RouterConstants.authPage:

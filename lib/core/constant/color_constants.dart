@@ -29,4 +29,11 @@ class ColorConstants {
   static const Color theme1CloudBlue = Color(0xFF98C2D0);
   static const Color theme1BrightCloudBlue = Color(0xFFDAE4EC);
   static const Color theme1PowderSkin = Color(0xFFF6E0CD);
+  static const Color theme1PowderSkinOpacity = Color(0x73F6E0CD);
+
+  static const List<Color> backgroundGradientColors=[
+    theme1PowderSkinOpacity,
+    theme1White,
+    theme2White,
+  ];
 }
