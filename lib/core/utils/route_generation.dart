@@ -46,6 +46,8 @@ class RouteGenerator {
         return _createRoute(const SplashScreen(), settings);
       case RouterConstants.profilePage:
         return _createRoute(const ProfileMain(), settings);
+    case '/registerPage':
+    return _createRoute( RegisterPage(), settings);
       default:
         return _createRoute(const ErrorPage(), settings);
     }

@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -9,6 +10,7 @@ class UserHelper {
   UserHelper() {
     _auth = FirebaseAuth.instance;
   }
+  final userCollection = FirebaseFirestore.instance.collection("users");
 
   Future<User?> login(String username, String password) async {
     try {
@@ -96,12 +98,42 @@ class UserHelper {
       debugPrint("--" + "Giriş yapılmış kullanıcı bulunamadı.");
     }
   }
-
-  Future<bool> checkUser() async {
+Future<bool> checkUser() async {
     if (_auth.currentUser != null) {
       return true;
     } else {
       return false;
+    }
+  }
+  Future<void> register(
+      String name,
+      String surname,
+      String email,
+      String password,
+      String confirmPassword,
+      String role
+      ) async {
+    try {
+      await FirebaseFirestore.instance.collection('users').doc(email).set({
+        'name': name,
+        'surname': surname,
+        'email': email,
+        'password': password,
+        'ConfirmPassword': confirmPassword,
+        'role': role ,
+      });
+
+      UserCredential userCredential =
+      await FirebaseAuth.instance.createUserWithEmailAndPassword(
+        email: email,
+        password: password,
+      );
+
+      // Additional logic, such as storing user details in a database, can be added here
+    } catch (e) {
+      // Handle registration errors
+      print('Registration failed: $e');
+      throw e;
     }
   }
 }

@@ -3,6 +3,7 @@ import 'package:guide_up/core/constant/router_constants.dart';
 import 'package:guide_up/core/constant/color_constants.dart';
 import 'package:guide_up/pages/home/home_screen_page.dart';
 import 'package:guide_up/pages/login/companenets/my_textfield.dart';
+import 'package:guide_up/pages/register_page/register_page.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
 import '../../core/utils/user_helper.dart';
@@ -347,17 +348,18 @@ class _LoginPageState extends State<LoginPage> {
                       Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
-                          Text(
+                          const Text(
                             'Üye değil misiniz ? ',
                             style:
                                 TextStyle(color: ColorConstants.itemWhite, fontFamily: 'Lato'),
                           ),
-                          SizedBox(height: 8),
+                          const SizedBox(height: 8),
                           TextButton(
                             onPressed: () {
-                              // Handle button press
+                              Navigator.pushReplacement(
+                                  context, MaterialPageRoute(builder: (context) => RegisterPage()));
                             },
-                            child: Text(
+                            child: const Text(
                               'Hemen Üye Olun',
                               style: TextStyle(
                                 color: Colors.blue,
