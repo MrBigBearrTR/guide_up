@@ -40,7 +40,7 @@ class _TestDataControlState extends State<TestDataControl> {
   }
 
   void veriEklemeAdd() async {
-    User userModel = User();
+    UserModel userModel = UserModel();
     userModel.setEmail("aliyalcin");
     userModel.setPassword("pass");
     userModel.setUsername("MrBigBear");
@@ -78,9 +78,8 @@ class _TestDataControlState extends State<TestDataControl> {
     print(_sorgu.docs);
   }
 
-
-  UserDetail readUserDetail(String userId){
-    UserDetail det=UserDetail();
+  UserDetail readUserDetail(String userId) {
+    UserDetail det = UserDetail();
     det.setName("Helin");
     return det;
   }

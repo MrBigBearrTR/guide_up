@@ -1,49 +1,68 @@
-import 'package:curved_navigation_bar/curved_navigation_bar.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
-import 'package:guide_up/core/constant/constants.dart';
+import 'package:guide_up/core/constant/router_constants.dart';
+import 'package:guide_up/core/constant/secure_strorage_constant.dart';
+import 'package:guide_up/core/models/users/user_detail/user_detail_model.dart';
+
+import '../../core/utils/user_helper.dart';
+import '../../ui/material/custom_material.dart';
 
 final List<String> imgList = [
-  'https://teach.com/wp-content/uploads/sites/56/2022/03/what-is-a-mentor.png',
   'https://images1.welcomesoftware.com/Zz0xYWZiMThkNjI1NDYxMWVkODJkZjdhNjM2MmRjMGQ2OA==?width=800&q=80',
-  'https://www.revista.unam.mx/wp-content/uploads/img2-35.jpg',
-  'https://ideas.ted.com/wp-content/uploads/sites/3/2018/09/featured_art_mentor_istock.jpg',
+  'https://images1.welcomesoftware.com/Zz0xYWZiMThkNjI1NDYxMWVkODJkZjdhNjM2MmRjMGQ2OA==?width=800&q=80',
+  'https://images1.welcomesoftware.com/Zz0xYWZiMThkNjI1NDYxMWVkODJkZjdhNjM2MmRjMGQ2OA==?width=800&q=80',
 ];
 final List<String> eventList = [
-  'https://www.talentlms.com/blog/wp-content/uploads/2021/07/Sample-Training-Announcement-Email.png',
-  'https://www.talentlms.com/blog/wp-content/uploads/2021/07/training-invitation-email.png',
   'https://partner.ed2go.com/wp-content/uploads/2016/07/career-training-program-email-template-banner.jpg',
-  'https://www.slideteam.net/wp/wp-content/uploads/2023/02/Scrum-Board-Samples-1013x441.jpg',
+  'https://partner.ed2go.com/wp-content/uploads/2016/07/career-training-program-email-template-banner.jpg',
+  'https://partner.ed2go.com/wp-content/uploads/2016/07/career-training-program-email-template-banner.jpg',
+  'https://partner.ed2go.com/wp-content/uploads/2016/07/career-training-program-email-template-banner.jpg',
 ];
 
 class HomeScreen extends StatefulWidget {
+  const HomeScreen({Key? key}) : super(key: key);
+
   @override
   State<HomeScreen> createState() => _HomeScreenState();
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-  String userName = 'Helin';
+  UserDetail? userDetail;
   FlutterSecureStorage preference = const FlutterSecureStorage();
 
-  void getSecurityStorage(BuildContext context ) async {
+  @override
+  void initState() {
+    super.initState();
+    getUserDetail();
+    UserHelper().getUserDetail();
+  }
 
-    if(!(await preference.containsKey(key: Constants.FIRST_SIGIN_KEY)))  {
-      Navigator.pushReplacementNamed(context, "/splashScreen");
-     // MaterialPageRoute(builder:(context)=> const SplashScreen());
+  void getUserDetail() async {
+    String? detailJson =
+        await preference.read(key: SecureStrogeConstants.USER_DETAIL_KEY);
+    if (detailJson == null) {
+      userDetail = null;
+    } else {
+      userDetail = UserDetail().fromJson(detailJson);
     }
   }
 
-  //const HomeScreen({super.key});
+  void controlForSplashScreen(BuildContext context) async {
+    if (!(await preference.containsKey(
+        key: SecureStrogeConstants.FIRST_SIGIN_KEY))) {
+      Navigator.pushReplacementNamed(context, "/splashScreen");
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
-    getSecurityStorage(context);
+    controlForSplashScreen(context);
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.white,
         title: Text(
-          'Hoşgeldin $userName!',
+          'Hoşgeldin${userDetail != null ? (" ${userDetail!.getName()!} ${userDetail!.getSurname()!}") : "iz!"}',
           style: const TextStyle(
             color: Color.fromARGB(255, 23, 89, 201),
             fontSize: 25,
@@ -63,28 +82,21 @@ class _HomeScreenState extends State<HomeScreen> {
             color: const Color.fromARGB(255, 23, 89, 201),
           ),
           IconButton(
-            onPressed: () {},
+            onPressed: () async {
+              if (await UserHelper().checkUser()) {
+                Navigator.pushNamed(context, RouterConstants.profilePage);
+              } else {
+                Navigator.pushNamed(context, RouterConstants.loginPage);
+              }
+            },
             icon: const Icon(Icons.person),
             color: const Color.fromARGB(255, 23, 89, 201),
           ),
         ],
       ),
-      backgroundColor: Colors.white,
-      bottomNavigationBar: CurvedNavigationBar(
-        backgroundColor: Colors.amber,
-        items: const <Widget>[
-          Icon(Icons.home, size: 25),
-          Icon(Icons.search, size: 25),
-          Icon(Icons.dashboard, size: 25),
-          Icon(Icons.diversity_1, size: 25),
-          Icon(Icons.comment, size: 25),
-        ],
-
-        // onTap: (index) {
-        //   //Handle button tap
-        // },
-      ),
-      body: HomeScreenBody(),
+      body: Container(
+          decoration: CustomMaterial.backgroundBoxDecoration,
+          child: const HomeScreenBody()),
     );
   }
 }
@@ -289,7 +301,9 @@ class _HomeScreenBodyState extends State<HomeScreenBody> {
                   ),
                 ],
               ),
-              SizedBox(height: 30,),
+              SizedBox(
+                height: 30,
+              ),
               Text(
                 'Yaklaşan Etkinlikler',
                 style: TextStyle(
@@ -340,7 +354,7 @@ class _HomeScreenBodyState extends State<HomeScreenBody> {
                   Container(
                     margin: EdgeInsets.fromLTRB(30, 10, 0, 0),
                     color: Color.fromARGB(221, 241, 238, 238),
-                    child: Column(
+                    child: const Column(
                       children: [
                         CircleAvatar(
                           backgroundImage: NetworkImage(
@@ -488,4 +502,4 @@ class _HomeScreenBodyState extends State<HomeScreenBody> {
   }
 }
 
-// En sevilen 4-5 tane kaydırmalı manuel 
+// En sevilen 4-5 tane kaydırmalı manuel

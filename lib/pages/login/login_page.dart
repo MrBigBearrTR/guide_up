@@ -1,7 +1,10 @@
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:google_sign_in/google_sign_in.dart';
-import 'package:guide_up/utils/uesr_helper.dart';
+import 'package:guide_up/core/constant/router_constants.dart';
+import 'package:guide_up/core/constant/color_constants.dart';
+import 'package:guide_up/pages/login/companenets/my_textfield.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+
+import '../../core/utils/user_helper.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({Key? key}) : super(key: key);
@@ -11,270 +14,369 @@ class LoginPage extends StatefulWidget {
 }
 
 class _LoginPageState extends State<LoginPage> {
-  bool isChecked = false;
-  TextEditingController email = TextEditingController();
-  TextEditingController password = TextEditingController();
+  final emailController = TextEditingController();
+  final passwordController = TextEditingController();
 
-  // late Box box1;
-  late FirebaseAuth auth;
-
-  @override
-  void initState() {
-    //
-    super.initState();
-    auth = FirebaseAuth.instance;
-
-    auth.authStateChanges().listen((User? user) {
-      if (user == null) {
-        print("User oturumu kapalı");
+  void signInWithGoogle(BuildContext context) async {
+    try {
+      UserCredential? fireUser = await UserHelper().signInWithGoogle();
+      if (fireUser != null) {
+        // Giriş başarılı, kullanıcıyı kullanabilirsiniz
+        Navigator.pushReplacementNamed(context, RouterConstants.homePage);
       } else {
-        print(
-            "User oturumu açık ${user.email} ve emeail durumu ${user.emailVerified}");
+        // Giriş başarısız, hata mesajını ele alabilirsiniz
+        showDialog(
+          context: context,
+          builder: (context) {
+            return AlertDialog(
+              backgroundColor: ColorConstants.itemWhite,
+              title: const Text('Hata'),
+              content: const Text('Google ile giriş yaparken bir hata oluştu.'),
+              actions: [
+                TextButton(
+                  onPressed: () {
+                    Navigator.pop(context);
+                  },
+                  child: const Text(
+                    'Tamam',
+                    style: TextStyle(
+                      color: ColorConstants.itemBlack,
+                    ),
+                  ),
+                ),
+              ],
+            );
+          },
+        );
       }
-    });
-  }
-
-  void createBox() async {
-    //box1 = await Hive.openBox('logininfo');
-    getdata();
-  }
-
-  void getdata() async {
-    /*if (box1.get('email') != null) {
-      email.text = box1.get('email');
-      isChecked = true;
-      setState(() {});
+    } catch (e) {
+      // Hata oluştu, hata mesajını ele alabilirsiniz
+      showDialog(
+        context: context,
+        builder: (context) {
+          return AlertDialog(
+            backgroundColor: ColorConstants.itemWhite,
+            title: const Text('Hata'),
+            content: Text('Google ile giriş yaparken bir hata oluştu: $e'),
+            actions: [
+              TextButton(
+                onPressed: () {
+                  Navigator.pop(context);
+                },
+                child: const Text(
+                  'Tamam',
+                  style: TextStyle(
+                    color: ColorConstants.itemBlack,
+                  ),
+                ),
+              ),
+            ],
+          );
+        },
+      );
     }
-    if (box1.get('password') != null) {
-      password.text = box1.get('password');
-      isChecked = true;
-      setState(() {});
-    }*/
+  }
+
+  void signUserIn(BuildContext context) async {
+    showDialog(
+      context: context,
+      builder: (context) {
+        return Material(
+          color: Colors.transparent,
+          child: Center(
+            child: Container(
+              decoration: BoxDecoration(
+                color: Colors.deepOrangeAccent,
+                borderRadius: BorderRadius.circular(8),
+                boxShadow: [
+                  BoxShadow(
+                    color: Colors.black.withOpacity(0.3),
+                    spreadRadius: 5,
+                    blurRadius: 10,
+                    offset: const Offset(0, 3),
+                  ),
+                ],
+              ),
+              padding: const EdgeInsets.all(16),
+              child: const CircularProgressIndicator(),
+            ),
+          ),
+        );
+      },
+    );
+
+    try {
+      await UserHelper().login(emailController.text, passwordController.text);
+      Navigator.pop(context);
+      Navigator.pushNamed(context, RouterConstants.homePage);
+    } catch (e) {
+      Navigator.pop(context);
+      showDialog(
+        context: context,
+        builder: (context) {
+          return AlertDialog(
+            backgroundColor: ColorConstants.itemWhite,
+            title: const Text('Hata'),
+            content: Text('Şifre veya E-mail Hatalı Girildi'),
+            actions: [
+              TextButton(
+                onPressed: () {
+                  Navigator.pop(context);
+                },
+                child: const Text(
+                  'Tamam',
+                  style: TextStyle(color: ColorConstants.itemBlack),
+                ),
+              ),
+            ],
+          );
+        },
+      );
+    }
   }
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      decoration: const BoxDecoration(
-        image: DecorationImage(
-            image: AssetImage('assets/img/login.png'), fit: BoxFit.cover),
-      ),
-      child: Scaffold(
-        backgroundColor: Colors.transparent,
-        body: Stack(
-          children: [
-            Container(),
-            Container(
-              padding: EdgeInsets.only(left: 35, top: 50),
-              child: Text(
-                'HoşGeldiniz',
-                style: TextStyle(color: Colors.white, fontSize: 33),
-              ),
-            ),
-            SingleChildScrollView(
+    return Scaffold(
+      backgroundColor: const Color(0xFF212832),
+      body: SafeArea(
+        child: Center(
+          child: Center(
+            child: SingleChildScrollView(
               child: Container(
-                padding: EdgeInsets.only(
-                    top: MediaQuery.of(context).size.height * 0.2),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Container(
-                      margin: EdgeInsets.only(left: 35, right: 35),
-                      child: Column(
-                        children: [
-                          TextField(
-                            controller: email,
-                            style: TextStyle(color: Colors.black),
-                            decoration: InputDecoration(
-                                fillColor: Colors.grey.shade100,
-                                filled: true,
-                                hintText: "Email",
-                                border: OutlineInputBorder(
-                                  borderRadius: BorderRadius.circular(10),
-                                )),
-                          ),
-                          SizedBox(
-                            height: 30,
-                          ),
-                          TextField(
-                            controller: password,
-                            style: TextStyle(),
-                            obscureText: true,
-                            decoration: InputDecoration(
-                                fillColor: Colors.grey.shade100,
-                                filled: true,
-                                hintText: "Password",
-                                border: OutlineInputBorder(
-                                  borderRadius: BorderRadius.circular(10),
-                                )),
-                          ),
-                          SizedBox(
-                            height: 40,
-                          ),
-                          Row(
-                            crossAxisAlignment: CrossAxisAlignment.center,
-                            children: [
-                              Text(
-                                "Remember Me",
-                                style: TextStyle(color: Colors.black),
-                              ),
-                              Checkbox(
-                                value: isChecked,
-                                onChanged: (value) {
-                                  isChecked = !isChecked;
-                                  setState(() {});
-                                },
-                              ),
-                            ],
-                          ),
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              TextButton(
-                                  onPressed: () {
-                                    login();
-                                  },
-                                  child: const Text(
-                                    'login',
-                                    style: TextStyle(
-                                      decoration: TextDecoration.underline,
-                                      color: Color(0xff4c505b),
-                                      fontSize: 18,
-                                    ),
-                                  )),
-                              TextButton(
-                                  onPressed: () {
-                                    signInWithGoogle();
-                                  },
-                                  child: const Text(
-                                    'googleLogin',
-                                    style: TextStyle(
-                                      decoration: TextDecoration.underline,
-                                      color: Color(0xff4c505b),
-                                      fontSize: 18,
-                                    ),
-                                  )),
-                            ],
-                          ),
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              TextButton(
-                                  onPressed: () {
-                                    checkUser();
-                                  },
-                                  child: const Text(
-                                    'kullanıcıyı test et',
-                                    style: TextStyle(
-                                      decoration: TextDecoration.underline,
-                                      color: Color(0xff4c505b),
-                                      fontSize: 18,
-                                    ),
-                                  )),
-                              TextButton(
-                                  onPressed: () {
-                                    signOut();
-                                  },
-                                  child: const Text(
-                                    'çıkış',
-                                    style: TextStyle(
-                                      decoration: TextDecoration.underline,
-                                      color: Color(0xff4c505b),
-                                      fontSize: 18,
-                                    ),
-                                  )),
-                            ],
-                          ),
-                          SizedBox(
-                            height: 40,
-                          ),
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              TextButton(
-                                onPressed: () {
-                                  Navigator.pushNamed(context, 'register');
-                                },
-                                child: Text(
-                                  'Sign Up',
-                                  textAlign: TextAlign.left,
-                                  style: TextStyle(
-                                      decoration: TextDecoration.underline,
-                                      color: Color(0xff4c505b),
-                                      fontSize: 18),
-                                ),
-                                style: ButtonStyle(),
-                              ),
-                              TextButton(
-                                  onPressed: () {},
-                                  child: Text(
-                                    'Forgot Password',
-                                    style: TextStyle(
-                                      decoration: TextDecoration.underline,
-                                      color: Color(0xff4c505b),
-                                      fontSize: 18,
-                                    ),
-                                  )),
-                            ],
-                          )
-                        ],
-                      ),
-                    )
+                decoration: const BoxDecoration(
+                    gradient: LinearGradient(
+                  colors: [
+                    ColorConstants.appcolor2,
+                    ColorConstants.appcolor2,
+                    ColorConstants.appcolor1,
+                    ColorConstants.appcolor1,
                   ],
-                ),
+                  begin: Alignment.bottomRight,
+                  end: Alignment.topCenter,
+                )),
+                child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      //LOGO
+                      const SizedBox(height: 10),
+                      Image.asset(
+                        scale: 3,
+                        'assets/img/GuideUpLogo.png',
+                      ),
+
+                      //WELCOME BACK
+                      const SizedBox(height: 10),
+                      const Padding(
+                        padding: EdgeInsets.symmetric(horizontal: 40),
+                        child: Text(
+                          'GuideUp ',
+                          style: TextStyle(
+                            color: ColorConstants.itemWhite,
+                            fontSize: 40,
+                            fontFamily: 'Lato',
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                      ),
+                      const SizedBox(height: 10),
+                      const Padding(
+                        padding: EdgeInsets.symmetric(horizontal: 40),
+                        child: Text(
+                          'Seni Burada Görmek Güzel  ',
+                          style: TextStyle(
+                            color: ColorConstants.itemWhite,
+                            fontSize: 20,
+                            fontFamily: 'Lato',
+                            fontWeight: FontWeight.normal,
+                          ),
+                        ),
+                      ),
+                      const SizedBox(height: 25),
+                      //USERNAME TEXTfield
+                      MyTextField(
+                        controller: emailController,
+                        hintText: 'E-mail',
+                        obscureText: false,
+                      ),
+
+                      const SizedBox(height: 10),
+                      //FORGOT PASSWORD ?
+                      MyTextField(
+                        controller: passwordController,
+                        hintText: 'Şifre',
+                        obscureText: true,
+                        onSubmitted: () {
+                          signUserIn(context);
+                        },
+                      ),
+                      const SizedBox(height: 2),
+                      Padding(
+                        padding: const EdgeInsets.all(25.0),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.end,
+                          children: [
+                            TextButton(
+                              onPressed: () {
+                                // Add your logic here for the "Şifremi Unuttum" button
+                              },
+                              child: const Text(
+                                "Şifremi Unuttum",
+                                style: TextStyle(
+                                  color: ColorConstants.itemWhite,
+                                  fontSize: 14,
+                                  fontFamily: 'Lato',
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+
+                      //SİGN İN BUTTON
+                      SizedBox(
+                        width: 320,
+                        child: ElevatedButton(
+                          onPressed: () {
+                            signUserIn(context);
+                          },
+                          style: ElevatedButton.styleFrom(
+                            foregroundColor: ColorConstants.appcolor4,
+                            backgroundColor: ColorConstants.appcolor2,
+                            padding: const EdgeInsets.all(10),
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(8),
+                            ),
+                            //shadowColor: ColorConstants.appcolor2.withOpacity(0.1),
+                          ),
+                          child: const Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              SizedBox(width: 8),
+                              Text(
+                                'Giriş Yap',
+                                style: TextStyle(
+                                  fontSize: 20,
+                                  fontFamily: 'Lato',
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                      ),
+
+                      const SizedBox(height: 20),
+                      //CONTİNUE BUTTON
+                      const Padding(
+                        padding: EdgeInsets.symmetric(horizontal: 25.0),
+                        child: Row(
+                          children: [
+                            Expanded(
+                              child: Divider(
+                                thickness: 2,
+                                color: ColorConstants.itemWhite,
+                              ),
+                            ),
+                            Padding(
+                              padding: EdgeInsets.symmetric(horizontal: 10.0),
+                              child: Text(
+                                'Veya',
+                                style: TextStyle(
+                                    color: Color(0xFFEF6C00),
+                                    fontSize: 14,
+                                    fontFamily: 'Lato',
+                                    fontWeight: FontWeight.bold),
+                              ),
+                            ),
+                            Expanded(
+                                child: Divider(
+                              thickness: 2,
+                              color: ColorConstants.itemWhite,
+                            ))
+                          ],
+                        ),
+                      ),
+                      //Image.asset(
+                      // 'assets/img/Google.png',
+                      // height: 50,
+                      // ),
+                      SizedBox(
+                        width: 320,
+                        child: ElevatedButton(
+                          onPressed: () {
+                            signInWithGoogle(context);
+                          },
+                          style: ElevatedButton.styleFrom(
+                            foregroundColor: ColorConstants.appcolor4,
+                            backgroundColor: ColorConstants.appcolor1,
+                            padding: const EdgeInsets.all(10),
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(8),
+                            ),
+                            /*shadowColor: const Color(0xFF212832).withOpacity(0.2),
+                        elevation: 10,*/
+                          ),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              SizedBox(
+                                width: 30,
+                                height: 30,
+                                child: Image.asset(
+                                  'assets/img/Google.png',
+                                ),
+                              ),
+                              const SizedBox(width: 8),
+                              const Text(
+                                'Google ile Giriş Yap',
+                                style: TextStyle(
+                                  fontSize: 20,
+                                  fontFamily: 'Lato',
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                      ),
+
+                      const SizedBox(height: 25),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          const Text(
+                            'Üye değil misiniz ? ',
+                            style: TextStyle(
+                                color: ColorConstants.itemWhite,
+                                fontFamily: 'Lato'),
+                          ),
+                          const SizedBox(height: 8),
+                          TextButton(
+                            onPressed: () {
+                              Navigator.pushReplacementNamed(
+                                  context, RouterConstants.registerPage);
+                            },
+                            child: const Text(
+                              'Hemen Üye Olun',
+                              style: TextStyle(
+                                color: Colors.blue,
+                                fontSize: 16,
+                              ),
+                            ),
+                          ),
+                        ],
+                      )
+
+                      // GOOGLE SİGN BUTTON
+                      //REGİSTER
+                    ]),
               ),
             ),
-          ],
+          ),
         ),
       ),
     );
-  }
-
-  void login() async {
-    //UserHelper().createUser(email.value.text, password.value.text);
-    User? user =
-        await UserHelper().login(email.value.text, password.value.text);
-    if (user == null) {
-      print("Hata giriş yapılamdı");
-    } else {
-      Navigator.pushNamed(context, "testDataControl");
-    }
-    Navigator.pushNamed(context, "/testDataControl");
-  }
-
-  Future<UserCredential> signInWithGoogle() async {
-    // Trigger the authentication flow
-    final GoogleSignInAccount? googleUser = await GoogleSignIn().signIn();
-
-    // Obtain the auth details from the request
-    final GoogleSignInAuthentication? googleAuth =
-        await googleUser?.authentication;
-
-    // Create a new credential
-    final credential = GoogleAuthProvider.credential(
-      accessToken: googleAuth?.accessToken,
-      idToken: googleAuth?.idToken,
-    );
-
-    // Once signed in, return the UserCredential
-    UserCredential? credentiall =
-        await FirebaseAuth.instance.signInWithCredential(credential);
-    Navigator.pushNamed(context, "/testDataControl");
-    return credentiall;
-  }
-
-  void checkUser() async {
-    auth.authStateChanges().listen((User? user) {
-      if (user == null) {
-        print("User oturumu kapalı");
-      } else {
-        print(
-            "User oturumu açık ${user.email} ve emeail durumu ${user.emailVerified}");
-      }
-    });
-  }
-
-  void signOut() async {
-    UserHelper().signOut();
   }
 }
