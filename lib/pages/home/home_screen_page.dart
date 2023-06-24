@@ -2,7 +2,8 @@ import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:guide_up/core/constant/router_constants.dart';
-import 'package:guide_up/core/constant/constants.dart';
+import 'package:guide_up/core/constant/secure_strorage_constant.dart';
+import 'package:guide_up/core/models/users/user_detail/user_detail_model.dart';
 
 import '../../core/utils/user_helper.dart';
 import '../../ui/material/custom_material.dart';
@@ -27,26 +28,41 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-  String userName = 'Helin';
+  UserDetail? userDetail;
   FlutterSecureStorage preference = const FlutterSecureStorage();
 
-  void getSecurityStorage(BuildContext context) async {
-    if (!(await preference.containsKey(key: Constants.FIRST_SIGIN_KEY))) {
-      Navigator.pushReplacementNamed(context, "/splashScreen");
-      // MaterialPageRoute(builder:(context)=> const SplashScreen());
+  @override
+  void initState() {
+    super.initState();
+    getUserDetail();
+    UserHelper().getUserDetail();
+  }
+
+  void getUserDetail() async {
+    String? detailJson =
+        await preference.read(key: SecureStrogeConstants.USER_DETAIL_KEY);
+    if (detailJson == null) {
+      userDetail = null;
+    } else {
+      userDetail = UserDetail().fromJson(detailJson);
     }
   }
 
-  //const HomeScreen({super.key});
+  void controlForSplashScreen(BuildContext context) async {
+    if (!(await preference.containsKey(
+        key: SecureStrogeConstants.FIRST_SIGIN_KEY))) {
+      Navigator.pushReplacementNamed(context, "/splashScreen");
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
-    getSecurityStorage(context);
+    controlForSplashScreen(context);
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.white,
         title: Text(
-          'Hoşgeldin $userName!',
+          'Hoşgeldin${userDetail != null ? (" ${userDetail!.getName()!} ${userDetail!.getSurname()!}") : "iz!"}',
           style: const TextStyle(
             color: Color.fromARGB(255, 23, 89, 201),
             fontSize: 25,
@@ -69,7 +85,6 @@ class _HomeScreenState extends State<HomeScreen> {
             onPressed: () async {
               if (await UserHelper().checkUser()) {
                 Navigator.pushNamed(context, RouterConstants.profilePage);
-
               } else {
                 Navigator.pushNamed(context, RouterConstants.loginPage);
               }

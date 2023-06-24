@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
-import 'package:guide_up/core/constant/constants.dart';
+import 'package:guide_up/core/constant/secure_strorage_constant.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 import 'intro_page_1.dart';
 import 'intro_page_2.dart';
@@ -78,7 +78,7 @@ class _SplashScreenState extends State<SplashScreen> {
                   onPressed: () {
                     if (currentPage == 4) {
 
-                      preference.write(key: Constants.FIRST_SIGIN_KEY, value: "Y");
+                      preference.write(key: SecureStrogeConstants.FIRST_SIGIN_KEY, value: "Y");
                       Navigator.pushReplacementNamed(context, '/');
                     } else {
                       _controller.jumpToPage(4); // Ana sayfaya git

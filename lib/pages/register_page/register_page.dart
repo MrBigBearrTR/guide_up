@@ -41,14 +41,7 @@ class _RegisterPageState extends State<RegisterPage> {
       _passwordsMatch = true;
 
       try {
-        await _userHelper.register(
-          _name.text,
-          _surname.text,
-          _email.text,
-          _password.text,
-          _confirmPassword.text,
-          selectedRole ?? "",
-        );
+        _userHelper.registerTest();
         // Registration successful, navigate to login page
         Navigator.pushReplacementNamed(context, RouterConstants.loginPage);
       } catch (e) {

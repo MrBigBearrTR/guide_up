@@ -1,6 +1,6 @@
 import 'package:guide_up/core/models/general/general_fields_model.dart';
 
-class User extends GeneralFields {
+class UserModel extends GeneralFields {
   String? _id;
   String? _username;
   String? _password;
