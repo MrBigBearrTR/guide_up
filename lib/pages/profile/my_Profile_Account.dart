@@ -351,7 +351,7 @@ class _MeProfileAccountState extends State<MeProfileAccount> {
                     });
                   },
                   onEditingComplete: () {
-                    FocusScope.of(context).nextFocus(); // "Tamam" butonuna basıldığında bir sonraki alanı seçme
+                    FocusScope.of(context).nextFocus();
                   },
                 ),
                 const SizedBox(height: 16.0),
@@ -451,10 +451,20 @@ class _MeProfileAccountState extends State<MeProfileAccount> {
                     ),
                     const SizedBox(height: 8.0),
                     TextFormField(
-                      decoration: const InputDecoration(
-                        labelText: "link",
-                        border: OutlineInputBorder(),
+                      decoration: InputDecoration(
+                        labelText: 'link',
+                        labelStyle: const TextStyle(
+                          color: Color(0xFFFF8800),
+                        ),
+                        border: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(8.0),
+                        ),
+                        focusedBorder: OutlineInputBorder(
+                          borderSide: const BorderSide(color: Color(0xFF07617C),),
+                          borderRadius: BorderRadius.circular(8.0),
+                        ),
                       ),
+                      cursorColor: const Color(0xFF07617C),
                       onChanged: (value) {
                       },
                     ),
@@ -472,10 +482,20 @@ class _MeProfileAccountState extends State<MeProfileAccount> {
                     ),
                     const SizedBox(height: 8.0),
                     TextFormField(
-                      decoration: const InputDecoration(
-                        labelText: "link",
-                        border: OutlineInputBorder(),
+                      decoration: InputDecoration(
+                        labelText: 'link',
+                        labelStyle: const TextStyle(
+                          color: Color(0xFF07617C),
+                        ),
+                        border: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(8.0),
+                        ),
+                        focusedBorder: OutlineInputBorder(
+                          borderSide: const BorderSide(color: Color(0xFFFF8800),),
+                          borderRadius: BorderRadius.circular(8.0),
+                        ),
                       ),
+                      cursorColor: const Color(0xFF07617C),
                       onChanged: (value) {
                       },
                     ),
@@ -493,10 +513,20 @@ class _MeProfileAccountState extends State<MeProfileAccount> {
                     ),
                     const SizedBox(height: 8.0),
                     TextFormField(
-                      decoration: const InputDecoration(
-                        labelText: "link",
-                        border: OutlineInputBorder(),
+                      decoration: InputDecoration(
+                        labelText: 'link',
+                        labelStyle: const TextStyle(
+                          color: Color(0xFFFF8800),
+                        ),
+                        border: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(8.0),
+                        ),
+                        focusedBorder: OutlineInputBorder(
+                          borderSide: const BorderSide(color: Color(0xFF07617C),),
+                          borderRadius: BorderRadius.circular(8.0),
+                        ),
                       ),
+                      cursorColor: const Color(0xFF07617C),
                       onChanged: (value) {
                       },
                     ),
@@ -514,10 +544,20 @@ class _MeProfileAccountState extends State<MeProfileAccount> {
                     ),
                     const SizedBox(height: 8.0),
                     TextFormField(
-                      decoration: const InputDecoration(
-                        labelText: "link",
-                        border: OutlineInputBorder(),
+                      decoration: InputDecoration(
+                        labelText: 'link',
+                        labelStyle: const TextStyle(
+                          color: Color(0xFF07617C),
+                        ),
+                        border: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(8.0),
+                        ),
+                        focusedBorder: OutlineInputBorder(
+                          borderSide: const BorderSide(color: Color(0xFFFF8800),),
+                          borderRadius: BorderRadius.circular(8.0),
+                        ),
                       ),
+                      cursorColor: const Color(0xFF07617C),
                       onChanged: (value) {
                       },
                     ),
@@ -535,10 +575,20 @@ class _MeProfileAccountState extends State<MeProfileAccount> {
                     ),
                     const SizedBox(height: 8.0),
                     TextFormField(
-                      decoration: const InputDecoration(
-                        labelText: "link",
-                        border: OutlineInputBorder(),
+                      decoration: InputDecoration(
+                        labelText: 'link',
+                        labelStyle: const TextStyle(
+                          color: Color(0xFF07617C),
+                        ),
+                        border: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(8.0),
+                        ),
+                        focusedBorder: OutlineInputBorder(
+                          borderSide: const BorderSide(color: Color(0xFFFF8800),),
+                          borderRadius: BorderRadius.circular(8.0),
+                        ),
                       ),
+                      cursorColor: const Color(0xFF07617C),
                       onChanged: (value) {
                       },
                     ),
@@ -611,17 +661,27 @@ class _MeProfileAccountState extends State<MeProfileAccount> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     const Text(
-                      "Projeler",
+                      "Eğitim Bilgileri",
                       style: TextStyle(
                         fontWeight: FontWeight.bold,
                       ),
                     ),
                     const SizedBox(height: 8.0),
                     TextFormField(
-                      decoration: const InputDecoration(
-                        labelText: "Bilgi",
-                        border: OutlineInputBorder(),
+                      decoration: InputDecoration(
+                        labelText: 'bilgi',
+                        labelStyle: const TextStyle(
+                          color: Color(0xFFFF8800),
+                        ),
+                        border: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(8.0),
+                        ),
+                        focusedBorder: OutlineInputBorder(
+                          borderSide: const BorderSide(color: Color(0xFF07617C),),
+                          borderRadius: BorderRadius.circular(8.0),
+                        ),
                       ),
+                      cursorColor: const Color(0xFF07617C),
                       onChanged: (value) {
                         educationInfo = value.split("\n");
                       },
@@ -634,17 +694,27 @@ class _MeProfileAccountState extends State<MeProfileAccount> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     const Text(
-                      "Projeler",
+                      "Tecrübelerim  ve Deneyimlerim",
                       style: TextStyle(
                         fontWeight: FontWeight.bold,
                       ),
                     ),
                     const SizedBox(height: 8.0),
                     TextFormField(
-                      decoration: const InputDecoration(
-                        labelText: "Bilgi",
-                        border: OutlineInputBorder(),
+                      decoration: InputDecoration(
+                        labelText: 'bilgi',
+                        labelStyle: const TextStyle(
+                          color: Color(0xFF07617C),
+                        ),
+                        border: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(8.0),
+                        ),
+                        focusedBorder: OutlineInputBorder(
+                          borderSide: const BorderSide(color: Color(0xFFFF8800),),
+                          borderRadius: BorderRadius.circular(8.0),
+                        ),
                       ),
+                      cursorColor: const Color(0xFF07617C),
                       onChanged: (value) {
                         experienceInfo = value.split("\n");
                       },
@@ -657,17 +727,27 @@ class _MeProfileAccountState extends State<MeProfileAccount> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     const Text(
-                      "Projeler",
+                      "Projelerim",
                       style: TextStyle(
                         fontWeight: FontWeight.bold,
                       ),
                     ),
                     const SizedBox(height: 8.0),
                     TextFormField(
-                      decoration: const InputDecoration(
-                        labelText: "Bilgi",
-                        border: OutlineInputBorder(),
+                      decoration: InputDecoration(
+                        labelText: 'bilgi',
+                        labelStyle: const TextStyle(
+                          color: Color(0xFFFF8800),
+                        ),
+                        border: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(8.0),
+                        ),
+                        focusedBorder: OutlineInputBorder(
+                          borderSide: const BorderSide(color: Color(0xFF07617C),),
+                          borderRadius: BorderRadius.circular(8.0),
+                        ),
                       ),
+                      cursorColor: const Color(0xFF07617C),
                       onChanged: (value) {
                         projectInfo = value.split("\n");
                       },
@@ -687,10 +767,20 @@ class _MeProfileAccountState extends State<MeProfileAccount> {
                     ),
                     const SizedBox(height: 8.0),
                     TextFormField(
-                      decoration: const InputDecoration(
-                        labelText: "Bilgi",
-                        border: OutlineInputBorder(),
+                      decoration: InputDecoration(
+                        labelText: 'bilgi',
+                        labelStyle: const TextStyle(
+                          color: Color(0xFF07617C),
+                        ),
+                        border: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(8.0),
+                        ),
+                        focusedBorder: OutlineInputBorder(
+                          borderSide: const BorderSide(color: Color(0xFFFF8800),),
+                          borderRadius: BorderRadius.circular(8.0),
+                        ),
                       ),
+                      cursorColor: const Color(0xFF07617C),
                       onChanged: (value) {
                         skillsInfo = value.split("\n");
                       },
