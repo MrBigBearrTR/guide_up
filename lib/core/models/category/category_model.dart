@@ -1,5 +1,6 @@
 import 'package:guide_up/core/models/general/general_fields_model.dart';
 
+/// [@author MrBigBear]
 class Category extends GeneralFields {
   String? _id;
   String? _name;
@@ -46,7 +47,7 @@ class Category extends GeneralFields {
     if (map.containsKey('name')) {
       setName(map['name']);
     }
-    if (map.containsKey('mainCategory')) {
+    if (map.containsKey('mainCategory') && map['mainCategory']!=null) {
       setMainCategory(map['mainCategory']);
     }
   }

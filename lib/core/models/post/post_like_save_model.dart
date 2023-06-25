@@ -2,6 +2,7 @@ import '../../enumeration/enums/EnLikeSaveType.dart';
 import '../../enumeration/extensions/ExLikeSaveType.dart';
 import '../general/general_fields_model.dart';
 
+/// [@author MrBigBear] 
 class PostLikeSave extends GeneralFields {
   String? _id;
   String? _userId;

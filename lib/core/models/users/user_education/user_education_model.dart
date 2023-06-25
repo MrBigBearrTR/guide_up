@@ -4,6 +4,7 @@ import 'package:guide_up/core/enumeration/extensions/ExDegreeType.dart';
 import 'package:guide_up/core/enumeration/extensions/ExLanguage.dart';
 import 'package:guide_up/core/models/general/general_fields_model.dart';
 
+/// [@author MrBigBear] 
 class UserEducation extends GeneralFields {
   String? _id;
   String? _userId;
