@@ -1,9 +1,8 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:guide_up/core/constant/router_constants.dart';
-import 'package:guide_up/core/constant/secure_strorage_constant.dart';
 import 'package:guide_up/core/models/users/user_detail/user_detail_model.dart';
+import 'package:guide_up/core/utils/secure_storage_helper.dart';
 
 import '../../core/utils/user_helper.dart';
 import '../../ui/material/custom_material.dart';
@@ -29,7 +28,6 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen> {
   UserDetail? userDetail;
-  FlutterSecureStorage preference = const FlutterSecureStorage();
 
   @override
   void initState() {
@@ -39,18 +37,17 @@ class _HomeScreenState extends State<HomeScreen> {
   }
 
   void getUserDetail() async {
-    String? detailJson =
-        await preference.read(key: SecureStrogeConstants.USER_DETAIL_KEY);
-    if (detailJson == null) {
-      userDetail = null;
+    UserDetail? detail = await SecureStorageHelper().getUserDetail();
+    if (detail == null) {
+      detail = null;
     } else {
-      userDetail = UserDetail().fromJson(detailJson);
+      userDetail = detail;
+      setState(() {});
     }
   }
 
   void controlForSplashScreen(BuildContext context) async {
-    if (!(await preference.containsKey(
-        key: SecureStrogeConstants.FIRST_SIGIN_KEY))) {
+    if (await SecureStorageHelper().isFirstEnter()) {
       Navigator.pushReplacementNamed(context, "/splashScreen");
     }
   }

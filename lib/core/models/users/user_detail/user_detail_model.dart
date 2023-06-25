@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:guide_up/core/models/general/general_fields_model.dart';
 
+/// [@author MrBigBear] 
 class UserDetail extends GeneralFields {
   String? _id;
   String? _userId;

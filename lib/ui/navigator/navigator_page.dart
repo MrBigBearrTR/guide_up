@@ -2,7 +2,7 @@ import 'package:curved_navigation_bar/curved_navigation_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:guide_up/core/constant/color_constants.dart';
 import 'package:guide_up/pages/home/home_screen_page.dart';
-import 'package:guide_up/pages/login/login_page.dart';
+import 'package:guide_up/pages/other/test_data_conrol_page.dart';
 import 'package:guide_up/pages/search/search_main_page.dart';
 
 class NavigatorPage extends StatefulWidget {
@@ -23,7 +23,7 @@ class _NavigatorPageState extends State<NavigatorPage> {
         children: const [
           HomeScreen(),
           SearchMainPage(),
-          LoginPage(),
+          TestDataControl(),
           HomeScreen(),
         ],
       ),
@@ -33,11 +33,31 @@ class _NavigatorPageState extends State<NavigatorPage> {
         color: ColorConstants.theme2Dark,
         height: 60,
         items: const <Widget>[
-          Icon(Icons.home, size: 25,color: ColorConstants.theme2White,),
-          Icon(Icons.search, size: 25,color: ColorConstants.theme2White,),
-          Icon(Icons.dashboard, size: 25,color: ColorConstants.theme2White,),
-          Icon(Icons.diversity_1, size: 25,color: ColorConstants.theme2White,),
-          Icon(Icons.comment, size: 25,color: ColorConstants.theme2White,),
+          Icon(
+            Icons.home,
+            size: 25,
+            color: ColorConstants.theme2White,
+          ),
+          Icon(
+            Icons.search,
+            size: 25,
+            color: ColorConstants.theme2White,
+          ),
+          Icon(
+            Icons.dashboard,
+            size: 25,
+            color: ColorConstants.theme2White,
+          ),
+          Icon(
+            Icons.diversity_1,
+            size: 25,
+            color: ColorConstants.theme2White,
+          ),
+          Icon(
+            Icons.comment,
+            size: 25,
+            color: ColorConstants.theme2White,
+          ),
         ],
         onTap: (index) {
           setState(() {

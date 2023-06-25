@@ -8,6 +8,8 @@ import 'package:guide_up/core/constant/firestore_collectioon_constant.dart';
 import 'package:guide_up/core/constant/secure_strorage_constant.dart';
 import 'package:guide_up/core/models/users/user_detail/user_detail_model.dart';
 import 'package:guide_up/core/models/users/user_model.dart';
+import 'package:guide_up/core/utils/secure_storage_helper.dart';
+import 'package:guide_up/repository/user/user_detail/user_detail_repository.dart';
 
 class UserHelper {
   late FirebaseAuth _auth;
@@ -17,12 +19,25 @@ class UserHelper {
   }
 
   final userCollection = FirebaseFirestore.instance.collection("users");
+  var secureStorage = const FlutterSecureStorage();
 
   Future<User?> login(String username, String password) async {
     try {
       var userCredential = await _auth.signInWithEmailAndPassword(
           email: username, password: password);
       debugPrint("++" + userCredential.toString());
+
+      final user = userCredential.user;
+      if (user != null) {
+        UserDetail? userDetail =
+            await UserDetailRepository().getUserByAuthUid(user.uid);
+
+        if (userDetail != null) {
+          const FlutterSecureStorage().write(
+              key: SecureStrogeConstants.USER_DETAIL_KEY,
+              value: userDetail.toJson());
+        }
+      }
       return userCredential.user;
     } catch (e) {
       debugPrint("--" + e.toString());
@@ -103,8 +118,7 @@ class UserHelper {
     } else {
       debugPrint("--" + "Giriş yapılmış kullanıcı bulunamadı.");
     }
-    const FlutterSecureStorage()
-        .delete(key: SecureStrogeConstants.USER_DETAIL_KEY);
+    secureStorage.delete(key: SecureStrogeConstants.USER_DETAIL_KEY);
   }
 
   Future<bool> checkUser() async {
@@ -141,10 +155,13 @@ class UserHelper {
   Future<UserDetail> registerWithUserModelAndUserDetail(
       UserModel userModel, UserDetail userDetail) async {
     try {
-      await FirebaseAuth.instance.createUserWithEmailAndPassword(
+      UserCredential credential =
+          await FirebaseAuth.instance.createUserWithEmailAndPassword(
         email: userModel.getEmail()!,
         password: userModel.getPassword()!,
       );
+
+      userModel.setId(credential.user!.uid);
 
       final userCollections = FirebaseFirestore.instance
           .collection(FirestoreCollectionConstant.user);
@@ -153,10 +170,7 @@ class UserHelper {
 
       var userReturn = await userCollections.add(userModel.toMap());
 
-      userModel.setId(userReturn.id);
-      userCollections.doc(userReturn.id).update(userModel.toMap());
-
-      userDetail.setUserId(userModel.getId()!);
+      userDetail.setUserId(userReturn.id);
       var userDteailReturn =
           await userDetailCollections.add(userDetail.toMap());
 
@@ -168,9 +182,8 @@ class UserHelper {
       print("==========================================================");
 
       print(FirebaseAuth.instance.currentUser);
-      const FlutterSecureStorage()
-          .delete(key: SecureStrogeConstants.USER_DETAIL_KEY);
-      const FlutterSecureStorage().write(
+      secureStorage.delete(key: SecureStrogeConstants.USER_DETAIL_KEY);
+      secureStorage.write(
           key: SecureStrogeConstants.USER_DETAIL_KEY,
           value: userDetail.toJson());
     } catch (e) {
@@ -187,14 +200,10 @@ class UserHelper {
     final userDetailCollections = FirebaseFirestore.instance
         .collection(FirestoreCollectionConstant.userDetail);
 
-    String? detailJson = await FlutterSecureStorage()
-        .read(key: SecureStrogeConstants.USER_DETAIL_KEY);
-    if (detailJson != null) {
-      UserDetail _userDetail = UserDetail().fromJson(detailJson);
-
-      var gelen = await userDetailCollections
-          .where("userId", isEqualTo: _userDetail.getUserId()!)
-          .get();
+    String? userId = await SecureStorageHelper().getUserId();
+    if (userId != null) {
+      var gelen =
+          await userDetailCollections.where("userId", isEqualTo: userId).get();
       print(gelen.docs);
 
       //LİST YAPISI

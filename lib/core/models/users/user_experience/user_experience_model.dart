@@ -7,6 +7,7 @@ import 'package:guide_up/core/models/general/general_fields_model.dart';
 
 import '../../../enumeration/extensions/ExLanguage.dart';
 
+/// [@author MrBigBear] 
 class UserExperience extends GeneralFields {
   String? _id;
   String? _userId;

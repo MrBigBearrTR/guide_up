@@ -1,5 +1,6 @@
 import 'package:guide_up/core/models/general/general_fields_model.dart';
 
+/// [@author MrBigBear] 
 class MentorWalletDetail extends GeneralFields {
   String? _id;
   String? _walletId;
