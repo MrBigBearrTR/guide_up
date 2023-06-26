@@ -1,10 +1,16 @@
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:intl/intl.dart';
 import 'dart:io';
+import '../../core/constant/color_constants.dart';
 import '../../core/constant/router_constants.dart';
+import '../../core/models/users/user_detail/user_detail_model.dart';
+import '../../core/models/users/user_detail/user_links_model.dart';
+import '../../core/models/users/user_model.dart';
+import '../../core/utils/secure_storage_helper.dart';
 import '../../pages/profile/licenses_and_certificates/licenses_And_Certificates.dart';
+import '../../repository/user/user_detail/user_links_repository.dart';
+import '../../repository/user/user_repository.dart';
 import 'kayan_Appbar_Deneme.dart';
 
 
@@ -18,21 +24,19 @@ class MeProfileAccount extends StatefulWidget {
 
 
 class _MeProfileAccountState extends State<MeProfileAccount> {
-  //late User _userModel;
-  //late UserDetail _userDetailModel;
-  //late UserLinks _userLinks;
-  String _username = "";
-  String surname = "";
-  String profileImagePath = "";
-  String aboutMe = "";
-  String userID = "";
-  DateTime selectedDate = DateTime.now();
-  String _email = "";
-  String linkedinLink = "";
-  String githubLink = "";
-  String mediumLink = "";
-  String websiteLink = "";
-  String socialMediaLink = "";
+  UserDetail? userDetail;
+  UserModel? userModel;
+  List<UserLinks> userLinks =[];
+   String profileImagePath = "";
+  // String aboutMe = "";
+  // String userID = "";
+   DateTime selectedDate = DateTime.now();
+  // String _email = "";
+  // String linkedinLink = "";
+  // String githubLink = "";
+  // String mediumLink = "";
+  // String websiteLink = "";
+  // String socialMediaLink = "";
   List<Map<String, String>> otherLinks = [];
   List<String> educationInfo = [];
   List<String> experienceInfo = [];
@@ -44,6 +48,32 @@ class _MeProfileAccountState extends State<MeProfileAccount> {
   //   _userDetailModel = UserDetail();
   //   _userLinks = UserLinks();
   // }
+  @override
+  void initState() {
+    super.initState();
+    getUserModels();
+  }
+
+  void getUserModels() async {
+    UserDetail? detail = await SecureStorageHelper().getUserDetail();
+    if (detail == null) {
+      detail = null;
+    } else {
+      userDetail = detail;
+      UserModel? model = await UserRepository().getUserByUserId(detail.getUserId()!);
+      if (model == null) {
+        userModel = null;
+      } else {
+        List<UserLinks> links = await UserLinksRepository().getUserByUserLink(detail.getUserId()!);
+        setState(() {
+          userLinks = links;
+          userModel = model;
+        });
+      }
+    }
+  }
+
+
 
   Future pickProfileImage() async {
     final imagePicker = ImagePicker();
@@ -81,7 +111,7 @@ class _MeProfileAccountState extends State<MeProfileAccount> {
           title: const Text(
             "+ Link Ekle",
             style: TextStyle(
-              color: Color(0xFFEF6C00),
+              color: ColorConstants.theme2Orange,
             ),
           ),
           content: Column(
@@ -90,14 +120,14 @@ class _MeProfileAccountState extends State<MeProfileAccount> {
               TextFormField(
                 decoration: const InputDecoration(
                   enabledBorder: OutlineInputBorder(
-                    borderSide: BorderSide(color: Color(0xFFEF6C00)),
+                    borderSide: BorderSide(color: ColorConstants.theme2Orange),
                   ),
                   focusedBorder: OutlineInputBorder(
-                    borderSide: BorderSide(color: Color(0xFFEF6C00)),
+                    borderSide: BorderSide(color: ColorConstants.theme2Orange),
                   ),
                   labelText: "Başlık",
                   labelStyle: TextStyle(
-                    color: Color(0xFFEF6C00),
+                      color: ColorConstants.theme2Orange
                   ),
                   border: OutlineInputBorder(),
                 ),
@@ -106,14 +136,14 @@ class _MeProfileAccountState extends State<MeProfileAccount> {
               TextFormField(
                 decoration: const InputDecoration(
                   enabledBorder: OutlineInputBorder(
-                    borderSide: BorderSide(color: Color(0xFFEF6C00)),
+                    borderSide: BorderSide(color: ColorConstants.theme2Orange),
                   ),
                   focusedBorder: OutlineInputBorder(
-                    borderSide: BorderSide(color: Color(0xFFEF6C00)),
+                    borderSide: BorderSide(color: ColorConstants.theme2Orange),
                   ),
                   labelText: "Link",
                   labelStyle: TextStyle(
-                    color: Color(0xFFEF6C00),
+                      color: ColorConstants.theme2Orange
                   ),
                   border: OutlineInputBorder(),
                 ),
@@ -123,7 +153,7 @@ class _MeProfileAccountState extends State<MeProfileAccount> {
               ),
             ],
           ),
-          backgroundColor: const Color(0xFF2C4059), // Arka plan rengi olarak kullanıldı
+          backgroundColor: ColorConstants.theme2DarkBlue, // Arka plan rengi olarak kullanıldı
 
           actions: [
             ElevatedButton(
@@ -139,12 +169,12 @@ class _MeProfileAccountState extends State<MeProfileAccount> {
                 }
               },
               style: ElevatedButton.styleFrom(
-                backgroundColor: const Color(0xFF2C4059),
+                backgroundColor: ColorConstants.theme2DarkBlue
               ),
               child: const Text(
                 "Tamam",
                 style: TextStyle(
-                  color: Color(0xFFEF6C00), // Metin rengi
+                    color: ColorConstants.theme2Orange // Metin rengi
                 ),
               ),
             ),
@@ -160,84 +190,6 @@ class _MeProfileAccountState extends State<MeProfileAccount> {
       otherLinks.removeAt(index);
     });
   }
-
-  void saveProfile() {
-    // Profil bilgilerini kaydetmek için yapılacak işlemler
-    if (kDebugMode) {
-      print('Profil bilgileri kaydedildi.');
-    }
-    if (kDebugMode) {
-      print('İsim: $_username');
-    }
-    if (kDebugMode) {
-      print('Soyisim: $surname');
-    }
-    if (kDebugMode) {
-      print('Hakkımda: $aboutMe');
-    }
-    if (kDebugMode) {
-      print('Doğum Tarihi: $selectedDate');
-    }
-    if (kDebugMode) {
-      print('E-posta: $_email');
-    }
-    if (kDebugMode) {
-      print('LinkedIn Linki: $linkedinLink');
-    }
-    if (kDebugMode) {
-      print('GitHub Linki: $githubLink');
-    }
-    if (kDebugMode) {
-      print('Medium Linki: $mediumLink');
-    }
-    if (kDebugMode) {
-      print('Website Linki: $websiteLink');
-    }
-    if (kDebugMode) {
-      print('Sosyal Medya Linki: $socialMediaLink');
-    }
-    if (kDebugMode) {
-      print('Diğer Linkler:');
-    }
-    for (var link in otherLinks) {
-      if (kDebugMode) {
-        print('- Başlık: ${link['title']}, Link: ${link['link']}');
-      }
-    }
-    if (kDebugMode) {
-      print('Eğitim Bilgileri:');
-    }
-    for (var info in educationInfo) {
-      if (kDebugMode) {
-        print('- $info');
-      }
-    }
-    if (kDebugMode) {
-      print('Tecrübe ve Deneyimler:');
-    }
-    for (var info in experienceInfo) {
-      if (kDebugMode) {
-        print('- $info');
-      }
-    }
-    if (kDebugMode) {
-      print('Projeler:');
-    }
-    for (var info in projectInfo) {
-      if (kDebugMode) {
-        print('- $info');
-      }
-    }
-    if (kDebugMode) {
-      print('Yetenekler:');
-    }
-    for (var info in skillsInfo) {
-      if (kDebugMode) {
-        print('- $info');
-      }
-    }
-  }
-
   @override
   Widget build(BuildContext context) {
     final dateFormat = DateFormat('dd.MM.yyyy');
@@ -266,7 +218,7 @@ class _MeProfileAccountState extends State<MeProfileAccount> {
                     children: [
                       CircleAvatar(
                         radius: 60.0,
-                        backgroundColor: const Color(0xFFEF6C00), // Arka plan rengi
+                      backgroundColor: ColorConstants.theme2Orange, // Arka plan rengi
                         backgroundImage: profileImagePath.isNotEmpty
                             ? FileImage(File(profileImagePath))
                             : null,
@@ -288,21 +240,20 @@ class _MeProfileAccountState extends State<MeProfileAccount> {
                     children: [
                       const SizedBox(height: 16.0),
                       Text(
-                        "İsim: $_username",
+                        'İsim:${userDetail != null ? (" ${userDetail!.getName()!} ") : ""}',
+                        style: const TextStyle(
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                      const SizedBox(height: 8.0),
+                      Text('Soyisim:${userDetail != null ? (" ${userDetail!.getSurname()!} ") : ""}',
                         style: const TextStyle(
                           fontWeight: FontWeight.bold,
                         ),
                       ),
                       const SizedBox(height: 8.0),
                       Text(
-                        "Soyisim: $surname",
-                        style: const TextStyle(
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ),
-                      const SizedBox(height: 8.0),
-                      Text(
-                        "Kullanıcı ID: $userID",
+                        'Kullanıcı ID:${userDetail != null ? (" ${userDetail!.getUserId()!} ") : ""}',
                         style: const TextStyle(
                           fontWeight: FontWeight.bold,
                         ),
@@ -313,22 +264,24 @@ class _MeProfileAccountState extends State<MeProfileAccount> {
                 const SizedBox(height: 16.0),
                 TextFormField(
                   decoration: InputDecoration(
-                    labelText: 'Hakkımda',
+                    labelText: 'Hakkımda${userDetail != null ? (" ${userDetail!.getAbout()!} ") : ""}',
                     labelStyle: TextStyle(
-                      color: aboutMe.isNotEmpty ? const Color(0xFF07617C) : const Color(0xFFFF8800),
-                    ),
+                    color: (userDetail != null && userDetail!.getAbout()?.isNotEmpty == true) ? const Color(0xFF07617C) : const Color(0xFFFF8800),
+                  ),
                     border: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(8.0),
                     ),
                     focusedBorder: OutlineInputBorder(
-                      borderSide: BorderSide(color: aboutMe.isNotEmpty ? const Color(0xFFFF8800) : const Color(0xFF07617C),),
+                      borderSide: BorderSide(
+                        color: (userDetail != null && userDetail!.getAbout()?.isNotEmpty == true) ? const Color(0xFF07617C) : const Color(0xFFFF8800),
+                      ),
                       borderRadius: BorderRadius.circular(8.0),
                     ),
                   ),
                   cursorColor: const Color(0xFF07617C),
                   onChanged: (value) {
                     setState(() {
-                      aboutMe = value;
+                      userDetail?.setAbout(value);
                     });
                   },
                 ),
@@ -336,22 +289,24 @@ class _MeProfileAccountState extends State<MeProfileAccount> {
                 const SizedBox(height: 16.0),
                 TextFormField(
                   decoration: InputDecoration(
-                    labelText: 'isim',
+                    labelText: 'İsim${userDetail != null ? (" ${userDetail!.getName()!} ") : ""}',
                     labelStyle: TextStyle(
-                      color: _username.isNotEmpty ? const Color(0xFFFF8800) : const Color(0xFF07617C),
+                      color: (userDetail != null && userDetail!.getName()?.isNotEmpty == true) ? const Color(0xFF07617C) : const Color(0xFFFF8800),
                     ),
                     border: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(8.0),
                     ),
                     focusedBorder: OutlineInputBorder(
-                      borderSide: BorderSide(color: _username.isNotEmpty ? const Color(0xFF07617C) : const Color(0xFFFF8800),),
+                      borderSide: BorderSide(
+                        color: (userDetail != null && userDetail!.getName()?.isNotEmpty == true) ? const Color(0xFF07617C) : const Color(0xFFFF8800),
+                      ),
                       borderRadius: BorderRadius.circular(8.0),
                     ),
                   ),
                   cursorColor: const Color(0xFF07617C),
                   onChanged: (value) {
                     setState(() {
-                      _username = value;
+                      userDetail?.setName(value);
                     });
                   },
                   onEditingComplete: () {
@@ -361,51 +316,55 @@ class _MeProfileAccountState extends State<MeProfileAccount> {
                 const SizedBox(height: 16.0),
                 TextFormField(
                   decoration: InputDecoration(
-                    labelText: 'Soyisim',
+                    labelText: 'Soyisim${userDetail != null ? (" ${userDetail!.getSurname()!} ") : ""}',
                     labelStyle: TextStyle(
-                      color: surname.isNotEmpty ? const Color(0xFF07617C) : const Color(0xFFFF8800),
+                      color: (userDetail != null && userDetail!.getSurname()?.isNotEmpty == true) ? const Color(0xFF07617C) : const Color(0xFFFF8800),
                     ),
                     border: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(8.0),
                     ),
                     focusedBorder: OutlineInputBorder(
-                      borderSide: BorderSide(color: surname.isNotEmpty ? const Color(0xFFFF8800) : const Color(0xFF07617C),),
+                      borderSide: BorderSide(
+                        color: (userDetail != null && userDetail!.getSurname()?.isNotEmpty == true) ? const Color(0xFF07617C) : const Color(0xFFFF8800),
+                      ),
                       borderRadius: BorderRadius.circular(8.0),
                     ),
                   ),
                   cursorColor: const Color(0xFF07617C),
                   onChanged: (value) {
                     setState(() {
-                      surname = value;
+                      userDetail?.setSurname(value);
                     });
                   },
                 ),
                 const SizedBox(height: 16.0),
                 TextFormField(
                   decoration: InputDecoration(
-                    labelText: 'Kullanıcı ID',
+                    labelText: 'Kullanıcı ID${userDetail != null ? (" ${userDetail!.getUserId() ?? ''} ") : ""}',
                     labelStyle: TextStyle(
-                      color: userID.isNotEmpty ? const Color(0xFFFF8800) : const Color(0xFF07617C),
+                      color: (userDetail != null && userDetail!.getUserId()?.isNotEmpty == true) ? const Color(0xFFFF8800) : const Color(0xFF07617C),
                     ),
                     border: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(8.0),
                     ),
                     focusedBorder: OutlineInputBorder(
-                      borderSide: BorderSide(color: userID.isNotEmpty ? const Color(0xFF07617C) : const Color(0xFFFF8800),),
+                      borderSide: BorderSide(
+                        color: (userDetail != null && userDetail!.getUserId()?.isNotEmpty == true) ? const Color(0xFF07617C) : const Color(0xFFFF8800),
+                      ),
                       borderRadius: BorderRadius.circular(8.0),
                     ),
                   ),
                   cursorColor: const Color(0xFF07617C),
                   onChanged: (value) {
                     setState(() {
-                      userID = value;
+                      userDetail?.setUserId(value);
                     });
                   },
                 ),
                 const SizedBox(height: 16.0),
                 TextFormField(
                   decoration: InputDecoration(
-                    labelText: "Doğum Tarihi",
+                    labelText: 'Doğum Tarihi${userDetail != null ? (" ${userDetail!.getBirthday()!} ") : ""}',
                     labelStyle: const TextStyle(
                       color: Color(0xFFFF8800),
                     ),
@@ -426,20 +385,19 @@ class _MeProfileAccountState extends State<MeProfileAccount> {
                   decoration: InputDecoration(
                     labelText: 'E-posta',
                     labelStyle: TextStyle(
-                      color: _email.isNotEmpty ? const Color(0xFFFF8800) : const Color(0xFF07617C),
-                    ),
-                    border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(8.0),
+                      color: (userModel != null && userModel!.getEmail()?.isNotEmpty == true) ? const Color(0xFF07617C) : const Color(0xFFFF8800),
                     ),
                     focusedBorder: OutlineInputBorder(
-                      borderSide: BorderSide(color: _email.isNotEmpty ? const Color(0xFF07617C) : const Color(0xFFFF8800),),
-                      borderRadius: BorderRadius.circular(8.0),
+                      borderSide: BorderSide(
+                        color: (userModel != null && userModel!.getEmail()?.isNotEmpty == true) ? const Color(0xFF07617C) : const Color(0xFFFF8800),
+                      ),
+                        borderRadius: BorderRadius.circular(8.0),
                     ),
                   ),
                   cursorColor: const Color(0xFF07617C),
                   onChanged: (value) {
                     setState(() {
-                      _email = value;
+                      userModel?.setEmail(value);
                     });
                   },
                 ),

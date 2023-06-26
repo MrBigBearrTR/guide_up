@@ -1,3 +1,5 @@
+import 'dart:js_interop';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:guide_up/core/models/users/user_model.dart';
 
@@ -18,6 +20,16 @@ class UserRepository{
     if(query.docs.isNotEmpty){
 
       return UserModel().toClass(query.docs.first.data());
+    }
+    return null;
+  }
+  Future<UserModel?> getUserByUserId(String userId) async {
+
+    var query = await userCollections.doc(userId).get();
+
+    if(query.isDefinedAndNotNull && query.data()!=null){
+
+      return UserModel().toClass(query.data()!);
     }
     return null;
   }
