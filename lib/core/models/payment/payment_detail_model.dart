@@ -3,6 +3,7 @@ import 'package:guide_up/core/models/general/general_fields_model.dart';
 
 import '../../enumeration/extensions/ExPaymentType.dart';
 
+/// [@author MrBigBear] 
 class PaymentDetail extends GeneralFields {
   
   String? _id;

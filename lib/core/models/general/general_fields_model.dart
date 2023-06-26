@@ -1,5 +1,5 @@
+/// [@author MrBigBear]
 class GeneralFields {
-
   bool _isActive = true;
   DateTime? _createDate;
   String? _createUser;
@@ -46,35 +46,41 @@ class GeneralFields {
     _updateUser = updateUser;
   }
 
-  Map<String, dynamic> toGeneralMap(){
-    Map<String, dynamic> map={};
-    map['isActive']=isActive();
-    map['createDate']=getCreateDate();
-    map['createUser']=getCreateUser();
-    map['updateDate']=getUpdateDate();
-    map['updateUser']=getUpdateUser();
+  dbCheck(String userId) {
+    if (getCreateUser() != null) {
+      setUpdateUser(userId);
+      setUpdateDate(DateTime.now());
+    } else {
+      setCreateUser(userId);
+      setCreateDate(DateTime.now());
+    }
+  }
+
+  Map<String, dynamic> toGeneralMap() {
+    Map<String, dynamic> map = {};
+    map['isActive'] = isActive();
+    map['createDate'] = getCreateDate()!=null ? getCreateDate().toString() : getCreateDate();
+    map['createUser'] = getCreateUser();
+    map['updateDate'] = getUpdateDate()!=null ? getUpdateDate().toString() : getUpdateDate();
+    map['updateUser'] = getUpdateUser();
     return map;
   }
 
-  toGeneralClass(Map<String, dynamic> map){
-
-    if(map.containsKey('_isActive')) {
+  toGeneralClass(Map<String, dynamic> map) {
+    if (map.containsKey('_isActive')) {
       setActive(map['_isActive']);
     }
-    if(map.containsKey('createDate')) {
-      setCreateDate(map['createDate']);
+    if (map.containsKey('createDate') && map['createDate'] !=null) {
+      setCreateDate(DateTime.parse(map['createDate']));
     }
-    if(map.containsKey('createUser')) {
+    if (map.containsKey('createUser')) {
       setCreateUser(map['createUser']);
     }
-    if(map.containsKey('updateDate')) {
-      setUpdateDate(map['updateDate']);
+    if (map.containsKey('updateDate') && map['updateDate']!=null) {
+      setUpdateDate(DateTime.parse(map['updateDate']));
     }
-    if(map.containsKey('updateUser')) {
+    if (map.containsKey('updateUser')) {
       setUpdateUser(map['updateUser']);
     }
-
   }
-
-
 }

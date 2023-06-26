@@ -3,6 +3,7 @@ import 'package:guide_up/core/enumeration/extensions/ExLinkType.dart';
 import '../../../enumeration/enums/EnLinkType.dart';
 import '../../general/general_fields_model.dart';
 
+/// [@author MrBigBear] 
 class UserLinks extends GeneralFields {
   String? _id;
   String? _userId;

@@ -1,5 +1,6 @@
 import '../../general/general_fields_model.dart';
 
+/// [@author MrBigBear] 
 class UserProjectCategories extends GeneralFields {
   String? _id;
   String? _userId;

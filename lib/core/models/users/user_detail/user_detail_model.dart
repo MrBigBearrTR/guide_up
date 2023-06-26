@@ -1,5 +1,8 @@
+import 'dart:convert';
+
 import 'package:guide_up/core/models/general/general_fields_model.dart';
 
+/// [@author MrBigBear] 
 class UserDetail extends GeneralFields {
   String? _id;
   String? _userId;
@@ -80,7 +83,7 @@ class UserDetail extends GeneralFields {
     map['userId'] = getUserId();
     map['name'] = getName();
     map['surname'] = getSurname();
-    map['birthday'] = getBirthday();
+    map['birthday'] = getBirthday().toString();
     map['about'] = getAbout();
     map['photo'] = getPhoto();
     map['phone'] = getPhone();
@@ -103,7 +106,7 @@ class UserDetail extends GeneralFields {
       setSurname(map['surname']);
     }
     if (map.containsKey('birthday')) {
-      setBirthday(map['birthday']);
+      setBirthday(DateTime.parse(map['birthday']));
     }
     if (map.containsKey('about')) {
       setAbout(map['about']);
@@ -114,5 +117,12 @@ class UserDetail extends GeneralFields {
     if (map.containsKey('phone')) {
       setPhone(map['phone']);
     }
+  }
+
+  String toJson() => jsonEncode(toMap());
+
+  UserDetail fromJson(String json) {
+    toClass(jsonDecode(json));
+    return this;
   }
 }

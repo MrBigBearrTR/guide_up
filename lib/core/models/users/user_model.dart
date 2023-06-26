@@ -1,6 +1,7 @@
 import 'package:guide_up/core/models/general/general_fields_model.dart';
 
-class User extends GeneralFields {
+/// [@author MrBigBear] 
+class UserModel extends GeneralFields {
   String? _id;
   String? _username;
   String? _password;
@@ -75,5 +76,7 @@ class User extends GeneralFields {
     if (map.containsKey('isMentor')) {
       setMentor(map['isMentor']);
     }
+
+    return this;
   }
 }
