@@ -1,18 +1,16 @@
 import 'package:flutter/material.dart';
 import ' license_And_Certificate_Add.dart';
-import ' licenses_And_Certificates_Arrangement.dart' show LicensesAndCertificatesArrangementPage;
+import ' licenses_And_Certificates_Arrangement.dart';
 
 class LicensesAndCertificatesPage extends StatefulWidget {
-  const LicensesAndCertificatesPage({super.key});
+  const LicensesAndCertificatesPage({Key? key}) : super(key: key);
 
   @override
   // ignore: library_private_types_in_public_api
-  _LicensesAndCertificatesPageState createState() =>
-      _LicensesAndCertificatesPageState();
+  _LicensesAndCertificatesPageState createState() => _LicensesAndCertificatesPageState();
 }
 
-class _LicensesAndCertificatesPageState
-    extends State<LicensesAndCertificatesPage> {
+class _LicensesAndCertificatesPageState extends State<LicensesAndCertificatesPage> {
   List<String> licensesAndCertificatesList = []; // Sertifikalar ve lisanslar listesi
 
   @override
@@ -40,7 +38,49 @@ class _LicensesAndCertificatesPageState
           ),
         ],
       ),
-      body: ListView.builder(
+        body: licensesAndCertificatesList.isEmpty
+            ? Center(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Padding(
+                padding: const EdgeInsets.only(top: 0, left: 0),
+                child: Image.asset(
+                  'assets/img/GuideUpLogo.png',
+                  width: 200,
+                  height: 200,
+                ),
+              ),
+              GestureDetector(
+                onTap: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => LicenseAndCertificateAddPage(
+                      onAdd: (String url) {
+                        setState(() {
+                          licensesAndCertificatesList.add(url);
+                        });
+                      },
+                    ),),
+                  );
+                },
+                child: Container(
+                  padding: const EdgeInsets.only(left: 0),
+                  child: const Text(
+                    "Lisans veya Sertifika Ekleyin",
+                    style: TextStyle(
+                      fontSize: 16,
+                      color: Color(0xFF0E90EC),
+                    ),
+                  ),
+                ),
+              ),
+
+            ],
+          ),
+        )
+
+        : ListView.builder(
         itemCount: licensesAndCertificatesList.length,
         itemBuilder: (context, index) {
           final url = licensesAndCertificatesList[index];
@@ -56,20 +96,19 @@ class _LicensesAndCertificatesPageState
                     Navigator.push(
                       context,
                       MaterialPageRoute(
-                        builder: (context) =>
-                            LicensesAndCertificatesArrangementPage(
-                              url: url,
-                              onUpdate: (String updatedUrl) {
-                                setState(() {
-                                  licensesAndCertificatesList[index] = updatedUrl;
-                                });
-                              },
-                              onDelete: () {
-                                setState(() {
-                                  licensesAndCertificatesList.removeAt(index);
-                                });
-                              },
-                            ),
+                        builder: (context) => LicensesAndCertificatesArrangementPage(
+                          url: url,
+                          onUpdate: (String updatedUrl) {
+                            setState(() {
+                              licensesAndCertificatesList[index] = updatedUrl;
+                            });
+                          },
+                          onDelete: () {
+                            setState(() {
+                              licensesAndCertificatesList.removeAt(index);
+                            });
+                          },
+                        ),
                       ),
                     );
                   },

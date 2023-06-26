@@ -582,13 +582,13 @@ class _MeProfileAccountState extends State<MeProfileAccount> {
                       decoration: InputDecoration(
                         labelText: 'link',
                         labelStyle: const TextStyle(
-                          color: Color(0xFF07617C),
+                          color: Color(0xFFFF8800),
                         ),
                         border: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(8.0),
                         ),
                         focusedBorder: OutlineInputBorder(
-                          borderSide: const BorderSide(color: Color(0xFFFF8800),),
+                          borderSide: const BorderSide(color: Color(0xFF07617C),),
                           borderRadius: BorderRadius.circular(8.0),
                         ),
                       ),
@@ -675,13 +675,13 @@ class _MeProfileAccountState extends State<MeProfileAccount> {
                       decoration: InputDecoration(
                         labelText: 'bilgi',
                         labelStyle: const TextStyle(
-                          color: Color(0xFFFF8800),
+                          color: Color(0xFF07617C),
                         ),
                         border: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(8.0),
                         ),
                         focusedBorder: OutlineInputBorder(
-                          borderSide: const BorderSide(color: Color(0xFF07617C),),
+                          borderSide: const BorderSide(color: Color(0xFFFF8800),),
                           borderRadius: BorderRadius.circular(8.0),
                         ),
                       ),
@@ -708,13 +708,13 @@ class _MeProfileAccountState extends State<MeProfileAccount> {
                       decoration: InputDecoration(
                         labelText: 'bilgi',
                         labelStyle: const TextStyle(
-                          color: Color(0xFF07617C),
+                          color: Color(0xFFFF8800),
                         ),
                         border: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(8.0),
                         ),
                         focusedBorder: OutlineInputBorder(
-                          borderSide: const BorderSide(color: Color(0xFFFF8800),),
+                          borderSide: const BorderSide(color: Color(0xFF07617C),),
                           borderRadius: BorderRadius.circular(8.0),
                         ),
                       ),
@@ -741,13 +741,13 @@ class _MeProfileAccountState extends State<MeProfileAccount> {
                       decoration: InputDecoration(
                         labelText: 'bilgi',
                         labelStyle: const TextStyle(
-                          color: Color(0xFFFF8800),
+                          color: Color(0xFF07617C),
                         ),
                         border: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(8.0),
                         ),
                         focusedBorder: OutlineInputBorder(
-                          borderSide: const BorderSide(color: Color(0xFF07617C),),
+                          borderSide: const BorderSide(color: Color(0xFFFF8800),),
                           borderRadius: BorderRadius.circular(8.0),
                         ),
                       ),
@@ -774,13 +774,13 @@ class _MeProfileAccountState extends State<MeProfileAccount> {
                       decoration: InputDecoration(
                         labelText: 'bilgi',
                         labelStyle: const TextStyle(
-                          color: Color(0xFF07617C),
+                          color: Color(0xFFFF8800),
                         ),
                         border: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(8.0),
                         ),
                         focusedBorder: OutlineInputBorder(
-                          borderSide: const BorderSide(color: Color(0xFFFF8800),),
+                          borderSide: const BorderSide(color: Color(0xFF07617C),),
                           borderRadius: BorderRadius.circular(8.0),
                         ),
                       ),
