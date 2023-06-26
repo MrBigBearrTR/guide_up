@@ -26,6 +26,7 @@ class ColorConstants {
   static const Color theme2White = Color(0xFFEEEEEE);
   static const Color theme2Orange = Color(0xFFFE5722);
 
+  static const Color theme2DarkOpacity20 = Color(0x33212832);
   static const Color theme1CloudBlue = Color(0xFF98C2D0);
   static const Color theme1BrightCloudBlue = Color(0xFFDAE4EC);
   static const Color theme1PowderSkin = Color(0xFFF6E0CD);
