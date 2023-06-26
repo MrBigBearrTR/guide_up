@@ -4,6 +4,7 @@ import 'package:image_picker/image_picker.dart';
 import 'package:intl/intl.dart';
 import 'dart:io';
 import '../../core/constant/router_constants.dart';
+import '../../pages/profile/licenses_and_certificates/licenses_And_Certificates.dart';
 
 
 class MeProfileAccount extends StatefulWidget {
@@ -145,6 +146,7 @@ class _MeProfileAccountState extends State<MeProfileAccount> {
                 ),
               ),
             ),
+
           ],
         );
       },
@@ -788,7 +790,49 @@ class _MeProfileAccountState extends State<MeProfileAccount> {
                     ),
                   ],
                 ),
+                const SizedBox(height: 16.0),
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    const Text(
+                      "Lisanslar ve sertifikalar",
+                      style: TextStyle(
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                    const SizedBox(height: 8.0),
+                    Container(
+                      width: double.infinity,
+                      padding: const EdgeInsets.symmetric(vertical: 12.0),
+                      decoration: BoxDecoration(
+                        color: const Color(0xFF2C4059), // İstediğiniz renk
+                        borderRadius: BorderRadius.circular(8.0),
+                        border: Border.all(
+                          color: const Color(0xFFFE5722), // İstediğiniz kenar çizgisi rengi
+                          width: 2.0, // İstediğiniz kenar çizgisi kalınlığı
+                        ),
+                      ),
+                      child: TextButton(
+                        onPressed: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(builder: (context) => LicensesAndCertificatesPage()),
+                          );
+                        },
+                        child: const Text(
+                          'Lisans ve sertifika ekle  ',
+                          style: TextStyle(
+                            color: Color(0xFFFE5722),
+                          ),
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+
                 const SizedBox(height: 50.0),
+
+
               ],
             ),
             Positioned(
@@ -830,6 +874,7 @@ class _MeProfileAccountState extends State<MeProfileAccount> {
                 ),
               ),
             ),
+
 
           ],
         ),
