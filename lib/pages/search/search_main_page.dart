@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:guide_up/core/models/users/user_detail/user_detail_model.dart';
+import 'package:guide_up/core/utils/secure_storage_helper.dart';
 import 'package:guide_up/pages/search/search_side_page.dart';
 
 import '../../ui/material/custom_material.dart';
@@ -7,11 +9,20 @@ class SearchMainPage extends StatefulWidget {
   const SearchMainPage({Key? key}) : super(key: key);
 
   @override
-  State<SearchMainPage> createState() => _SearchMainPageState();
+  State<SearchMainPage> createState() {
+    return _SearchMainPageState();
+  }
 }
 
 class _SearchMainPageState extends State<SearchMainPage> {
   final TextEditingController _searchController = TextEditingController();
+  late UserDetail? detail;
+
+  @override
+  void initState() {
+    super.initState();
+    getDetail();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -59,5 +70,9 @@ class _SearchMainPageState extends State<SearchMainPage> {
         ),
       ),
     );
+  }
+
+  void getDetail() async {
+    detail = await SecureStorageHelper().getUserDetail();
   }
 }
