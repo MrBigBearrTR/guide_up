@@ -5,6 +5,8 @@ import 'package:intl/intl.dart';
 import 'dart:io';
 import '../../core/constant/router_constants.dart';
 import '../../pages/profile/licenses_and_certificates/licenses_And_Certificates.dart';
+import 'kayan_Appbar_Deneme.dart';
+
 
 
 class MeProfileAccount extends StatefulWidget {
@@ -243,7 +245,6 @@ class _MeProfileAccountState extends State<MeProfileAccount> {
       body: Padding(
         padding: const EdgeInsets.all(16.0),
         child: Stack(
-
           children: [
             ListView(
               children: [
@@ -253,6 +254,7 @@ class _MeProfileAccountState extends State<MeProfileAccount> {
                     style: TextStyle(
                       fontSize: 24.0,
                       fontWeight: FontWeight.bold,
+                      color: Color(0xFF2C394C),
                     ),
                   ),
                 ),
@@ -816,7 +818,7 @@ class _MeProfileAccountState extends State<MeProfileAccount> {
                         onPressed: () {
                           Navigator.push(
                             context,
-                            MaterialPageRoute(builder: (context) => LicensesAndCertificatesPage()),
+                            MaterialPageRoute(builder: (context) => const LicensesAndCertificatesPage()),
                           );
                         },
                         child: const Text(
@@ -864,8 +866,7 @@ class _MeProfileAccountState extends State<MeProfileAccount> {
                 ),
                 child: InkWell(
                   onTap: () {
-                    Navigator.pushNamed(
-                        context, RouterConstants.profilePage);
+                    Navigator.pushNamed(context, RouterConstants.profilePage);
                   },
                   child: const Icon(
                     Icons.arrow_back_rounded,
@@ -874,8 +875,48 @@ class _MeProfileAccountState extends State<MeProfileAccount> {
                 ),
               ),
             ),
-
-
+            Positioned(
+              top: 150,
+              left: 0,
+              child: Container(
+                width: 55,
+                height: 55,
+                decoration: BoxDecoration(
+                  shape: BoxShape.circle,
+                  color: Color(0xFFF80000),
+                ),
+                child: InkWell(
+                  onTap: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => KayanAppbarDenemePage(),
+                      ),
+                    );},
+                  child: Icon(
+                    Icons.ad_units,
+                    color: Color(0xFFFFFFFF),
+                  ),
+                ),
+              ),
+            ),
+            Stack(
+              children: [
+                Positioned(
+                  top: 7,
+                  right: -15,
+                  child: Container(
+                    alignment: Alignment.center,
+                    child: Image.asset(
+                      'assets/img/GuideUpLogo.png',
+                      width: 75,
+                      height: 75,
+                      fit: BoxFit.cover,
+                    ),
+                  ),
+                ),
+              ],
+            ),
           ],
         ),
       ),
