@@ -36,4 +36,21 @@ class ColorConstants {
     theme1White,
     theme2White,
   ];
+
+  static Color calculateSlideItemColor(int headerCount) {
+
+    switch(headerCount){
+      case 0:
+        return ColorConstants.theme1White;
+      case 1:
+        return ColorConstants.theme1BrightCloudBlue;
+      case 2:
+        return ColorConstants.theme1CloudBlue;
+      case 3:
+        return ColorConstants.theme1PowderSkin;
+      default:
+        return ColorConstants.theme1White;
+    }
+
+  }
 }
