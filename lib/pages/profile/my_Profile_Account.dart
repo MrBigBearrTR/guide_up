@@ -881,7 +881,7 @@ class _MeProfileAccountState extends State<MeProfileAccount> {
               child: Container(
                 width: 55,
                 height: 55,
-                decoration: BoxDecoration(
+                decoration: const BoxDecoration(
                   shape: BoxShape.circle,
                   color: Color(0xFFF80000),
                 ),
@@ -890,10 +890,10 @@ class _MeProfileAccountState extends State<MeProfileAccount> {
                     Navigator.push(
                       context,
                       MaterialPageRoute(
-                        builder: (context) => KayanAppbarDenemePage(),
+                        builder: (context) => const KayanAppbarDenemePage(),
                       ),
                     );},
-                  child: Icon(
+                  child: const Icon(
                     Icons.ad_units,
                     color: Color(0xFFFFFFFF),
                   ),

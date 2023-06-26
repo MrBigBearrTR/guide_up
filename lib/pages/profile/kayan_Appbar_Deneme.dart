@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 
 void main() {
-  runApp(KayanAppbarDenemePage());
+  runApp(const KayanAppbarDenemePage());
 }
 class KayanAppbarDenemePage extends StatelessWidget {
+  const KayanAppbarDenemePage({super.key});
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -11,12 +13,14 @@ class KayanAppbarDenemePage extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: KayanAppbarDenemedartPage(),
+      home: const KayanAppbarDenemedartPage(),
     );
   }
 }
 class KayanAppbarDenemedartPage extends StatelessWidget {
   final double appBarHeight = 56.0;
+
+  const KayanAppbarDenemedartPage({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -24,7 +28,7 @@ class KayanAppbarDenemedartPage extends StatelessWidget {
       body: CustomScrollView(
         slivers: <Widget>[
           SliverAppBar(
-            title: Text('Scrollable App Bar'),
+            title: const Text('Scrollable App Bar'),
             floating: true,
             pinned: false, // AppBar kaybolacak
             snap: true,
