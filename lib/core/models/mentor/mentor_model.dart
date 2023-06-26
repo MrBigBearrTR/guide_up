@@ -4,6 +4,9 @@ import 'package:guide_up/core/models/general/general_fields_model.dart';
 class Mentor extends GeneralFields {
   String? _id;
   String? _userId;
+  String? _name;
+  String? _lastname;
+  String? _photo;
   int? _rate;
 
   String? getId() {
@@ -22,6 +25,30 @@ class Mentor extends GeneralFields {
     _userId = userId;
   }
 
+  String? getName() {
+    return _name;
+  }
+
+  void setName(String name) {
+    _name = name;
+  }
+
+  String? getLastname() {
+    return _lastname;
+  }
+
+  void setLastname(String lastname) {
+    _lastname = lastname;
+  }
+
+  String? getPhoto() {
+    return _photo;
+  }
+
+  void setPhoto(String photo) {
+    _photo = photo;
+  }
+
   int? getRate() {
     return _rate;
   }
@@ -34,6 +61,9 @@ class Mentor extends GeneralFields {
     Map<String, dynamic> map = toGeneralMap();
     map['id'] = getId();
     map['userid'] = getUserId();
+    map['name'] = getName();
+    map['lastname'] = getLastname();
+    map['photo'] = getPhoto();
     map['rate'] = getRate();
     return map;
   }
@@ -46,6 +76,15 @@ class Mentor extends GeneralFields {
     }
     if (map.containsKey('userid')) {
       setUserId(map['userid']);
+    }
+    if (map.containsKey('name')) {
+      setName(map['name']);
+    }
+    if (map.containsKey('lastname')) {
+      setLastname(map['lastname']);
+    }
+    if (map.containsKey('photo')) {
+      setPhoto(map['photo']);
     }
     if (map.containsKey('rate')) {
       setRate(map['rate']);
