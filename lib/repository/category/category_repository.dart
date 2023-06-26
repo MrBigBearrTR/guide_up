@@ -36,6 +36,16 @@ class CategoryRepository {
     return categoryList;
   }
 
+  Future<List<Category>> getList() async {
+    List<Category> categoryList = [];
+
+    var query = await categoryCollections.get();
+
+    categoryList = convertResponseObjectToList(query.docs.iterator);
+
+    return categoryList;
+  }
+
   Future<Category> add(Category category) async {
     String? userId = await SecureStorageHelper().getUserId();
     if (userId != null) {

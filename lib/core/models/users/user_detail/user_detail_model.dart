@@ -90,7 +90,7 @@ class UserDetail extends GeneralFields {
     return map;
   }
 
-  toClass(Map<String, dynamic> map) {
+  UserDetail toClass(Map<String, dynamic> map) {
     toGeneralClass(map);
 
     if (map.containsKey('id')) {
@@ -117,6 +117,7 @@ class UserDetail extends GeneralFields {
     if (map.containsKey('phone')) {
       setPhone(map['phone']);
     }
+    return this;
   }
 
   String toJson() => jsonEncode(toMap());
