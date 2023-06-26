@@ -30,8 +30,7 @@ class UserDetailRepository {
 
     if(userQuery.docs.isNotEmpty) {
 
-      var detailQuery = await _userDetailCollections.where("userId", isEqualTo: userQuery.docs.first.id)
-          .get();
+      var detailQuery = await _userDetailCollections.where("userId", isEqualTo: userQuery.docs.first.id).get();
 
       if (detailQuery.docs.isNotEmpty) {
         return UserDetail().toClass(detailQuery.docs.first.data());
