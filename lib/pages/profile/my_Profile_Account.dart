@@ -13,17 +13,15 @@ import '../../repository/user/user_detail/user_links_repository.dart';
 import '../../repository/user/user_repository.dart';
 import 'kayan_Appbar_Deneme.dart';
 
-
-
 class MeProfileAccount extends StatefulWidget {
   const MeProfileAccount({Key? key}) : super(key: key);
+
   @override
-  // ignore: library_private_types_in_public_api
-  _MeProfileAccountState createState() => _MeProfileAccountState();
+  State<MeProfileAccount> createState() => _MeProfileAccountState();
 }
 
-
 class _MeProfileAccountState extends State<MeProfileAccount> {
+
   UserDetail? userDetail;
   UserModel? userModel;
   List<UserLinks> userLinks =[];

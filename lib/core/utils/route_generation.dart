@@ -7,6 +7,7 @@ import '../../pages/login/auth_page.dart';
 import '../../pages/login/login_page.dart';
 import '../../pages/other/error_page.dart';
 import '../../pages/other/test_data_conrol_page.dart';
+import '../../pages/profile/general_settings.dart';
 import '../../pages/profile/profile_main.dart';
 import '../../pages/register_page/register_page.dart';
 import '../../pages/splash_screen/splash_screen.dart';
@@ -52,6 +53,8 @@ class RouteGenerator {
         return _createRoute(const RegisterPage(), settings);
       case RouterConstants.myProfileAccountPage:
         return _createRoute(const MeProfileAccount(), settings);
+      case RouterConstants.generalSettingsPage:
+        return _createRoute(const GeneralSettings(), settings);
       default:
         return _createRoute(const ErrorPage(), settings);
     }
