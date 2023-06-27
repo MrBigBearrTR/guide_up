@@ -28,8 +28,6 @@ class _MeProfileAccountState extends State<MeProfileAccount> {
   UserModel? userModel;
   List<UserLinks> userLinks =[];
    String profileImagePath = "";
-  // String aboutMe = "";
-  // String userID = "";
    DateTime selectedDate = DateTime.now();
   // String _email = "";
   // String linkedinLink = "";
@@ -42,12 +40,6 @@ class _MeProfileAccountState extends State<MeProfileAccount> {
   List<String> experienceInfo = [];
   List<String> projectInfo = [];
   List<String> skillsInfo = [];
-  // void initState() {
-  //   super.initState();
-  //   _userModel = User();
-  //   _userDetailModel = UserDetail();
-  //   _userLinks = UserLinks();
-  // }
   @override
   void initState() {
     super.initState();
@@ -64,7 +56,7 @@ class _MeProfileAccountState extends State<MeProfileAccount> {
       if (model == null) {
         userModel = null;
       } else {
-        List<UserLinks> links = await UserLinksRepository().getUserByUserLink(detail.getUserId()!);
+        List<UserLinks> links = await UserLinksRepository().getUserLinksByUserId(detail.getUserId()!);
         setState(() {
           userLinks = links;
           userModel = model;
@@ -75,10 +67,9 @@ class _MeProfileAccountState extends State<MeProfileAccount> {
 
 
 
-  Future pickProfileImage() async {
+  Future<void> pickProfileImage() async {
     final imagePicker = ImagePicker();
-    // ignore: deprecated_member_use
-    final pickedImage = await imagePicker.getImage(source: ImageSource.gallery);
+    final pickedImage = await imagePicker.pickImage(source: ImageSource.gallery);
     setState(() {
       if (pickedImage != null) {
         profileImagePath = pickedImage.path;
@@ -289,8 +280,7 @@ class _MeProfileAccountState extends State<MeProfileAccount> {
                 const SizedBox(height: 16.0),
                 TextFormField(
                   decoration: InputDecoration(
-                    labelText: 'İsim${userDetail != null ? (" ${userDetail!.getName()!} ") : ""}',
-                    labelStyle: TextStyle(
+                    labelText: (userDetail != null && userDetail!.getName()?.isNotEmpty == true) ? '' : 'İsim',                    labelStyle: TextStyle(
                       color: (userDetail != null && userDetail!.getName()?.isNotEmpty == true) ? const Color(0xFF07617C) : const Color(0xFFFF8800),
                     ),
                     border: OutlineInputBorder(
@@ -316,7 +306,7 @@ class _MeProfileAccountState extends State<MeProfileAccount> {
                 const SizedBox(height: 16.0),
                 TextFormField(
                   decoration: InputDecoration(
-                    labelText: 'Soyisim${userDetail != null ? (" ${userDetail!.getSurname()!} ") : ""}',
+                    labelText: (userDetail != null && userDetail!.getSurname()?.isNotEmpty == true) ? '' : 'Soyisim',
                     labelStyle: TextStyle(
                       color: (userDetail != null && userDetail!.getSurname()?.isNotEmpty == true) ? const Color(0xFF07617C) : const Color(0xFFFF8800),
                     ),
@@ -340,7 +330,7 @@ class _MeProfileAccountState extends State<MeProfileAccount> {
                 const SizedBox(height: 16.0),
                 TextFormField(
                   decoration: InputDecoration(
-                    labelText: 'Kullanıcı ID${userDetail != null ? (" ${userDetail!.getUserId() ?? ''} ") : ""}',
+                    labelText: (userDetail != null && userDetail!.getUserId()?.isNotEmpty == true) ? '' : 'Kullanıcı ID',
                     labelStyle: TextStyle(
                       color: (userDetail != null && userDetail!.getUserId()?.isNotEmpty == true) ? const Color(0xFFFF8800) : const Color(0xFF07617C),
                     ),
@@ -364,7 +354,9 @@ class _MeProfileAccountState extends State<MeProfileAccount> {
                 const SizedBox(height: 16.0),
                 TextFormField(
                   decoration: InputDecoration(
-                    labelText: 'Doğum Tarihi${userDetail != null ? (" ${userDetail!.getBirthday()!} ") : ""}',
+                    labelText: (userDetail != null && userDetail!.getBirthday() != null)
+                        ? 'Doğum Tarihi ${userDetail!.getBirthday()}'
+                        : 'Doğum Tarihi',
                     labelStyle: const TextStyle(
                       color: Color(0xFFFF8800),
                     ),
@@ -377,13 +369,14 @@ class _MeProfileAccountState extends State<MeProfileAccount> {
                   ),
                   readOnly: true,
                   controller: TextEditingController(
-                    text: dateFormat.format(selectedDate),
+                    // ignore: unnecessary_null_comparison
+                    text: selectedDate != null ? dateFormat.format(selectedDate) : '',
                   ),
                 ),
                 const SizedBox(height: 16.0),
                 TextFormField(
                   decoration: InputDecoration(
-                    labelText: 'E-posta',
+                    labelText: (userModel != null && userModel!.getEmail()?.isNotEmpty == true) ? '' : 'E-posta',
                     labelStyle: TextStyle(
                       color: (userModel != null && userModel!.getEmail()?.isNotEmpty == true) ? const Color(0xFF07617C) : const Color(0xFFFF8800),
                     ),

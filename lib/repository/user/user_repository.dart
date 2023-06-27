@@ -1,5 +1,3 @@
-import 'dart:js_interop';
-
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:guide_up/core/models/users/user_model.dart';
 
@@ -27,7 +25,7 @@ class UserRepository{
 
     var query = await userCollections.doc(userId).get();
 
-    if(query.isDefinedAndNotNull && query.data()!=null){
+    if(query.data()!=null){
 
       return UserModel().toClass(query.data()!);
     }

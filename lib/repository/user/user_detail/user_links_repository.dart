@@ -7,7 +7,7 @@ class UserLinksRepository {
     userlinksCollections = FirebaseFirestore.instance
         .collection(FirestoreCollectionConstant.userLinks);
   }
-  Future<List<UserLinks>> getUserByUserLink(String userId) async {
+  Future<List<UserLinks>> getUserLinksByUserId(String userId) async {
     List<UserLinks> userLinksList = [];
 
     var query = await userlinksCollections.where(
