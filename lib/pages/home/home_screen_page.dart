@@ -34,7 +34,6 @@ class _HomeScreenState extends State<HomeScreen> {
   void initState() {
     super.initState();
     getUserDetail();
-    UserHelper().getUserDetail();
   }
 
   void getUserDetail() async {

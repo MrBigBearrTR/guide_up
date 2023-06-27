@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:guide_up/core/models/users/user_detail/user_detail_model.dart';
 import 'package:guide_up/pages/search/category/category_card.dart';
+import 'package:guide_up/pages/search/category/list_size_control.dart';
 import 'package:guide_up/repository/category/category_repository.dart';
 import 'package:guide_up/ui/material/custom_material.dart';
 
@@ -52,7 +53,9 @@ class _SearchSidePageState extends State<SearchSidePage> {
                     return ListView.builder(
                       itemBuilder: (context, index) {
                         final category = categorySnap.data![index];
-                        return CategoryCard(headerCount: 0, category: category);
+                        ListSizeControl listSizeControl=ListSizeControl();
+                        listSizeControl.setListSize(categorySnap.data!.length);
+                        return CategoryCard(headerCount: 0, category: category,mainListSizeControl: listSizeControl,);
                       },
                       itemCount: categorySnap.data!.length,
                       padding: const EdgeInsets.all(0),
