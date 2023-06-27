@@ -49,19 +49,29 @@ class _SearchSidePageState extends State<SearchSidePage> {
             Expanded(
               child: FutureBuilder(
                 builder: (context, categorySnap) {
-                  if (categorySnap.hasData) {
+                  if (categorySnap.connectionState == ConnectionState.waiting) {
+                    return const Center(
+                      child: CircularProgressIndicator(),
+                    );
+                  } else if (categorySnap.hasError) {
+                    return const Center(
+                      child: Text('Veriler alınırken bir hata oluştu.'),
+                    );
+                  } else {
                     return ListView.builder(
                       itemBuilder: (context, index) {
                         final category = categorySnap.data![index];
-                        ListSizeControl listSizeControl=ListSizeControl();
+                        ListSizeControl listSizeControl = ListSizeControl();
                         listSizeControl.setListSize(categorySnap.data!.length);
-                        return CategoryCard(headerCount: 0, category: category,mainListSizeControl: listSizeControl,);
+                        return CategoryCard(
+                          headerCount: 0,
+                          category: category,
+                          mainListSizeControl: listSizeControl,
+                        );
                       },
                       itemCount: categorySnap.data!.length,
                       padding: const EdgeInsets.all(0),
                     );
-                  } else {
-                    return const Text("Veri Yok");
                   }
                 },
                 future: CategoryRepository().getMainCategoryList(),
