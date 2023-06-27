@@ -1,3 +1,4 @@
+import 'package:curved_navigation_bar/curved_navigation_bar.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:guide_up/core/constant/router_constants.dart';
@@ -8,7 +9,7 @@ import '../../core/utils/user_helper.dart';
 import '../../ui/material/custom_material.dart';
 
 final List<String> imgList = [
-  'https://images1.welcomesoftware.com/Zz0xYWZiMThkNjI1NDYxMWVkODJkZjdhNjM2MmRjMGQ2OA==?width=800&q=80',
+   'https://images1.welcomesoftware.com/Zz0xYWZiMThkNjI1NDYxMWVkODJkZjdhNjM2MmRjMGQ2OA==?width=800&q=80',
   'https://images1.welcomesoftware.com/Zz0xYWZiMThkNjI1NDYxMWVkODJkZjdhNjM2MmRjMGQ2OA==?width=800&q=80',
   'https://images1.welcomesoftware.com/Zz0xYWZiMThkNjI1NDYxMWVkODJkZjdhNjM2MmRjMGQ2OA==?width=800&q=80',
 ];
@@ -153,150 +154,369 @@ class _HomeScreenBodyState extends State<HomeScreenBody> {
                   )
                 ],
               ),
-              Row(
-                children: [
-                  Container(
-                    margin: EdgeInsets.fromLTRB(30, 10, 0, 0),
-                    color: Color.fromARGB(221, 241, 238, 238),
-                    child: const Column(
+              Container(
+                height: 200,
+                child: ListView(
+                  scrollDirection: Axis.horizontal,
+                  shrinkWrap: true,
+                  children: <Widget>[
+                    Row(
                       children: [
-                        CircleAvatar(
-                          backgroundImage: NetworkImage(
-                              'https://media.licdn.com/dms/image/D4D03AQEIKjOOeI3xjQ/profile-displayphoto-shrink_800_800/0/1679749604159?e=2147483647&v=beta&t=S_nH42SUC7g-mMjInbFLzwODI4XC34UTFJq-g_PUtUs'),
-                          radius: 35,
-                        ),
-                        Text(
-                          'Atıl Samancıoğlu',
-                          style: TextStyle(fontWeight: FontWeight.bold),
-                        ),
-                        Row(
-                          children: [
-                            Icon(
-                              Icons.star,
-                              color: Colors.amber,
-                              size: 17,
-                            ),
-                            Icon(
-                              Icons.star,
-                              color: Colors.amber,
-                              size: 17,
-                            ),
-                            Icon(
-                              Icons.star,
-                              color: Colors.amber,
-                              size: 17,
-                            ),
-                            Icon(
-                              Icons.star,
-                              color: Colors.amber,
-                              size: 17,
-                            ),
-                            Icon(
-                              Icons.star,
-                              color: Colors.amber,
-                              size: 17,
-                            ),
-                          ],
-                        ),
-                        Card(
-                          child: Padding(
-                            padding: EdgeInsets.all(4.0),
-                            child: Text(
-                              'Mobil Uygulama',
-                              style: TextStyle(
-                                fontSize: 15,
-                              ),
-                            ),
+                        //1.
+                        Container(
+                          decoration: BoxDecoration(
+                            color: Colors.white,
+                            borderRadius: BorderRadius.only(
+                                topLeft: Radius.circular(10),
+                                topRight: Radius.circular(10),
+                                bottomLeft: Radius.circular(10),
+                                bottomRight: Radius.circular(10)),
+                            boxShadow: [
+                              BoxShadow(
+                                color: Colors.grey.withOpacity(0.5),
+                                //spreadRadius: 5,
+                                blurRadius: 7,
+                                offset: Offset(0, 3),
+                              )
+                            ],
                           ),
-                          color: Colors.green,
-                        ),
-                        Card(
-                          child: Padding(
-                            padding: EdgeInsets.all(4.0),
-                            child: Text(
-                              'Bilişim Teknolojileri',
-                              style: TextStyle(
-                                fontSize: 15,
+                          width: 150,
+                          margin: EdgeInsets.fromLTRB(30, 10, 0, 0),
+                          //color: Color.fromARGB(221, 241, 238, 238),
+                          child: const Column(
+                            children: [
+                              CircleAvatar(
+                                backgroundImage: NetworkImage(
+                                    'https://media.licdn.com/dms/image/D4D03AQEIKjOOeI3xjQ/profile-displayphoto-shrink_800_800/0/1679749604159?e=2147483647&v=beta&t=S_nH42SUC7g-mMjInbFLzwODI4XC34UTFJq-g_PUtUs'),
+                                radius: 35,
                               ),
-                            ),
+                              Text(
+                                'Atıl Samancıoğlu',
+                                style: TextStyle(fontWeight: FontWeight.bold),
+                              ),
+                              Row(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  Icon(
+                                    Icons.star,
+                                    color: Colors.amber,
+                                    size: 17,
+                                  ),
+                                  Icon(
+                                    Icons.star,
+                                    color: Colors.amber,
+                                    size: 17,
+                                  ),
+                                  Icon(
+                                    Icons.star,
+                                    color: Colors.amber,
+                                    size: 17,
+                                  ),
+                                  Icon(
+                                    Icons.star,
+                                    color: Colors.amber,
+                                    size: 17,
+                                  ),
+                                  Icon(
+                                    Icons.star,
+                                    color: Colors.amber,
+                                    size: 17,
+                                  ),
+                                ],
+                              ),
+                              Card(
+                                child: Padding(
+                                  padding: EdgeInsets.all(4.0),
+                                  child: Text(
+                                    'Mobil Uygulama',
+                                    style: TextStyle(
+                                      fontSize: 15,
+                                    ),
+                                  ),
+                                ),
+                                color: Colors.green,
+                              ),
+                              Card(
+                                child: Padding(
+                                  padding: EdgeInsets.all(4.0),
+                                  child: Text(
+                                    'Bilişim Teknolojileri',
+                                    style: TextStyle(
+                                      fontSize: 15,
+                                    ),
+                                  ),
+                                ),
+                                color: Colors.blue,
+                              ),
+                            ],
                           ),
-                          color: Colors.blue,
+                        ),
+                        //2.
+                        Container(
+                          decoration: BoxDecoration(
+                            color: Colors.white,
+                            borderRadius: BorderRadius.only(
+                                topLeft: Radius.circular(10),
+                                topRight: Radius.circular(10),
+                                bottomLeft: Radius.circular(10),
+                                bottomRight: Radius.circular(10)),
+                            boxShadow: [
+                              BoxShadow(
+                                color: Colors.grey.withOpacity(0.5),
+                                //spreadRadius: 5,
+                                blurRadius: 7,
+                                offset: Offset(0, 3),
+                              )
+                            ],
+                          ),
+                          width: 150,
+                          margin: EdgeInsets.fromLTRB(30, 10, 0, 0),
+                          child: Column(
+                            children: [
+                              CircleAvatar(
+                                backgroundImage: NetworkImage(
+                                    'https://media.licdn.com/dms/image/C5603AQHtIwcnE07XNA/profile-displayphoto-shrink_800_800/0/1549900900418?e=2147483647&v=beta&t=l6X_3t9Gq5ypAfS-cNMAjEYLj656v-xSefoBCdGKlas'),
+                                radius: 35,
+                              ),
+                              Text(
+                                'Sercan Yusuf',
+                                style: TextStyle(fontWeight: FontWeight.bold),
+                              ),
+                              const Row(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  Icon(
+                                    Icons.star,
+                                    color: Colors.amber,
+                                    size: 17,
+                                  ),
+                                  Icon(
+                                    Icons.star,
+                                    color: Colors.amber,
+                                    size: 17,
+                                  ),
+                                  Icon(
+                                    Icons.star,
+                                    color: Colors.amber,
+                                    size: 17,
+                                  ),
+                                  Icon(
+                                    Icons.star,
+                                    color: Colors.amber,
+                                    size: 17,
+                                  ),
+                                  Icon(
+                                    Icons.star,
+                                    color: Colors.grey,
+                                    size: 17,
+                                  ),
+                                ],
+                              ),
+                              Card(
+                                child: Padding(
+                                  padding: EdgeInsets.all(4.0),
+                                  child: Text(
+                                    'Mobil Uygulama',
+                                    style: TextStyle(
+                                      fontSize: 15,
+                                    ),
+                                  ),
+                                ),
+                                color: Colors.green,
+                              ),
+                              Card(
+                                child: Padding(
+                                  padding: EdgeInsets.all(4.0),
+                                  child: Text(
+                                    'Front-End',
+                                    style: TextStyle(
+                                      fontSize: 15,
+                                    ),
+                                  ),
+                                ),
+                                color: Colors.red[500],
+                              ),
+                            ],
+                          ),
+                        ),
+                        //3.
+                        Container(
+                          decoration: BoxDecoration(
+                            color: Colors.white,
+                            borderRadius: BorderRadius.only(
+                                topLeft: Radius.circular(10),
+                                topRight: Radius.circular(10),
+                                bottomLeft: Radius.circular(10),
+                                bottomRight: Radius.circular(10)),
+                            boxShadow: [
+                              BoxShadow(
+                                color: Colors.grey.withOpacity(0.5),
+                                //spreadRadius: 5,
+                                blurRadius: 7,
+                                offset: Offset(0, 3),
+                              )
+                            ],
+                          ),
+                          width: 150,
+                          margin: const EdgeInsets.fromLTRB(30, 10, 0, 0),
+                          child: const Column(
+                            children: [
+                              CircleAvatar(
+                                backgroundImage: NetworkImage(
+                                    'https://media.licdn.com/dms/image/D4D03AQGfyly8QDDeLQ/profile-displayphoto-shrink_400_400/0/1684776604407?e=1692835200&v=beta&t=7UFOdQ4QniJcPsjWf0G_EpRD6MVwwteiqWl_nr2lVc4'),
+                                radius: 35,
+                              ),
+                              Text(
+                                'Tolgay Hıçkıran',
+                                style: TextStyle(fontWeight: FontWeight.bold),
+                              ),
+                              Row(
+                                children: [
+                                  Icon(
+                                    Icons.star,
+                                    color: Colors.amber,
+                                    size: 17,
+                                  ),
+                                  Icon(
+                                    Icons.star,
+                                    color: Colors.amber,
+                                    size: 17,
+                                  ),
+                                  Icon(
+                                    Icons.star,
+                                    color: Colors.amber,
+                                    size: 17,
+                                  ),
+                                  Icon(
+                                    Icons.star,
+                                    color: Colors.amber,
+                                    size: 17,
+                                  ),
+                                  Icon(
+                                    Icons.star,
+                                    color: Colors.amber,
+                                    size: 17,
+                                  ),
+                                ],
+                              ),
+                              Card(
+                                child: Padding(
+                                  padding: EdgeInsets.all(4.0),
+                                  child: Text(
+                                    'Unity',
+                                    style: TextStyle(
+                                      fontSize: 15,
+                                    ),
+                                  ),
+                                ),
+                                color: Colors.green,
+                              ),
+                              Card(
+                                child: Padding(
+                                  padding: EdgeInsets.all(4.0),
+                                  child: Text(
+                                    'Yaşam Koçluğu',
+                                    style: TextStyle(
+                                      fontSize: 15,
+                                    ),
+                                  ),
+                                ),
+                                color: Colors.blue,
+                              ),
+                            ],
+                          ),
+                        ),
+                        //4.
+                        Container(
+                          decoration: BoxDecoration(
+                            color: Colors.white,
+                            borderRadius: BorderRadius.only(
+                                topLeft: Radius.circular(10),
+                                topRight: Radius.circular(10),
+                                bottomLeft: Radius.circular(10),
+                                bottomRight: Radius.circular(10)),
+                            boxShadow: [
+                              BoxShadow(
+                                color: Colors.grey.withOpacity(0.5),
+                                //spreadRadius: 5,
+                                blurRadius: 7,
+                                offset: Offset(0, 3),
+                              )
+                            ],
+                          ),
+                          width: 150,
+                          margin: EdgeInsets.fromLTRB(30, 10, 0, 0),
+                          child: const Column(
+                            children: [
+                              CircleAvatar(
+                                backgroundImage: NetworkImage(
+                                    'https://i0.wp.com/molekulerbiyolojivegenetik.org/wp-content/uploads/2017/03/CD_potre2-1.jpg?fit=406%2C471'),
+                                radius: 35,
+                              ),
+                              Text(
+                                'Canan Dağdeviren',
+                                style: TextStyle(fontWeight: FontWeight.bold),
+                              ),
+                              Row(
+                                children: [
+                                  Icon(
+                                    Icons.star,
+                                    color: Colors.amber,
+                                    size: 17,
+                                  ),
+                                  Icon(
+                                    Icons.star,
+                                    color: Colors.amber,
+                                    size: 17,
+                                  ),
+                                  Icon(
+                                    Icons.star,
+                                    color: Colors.amber,
+                                    size: 17,
+                                  ),
+                                  Icon(
+                                    Icons.star,
+                                    color: Colors.amber,
+                                    size: 17,
+                                  ),
+                                  Icon(
+                                    Icons.star,
+                                    color: Colors.amber,
+                                    size: 17,
+                                  ),
+                                ],
+                              ),
+                              Card(
+                                child: Padding(
+                                  padding: EdgeInsets.all(4.0),
+                                  child: Text(
+                                    'Fizik Mühendisliği',
+                                    style: TextStyle(
+                                      fontSize: 15,
+                                    ),
+                                  ),
+                                ),
+                                color: Colors.green,
+                              ),
+                              Card(
+                                child: Padding(
+                                  padding: EdgeInsets.all(4.0),
+                                  child: Text(
+                                    'Malzeme Bilimi',
+                                    style: TextStyle(
+                                      fontSize: 15,
+                                    ),
+                                  ),
+                                ),
+                                color: Colors.blue,
+                              ),
+                            ],
+                          ),
                         ),
                       ],
                     ),
-                  ),
-                  //2.
-                  Container(
-                    margin: EdgeInsets.fromLTRB(30, 10, 0, 0),
-                    color: Color.fromARGB(221, 241, 238, 238),
-                    child: Column(
-                      children: [
-                        CircleAvatar(
-                          backgroundImage: NetworkImage(
-                              'https://media.licdn.com/dms/image/C5603AQHtIwcnE07XNA/profile-displayphoto-shrink_800_800/0/1549900900418?e=2147483647&v=beta&t=l6X_3t9Gq5ypAfS-cNMAjEYLj656v-xSefoBCdGKlas'),
-                          radius: 35,
-                        ),
-                        Text(
-                          'Sercan Yusuf',
-                          style: TextStyle(fontWeight: FontWeight.bold),
-                        ),
-                        Row(
-                          children: [
-                            Icon(
-                              Icons.star,
-                              color: Colors.amber,
-                              size: 17,
-                            ),
-                            Icon(
-                              Icons.star,
-                              color: Colors.amber,
-                              size: 17,
-                            ),
-                            Icon(
-                              Icons.star,
-                              color: Colors.amber,
-                              size: 17,
-                            ),
-                            Icon(
-                              Icons.star,
-                              color: Colors.amber,
-                              size: 17,
-                            ),
-                            Icon(
-                              Icons.star,
-                              color: Colors.grey,
-                              size: 17,
-                            ),
-                          ],
-                        ),
-                        Card(
-                          child: Padding(
-                            padding: EdgeInsets.all(4.0),
-                            child: Text(
-                              'Mobil Uygulama',
-                              style: TextStyle(
-                                fontSize: 15,
-                              ),
-                            ),
-                          ),
-                          color: Colors.green,
-                        ),
-                        Card(
-                          child: Padding(
-                            padding: EdgeInsets.all(4.0),
-                            child: Text(
-                              'Front-End',
-                              style: TextStyle(
-                                fontSize: 15,
-                              ),
-                            ),
-                          ),
-                          color: Colors.red[500],
-                        ),
-                      ],
-                    ),
-                  ),
-                ],
+                  ],
+                ),
               ),
               SizedBox(
                 height: 30,
@@ -346,157 +566,378 @@ class _HomeScreenBodyState extends State<HomeScreenBody> {
                   )
                 ],
               ),
-              Row(
-                children: [
-                  Container(
-                    margin: EdgeInsets.fromLTRB(30, 10, 0, 0),
-                    color: Color.fromARGB(221, 241, 238, 238),
-                    child: const Column(
+              Container(
+                height: 200,
+                child: ListView(
+                  scrollDirection: Axis.horizontal,
+                  shrinkWrap: true,
+                  children: <Widget>[
+                    Row(
                       children: [
-                        CircleAvatar(
-                          backgroundImage: NetworkImage(
-                              'https://media.licdn.com/dms/image/D4D03AQEIKjOOeI3xjQ/profile-displayphoto-shrink_800_800/0/1679749604159?e=2147483647&v=beta&t=S_nH42SUC7g-mMjInbFLzwODI4XC34UTFJq-g_PUtUs'),
-                          radius: 35,
-                        ),
-                        Text(
-                          'Atıl Samancıoğlu',
-                          style: TextStyle(fontWeight: FontWeight.bold),
-                        ),
-                        Row(
-                          children: [
-                            Icon(
-                              Icons.star,
-                              color: Colors.amber,
-                              size: 17,
-                            ),
-                            Icon(
-                              Icons.star,
-                              color: Colors.amber,
-                              size: 17,
-                            ),
-                            Icon(
-                              Icons.star,
-                              color: Colors.amber,
-                              size: 17,
-                            ),
-                            Icon(
-                              Icons.star,
-                              color: Colors.amber,
-                              size: 17,
-                            ),
-                            Icon(
-                              Icons.star,
-                              color: Colors.amber,
-                              size: 17,
-                            ),
-                          ],
-                        ),
-                        Card(
-                          child: Padding(
-                            padding: EdgeInsets.all(4.0),
-                            child: Text(
-                              'Mobil Uygulama',
-                              style: TextStyle(
-                                fontSize: 15,
-                              ),
-                            ),
+                        //1.
+                        Container(
+                          decoration: BoxDecoration(
+                            color: Colors.white,
+                            borderRadius: BorderRadius.only(
+                                topLeft: Radius.circular(10),
+                                topRight: Radius.circular(10),
+                                bottomLeft: Radius.circular(10),
+                                bottomRight: Radius.circular(10)),
+                            boxShadow: [
+                              BoxShadow(
+                                color: Colors.grey.withOpacity(0.5),
+                                //spreadRadius: 5,
+                                blurRadius: 7,
+                                offset: Offset(0, 3),
+                              )
+                            ],
                           ),
-                          color: Colors.green,
-                        ),
-                        Card(
-                          child: Padding(
-                            padding: EdgeInsets.all(4.0),
-                            child: Text(
-                              'Bilişim Teknolojileri',
-                              style: TextStyle(
-                                fontSize: 15,
+                          width: 150,
+                          margin: EdgeInsets.fromLTRB(30, 10, 0, 0),
+                          child: const Column(
+                            children: [
+                              CircleAvatar(
+                                backgroundImage: NetworkImage(
+                                    'https://media.licdn.com/dms/image/D4D03AQEIKjOOeI3xjQ/profile-displayphoto-shrink_800_800/0/1679749604159?e=2147483647&v=beta&t=S_nH42SUC7g-mMjInbFLzwODI4XC34UTFJq-g_PUtUs'),
+                                radius: 35,
                               ),
-                            ),
+                              Text(
+                                'Atıl Samancıoğlu',
+                                style: TextStyle(fontWeight: FontWeight.bold),
+                              ),
+                              Row(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  Icon(
+                                    Icons.star,
+                                    color: Colors.amber,
+                                    size: 17,
+                                  ),
+                                  Icon(
+                                    Icons.star,
+                                    color: Colors.amber,
+                                    size: 17,
+                                  ),
+                                  Icon(
+                                    Icons.star,
+                                    color: Colors.amber,
+                                    size: 17,
+                                  ),
+                                  Icon(
+                                    Icons.star,
+                                    color: Colors.amber,
+                                    size: 17,
+                                  ),
+                                  Icon(
+                                    Icons.star,
+                                    color: Colors.amber,
+                                    size: 17,
+                                  ),
+                                ],
+                              ),
+                              Card(
+                                child: Padding(
+                                  padding: EdgeInsets.all(4.0),
+                                  child: Text(
+                                    'Mobil Uygulama',
+                                    style: TextStyle(
+                                      fontSize: 15,
+                                    ),
+                                  ),
+                                ),
+                                color: Colors.green,
+                              ),
+                              Card(
+                                child: Padding(
+                                  padding: EdgeInsets.all(4.0),
+                                  child: Text(
+                                    'Bilişim Teknolojileri',
+                                    style: TextStyle(
+                                      fontSize: 15,
+                                    ),
+                                  ),
+                                ),
+                                color: Colors.blue,
+                              ),
+                            ],
                           ),
-                          color: Colors.blue,
+                        ),
+                        //2.
+                        Container(
+                          decoration: BoxDecoration(
+                            color: Colors.white,
+                            borderRadius: BorderRadius.only(
+                                topLeft: Radius.circular(10),
+                                topRight: Radius.circular(10),
+                                bottomLeft: Radius.circular(10),
+                                bottomRight: Radius.circular(10)),
+                            boxShadow: [
+                              BoxShadow(
+                                color: Colors.grey.withOpacity(0.5),
+                                //spreadRadius: 5,
+                                blurRadius: 7,
+                                offset: Offset(0, 3),
+                              )
+                            ],
+                          ),
+                          width: 150,
+                          margin: EdgeInsets.fromLTRB(30, 10, 0, 0),
+                          child: Column(
+                            children: [
+                              CircleAvatar(
+                                backgroundImage: NetworkImage(
+                                    'https://media.licdn.com/dms/image/C5603AQHtIwcnE07XNA/profile-displayphoto-shrink_800_800/0/1549900900418?e=2147483647&v=beta&t=l6X_3t9Gq5ypAfS-cNMAjEYLj656v-xSefoBCdGKlas'),
+                                radius: 35,
+                              ),
+                              Text(
+                                'Sercan Yusuf',
+                                style: TextStyle(fontWeight: FontWeight.bold),
+                              ),
+                              Row(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  Icon(
+                                    Icons.star,
+                                    color: Colors.amber,
+                                    size: 17,
+                                  ),
+                                  Icon(
+                                    Icons.star,
+                                    color: Colors.amber,
+                                    size: 17,
+                                  ),
+                                  Icon(
+                                    Icons.star,
+                                    color: Colors.amber,
+                                    size: 17,
+                                  ),
+                                  Icon(
+                                    Icons.star,
+                                    color: Colors.amber,
+                                    size: 17,
+                                  ),
+                                  Icon(
+                                    Icons.star,
+                                    color: Colors.grey,
+                                    size: 17,
+                                  ),
+                                ],
+                              ),
+                              Card(
+                                child: Padding(
+                                  padding: EdgeInsets.all(4.0),
+                                  child: Text(
+                                    'Mobil Uygulama',
+                                    style: TextStyle(
+                                      fontSize: 15,
+                                    ),
+                                  ),
+                                ),
+                                color: Colors.green,
+                              ),
+                              Card(
+                                child: Padding(
+                                  padding: EdgeInsets.all(4.0),
+                                  child: Text(
+                                    'Front-End',
+                                    style: TextStyle(
+                                      fontSize: 15,
+                                    ),
+                                  ),
+                                ),
+                                color: Colors.red[500],
+                              ),
+                            ],
+                          ),
+                        ),
+                        //3.
+                        Container(
+                          decoration: BoxDecoration(
+                            color: Colors.white,
+                            borderRadius: BorderRadius.only(
+                                topLeft: Radius.circular(10),
+                                topRight: Radius.circular(10),
+                                bottomLeft: Radius.circular(10),
+                                bottomRight: Radius.circular(10)),
+                            boxShadow: [
+                              BoxShadow(
+                                color: Colors.grey.withOpacity(0.5),
+                                //spreadRadius: 5,
+                                blurRadius: 7,
+                                offset: Offset(0, 3),
+                              )
+                            ],
+                          ),
+                          width: 150,
+                          margin: EdgeInsets.fromLTRB(30, 10, 0, 0),
+                          child: const Column(
+                            children: [
+                              CircleAvatar(
+                                backgroundImage: NetworkImage(
+                                    'https://1k-cdn.com/resimler/yazarlar/9414_97dbe_1580070653.jpg'),
+                                radius: 35,
+                              ),
+                              Text(
+                                'Daron Acemoğlu',
+                                style: TextStyle(fontWeight: FontWeight.bold),
+                              ),
+                              Row(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  Icon(
+                                    Icons.star,
+                                    color: Colors.amber,
+                                    size: 17,
+                                  ),
+                                  Icon(
+                                    Icons.star,
+                                    color: Colors.amber,
+                                    size: 17,
+                                  ),
+                                  Icon(
+                                    Icons.star,
+                                    color: Colors.amber,
+                                    size: 17,
+                                  ),
+                                  Icon(
+                                    Icons.star,
+                                    color: Colors.amber,
+                                    size: 17,
+                                  ),
+                                  Icon(
+                                    Icons.star,
+                                    color: Colors.amber,
+                                    size: 17,
+                                  ),
+                                ],
+                              ),
+                              Card(
+                                child: Padding(
+                                  padding: EdgeInsets.all(4.0),
+                                  child: Text(
+                                    'Ekonomi',
+                                    style: TextStyle(
+                                      fontSize: 15,
+                                    ),
+                                  ),
+                                ),
+                                color: Colors.green,
+                              ),
+                              Card(
+                                child: Padding(
+                                  padding: EdgeInsets.all(4.0),
+                                  child: Text(
+                                    'Çalışma Ekonomisi',
+                                    style: TextStyle(
+                                      fontSize: 15,
+                                    ),
+                                  ),
+                                ),
+                                color: Colors.blue,
+                              ),
+                            ],
+                          ),
+                        ),
+                        //4.
+                        Container(
+                          decoration: BoxDecoration(
+                            color: Colors.white,
+                            borderRadius: BorderRadius.only(
+                                topLeft: Radius.circular(10),
+                                topRight: Radius.circular(10),
+                                bottomLeft: Radius.circular(10),
+                                bottomRight: Radius.circular(10)),
+                            boxShadow: [
+                              BoxShadow(
+                                color: Colors.grey.withOpacity(0.5),
+                                //spreadRadius: 5,
+                                blurRadius: 7,
+                                offset: Offset(0, 3),
+                              )
+                            ],
+                          ),
+                          width: 150,
+                          margin: EdgeInsets.fromLTRB(30, 10, 0, 0),
+                          child: const Column(
+                            children: [
+                              CircleAvatar(
+                                backgroundImage: NetworkImage(
+                                    'https://avatars.githubusercontent.com/u/5469995?v=4'),
+                                radius: 35,
+                              ),
+                              Text(
+                                'Gökhan Kandemir',
+                                style: TextStyle(fontWeight: FontWeight.bold),
+                              ),
+                              Row(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  Icon(
+                                    Icons.star,
+                                    color: Colors.amber,
+                                    size: 17,
+                                  ),
+                                  Icon(
+                                    Icons.star,
+                                    color: Colors.amber,
+                                    size: 17,
+                                  ),
+                                  Icon(
+                                    Icons.star,
+                                    color: Colors.amber,
+                                    size: 17,
+                                  ),
+                                  Icon(
+                                    Icons.star,
+                                    color: Colors.amber,
+                                    size: 17,
+                                  ),
+                                  Icon(
+                                    Icons.star,
+                                    color: Colors.amber,
+                                    size: 17,
+                                  ),
+                                ],
+                              ),
+                              Card(
+                                child: Padding(
+                                  padding: EdgeInsets.all(4.0),
+                                  child: Text(
+                                    'Yazılım',
+                                    style: TextStyle(
+                                      fontSize: 15,
+                                    ),
+                                  ),
+                                ),
+                                color: Colors.green,
+                              ),
+                              Card(
+                                child: Padding(
+                                  padding: EdgeInsets.all(4.0),
+                                  child: Text(
+                                    'Yazılım Hizmetleri',
+                                    style: TextStyle(
+                                      fontSize: 15,
+                                    ),
+                                  ),
+                                ),
+                                color: Colors.blue,
+                              ),
+                            ],
+                          ),
                         ),
                       ],
                     ),
-                  ),
-                  //2.
-                  Container(
-                    margin: EdgeInsets.fromLTRB(30, 10, 0, 0),
-                    color: Color.fromARGB(221, 241, 238, 238),
-                    child: Column(
-                      children: [
-                        CircleAvatar(
-                          backgroundImage: NetworkImage(
-                              'https://media.licdn.com/dms/image/C5603AQHtIwcnE07XNA/profile-displayphoto-shrink_800_800/0/1549900900418?e=2147483647&v=beta&t=l6X_3t9Gq5ypAfS-cNMAjEYLj656v-xSefoBCdGKlas'),
-                          radius: 35,
-                        ),
-                        Text(
-                          'Sercan Yusuf',
-                          style: TextStyle(fontWeight: FontWeight.bold),
-                        ),
-                        Row(
-                          children: [
-                            Icon(
-                              Icons.star,
-                              color: Colors.amber,
-                              size: 17,
-                            ),
-                            Icon(
-                              Icons.star,
-                              color: Colors.amber,
-                              size: 17,
-                            ),
-                            Icon(
-                              Icons.star,
-                              color: Colors.amber,
-                              size: 17,
-                            ),
-                            Icon(
-                              Icons.star,
-                              color: Colors.amber,
-                              size: 17,
-                            ),
-                            Icon(
-                              Icons.star,
-                              color: Colors.grey,
-                              size: 17,
-                            ),
-                          ],
-                        ),
-                        Card(
-                          child: Padding(
-                            padding: EdgeInsets.all(4.0),
-                            child: Text(
-                              'Mobil Uygulama',
-                              style: TextStyle(
-                                fontSize: 15,
-                              ),
-                            ),
-                          ),
-                          color: Colors.green,
-                        ),
-                        Card(
-                          child: Padding(
-                            padding: EdgeInsets.all(4.0),
-                            child: Text(
-                              'Front-End',
-                              style: TextStyle(
-                                fontSize: 15,
-                              ),
-                            ),
-                          ),
-                          color: Colors.red[500],
-                        ),
-                      ],
-                    ),
-                  ),
-                ],
+                  ],
+                ),
               ),
+              SizedBox(height: 20,),
             ],
           ),
         ],
       ),
+
     );
   }
-}
-
-// En sevilen 4-5 tane kaydırmalı manuel
+}//listView.builder ile mentorlar
+//mentorlar card yapısı olacak başka bir sayfada

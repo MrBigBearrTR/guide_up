@@ -20,7 +20,7 @@ class _NavigatorPageState extends State<NavigatorPage> {
     return Scaffold(
       body: IndexedStack(
         index: _selectedIndex,
-        children: const [
+        children: [
           HomeScreen(),
           SearchMainPage(),
           TestDataControl(),
