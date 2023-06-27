@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:guide_up/pages/profile/my_Profile_Account.dart';
 
 import '../../pages/login/auth_page.dart';
 import '../../pages/login/login_page.dart';
@@ -49,6 +50,8 @@ class RouteGenerator {
         return _createRoute(const ProfileMain(), settings);
       case RouterConstants.registerPage:
         return _createRoute(const RegisterPage(), settings);
+      case RouterConstants.myProfileAccountPage:
+        return _createRoute(const MeProfileAccount(), settings);
       default:
         return _createRoute(const ErrorPage(), settings);
     }

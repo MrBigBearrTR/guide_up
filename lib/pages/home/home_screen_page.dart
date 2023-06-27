@@ -75,7 +75,9 @@ class _HomeScreenState extends State<HomeScreen> {
             color: const Color.fromARGB(255, 23, 89, 201),
           ),
           IconButton(
-            onPressed: () {},
+            onPressed: () {
+              Navigator.pushNamed(context, "/profile");
+            },
             icon: const Icon(Icons.notifications),
             color: const Color.fromARGB(255, 23, 89, 201),
           ),
