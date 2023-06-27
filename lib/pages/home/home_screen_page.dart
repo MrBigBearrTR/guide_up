@@ -264,22 +264,3 @@ class _HomeScreenBodyState extends State<HomeScreenBody> {
   }
 }
 
-//listView.builder ile mentorlar
-//mentorlar card yapısı olacak başka bir sayfada
-
-/*
-card içerisine mentor nesnesi alacağım. mentor_model.darttan alacağım.
-search_side _pagedeki gibi bir future builder oluşturacağım. MENTORLARI LİSTELEMEK İÇİN. getMentorList fonksiyonu kurmam lazım.
-Mentor list olarak repositoryden bir veri çekeceğim. Futureda bu veriyi kontrol etme kullanma.
-Mentor cardın içerisinde foti, isim soyisim, rate, alanlar vs. Alanları ben yazacağım.
-
-
-1. Mentor sayfası Card'a çevrilecek.
-2. Search sayfasındaki Future Builder gibi listelenecek.
-
-SORULAR
-mentor repository fonksiyonları
-futurebuilder homescreenpage sayfasında olacak mı?
-mentor card satır 36
-*/
-

@@ -97,18 +97,3 @@ class _MentorCardState extends State<MentorCard> {
     );
   }
 }
-
-/*
-ListView(
-      children: [ ListTile(
-        leading: CircleAvatar(
-          backgroundImage: NetworkImage(_mentor.getPhoto() ?? 'Veri Yok'),
-        ),
-        title: Text(_mentor.getName() ?? 'Veri Yok'),
-        subtitle: Text('Rate: ${_mentor.getRate() ?? 0}'),
-      ),
-      ListTile(title: Text('Yazılım'),tileColor: Colors.black,),
-      ListTile(title: Text('Ekonomi'),tileColor: Colors.green[200],),
-      ],
-    );
-*/
