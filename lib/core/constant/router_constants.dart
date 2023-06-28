@@ -8,5 +8,7 @@ class RouterConstants{
   static const String profilePage="/profile";
   static const String registerPage="/registerPage";
   static const String myProfileAccountPage="/MyProfileAccountState";
+  static const String generalSettingsPage="/GeneralSettingsPage";
+
 
 }

@@ -183,6 +183,10 @@ class _ProfileMainState extends State<ProfileMain> {
                     ),
                     const SizedBox(height: 16),
                     ListTile(
+                      onTap: () {
+                        Navigator.pushNamed(
+                            context, RouterConstants.generalSettingsPage);
+                      },
                       leading: Container(
                         width: 40,
                         height: 40,
