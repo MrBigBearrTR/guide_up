@@ -30,7 +30,7 @@ class UserHelper {
       final user = userCredential.user;
       if (user != null) {
         UserDetail? userDetail =
-            await UserDetailRepository().getUserByAuthUid(user.uid);
+        await UserDetailRepository().getUserByAuthUid(user.uid);
 
         if (userDetail != null) {
           const FlutterSecureStorage().write(
@@ -79,7 +79,7 @@ class UserHelper {
 
     // Obtain the auth details from the request
     final GoogleSignInAuthentication? googleAuth =
-        await googleUser?.authentication;
+    await googleUser?.authentication;
 
     // Create a new credential
     final credential = GoogleAuthProvider.credential(
@@ -129,120 +129,73 @@ class UserHelper {
     }
   }
 
-  Future<void> register(String name, String surname, String email,
-      String password, String confirmPassword, String role) async {
+  Future<UserModel> registerWithUserModelAndDetail(UserModel userModel) async {
     try {
-      await FirebaseFirestore.instance.collection('users').doc(email).set({
-        'name': name,
-        'surname': surname,
-        'email': email,
-        'password': password,
-        'ConfirmPassword': confirmPassword,
-        'role': role,
-      });
-
-      await FirebaseAuth.instance.createUserWithEmailAndPassword(
-        email: email,
-        password: password,
-      );
-    } catch (e) {
-      // Handle registration errors
-      print('Registration failed: $e');
-      throw e;
-    }
-  }
-
-  Future<UserDetail> registerWithUserModelAndUserDetail(
-      UserModel userModel, UserDetail userDetail) async {
-    try {
-      UserCredential credential =
-          await FirebaseAuth.instance.createUserWithEmailAndPassword(
+      UserCredential credential = await FirebaseAuth.instance
+          .createUserWithEmailAndPassword(
         email: userModel.getEmail()!,
         password: userModel.getPassword()!,
       );
 
-      userModel.setId(credential.user!.uid);
+      if (credential.user != null) {
+        String userUid = credential.user!.uid;
+        userModel.setId(userUid);
+        final userCollections = FirebaseFirestore.instance.collection(
+            FirestoreCollectionConstant.user);
+        var userReturn = await userCollections.add(userModel.toMap());
 
-      final userCollections = FirebaseFirestore.instance
-          .collection(FirestoreCollectionConstant.user);
-      final userDetailCollections = FirebaseFirestore.instance
-          .collection(FirestoreCollectionConstant.userDetail);
+        //userModel.setId(userUid); // User ID'sini UserModel nesnesine atadık
 
-      var userReturn = await userCollections.add(userModel.toMap());
-
-      userDetail.setUserId(userReturn.id);
-      var userDteailReturn =
-          await userDetailCollections.add(userDetail.toMap());
-
-      userDetail.setId(userDteailReturn.id);
-      userDetailCollections.doc(userDteailReturn.id).update(userDetail.toMap());
-
-      print("==========================================================");
-      print(userDetail.toJson());
-      print("==========================================================");
-
-      print(FirebaseAuth.instance.currentUser);
-      secureStorage.delete(key: SecureStrogeConstants.USER_DETAIL_KEY);
-      secureStorage.write(
-          key: SecureStrogeConstants.USER_DETAIL_KEY,
-          value: userDetail.toJson());
-    } catch (e) {
-      // Handle registration errors
-      print('Registration failed: $e');
-      throw e;
+        return userModel;
+      } else {
+        throw Exception('Kullanıcı oluşturma başarısız oldu.');
+      }
+    } catch (error) {
+      // Hata durumunda uygun bir işlem yapabilirsiniz.
+      print('Hata: $error');
+      throw error;
     }
-
-    return UserDetail();
   }
 
   Future<UserDetail> getUserDetail() async {
     UserDetail detail = UserDetail();
-    final userDetailCollections = FirebaseFirestore.instance
-        .collection(FirestoreCollectionConstant.userDetail);
+    final userDetailCollections = FirebaseFirestore.instance.collection(
+        FirestoreCollectionConstant.userDetail);
 
     String? userId = await SecureStorageHelper().getUserId();
     if (userId != null) {
-      var gelen =
-          await userDetailCollections.where("userId", isEqualTo: userId).get();
-      print(gelen.docs);
+      var snapshot = await userDetailCollections.where(
+          "userId", isEqualTo: userId).get();
+      var documents = snapshot.docs;
 
-      //LİST YAPISI
-      Iterator<QueryDocumentSnapshot<Map<String, dynamic>>> it =
-          gelen.docs.iterator;
-      while (it.moveNext()) {
-        QueryDocumentSnapshot<Map<String, dynamic>> snap = it.current;
+      // Liste olarak UserDetail verilerini almak için
+      List<UserDetail> userDetailList = [];
+      for (var doc in documents) {
         UserDetail tempDetail = UserDetail();
-        tempDetail.toClass(snap.data());
-        print(tempDetail.getName());
+        tempDetail.toClass(doc.data());
+        userDetailList.add(tempDetail);
       }
 
-      print("=========================");
-      //tek veri
-      detail.toClass(gelen.docs.first.data());
-      print(detail.getSurname());
-
-      print("--------------------------");
+      // Tek bir UserDetail verisini almak için
+      if (documents.isNotEmpty) {
+        detail.toClass(documents.first.data());
+      }
     }
 
-    return UserDetail();
+    return detail;
   }
+  Future<UserDetail> saveUserDetail(UserDetail userDetail) async {
+    try {
+      final userDetailCollections = FirebaseFirestore.instance.collection('userDetail');
 
-  void registerTest() {
-    UserModel userModel = UserModel();
-    userModel.setEmail("aliyalcin01@gmail.com");
-    userModel.setMentor(false);
-    userModel.setPassword("123456789");
+      var userReturn = await userDetailCollections.add(userDetail.toMap());
 
-    UserDetail userDetail = UserDetail();
-    userDetail.setName("Ali");
-    userDetail.setSurname("Yalçın");
-    userDetail.setPhoto("assets/img/profile/AliYalci");
-    userDetail.setAbout("yakışıklı ve de zeki");
-    userDetail.setPhone("905438570768");
-    userDetail.setBirthday(DateTime.now());
+      userDetail.setId(userReturn.id);
+      await userDetailCollections.doc(userReturn.id).update(userDetail.toMap()); //guncellendi
+      return userDetail;
+    } catch (error) {
 
-    print("Geldii Başladı==============================");
-    print(registerWithUserModelAndUserDetail(userModel, userDetail));
-    print("Geldii Bitti==============================");
+      throw error;
+    }
   }
 }
