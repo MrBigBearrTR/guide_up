@@ -41,7 +41,7 @@ class _MentorDashboardState extends State<MentorDashboard> {
                 ),
                 const SizedBox(height: 10),
                 const Text(
-                  'helindev@gmail.com',
+                  'helingüler@gmail.com',
                   style: TextStyle(
                     fontSize: 16,
                   ),
