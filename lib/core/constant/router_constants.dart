@@ -7,5 +7,6 @@ class RouterConstants{
   static const String splashScreenPage="/splashScreen";
   static const String profilePage="/profile";
   static const String registerPage="/registerPage";
+  static const String myProfileAccountPage="/MyProfileAccountState";
 
 }
