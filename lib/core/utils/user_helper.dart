@@ -6,9 +6,11 @@ import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:guide_up/core/constant/firestore_collectioon_constant.dart';
 import 'package:guide_up/core/constant/secure_strorage_constant.dart';
+import 'package:guide_up/core/models/mentor/mentor_model.dart';
 import 'package:guide_up/core/models/users/user_detail/user_detail_model.dart';
 import 'package:guide_up/core/models/users/user_model.dart';
 import 'package:guide_up/core/utils/secure_storage_helper.dart';
+import 'package:guide_up/repository/mentor/mentor_repository.dart';
 import 'package:guide_up/repository/user/user_detail/user_detail_repository.dart';
 
 class UserHelper {
@@ -229,20 +231,34 @@ class UserHelper {
 
   void registerTest() {
     UserModel userModel = UserModel();
-    userModel.setEmail("aliyalcin01@gmail.com");
+    userModel.setEmail("keremuzuner@gmail.com");
     userModel.setMentor(false);
     userModel.setPassword("123456789");
 
     UserDetail userDetail = UserDetail();
-    userDetail.setName("Ali");
-    userDetail.setSurname("Yalçın");
+    userDetail.setName("Kerem");
+    userDetail.setSurname("Uzuner");
     userDetail.setPhoto("assets/img/profile/AliYalci");
-    userDetail.setAbout("yakışıklı ve de zeki");
-    userDetail.setPhone("905438570768");
+    userDetail.setAbout("zeki ve yakışıklı");
+    userDetail.setPhone("905123256781");
     userDetail.setBirthday(DateTime.now());
 
     print("Geldii Başladı==============================");
     print(registerWithUserModelAndUserDetail(userModel, userDetail));
     print("Geldii Bitti==============================");
   }
+
+  void mentorAdd() async {
+    UserDetail? userDetail = await SecureStorageHelper().getUserDetail();
+    if (userDetail != null) {
+    Mentor mentor = Mentor();
+    mentor.setName(userDetail.getName()!);
+    mentor.setLastname(userDetail.getSurname()!);
+    mentor.setPhoto(userDetail.getPhoto()!);
+    mentor.setRate(4);
+    mentor.setUserId(userDetail.getUserId()!);
+    MentorRepository().add(mentor);
+    }
+  }
+
 }

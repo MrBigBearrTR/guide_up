@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:guide_up/core/models/users/user_detail/user_detail_model.dart';
 import 'package:guide_up/core/models/users/user_model.dart';
 import 'package:guide_up/core/utils/category_create_all_list.dart';
+import 'package:guide_up/core/utils/user_helper.dart';
 
 class TestDataControl extends StatefulWidget {
   const TestDataControl({Key? key}) : super(key: key);
@@ -35,9 +36,9 @@ class _TestDataControlState extends State<TestDataControl> {
                 style: ElevatedButton.styleFrom(backgroundColor: Colors.green),
                 child: const Text("Veri sorgula")),
             ElevatedButton(
-                onPressed: () => CategoryCreateAllList().create(),
+                onPressed: () => UserHelper().mentorAdd(),
                 style: ElevatedButton.styleFrom(backgroundColor: Colors.red),
-                child: const Text("CreateAllCategory")),
+                child: const Text("Register Test")),
           ],
         ),
       ),
