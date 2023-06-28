@@ -1,6 +1,7 @@
 import 'package:curved_navigation_bar/curved_navigation_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:guide_up/core/constant/color_constants.dart';
+import 'package:guide_up/pages/dashboard/mentor/mentor_dashboard.dart';
 import 'package:guide_up/pages/home/home_screen_page.dart';
 import 'package:guide_up/pages/other/test_data_conrol_page.dart';
 import 'package:guide_up/pages/search/search_main_page.dart';
@@ -23,8 +24,11 @@ class _NavigatorPageState extends State<NavigatorPage> {
         children: const [
           HomeScreen(),
           SearchMainPage(),
+
+          MentorDashboard(),
           TestDataControl(),
           HomeScreen(),
+
         ],
       ),
       bottomNavigationBar: CurvedNavigationBar(
