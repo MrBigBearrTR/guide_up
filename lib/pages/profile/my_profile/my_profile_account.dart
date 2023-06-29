@@ -11,6 +11,7 @@ import '../../../core/models/users/user_detail/user_links_model.dart';
 import '../../../core/models/users/user_model.dart';
 import '../../../core/utils/control_helper.dart';
 import '../../../core/utils/secure_storage_helper.dart';
+import '../../other/kayan_Appbar_Deneme.dart';
 import '../licenses_and_certificates/licenses_And_Certificates.dart';
 import '../../../repository/user/user_detail/user_links_repository.dart';
 import '../../../repository/user/user_repository.dart';
@@ -435,135 +436,66 @@ class _MyProfileAccountState extends State<MyProfileAccount> {
                         userDetail != null ? (userDetail!.getUserId()!) : "1"),
                   ),
                 Column(
-                  children: otherLinks.asMap().entries.map((entry) {
-                    final index = entry.key;
-                    final link = entry.value;
-                    final dropdownItems = link['dropdownItems'];
-
-                    final dropdownMenuItems = <DropdownMenuItem<String>>[];
-                    for (var value in dropdownItems as List<String>) {
-                      dropdownMenuItems.add(
-                        DropdownMenuItem<String>(
-                          value: value,
-                          child: Text(value),
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    const SizedBox(height: 0.0),
+                    TextButton(
+                      onPressed: addOtherLink,
+                      child: const Text(
+                        "+ Link Ekle",
+                        style: TextStyle(
+                          color: Color(0xFFEF6C00),
                         ),
-                      );
-                    }
-
-                    return Container(
-                      decoration: BoxDecoration(
-                        border: Border.all(
-                          color: const Color(0xFF2C4059),
-                          width: 1.0,
-                        ),
-                        borderRadius: BorderRadius.circular(4.0),
                       ),
-                      padding: const EdgeInsets.all(8.0),
-                      margin: const EdgeInsets.only(bottom: 8.0),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(
-                            link['title']!,
-                            style: const TextStyle(
-                              fontWeight: FontWeight.bold,
+                    ),
+                    const SizedBox(height: 0.0),
+                    Column(
+                      children: otherLinks.asMap().entries.map((entry) {
+                        final index = entry.key;
+                        final link = entry.value;
+
+                        return Container(
+                          decoration: BoxDecoration(
+                            border: Border.all(
+                              color: const Color(0xFF2C4059),
+                              width: 1.0,
                             ),
+                            borderRadius: BorderRadius.circular(4.0),
                           ),
-                          const SizedBox(height: 4.0),
-                          Text(link['link']!),
-                          const SizedBox(height: 8.0),
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.end,
+                          padding: const EdgeInsets.all(8.0),
+                          margin: const EdgeInsets.only(bottom: 8.0),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              GestureDetector(
-                                onTap: () {
-                                  removeOtherLink(index);
-                                },
-                                child: const Icon(
-                                  Icons.delete,
-                                  color: Color(0xFF2C4059),
+                              Text(
+                                link['title']!,
+                                style: const TextStyle(
+                                  fontWeight: FontWeight.bold,
                                 ),
                               ),
-                              DropdownButton<String>(
-                                value: link['selectedItem'],
-                                items: dropdownMenuItems,
-                                onChanged: (String? newValue) {
-                                  setState(() {
-                                    link['selectedItem'] = newValue!;
-                                  });
-                                },
-                              )
-                            ],
-                          )
-                        ],
-                      ),
-                    );
-                  }).toList(),
-                ),Column(
-                  children: otherLinks.asMap().entries.map((entry) {
-                    final index = entry.key;
-                    final link = entry.value;
-                    final dropdownItems = link['dropdownItems'];
-
-                    final dropdownMenuItems = <DropdownMenuItem<String>>[];
-                    for (var value in dropdownItems as List<String>) {
-                      dropdownMenuItems.add(
-                        DropdownMenuItem<String>(
-                          value: value,
-                          child: Text(value),
-                        ),
-                      );
-                    }
-
-                    return Container(
-                      decoration: BoxDecoration(
-                        border: Border.all(
-                          color: const Color(0xFF2C4059),
-                          width: 1.0,
-                        ),
-                        borderRadius: BorderRadius.circular(4.0),
-                      ),
-                      padding: const EdgeInsets.all(8.0),
-                      margin: const EdgeInsets.only(bottom: 8.0),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(
-                            link['title']!,
-                            style: const TextStyle(
-                              fontWeight: FontWeight.bold,
-                            ),
-                          ),
-                          const SizedBox(height: 4.0),
-                          Text(link['link']!),
-                          const SizedBox(height: 8.0),
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.end,
-                            children: [
-                              GestureDetector(
-                                onTap: () {
-                                  removeOtherLink(index);
-                                },
-                                child: const Icon(
-                                  Icons.delete,
-                                  color: Color(0xFF2C4059),
-                                ),
+                              const SizedBox(height: 4.0),
+                              Text(link['link']!),
+                              const SizedBox(height: 8.0),
+                              Row(
+                                mainAxisAlignment: MainAxisAlignment.end,
+                                children: [
+                                  GestureDetector(
+                                    onTap: () {
+                                      removeOtherLink(index);
+                                    },
+                                    child: const Icon(
+                                      Icons.delete,
+                                      color: Color(0xFF2C4059),
+                                    ),
+                                  ),
+                                ],
                               ),
-                              DropdownButton<String>(
-                                value: link['selectedItem'],
-                                items: dropdownMenuItems,
-                                onChanged: (String? newValue) {
-                                  setState(() {
-                                    link['selectedItem'] = newValue!;
-                                  });
-                                },
-                              )
                             ],
-                          )
-                        ],
-                      ),
-                    );
-                  }).toList(),
+                          ),
+                        );
+                      }).toList(),
+                    ),
+                  ],
                 ),
                 const SizedBox(height: 0.0),
                 Column(
@@ -790,7 +722,32 @@ class _MyProfileAccountState extends State<MyProfileAccount> {
                 ),
               ),
             ),
-
+            Positioned(
+              top: 150,
+              left: 0,
+              child: Container(
+                width: 55,
+                height: 55,
+                decoration: const BoxDecoration(
+                  shape: BoxShape.circle,
+                  color: Color(0xFFF80000),
+                ),
+                child: InkWell(
+                  onTap: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => const KayanAppbarDenemePage(),
+                      ),
+                    );
+                  },
+                  child: const Icon(
+                    Icons.ad_units,
+                    color: Color(0xFFFFFFFF),
+                  ),
+                ),
+              ),
+            ),
             Stack(
               children: [
                 Positioned(
