@@ -1,8 +1,12 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:guide_up/core/models/users/user_detail/user_detail_model.dart';
+import 'package:guide_up/core/models/users/user_detail/user_links_model.dart';
 import 'package:guide_up/core/models/users/user_model.dart';
-import 'package:guide_up/core/utils/category_create_all_list.dart';
+import 'package:guide_up/repository/user/user_detail/user_links_repository.dart';
+
+import '../../core/enumeration/enums/EnLinkType.dart';
+import '../../core/utils/secure_storage_helper.dart';
 
 class TestDataControl extends StatefulWidget {
   const TestDataControl({Key? key}) : super(key: key);
@@ -35,9 +39,9 @@ class _TestDataControlState extends State<TestDataControl> {
                 style: ElevatedButton.styleFrom(backgroundColor: Colors.green),
                 child: const Text("Veri sorgula")),
             ElevatedButton(
-                onPressed: () => CategoryCreateAllList().create(),
+                onPressed: () => linkEkle(),
                 style: ElevatedButton.styleFrom(backgroundColor: Colors.red),
-                child: const Text("CreateAllCategory")),
+                child: const Text("User Links")),
           ],
         ),
       ),
@@ -87,5 +91,21 @@ class _TestDataControlState extends State<TestDataControl> {
     UserDetail det = UserDetail();
     det.setName("Helin");
     return det;
+  }
+
+  linkEkle() async {
+    String? userId = await SecureStorageHelper().getUserId();
+    if (userId != null) {
+      UserLinks link = UserLinks();
+      link.setUserId(userId);
+      link.setEnLinkType(EnLinkType.linkedin);
+      link.setLink("https://www.linkedin.com/in/kerem-uzuner-674844243/");
+      UserLinksRepository().add(link);
+      UserLinks link2 = UserLinks();
+      link2.setUserId(userId);
+      link2.setEnLinkType(EnLinkType.personelPage);
+      link2.setLink("https://www.kerem-uzuner.com");
+      UserLinksRepository().add(link2);
+    }
   }
 }

@@ -1,4 +1,5 @@
 import 'package:guide_up/core/models/general/general_fields_model.dart';
+import 'package:guide_up/core/utils/control_helper.dart';
 
 /// [@author MrBigBear] 
 class UserModel extends GeneralFields {
@@ -61,19 +62,19 @@ class UserModel extends GeneralFields {
   toClass(Map<String, dynamic> map) {
     toGeneralClass(map);
 
-    if (map.containsKey('id')) {
+    if (ControlHelper.checkMapValue(map, 'id')) {
       setId(map['id']);
     }
-    if (map.containsKey('username')) {
+    if (ControlHelper.checkMapValue(map, 'username')) {
       setUsername(map['username']);
     }
-    if (map.containsKey('password')) {
+    if (ControlHelper.checkMapValue(map, 'password')) {
       setPassword(map['password']);
     }
-    if (map.containsKey('email')) {
+    if (ControlHelper.checkMapValue(map, 'email')) {
       setEmail(map['email']);
     }
-    if (map.containsKey('isMentor')) {
+    if (ControlHelper.checkMapValue(map, 'isMentor')) {
       setMentor(map['isMentor']);
     }
 

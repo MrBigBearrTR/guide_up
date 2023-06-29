@@ -2,6 +2,8 @@ import 'dart:convert';
 
 import 'package:guide_up/core/models/general/general_fields_model.dart';
 
+import '../../../utils/control_helper.dart';
+
 /// [@author MrBigBear] 
 class UserDetail extends GeneralFields {
   String? _id;
@@ -93,28 +95,28 @@ class UserDetail extends GeneralFields {
   UserDetail toClass(Map<String, dynamic> map) {
     toGeneralClass(map);
 
-    if (map.containsKey('id')) {
+    if (ControlHelper.checkMapValue(map, 'id')) {
       setId(map['id']);
     }
-    if (map.containsKey('userId')) {
+    if (ControlHelper.checkMapValue(map, 'userId')) {
       setUserId(map['userId']);
     }
-    if (map.containsKey('name')) {
+    if (ControlHelper.checkMapValue(map, 'name')) {
       setName(map['name']);
     }
-    if (map.containsKey('surname')) {
+    if (ControlHelper.checkMapValue(map, 'surname')) {
       setSurname(map['surname']);
     }
-    if (map.containsKey('birthday')) {
+    if (ControlHelper.checkMapValue(map, 'birthday')) {
       setBirthday(DateTime.parse(map['birthday']));
     }
-    if (map.containsKey('about')) {
+    if (ControlHelper.checkMapValue(map, 'about')) {
       setAbout(map['about']);
     }
-    if (map.containsKey('photo')) {
+    if (ControlHelper.checkMapValue(map, 'photo')) {
       setPhoto(map['photo']);
     }
-    if (map.containsKey('phone')) {
+    if (ControlHelper.checkMapValue(map, 'phone')) {
       setPhone(map['phone']);
     }
     return this;
