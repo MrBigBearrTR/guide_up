@@ -100,8 +100,40 @@ https://github.com/MrBigBearrTR/guide_up/assets/91954062/a1cc9932-0ec3-424f-9295
 Review: Figma ile uygulamanın temel tasarımları yapılmış. Veri yapıları oluşturulmuştur. Kodlama kısmında ise Uygulama ilk açılış ekranı, homepage ekranı, profil sekmesi ve firebase bağlantıları oluşturulmuştur. 
 
 Sprint Retrospective:
-- Daha hızlı olunmalı ve verilen görevler eksiksiz ve tam vaktinde yerine getirilmesi kararı alınmıştır. 
+- Daha hızlı olunmalı ve verilen görevler eksiksiz ve tam vaktinde yerine getirilmesi kararı alınmıştır.
 
+
+## Sprint 2 
+Sprint Notları :  Sprint 2 başlangıcında Sprint 1 den kalan 2 adet görev ilk olarak tamamlandı sprint 2 başaldığı gün toplantı yapıldı ve görev dağilimları yapıldı. 
+Sprint 2 içerisinde uygulama için sprint 1 de oluşturulan veri yapısına göre sayfalar tasarımsal olarak da hazırlandı ve bağlantıları kuruldu. 
+Sprint 2 içerisinde uygulamanın %80lik bölümü haritamıza göre tamamlandı. 
+Sprint 2 içerisinde tamamlanmayan görevler sprint 3 için öncelikli olarak işaretlendi. 
+Sprint 3 planlaması yapıldı. 
+  
+
+Sprint içinde tamamlanması tahmin edilen puan: 140 Puan
+
+Puan tamamlama mantığı: Toplamda proje boyunca tamamlanması gereken 340 puanlık backlog bulunmaktadır. 3 sprint'e bölündüğünde sprint 2  içerisindeki görevlerin dağılımına göre Sprint 2 'nin  140 puan  olması gerektiğine karar verildi.
+
+Daily Scrum:  Dily Scrum Toplantıları Discord ve whatssapp üzerinden devam etmekte olup hairici olarak slack üzerinden de yapılmaya devam etmektedir. Retroo.io ile Sprint 2 başında anonim olarak katılıp fikrilerimizi beyan ettiğimiz 1 saatlik bir retro ile toplantılarımızda neye öncelik vereceğimize karar verdik. Daily Scrum toplantısı örneği  ve Retro toplantımız jpeg veya word olarak Readme'de tarafımızdan paylaşılmaktadır:
+
+Sprint board update: Sprint board screenshotları: Tamamını görmek için (https://miro.com/app/board/uXjVMBG0TQU=/)
+
+
+
+Ürün Durumu Ekran Görüntüleri : 
+
+
+
+Video Görüntüleri :  
+
+
+## Sprint 2 Review 
+
+Review: Figmada yaptığımız uygulamamızın tasarımlarına ve veri yapımıza göre uygulamamızın %80lik kısmı tamamnlanmış olup eksik kısımara yönelindi. Yapılan sayfalar: Register page, Login page , Search Page , Search bar , Profile page , Settings Page , dashboard ve Sprint 1 sayfa düzenlemeleri yapıldı.  Toplantılara eksiksiz tüm ekip üyeleri katıldı ve verilen görevler tamamlandı. 
+
+Sprint Retrospective:
+- Daha hızlı olunmalı ve verilen görevler eksiksiz ve tam vaktinde yerine getirilmesi kararı alınmıştır.
 
 
 
