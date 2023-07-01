@@ -54,6 +54,7 @@ class _MyProfileAccountState extends State<MyProfileAccount> {
     getUserModels();
   }
 
+
   void getUserModels() async {
     UserDetail? detail = await SecureStorageHelper().getUserDetail();
     if (detail == null) {
@@ -101,6 +102,7 @@ class _MyProfileAccountState extends State<MyProfileAccount> {
       });
     }
   }
+
 
   void addOtherLink() {
     String title = "";
@@ -498,144 +500,103 @@ class _MyProfileAccountState extends State<MyProfileAccount> {
                   ],
                 ),
                 const SizedBox(height: 0.0),
-                Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    const Text(
-                      "Eğitim Bilgileri",
-                      style: TextStyle(
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
-                    const SizedBox(height: 8.0),
-                    TextFormField(
-                      decoration: InputDecoration(
-                        labelText: 'bilgi',
-                        labelStyle: const TextStyle(
-                          color: Color(0xFF07617C),
-                        ),
-                        border: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(8.0),
-                        ),
-                        focusedBorder: OutlineInputBorder(
-                          borderSide: const BorderSide(
-                            color: Color(0xFFFF8800),
-                          ),
-                          borderRadius: BorderRadius.circular(8.0),
+                Container(
+                  width: 430,
+                  height: 60,
+                  color: const Color(0xFFEEEEEE),
+                  alignment: Alignment.topLeft,
+                  padding: const EdgeInsets.all(10),
+                  margin: const EdgeInsets.all(10),
+                  child: Row(
+                    children: [
+                      const Text(
+                        "Eğitim Bilgileri",
+                        style: TextStyle(
+                          fontWeight: FontWeight.bold,
                         ),
                       ),
-                      cursorColor: const Color(0xFF07617C),
-                      onChanged: (value) {
-                        educationInfo = value.split("\n");
-                      },
-                      maxLines: null,
-                    ),
-                  ],
+                      const Spacer(),
+                      IconButton(
+                        icon: const Icon(Icons.add),
+                        onPressed: () {
+                          Navigator.pushNamed(
+                              context, RouterConstants.educationInformation);
+                        },
+                      ),
+                      IconButton(
+                        icon: const Icon(Icons.edit),
+                        onPressed: () {
+                          // Kalem butonuna tıklandığında yapılacak işlemler
+                        },
+                      ),
+                    ],
+                  ),
                 ),
-                const SizedBox(height: 16.0),
-                Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    const Text(
-                      "Tecrübelerim  ve Deneyimlerim",
-                      style: TextStyle(
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
-                    const SizedBox(height: 8.0),
-                    TextFormField(
-                      decoration: InputDecoration(
-                        labelText: 'bilgi',
-                        labelStyle: const TextStyle(
-                          color: Color(0xFFFF8800),
-                        ),
-                        border: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(8.0),
-                        ),
-                        focusedBorder: OutlineInputBorder(
-                          borderSide: const BorderSide(
-                            color: Color(0xFF07617C),
-                          ),
-                          borderRadius: BorderRadius.circular(8.0),
+                const SizedBox(height: 0.0),
+                Container(
+                  width: 430,
+                  height: 60,
+                  color: const Color(0xFFEEEEEE),
+                  alignment: Alignment.topLeft,
+                  padding: const EdgeInsets.all(10),
+                  margin: const EdgeInsets.all(10),
+                  child: Row(
+                    children: [
+                      const Text(
+                        "Projelerim",
+                        style: TextStyle(
+                          fontWeight: FontWeight.bold,
                         ),
                       ),
-                      cursorColor: const Color(0xFF07617C),
-                      onChanged: (value) {
-                        experienceInfo = value.split("\n");
-                      },
-                      maxLines: null,
-                    ),
-                  ],
+                      const Spacer(),
+                      IconButton(
+                        icon: const Icon(Icons.add),
+                        onPressed: () {
+                          Navigator.pushNamed(
+                              context, RouterConstants.myProjects);
+                        },
+                      ),
+                      IconButton(
+                        icon: const Icon(Icons.edit),
+                        onPressed: () {
+                          // Kalem butonuna tıklandığında yapılacak işlemler
+                        },
+                      ),
+                    ],
+                  ),
                 ),
-                const SizedBox(height: 16.0),
-                Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    const Text(
-                      "Projelerim",
-                      style: TextStyle(
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
-                    const SizedBox(height: 8.0),
-                    TextFormField(
-                      decoration: InputDecoration(
-                        labelText: 'bilgi',
-                        labelStyle: const TextStyle(
-                          color: Color(0xFF07617C),
-                        ),
-                        border: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(8.0),
-                        ),
-                        focusedBorder: OutlineInputBorder(
-                          borderSide: const BorderSide(
-                            color: Color(0xFFFF8800),
-                          ),
-                          borderRadius: BorderRadius.circular(8.0),
+                const SizedBox(height: 0.0),
+                Container(
+                  width: 430,
+                  height: 60,
+                  color: const Color(0xFFEEEEEE),
+                  alignment: Alignment.topLeft,
+                  padding: const EdgeInsets.all(10),
+                  margin: const EdgeInsets.all(10),
+                  child: Row(
+                    children: [
+                      const Text(
+                        "Yetenekler",
+                        style: TextStyle(
+                          fontWeight: FontWeight.bold,
                         ),
                       ),
-                      cursorColor: const Color(0xFF07617C),
-                      onChanged: (value) {
-                        projectInfo = value.split("\n");
-                      },
-                      maxLines: null,
-                    ),
-                  ],
-                ),
-                const SizedBox(height: 16.0),
-                Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    const Text(
-                      "Yetenekler",
-                      style: TextStyle(
-                        fontWeight: FontWeight.bold,
+                      const Spacer(),
+                      IconButton(
+                        icon: const Icon(Icons.add),
+                        onPressed: () {
+                          Navigator.pushNamed(
+                              context, RouterConstants.abilities);
+                        },
                       ),
-                    ),
-                    const SizedBox(height: 8.0),
-                    TextFormField(
-                      decoration: InputDecoration(
-                        labelText: 'bilgi',
-                        labelStyle: const TextStyle(
-                          color: Color(0xFFFF8800),
-                        ),
-                        border: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(8.0),
-                        ),
-                        focusedBorder: OutlineInputBorder(
-                          borderSide: const BorderSide(
-                            color: Color(0xFF07617C),
-                          ),
-                          borderRadius: BorderRadius.circular(8.0),
-                        ),
+                      IconButton(
+                        icon: const Icon(Icons.edit),
+                        onPressed: () {
+                          // Kalem butonuna tıklandığında yapılacak işlemler
+                        },
                       ),
-                      cursorColor: const Color(0xFF07617C),
-                      onChanged: (value) {
-                        skillsInfo = value.split("\n");
-                      },
-                      maxLines: null,
-                    ),
-                  ],
+                    ],
+                  ),
                 ),
                 const SizedBox(height: 16.0),
                 Column(

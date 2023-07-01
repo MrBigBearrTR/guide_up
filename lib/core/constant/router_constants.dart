@@ -9,6 +9,10 @@ class RouterConstants{
   static const String registerPage="/registerPage";
   static const String myProfileAccountPage="/myProfileAccountState";
   static const String generalSettingsPage="/generalSettingsPage";
+  static const String abilities="/abilities";
+  static const String myProjects="/myProjects";
+  static const String educationInformation="/educationInformation";
+
 
 
 }
