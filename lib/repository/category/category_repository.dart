@@ -17,7 +17,7 @@ class CategoryRepository {
     List<Category> categoryList = [];
 
     var query =
-        await categoryCollections.where("mainCategory", isNull: true).get();
+        await categoryCollections.where("mainCategory", isNull: true).orderBy("name").get();
 
     categoryList = convertResponseObjectToList(query.docs.iterator);
 

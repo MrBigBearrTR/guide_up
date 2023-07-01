@@ -1,18 +1,46 @@
-import 'package:curved_navigation_bar/curved_navigation_bar.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:guide_up/core/constant/color_constants.dart';
 import 'package:guide_up/core/constant/router_constants.dart';
+import 'package:guide_up/core/models/users/user_detail/user_detail_model.dart';
+import 'package:guide_up/core/utils/secure_storage_helper.dart';
+import 'package:guide_up/ui/material/custom_material.dart';
 import 'package:line_awesome_flutter/line_awesome_flutter.dart';
-import '../../core/utils/user_helper.dart';
-import 'my_Profile_Account.dart';
 
-class ProfileMain extends StatelessWidget {
+import '../../core/utils/user_helper.dart';
+
+class ProfileMain extends StatefulWidget {
   const ProfileMain({Key? key}) : super(key: key);
+
+  @override
+  State<ProfileMain> createState() => _ProfileMainState();
+}
+
+class _ProfileMainState extends State<ProfileMain> {
+  UserDetail? userDetail;
+
+  @override
+  void initState() {
+    super.initState();
+    getUserDetail();
+    UserHelper().getUserDetail();
+  }
+
+  void getUserDetail() async {
+    UserDetail? detail = await SecureStorageHelper().getUserDetail();
+    if (detail == null) {
+      detail = null;
+    } else {
+      userDetail = detail;
+      setState(() {});
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        centerTitle: true,
         leading: Positioned(
           top: 20,
           left: 0,
@@ -21,7 +49,7 @@ class ProfileMain extends StatelessWidget {
             height: 55,
             decoration: const BoxDecoration(
               shape: BoxShape.circle,
-              color: Color(0xFF2C4059),
+              color: ColorConstants.theme2Orange,
             ),
             child: InkWell(
               onTap: () {
@@ -29,35 +57,27 @@ class ProfileMain extends StatelessWidget {
               },
               child: const Icon(
                 Icons.arrow_back_rounded,
-                color: Color(0xFFEF6C00),
+                color: ColorConstants.appcolor4,
               ),
             ),
           ),
         ),
         title: Text(
           "Profilim",
-          style: Theme.of(context).textTheme.headlineMedium,
+          style: Theme.of(context).textTheme.headlineMedium?.copyWith(
+                color: ColorConstants.itemBlack,
+              ),
         ),
-      ),
-      backgroundColor: Colors.white,
-      bottomNavigationBar: CurvedNavigationBar(
-        backgroundColor: Colors.amber,
-        items: const <Widget>[
-          Icon(Icons.home, size: 25),
-          Icon(Icons.search, size: 25),
-          Icon(Icons.dashboard, size: 25),
-          Icon(Icons.diversity_1, size: 25),
-          Icon(Icons.comment, size: 25),
-        ],
       ),
       body: SingleChildScrollView(
         child: Container(
+          decoration: CustomMaterial.backgroundBoxDecoration,
           padding: const EdgeInsets.all(CupertinoScrollbar.defaultThickness),
           child: Column(
             children: [
               Container(
                 decoration: BoxDecoration(
-                  color: const Color(0xFF2C4059),
+                  color: ColorConstants.theme2DarkBlue,
                   borderRadius: BorderRadius.circular(10),
                   boxShadow: [
                     BoxShadow(
@@ -77,17 +97,21 @@ class ProfileMain extends StatelessWidget {
                     Column(
                       children: [
                         Text(
-                          "Helin Güler",
-                          style: Theme.of(context).textTheme.headlineMedium?.copyWith(
-                            color: const Color(0xFFEF6C00),
-                          ),
+                          '${userDetail != null ? (" ${userDetail!.getName() ?? ""} ${userDetail!.getSurname() ?? ""}") : ""}',
+                          style: Theme.of(context)
+                              .textTheme
+                              .headlineMedium
+                              ?.copyWith(
+                                color: ColorConstants.appcolor4,
+                              ),
                         ),
                         const SizedBox(height: 8),
                         Text(
-                          "@helindev",
-                          style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                            color: const Color(0xFFEF6C00),
-                          ),
+                          "${UserHelper().auth.currentUser!.email}",
+                          style:
+                              Theme.of(context).textTheme.bodyMedium?.copyWith(
+                                    color: ColorConstants.appcolor4,
+                                  ),
                         ),
                       ],
                     ),
@@ -101,7 +125,7 @@ class ProfileMain extends StatelessWidget {
                 padding: const EdgeInsets.all(16),
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(10),
-                  color: const Color(0xFF2C4059),
+                  color: ColorConstants.theme1BrightCloudBlue,
                   boxShadow: [
                     BoxShadow(
                       color: Colors.black.withOpacity(0.3),
@@ -114,140 +138,179 @@ class ProfileMain extends StatelessWidget {
                   children: [
                     InkWell(
                       onTap: () {
-                        Navigator.pushReplacement(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) => const MeProfileAccount(),),);},
+                        Navigator.pushNamed(
+                            context, RouterConstants.myProfileAccountPage);
+                      },
                       child: ListTile(
                         leading: Container(
-                          width: 30,
+                          width: 40,
                           height: 40,
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(100),
-                            color: CupertinoColors.systemBlue.withOpacity(0.1),
-                          ),
+                          decoration: const BoxDecoration(
+                              boxShadow: [
+                                BoxShadow(
+                                    color: ColorConstants.theme2DarkOpacity20,
+                                    blurRadius: 25.0)
+                              ],
+                              shape: BoxShape.circle,
+                              color: ColorConstants.theme1BrightCloudBlue),
                           child: const Icon(
                             LineAwesomeIcons.user_check,
-                            color: CupertinoColors.systemBlue,
+                            color: ColorConstants.itemBlack,
                           ),
                         ),
                         title: Text(
                           "Hesabım",
-                          style: Theme.of(context).textTheme.bodyLarge,
+                          style:
+                              Theme.of(context).textTheme.bodyLarge?.copyWith(
+                                    color: ColorConstants.itemBlack,
+                                  ),
                         ),
                         trailing: Container(
                           width: 40,
                           height: 40,
                           decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(100),
-                            color: CupertinoColors.systemBlue.withOpacity(0.1),
+                            color: ColorConstants.theme2Orange,
                           ),
-                          child: const Icon(
-                            LineAwesomeIcons.angle_right,
-                            size: 18.0,
-                            color: CupertinoColors.systemGrey,
-                          ),
+                          child: const Icon(LineAwesomeIcons.angle_right,
+                              size: 18.0, color: ColorConstants.appcolor4),
                         ),
                       ),
                     ),
+                    const Divider(
+                      height: 0.01,
+                      color: Colors.black12,
+                    ),
                     const SizedBox(height: 16),
                     ListTile(
+                      onTap: () {
+                        Navigator.pushNamed(
+                            context, RouterConstants.generalSettingsPage);
+                      },
                       leading: Container(
-                        width: 30,
+                        width: 40,
                         height: 40,
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(100),
-                          color: CupertinoColors.systemBlue.withOpacity(0.1),
-                        ),
+                        decoration: const BoxDecoration(
+                            boxShadow: [
+                              BoxShadow(
+                                  color: ColorConstants.theme2DarkOpacity20,
+                                  blurRadius: 25.0)
+                            ],
+                            shape: BoxShape.circle,
+                            color: ColorConstants.theme1BrightCloudBlue),
                         child: const Icon(
                           LineAwesomeIcons.cog,
-                          color: CupertinoColors.systemBlue,
+                          color: ColorConstants.itemBlack,
                         ),
                       ),
                       title: Text(
                         "Genel Ayarlar",
-                        style: Theme.of(context).textTheme.bodyLarge,
+                        style: Theme.of(context).textTheme.bodyLarge?.copyWith(
+                              color: ColorConstants.itemBlack,
+                            ),
                       ),
                       trailing: Container(
                         width: 40,
                         height: 40,
                         decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(100),
-                          color: CupertinoColors.systemBlue.withOpacity(0.1),
+                          color: ColorConstants.theme2Orange,
                         ),
                         child: const Icon(
                           LineAwesomeIcons.angle_right,
                           size: 18.0,
-                          color: CupertinoColors.systemGrey,
+                          color: ColorConstants.appcolor4,
                         ),
                       ),
+                    ),
+                    const Divider(
+                      height: 0.01,
+                      color: Colors.black12,
                     ),
                     const SizedBox(height: 16),
                     ListTile(
                       leading: Container(
-                        width: 30,
+                        width: 40,
                         height: 40,
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(100),
-                          color: CupertinoColors.systemBlue.withOpacity(0.1),
-                        ),
+                        decoration: const BoxDecoration(
+                            boxShadow: [
+                              BoxShadow(
+                                  color: ColorConstants.theme2DarkOpacity20,
+                                  blurRadius: 25.0)
+                            ],
+                            shape: BoxShape.circle,
+                            color: ColorConstants.theme1BrightCloudBlue),
                         child: const Icon(
                           LineAwesomeIcons.wallet,
-                          color: CupertinoColors.systemBlue,
+                          color: ColorConstants.itemBlack,
                         ),
                       ),
                       title: Text(
                         "Ödeme Yöntemleri",
-                        style: Theme.of(context).textTheme.bodyLarge,
+                        style: Theme.of(context).textTheme.bodyLarge?.copyWith(
+                              color: ColorConstants.itemBlack,
+                            ),
                       ),
                       trailing: Container(
                         width: 40,
                         height: 40,
                         decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(100),
-                          color: CupertinoColors.systemBlue.withOpacity(0.1),
+                          color: ColorConstants.theme2Orange,
                         ),
                         child: const Icon(
                           LineAwesomeIcons.angle_right,
                           size: 18.0,
-                          color: CupertinoColors.systemGrey,
+                          color: ColorConstants.appcolor4,
                         ),
                       ),
+                    ),
+                    const Divider(
+                      height: 0.01,
+                      color: Colors.black12,
                     ),
                     const SizedBox(height: 16),
                     InkWell(
                       onTap: () {
                         UserHelper().signOut();
-                        Navigator.pushReplacementNamed(context, RouterConstants.homePage);
+                        Navigator.pushReplacementNamed(
+                            context, RouterConstants.homePage);
                       },
                       child: ListTile(
                         leading: Container(
-                          width: 30,
+                          width: 40,
                           height: 40,
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(100),
-                            color: CupertinoColors.systemBlue.withOpacity(0.1),
-                          ),
+                          decoration: const BoxDecoration(
+                              boxShadow: [
+                                BoxShadow(
+                                    color: ColorConstants.theme2DarkOpacity20,
+                                    blurRadius: 25.0)
+                              ],
+                              shape: BoxShape.circle,
+                              color: ColorConstants.theme1BrightCloudBlue),
                           child: const Icon(
                             LineAwesomeIcons.alternate_sign_out,
-                            color: CupertinoColors.systemBlue,
+                            color: ColorConstants.itemBlack,
                           ),
                         ),
                         title: Text(
                           "Çıkış Yap",
-                          style: Theme.of(context).textTheme.bodyLarge,
+                          style:
+                              Theme.of(context).textTheme.bodyLarge?.copyWith(
+                                    color: ColorConstants.itemBlack,
+                                  ),
                         ),
                         trailing: Container(
                           width: 40,
                           height: 40,
                           decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(100),
-                            color: CupertinoColors.systemBlue.withOpacity(0.1),
+                            color: ColorConstants.theme2Orange,
                           ),
                           child: const Icon(
                             LineAwesomeIcons.angle_right,
                             size: 18.0,
-                            color: CupertinoColors.systemGrey,
+                            color: ColorConstants.appcolor4,
                           ),
                         ),
                       ),
@@ -260,7 +323,7 @@ class ProfileMain extends StatelessWidget {
                 padding: const EdgeInsets.all(16),
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(10),
-                  color: const Color(0xFF2C4059),
+                  color: ColorConstants.theme1BrightCloudBlue,
                   boxShadow: [
                     BoxShadow(
                       color: Colors.black.withOpacity(0.3),
@@ -273,64 +336,80 @@ class ProfileMain extends StatelessWidget {
                   children: [
                     ListTile(
                       leading: Container(
-                        width: 30,
+                        width: 40,
                         height: 40,
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(100),
-                          color: CupertinoColors.systemBlue.withOpacity(0.1),
-                        ),
+                        decoration: const BoxDecoration(
+                            boxShadow: [
+                              BoxShadow(
+                                  color: ColorConstants.theme2DarkOpacity20,
+                                  blurRadius: 25.0)
+                            ],
+                            shape: BoxShape.circle,
+                            color: ColorConstants.theme1BrightCloudBlue),
                         child: const Icon(
                           LineAwesomeIcons.question_circle,
-                          color: CupertinoColors.systemBlue,
+                          color: ColorConstants.itemBlack,
                         ),
                       ),
                       title: Text(
                         "Yardım ve Destek",
-                        style: Theme.of(context).textTheme.bodyLarge,
+                        style: Theme.of(context).textTheme.bodyLarge?.copyWith(
+                              color: ColorConstants.itemBlack,
+                            ),
                       ),
                       trailing: Container(
                         width: 40,
                         height: 40,
                         decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(100),
-                          color: CupertinoColors.systemBlue.withOpacity(0.1),
+                          color: ColorConstants.theme2Orange,
                         ),
                         child: const Icon(
                           LineAwesomeIcons.angle_right,
                           size: 18.0,
-                          color: CupertinoColors.systemGrey,
+                          color: ColorConstants.appcolor4,
                         ),
                       ),
+                    ),
+                    const Divider(
+                      height: 0.01,
+                      color: Colors.black12,
                     ),
                     const SizedBox(height: 16),
                     ListTile(
                       leading: Container(
-                        width: 30,
+                        width: 40,
                         height: 40,
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(100),
-                          color: CupertinoColors.systemBlue.withOpacity(0.1),
-                        ),
+                        decoration: const BoxDecoration(
+                            boxShadow: [
+                              BoxShadow(
+                                  color: ColorConstants.theme2DarkOpacity20,
+                                  blurRadius: 25.0)
+                            ],
+                            shape: BoxShape.circle,
+                            color: ColorConstants.theme1BrightCloudBlue),
                         child: const Icon(
                           LineAwesomeIcons.info_circle,
-                          color: CupertinoColors.systemBlue,
+                          color: ColorConstants.itemBlack,
                         ),
                       ),
                       title: Text(
                         "Hakkımızda",
-                        style: Theme.of(context).textTheme.bodyLarge,
+                        style: Theme.of(context).textTheme.bodyLarge?.copyWith(
+                              color: ColorConstants.itemBlack,
+                            ),
                       ),
                       trailing: Container(
                         width: 40,
                         height: 40,
                         decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(100),
-                          color: CupertinoColors.systemBlue.withOpacity(0.1),
+                          color: ColorConstants.theme2Orange,
                         ),
                         child: const Icon(
                           LineAwesomeIcons.angle_right,
                           size: 18.0,
-                          color: CupertinoColors.systemGrey,
+                          color: ColorConstants.appcolor4,
                         ),
                       ),
                     ),
