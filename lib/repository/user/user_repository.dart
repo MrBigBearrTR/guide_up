@@ -21,6 +21,16 @@ class UserRepository{
     }
     return null;
   }
+  Future<String?> getUserIdByUid(String uid) async {
+
+    var query = await userCollections.where("id",isEqualTo: uid).get();
+
+    if(query.docs.isNotEmpty){
+
+      return query.docs.first.id;
+    }
+    return null;
+  }
   Future<UserModel?> getUserByUserId(String userId) async {
 
     var query = await userCollections.doc(userId).get();

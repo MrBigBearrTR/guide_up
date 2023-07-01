@@ -45,15 +45,15 @@ class _IntroPage5State extends State<IntroPage5>
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             AnimatedBuilder(
-              animation: _animation,
-              builder: (BuildContext context, Widget? child) {
-                return Transform.scale(
-                  scale: _animation.value,
-                  child: Image.asset(
-                    'assets/img/GuideUpLogo.png',
-                  ),
-                );
-              },
+                animation: _animation,
+                builder: (BuildContext context, Widget? child) {
+                  return Transform.scale(
+                    scale: _animation.value,
+                    child: Image.asset(
+                      'assets/img/GuideUpLogo.png',
+                    ),
+                  );
+                },
             ),
             SizedBox(height: 16),
             FadeTransition(

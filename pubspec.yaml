@@ -49,6 +49,7 @@ dependencies:
   google_fonts: ^5.1.0
   cupertino_date_textbox: ^1.0.3
   url_launcher: ^6.1.11
+  simple_animations: ^4.0.0
 dev_dependencies:
   flutter_test:
     sdk: flutter
