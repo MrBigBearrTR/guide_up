@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import '../../../../core/constant/router_constants.dart';
+import '../../../../ui/material/custom_material.dart';
 
 class EducationInformation extends StatefulWidget {
   const EducationInformation({Key? key}) : super(key: key);
@@ -37,7 +38,8 @@ class _EducationInformationState extends State<EducationInformation> {
         actions: [
           Padding(
             padding: const EdgeInsets.only(right: 8.0),
-            child: Image.asset('assets/img/GuideUpLogo.png', // Logo resminin yolunu buraya ekleyin
+            child: Image.asset(
+              'assets/img/GuideUpLogo.png', // Logo resminin yolunu buraya ekleyin
               width: 62,
               height: 62,
             ),
@@ -45,6 +47,7 @@ class _EducationInformationState extends State<EducationInformation> {
         ],
       ),
       body: Container(
+        decoration: CustomMaterial.backgroundBoxDecoration ,
         padding: const EdgeInsets.all(16),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,

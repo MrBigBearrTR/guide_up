@@ -357,6 +357,10 @@ class _ProfileMainState extends State<ProfileMain> {
                               color: ColorConstants.itemBlack,
                             ),
                       ),
+                      onTap: () {
+                        Navigator.pushNamed(
+                            context, RouterConstants.helpAndSupport);
+                      },
                       trailing: Container(
                         width: 40,
                         height: 40,
@@ -370,6 +374,7 @@ class _ProfileMainState extends State<ProfileMain> {
                           color: ColorConstants.appcolor4,
                         ),
                       ),
+
                     ),
                     const Divider(
                       height: 0.01,
@@ -399,6 +404,10 @@ class _ProfileMainState extends State<ProfileMain> {
                               color: ColorConstants.itemBlack,
                             ),
                       ),
+                      onTap: () {
+                        Navigator.pushNamed(
+                            context, RouterConstants.aboutUs);
+                      },
                       trailing: Container(
                         width: 40,
                         height: 40,

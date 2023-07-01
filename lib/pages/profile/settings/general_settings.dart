@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
 
+import '../../../ui/material/custom_material.dart';
+
 void main() {
   runApp(const MyApp());
 }
 
 class MyApp extends StatelessWidget {
-  const MyApp({super.key});
+  const MyApp({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -45,27 +47,31 @@ class _GeneralSettingsState extends State<GeneralSettings> {
         actions: [
           Padding(
             padding: const EdgeInsets.only(right: 8.0),
-            child: Image.asset('assets/img/GuideUpLogo.png', // Logo resminin yolunu buraya ekleyin
+            child: Image.asset(
+              'assets/img/GuideUpLogo.png', // Logo resminin yolunu buraya ekleyin
               width: 62,
               height: 62,
             ),
           ),
         ],
       ),
-      body: SingleChildScrollView(
-        padding: const EdgeInsets.all(16.0),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            const SizedBox(height: 16.0),
-            _buildPasswordSection(),
-            const SizedBox(height: 16.0),
-            _buildLanguageSection(),
-            const SizedBox(height: 16.0),
-            _buildPhoneNumberSection(),
-            const SizedBox(height: 16.0),
-            _buildThemeSection(),
-          ],
+      body: Container(
+        decoration: CustomMaterial.backgroundBoxDecoration ,
+        child: SingleChildScrollView(
+          padding: const EdgeInsets.all(16.0),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              const SizedBox(height: 16.0),
+              _buildPasswordSection(),
+              const SizedBox(height: 16.0),
+              _buildLanguageSection(),
+              const SizedBox(height: 16.0),
+              _buildPhoneNumberSection(),
+              const SizedBox(height: 16.0),
+              _buildThemeSection(),
+            ],
+          ),
         ),
       ),
     );
