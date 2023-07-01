@@ -48,6 +48,15 @@ class _AbilitiesState extends State<Abilities> {
             Navigator.pushNamed(context, RouterConstants.myProfileAccountPage);
           },
         ),
+        actions: [
+          Padding(
+            padding: const EdgeInsets.only(right: 8.0),
+            child: Image.asset('assets/img/GuideUpLogo.png', // Logo resminin yolunu buraya ekleyin
+              width: 62,
+              height: 62,
+            ),
+          ),
+        ],
       ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),

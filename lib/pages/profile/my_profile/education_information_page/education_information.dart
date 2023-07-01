@@ -34,6 +34,15 @@ class _EducationInformationState extends State<EducationInformation> {
             Navigator.pushNamed(context, RouterConstants.myProfileAccountPage);
           },
         ),
+        actions: [
+          Padding(
+            padding: const EdgeInsets.only(right: 8.0),
+            child: Image.asset('assets/img/GuideUpLogo.png', // Logo resminin yolunu buraya ekleyin
+              width: 62,
+              height: 62,
+            ),
+          ),
+        ],
       ),
       body: Container(
         padding: const EdgeInsets.all(16),
@@ -151,6 +160,14 @@ class _EducationInformationState extends State<EducationInformation> {
               onPressed: () {
                 // Kaydet butonuna basıldığında işlemi yap
               },
+              style: ButtonStyle(
+                backgroundColor: MaterialStateProperty.all<Color>(
+                  const Color(0xFF212832), // Arkaplan rengi
+                ),
+                foregroundColor: MaterialStateProperty.all<Color>(
+                  const Color(0xFFEEEEEE), // Yazı rengi
+                ),
+              ),
               child: const Text('Kaydet'),
             ),
           ],
