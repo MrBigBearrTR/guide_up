@@ -18,6 +18,8 @@ class UserHelper {
     _auth = FirebaseAuth.instance;
   }
 
+
+
   final userCollection = FirebaseFirestore.instance.collection("users");
   var secureStorage = const FlutterSecureStorage();
 
@@ -128,6 +130,33 @@ class UserHelper {
       return false;
     }
   }
+  Future<bool> isEmailRegistered(String email) async {
+    try {
+      // Perform the necessary checks to determine if the email is registered
+      // For example, you can query your database or perform a Firebase Auth check.
+      // Here's an example using Firebase Auth:
+
+      UserCredential userCredential =
+      await FirebaseAuth.instance.createUserWithEmailAndPassword(
+        email: email,
+        password: 'dummy-password',
+      );
+
+      if (userCredential.user != null) {
+        await userCredential.user?.delete();
+        return false;
+      }
+
+      return false;
+    } catch (error) {
+      if (error is FirebaseAuthException && error.code == 'email-already-in-use') {
+        return true;
+      }
+      print('Error while checking if email is registered: $error');
+      return false;
+    }
+  }
+
 
   Future<UserModel> registerWithUserModelAndDetail(UserModel userModel) async {
     try {
@@ -155,6 +184,7 @@ class UserHelper {
       print('Hata: $error');
       throw error;
     }
+
   }
 
   Future<UserDetail> getUserDetail() async {
@@ -197,5 +227,7 @@ class UserHelper {
 
       throw error;
     }
+
+
   }
 }

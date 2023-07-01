@@ -39,6 +39,10 @@ class _RegisterPageState extends State<RegisterPage> {
     _confirmPasswordController.dispose();
     super.dispose();
   }
+  void _showSnackBar(String message) {
+    final snackBar = SnackBar(content: Text(message));
+    ScaffoldMessenger.of(context).showSnackBar(snackBar);
+  }
 
   void _register(BuildContext context) async {
     String email = _emailController.text;
@@ -52,14 +56,47 @@ class _RegisterPageState extends State<RegisterPage> {
       userModel.setPassword(password);
       userModel.setMentor(isMentor);
 
+      List<String> unfilledFields = [];
+
+      if (email.isEmpty) {
+        unfilledFields.add("Email");
+      }
+      if (password.isEmpty) {
+        unfilledFields.add("Şifre");
+      }
+      if (confirmPassword.isEmpty) {
+        unfilledFields.add("Şifre Tekrarı");
+      }
+
+      if (unfilledFields.isNotEmpty) {
+        String unfilledFieldsMessage =
+            "Lütfen aşağıdaki alanları doldurun: " + unfilledFields.join(", ");
+
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(content: Text(unfilledFieldsMessage)),
+        );
+        return;
+      }
+
       try {
-        UserModel registeredUser = await UserHelper().registerWithUserModelAndDetail(userModel);
+        // Check if email is already registered
+        bool isEmailRegistered = await UserHelper().isEmailRegistered(email);
+        if (isEmailRegistered) {
+          ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(content: Text("Bu e-posta zaten kayıtlı")),
+          );
+          return;
+        }
+
+        UserModel registeredUser =
+        await UserHelper().registerWithUserModelAndDetail(userModel);
         // Kayıt başarılı, işlemleri devam ettirebilirsiniz.
         print('Kayıt başarılı: $registeredUser');
         Navigator.push(
           context,
           MaterialPageRoute(
-            builder: (context) => RegisterWithDetail(userModel: registeredUser),
+            builder: (context) =>
+                RegisterWithDetail(userModel: registeredUser),
           ),
         );
       } catch (error) {
@@ -68,9 +105,12 @@ class _RegisterPageState extends State<RegisterPage> {
       }
     } else {
       // Parolalar uyuşmuyor, hata mesajını göster veya işlem yap.
-      print('Parolalar uyuşmuyor');
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text("Parolalar uyuşmuyor")),
+      );
     }
   }
+
 
   @override
   Widget build(BuildContext context) {
@@ -193,8 +233,8 @@ class _RegisterPageState extends State<RegisterPage> {
                                 obscureText: false,
                                 maxLines: 1,
                                 decoration: const InputDecoration(
-                                  label: Text(" E-mail ..."),
-                                  border: InputBorder.none,
+                                  border: UnderlineInputBorder(),
+                                  hintText: "Email",
                                 ),
                               ),
                             ),
@@ -323,17 +363,18 @@ class _RegisterPageState extends State<RegisterPage> {
                         height: 20,
                       ),
                       SizedBox(
-                        width: 410,
-                        height: 60,
+                        width: 320,
+                        height: 50,
                         child: DecoratedBox(
                               decoration: BoxDecoration(
-                                  color:Colors.lightGreen,
-                                  border: Border.all(color: Colors.black38, width:3),
-                                  borderRadius: BorderRadius.circular(50),
+                                  color:Colors.white,
+                                  border: Border.all(color: Colors.deepOrange ,width: 1 ),
+                                  borderRadius: BorderRadius.circular(20),
                                   boxShadow: const <BoxShadow>[
                                     BoxShadow(
-                                        color: Color.fromRGBO(0, 0, 0, 0.57),
-                                        blurRadius: 5)
+                                        color: Colors.deepOrange,
+                                        blurRadius: 10,
+                                        offset: Offset(1, 1)),
                                   ]
                               ),
                               child:Padding(
@@ -342,7 +383,7 @@ class _RegisterPageState extends State<RegisterPage> {
                                 value: selectedRole,
                                 hint: const Text(
                                   'Kullanıcı Seçiniz?',
-                                  style: TextStyle(color: Colors.white),
+                                  style: TextStyle(color: Colors.black),
                                 ),
                                 onChanged: (newValue) {
                                   setState(() {
@@ -358,8 +399,7 @@ class _RegisterPageState extends State<RegisterPage> {
                                     child: Text(
                                       value,
                                       style: const TextStyle(
-                                        backgroundColor: ColorConstants.appcolor2,
-                                        color: Colors.white,
+                                        color: Colors.black,
                                         fontSize: 16,
                                       ),
                                     ),
@@ -369,13 +409,13 @@ class _RegisterPageState extends State<RegisterPage> {
                                   padding: EdgeInsets.only(left:20),
                                   child:Icon(Icons.arrow_circle_down_sharp)
                               ),
-                          iconEnabledColor: Colors.white,
+                          iconEnabledColor: Colors.black,
                           style: const TextStyle(
                               color: Colors.white,
                               fontSize: 20
                           ),
 
-                          dropdownColor: Colors.redAccent, //dropdown background color
+                          dropdownColor: Colors.white, //dropdown background color
                           underline: Container(), //remove underline
                           isExpanded: true, //make true to make width 100%
                         )
