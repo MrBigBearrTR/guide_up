@@ -31,5 +31,14 @@ class UserRepository{
     }
     return null;
   }
-}
+  Future<UserModel?> getUserByUserId(String userId) async {
 
+    var query = await userCollections.doc(userId).get();
+
+    if(query.data()!=null){
+
+      return UserModel().toClass(query.data()!);
+    }
+    return null;
+  }
+}

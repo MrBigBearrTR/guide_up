@@ -5,8 +5,8 @@ class CategoryCreateAllList{
 
 
   create() async{
-/*
-    Category main1 = Category();
+
+   /* Category main1 = Category();
     main1.setName("Yazılım Geliştirme");
     main1 = await CategoryRepository().add(main1);
 
@@ -219,8 +219,7 @@ class CategoryCreateAllList{
     azure.setName("Azure");
     azure.setMainCategory(devOpsVeBulutBilisim.getId()!);
     azure = await CategoryRepository().add(azure);
-*/
-/*
+
     Category isletme = new Category();
     isletme.setName("İşletme");
     isletme = await CategoryRepository().add(isletme);
@@ -375,7 +374,7 @@ class CategoryCreateAllList{
     performansDegerlendirmeVeKariyerPlanlama.setMainCategory(isEtiketiVeInsanKaynaklari.getId()!);
     performansDegerlendirmeVeKariyerPlanlama = await CategoryRepository().add(performansDegerlendirmeVeKariyerPlanlama);
 
- */
+
 
     Category finansVeMuhasebe = Category();
     finansVeMuhasebe.setName("Finans ve Muhasebe");
@@ -535,29 +534,29 @@ class CategoryCreateAllList{
     veriSifrelemeVeIzleme.setMainCategory(siberGuvenlik.getId()!);
     veriSifrelemeVeIzleme = await CategoryRepository().add(veriSifrelemeVeIzleme);
 
-    Category veritabaniYonetimi = new Category();
-    veritabaniYonetimi.setName("Veritabanı Yönetimi");
-    veritabaniYonetimi.setMainCategory(btVeYazilim.getId()!);
-    veritabaniYonetimi = await CategoryRepository().add(veritabaniYonetimi);
+    Category veritabaniYonetimi1 = new Category();
+    veritabaniYonetimi1.setName("Veritabanı Yönetimi");
+    veritabaniYonetimi1.setMainCategory(btVeYazilim.getId()!);
+    veritabaniYonetimi1 = await CategoryRepository().add(veritabaniYonetimi1);
 
     Category veritabaniTasarimiVeModelleri = new Category();
     veritabaniTasarimiVeModelleri.setName("Veritabanı Tasarımı ve Modelleri");
-    veritabaniTasarimiVeModelleri.setMainCategory(veritabaniYonetimi.getId()!);
+    veritabaniTasarimiVeModelleri.setMainCategory(veritabaniYonetimi1.getId()!);
     veritabaniTasarimiVeModelleri = await CategoryRepository().add(veritabaniTasarimiVeModelleri);
 
     Category sqlSorgulariVeOptimizasyonu = new Category();
     sqlSorgulariVeOptimizasyonu.setName("SQL Sorguları ve Optimizasyonu");
-    sqlSorgulariVeOptimizasyonu.setMainCategory(veritabaniYonetimi.getId()!);
+    sqlSorgulariVeOptimizasyonu.setMainCategory(veritabaniYonetimi1.getId()!);
     sqlSorgulariVeOptimizasyonu = await CategoryRepository().add(sqlSorgulariVeOptimizasyonu);
 
     Category veriYedeklemeVeKurtarma = new Category();
     veriYedeklemeVeKurtarma.setName("Veri Yedekleme ve Kurtarma");
-    veriYedeklemeVeKurtarma.setMainCategory(veritabaniYonetimi.getId()!);
+    veriYedeklemeVeKurtarma.setMainCategory(veritabaniYonetimi1.getId()!);
     veriYedeklemeVeKurtarma = await CategoryRepository().add(veriYedeklemeVeKurtarma);
 
     Category veritabaniGuvenligiVeIzleme = new Category();
     veritabaniGuvenligiVeIzleme.setName("Veritabanı Güvenliği ve İzleme");
-    veritabaniGuvenligiVeIzleme.setMainCategory(veritabaniYonetimi.getId()!);
+    veritabaniGuvenligiVeIzleme.setMainCategory(veritabaniYonetimi1.getId()!);
     veritabaniGuvenligiVeIzleme = await CategoryRepository().add(veritabaniGuvenligiVeIzleme);
 
     Category yazilimGelistirmeAraclari = new Category();
@@ -1227,34 +1226,34 @@ class CategoryCreateAllList{
     musteriDeneyimiYonetimi.setMainCategory(markaYonetimi.getId()!);
     musteriDeneyimiYonetimi = await CategoryRepository().add(musteriDeneyimiYonetimi);
 
-    Category pazarlamaStratejileri = new Category();
-    pazarlamaStratejileri.setName("Pazarlama Stratejileri");
-    pazarlamaStratejileri.setMainCategory(pazarlama.getId()!);
-    pazarlamaStratejileri = await CategoryRepository().add(pazarlamaStratejileri);
+    Category pazarlamaStratejileri2 = new Category();
+    pazarlamaStratejileri2.setName("Pazarlama Stratejileri");
+    pazarlamaStratejileri2.setMainCategory(pazarlama.getId()!);
+    pazarlamaStratejileri2 = await CategoryRepository().add(pazarlamaStratejileri2);
 
     Category hedefPazarBelirleme = new Category();
     hedefPazarBelirleme.setName("Hedef Pazar Belirleme");
-    hedefPazarBelirleme.setMainCategory(pazarlamaStratejileri.getId()!);
+    hedefPazarBelirleme.setMainCategory(pazarlamaStratejileri2.getId()!);
     hedefPazarBelirleme = await CategoryRepository().add(hedefPazarBelirleme);
 
     Category segmentasyonVeKonumlandirma = new Category();
     segmentasyonVeKonumlandirma.setName("Segmentasyon ve Konumlandırma");
-    segmentasyonVeKonumlandirma.setMainCategory(pazarlamaStratejileri.getId()!);
+    segmentasyonVeKonumlandirma.setMainCategory(pazarlamaStratejileri2.getId()!);
     segmentasyonVeKonumlandirma = await CategoryRepository().add(segmentasyonVeKonumlandirma);
 
-    Category rekabetAnalizi = new Category();
-    rekabetAnalizi.setName("Rekabet Analizi");
-    rekabetAnalizi.setMainCategory(pazarlamaStratejileri.getId()!);
-    rekabetAnalizi = await CategoryRepository().add(rekabetAnalizi);
+    Category rekabetAnalizi1 = new Category();
+    rekabetAnalizi1.setName("Rekabet Analizi");
+    rekabetAnalizi1.setMainCategory(pazarlamaStratejileri2.getId()!);
+    rekabetAnalizi1 = await CategoryRepository().add(rekabetAnalizi1);
 
     Category fiyatlandirmaStratejileri = new Category();
     fiyatlandirmaStratejileri.setName("Fiyatlandırma Stratejileri");
-    fiyatlandirmaStratejileri.setMainCategory(pazarlamaStratejileri.getId()!);
+    fiyatlandirmaStratejileri.setMainCategory(pazarlamaStratejileri2.getId()!);
     fiyatlandirmaStratejileri = await CategoryRepository().add(fiyatlandirmaStratejileri);
 
     Category dagitimKanallariVeLojistik = new Category();
     dagitimKanallariVeLojistik.setName("Dağıtım Kanalları ve Lojistik");
-    dagitimKanallariVeLojistik.setMainCategory(pazarlamaStratejileri.getId()!);
+    dagitimKanallariVeLojistik.setMainCategory(pazarlamaStratejileri2.getId()!);
     dagitimKanallariVeLojistik = await CategoryRepository().add(dagitimKanallariVeLojistik);
 
     Category pazarArastirmasiVeAnalizi = new Category();
@@ -1285,12 +1284,12 @@ class CategoryCreateAllList{
     Category pazarlamaStratejilerininDegerlendirilmesi = new Category();
     pazarlamaStratejilerininDegerlendirilmesi.setName("Pazarlama Stratejilerinin Değerlendirilmesi");
     pazarlamaStratejilerininDegerlendirilmesi.setMainCategory(pazarArastirmasiVeAnalizi.getId()!);
-    pazarlamaStratejilerininDegerlendirilmesi = await CategoryRepository().add(pazarlamaStratejilerininDegerlendirilmesi);
+    pazarlamaStratejilerininDegerlendirilmesi = await CategoryRepository().add(pazarlamaStratejilerininDegerlendirilmesi);*/
 ////////////////////////////////////////////////////////
-    Category main9 = Category();
+   /* Category main9 = Category();
     main9.setName("Yaşam Tarzı");
     main9 = await CategoryRepository().add(main9);
-/*
+
     Category main10 = Category();
     main10.setName("Proje Yönetimi");
     main10 = await CategoryRepository().add(main10);

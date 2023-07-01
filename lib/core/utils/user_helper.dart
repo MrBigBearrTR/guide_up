@@ -6,26 +6,26 @@ import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:guide_up/core/constant/firestore_collectioon_constant.dart';
 import 'package:guide_up/core/constant/secure_strorage_constant.dart';
+import 'package:guide_up/core/models/mentor/mentor_model.dart';
 import 'package:guide_up/core/models/users/user_detail/user_detail_model.dart';
 import 'package:guide_up/core/models/users/user_model.dart';
 import 'package:guide_up/core/utils/secure_storage_helper.dart';
+import 'package:guide_up/repository/mentor/mentor_repository.dart';
 import 'package:guide_up/repository/user/user_detail/user_detail_repository.dart';
 
 class UserHelper {
-  late FirebaseAuth _auth;
+  late FirebaseAuth auth;
 
   UserHelper() {
-    _auth = FirebaseAuth.instance;
+    auth = FirebaseAuth.instance;
   }
-
-
 
   final userCollection = FirebaseFirestore.instance.collection("users");
   var secureStorage = const FlutterSecureStorage();
 
   Future<User?> login(String username, String password) async {
     try {
-      var userCredential = await _auth.signInWithEmailAndPassword(
+      var userCredential = await auth.signInWithEmailAndPassword(
           email: username, password: password);
       debugPrint("++" + userCredential.toString());
 
@@ -64,7 +64,7 @@ class UserHelper {
 
   void createUser(String username, String password) async {
     try {
-      var userCredential = await _auth.createUserWithEmailAndPassword(
+      var userCredential = await auth.createUserWithEmailAndPassword(
           email: username, password: password);
 
       debugPrint("++" + userCredential.toString());
@@ -124,7 +124,7 @@ class UserHelper {
   }
 
   Future<bool> checkUser() async {
-    if (_auth.currentUser != null) {
+    if (auth.currentUser != null) {
       return true;
     } else {
       return false;
