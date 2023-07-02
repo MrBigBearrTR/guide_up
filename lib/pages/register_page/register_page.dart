@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:guide_up/core/constant/color_constants.dart';
 import 'package:guide_up/core/models/users/user_model.dart';
 import 'package:guide_up/pages/login/login_page.dart';
 import 'package:guide_up/pages/register_page/register_with_detail.dart';
+import 'package:guide_up/ui/material/custom_material.dart';
 
 import '../../core/utils/user_helper.dart';
 
@@ -111,18 +113,7 @@ class _RegisterPageState extends State<RegisterPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Container(
-        decoration: const BoxDecoration(
-          gradient: LinearGradient(
-            begin: Alignment.bottomRight,
-            end: Alignment.topCenter,
-            colors: [
-              ColorConstants.appcolor2,
-              ColorConstants.appcolor2,
-              ColorConstants.appcolor1,
-              ColorConstants.appcolor1,
-            ],
-          ),
-        ),
+        decoration: CustomMaterial.backgroundRegisterWithLoginDecoration,
         child: SingleChildScrollView(
           child: Column(
             children: <Widget>[
@@ -151,8 +142,8 @@ class _RegisterPageState extends State<RegisterPage> {
                         children: <Widget>[
                           Image.asset(
                             'assets/logo/guideUpLogo.png',
-                            height: 200,
-                            width: 200,
+                            height: 150,
+                            width: 150,
                             alignment: Alignment.center,
                           ),
                         ],
