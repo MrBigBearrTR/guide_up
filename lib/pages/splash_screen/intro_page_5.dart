@@ -50,7 +50,7 @@ class _IntroPage5State extends State<IntroPage5>
                   return Transform.scale(
                     scale: _animation.value,
                     child: Image.asset(
-                      'assets/img/GuideUpLogo.png',
+                      'assets/logo/guideUpLogo.png',
                     ),
                   );
                 },

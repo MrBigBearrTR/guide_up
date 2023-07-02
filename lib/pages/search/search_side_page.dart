@@ -7,6 +7,7 @@ import 'package:guide_up/ui/material/custom_material.dart';
 
 import '../../core/constant/color_constants.dart';
 import '../../core/utils/secure_storage_helper.dart';
+import '../../core/utils/user_helper.dart';
 
 class SearchSidePage extends StatefulWidget {
   const SearchSidePage({Key? key}) : super(key: key);
@@ -26,25 +27,66 @@ class _SearchSidePageState extends State<SearchSidePage> {
 
   @override
   Widget build(BuildContext context) {
+    final padding = MediaQuery.of(context).padding;
     return Container(
         decoration: CustomMaterial.backgroundBoxDecoration,
         child: Column(
           children: [
-            UserAccountsDrawerHeader(
-              decoration: const BoxDecoration(
-                  gradient: LinearGradient(
-                colors: [
-                  ColorConstants.theme2DarkBlue,
-                  ColorConstants.theme2DarkBlue
+            Container(
+              padding: EdgeInsets.fromLTRB(0, padding.top, 0, 20),
+              decoration: BoxDecoration(
+                color: ColorConstants.theme2DarkBlue,
+                borderRadius: BorderRadius.circular(10),
+                boxShadow: [
+                  BoxShadow(
+                    color: Colors.black.withOpacity(0.3),
+                    blurRadius: 8,
+                    offset: const Offset(0, 2),
+                  ),
                 ],
-                begin: Alignment.topLeft,
-                end: Alignment.bottomRight,
-              )),
-              accountName: const Text('Hoşgeldin'),
-              accountEmail: Text(_userDetail != null
-                  ? (" ${_userDetail!.getName()!} ${_userDetail!.getSurname()!}")
-                  : ""),
-              currentAccountPicture: Image.asset("assets/img/GuideUpLogo.png"),
+              ),
+              child: Row(
+                children: [
+                   Padding(
+                    padding: EdgeInsets.all(10),
+                    child: CircleAvatar(
+                      radius: 40,
+                      backgroundColor: ColorConstants.theme1White,
+                      backgroundImage:
+                        _userDetail != null
+                            ? AssetImage('assets/img/unknown_user.png')
+                            : AssetImage('assets/logo/guideUpLogoWithBackground.png')
+                      ,
+                    ),
+                  ),
+                  const SizedBox(width: 20),
+                  Column(
+                    children: [
+                      Padding(padding: EdgeInsets.only(top: 10)),
+                      Text(
+                        _userDetail != null
+                            ? (" ${_userDetail!.getName() ?? ""} ${_userDetail!.getSurname() ?? ""}")
+                            : "Hoşgeldiniz!",
+                        style: Theme.of(context)
+                            .textTheme
+                            .headlineMedium
+                            ?.copyWith(
+                              color: ColorConstants.appcolor4,
+                            ),
+                      ),
+                      const SizedBox(height: 8),
+                      Text(
+                        UserHelper().auth.currentUser != null
+                            ? UserHelper().auth.currentUser!.email!
+                            : "",
+                        style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+                              color: ColorConstants.appcolor4,
+                            ),
+                      ),
+                    ],
+                  ),
+                ],
+              ),
             ),
             Expanded(
               child: FutureBuilder(

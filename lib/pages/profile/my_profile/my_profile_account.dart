@@ -1,9 +1,11 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:guide_up/core/enumeration/enums/EnLinkType.dart';
 import 'package:guide_up/core/enumeration/extensions/ExLinkType.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:intl/intl.dart';
-import 'dart:io';
+
 import '../../../core/constant/color_constants.dart';
 import '../../../core/constant/router_constants.dart';
 import '../../../core/models/users/user_detail/user_detail_model.dart';
@@ -11,10 +13,9 @@ import '../../../core/models/users/user_detail/user_links_model.dart';
 import '../../../core/models/users/user_model.dart';
 import '../../../core/utils/control_helper.dart';
 import '../../../core/utils/secure_storage_helper.dart';
-import '../../other/kayan_Appbar_Deneme.dart';
-import '../licenses_and_certificates/licenses_And_Certificates.dart';
 import '../../../repository/user/user_detail/user_links_repository.dart';
 import '../../../repository/user/user_repository.dart';
+import '../licenses_and_certificates/licenses_And_Certificates.dart';
 
 class MyProfileAccount extends StatefulWidget {
   const MyProfileAccount({Key? key}) : super(key: key);
@@ -41,6 +42,7 @@ class _MyProfileAccountState extends State<MyProfileAccount> {
   final _lastnameController = TextEditingController();
   final _usernameController = TextEditingController();
   final _emailController = TextEditingController();
+
   // ignore: prefer_typing_uninitialized_variables
   late final _birthdayController;
 
@@ -53,7 +55,6 @@ class _MyProfileAccountState extends State<MyProfileAccount> {
 
     getUserModels();
   }
-
 
   void getUserModels() async {
     UserDetail? detail = await SecureStorageHelper().getUserDetail();
@@ -103,7 +104,6 @@ class _MyProfileAccountState extends State<MyProfileAccount> {
     }
   }
 
-
   void addOtherLink() {
     String title = "";
     String link = "";
@@ -132,11 +132,10 @@ class _MyProfileAccountState extends State<MyProfileAccount> {
                   labelText: "Başlık",
                   labelStyle: TextStyle(color: ColorConstants.theme2Orange),
                   border: OutlineInputBorder(),
-
                 ),
                 onChanged: (value) {
                   setState(() {
-                    title=value;
+                    title = value;
                   });
                 },
               ),
@@ -169,7 +168,7 @@ class _MyProfileAccountState extends State<MyProfileAccount> {
                   UserLinks links = UserLinks();
                   links.setLink(link);
                   links.setEnLinkType(EnLinkType.personelPage);
-                  if(userDetail!=null) {
+                  if (userDetail != null) {
                     links.setUserId(userDetail!.getUserId()!);
                   }
                   UserLinksRepository().add(links);
@@ -320,7 +319,7 @@ class _MyProfileAccountState extends State<MyProfileAccount> {
                     ),
                   ),
                   cursorColor: const Color(0xFF07617C),
-                    controller: _lastnameController,
+                  controller: _lastnameController,
                   onChanged: (value) {
                     setState(() {});
                   },
@@ -350,7 +349,7 @@ class _MyProfileAccountState extends State<MyProfileAccount> {
                     ),
                   ),
                   cursorColor: const Color(0xFF07617C),
-                    controller: _usernameController,
+                  controller: _usernameController,
                   onChanged: (value) {
                     setState(() {});
                   },
@@ -406,37 +405,37 @@ class _MyProfileAccountState extends State<MyProfileAccount> {
                 ),
                 const SizedBox(height: 16.0),
                 FutureBuilder(
-                    builder: (context, snapshot) {
-                      if (snapshot.connectionState == ConnectionState.waiting) {
-                        return const Center(
-                          child: CircularProgressIndicator(),
-                        );
-                      } else if (snapshot.hasError) {
-                        return const Center(
-                          child: Text('Veriler alınırken bir hata oluştu.'),
-                        );
-                      } else {
-                        return SizedBox(
-                          height: (snapshot.data!.length) * 85,
-                          child: ListView.builder(
-                            itemBuilder: (context, index) {
-                              final link = snapshot.data![index];
-                              return ListTile(
-                                title: Text(link.getLink()!),
-                                subtitle: Text(
-                                    link.getEnLinkType()!.getDisplayName()),
-                                leading: const Icon(Icons.link),
-                              );
-                            },
-                            itemCount: snapshot.data!.length,
-                            padding: const EdgeInsets.all(0),
-                          ),
-                        );
-                      }
-                    },
-                    future: UserLinksRepository().getUserLinksByUserId(
-                        userDetail != null ? (userDetail!.getUserId()!) : "1"),
-                  ),
+                  builder: (context, snapshot) {
+                    if (snapshot.connectionState == ConnectionState.waiting) {
+                      return const Center(
+                        child: CircularProgressIndicator(),
+                      );
+                    } else if (snapshot.hasError) {
+                      return const Center(
+                        child: Text('Veriler alınırken bir hata oluştu.'),
+                      );
+                    } else {
+                      return SizedBox(
+                        height: (snapshot.data!.length) * 85,
+                        child: ListView.builder(
+                          itemBuilder: (context, index) {
+                            final link = snapshot.data![index];
+                            return ListTile(
+                              title: Text(link.getLink()!),
+                              subtitle:
+                                  Text(link.getEnLinkType()!.getDisplayName()),
+                              leading: const Icon(Icons.link),
+                            );
+                          },
+                          itemCount: snapshot.data!.length,
+                          padding: const EdgeInsets.all(0),
+                        ),
+                      );
+                    }
+                  },
+                  future: UserLinksRepository().getUserLinksByUserId(
+                      userDetail != null ? (userDetail!.getUserId()!) : "1"),
+                ),
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
@@ -674,37 +673,11 @@ class _MyProfileAccountState extends State<MyProfileAccount> {
                 ),
                 child: InkWell(
                   onTap: () {
-                    Navigator.pushNamed(context, RouterConstants.profilePage);
+                    Navigator.pop(context);
                   },
                   child: const Icon(
                     Icons.arrow_back_rounded,
                     color: Color(0xFFEF6C00),
-                  ),
-                ),
-              ),
-            ),
-            Positioned(
-              top: 150,
-              left: 0,
-              child: Container(
-                width: 55,
-                height: 55,
-                decoration: const BoxDecoration(
-                  shape: BoxShape.circle,
-                  color: Color(0xFFF80000),
-                ),
-                child: InkWell(
-                  onTap: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => const KayanAppbarDenemePage(),
-                      ),
-                    );
-                  },
-                  child: const Icon(
-                    Icons.ad_units,
-                    color: Color(0xFFFFFFFF),
                   ),
                 ),
               ),
@@ -717,7 +690,7 @@ class _MyProfileAccountState extends State<MyProfileAccount> {
                   child: Container(
                     alignment: Alignment.center,
                     child: Image.asset(
-                      'assets/img/GuideUpLogo.png',
+                      'assets/logo/guideUpLogo.png',
                       width: 75,
                       height: 75,
                       fit: BoxFit.cover,

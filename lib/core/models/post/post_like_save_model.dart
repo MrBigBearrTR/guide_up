@@ -1,5 +1,6 @@
 import '../../enumeration/enums/EnLikeSaveType.dart';
 import '../../enumeration/extensions/ExLikeSaveType.dart';
+import '../../utils/control_helper.dart';
 import '../general/general_fields_model.dart';
 
 /// [@author MrBigBear] 
@@ -55,16 +56,16 @@ class PostLikeSave extends GeneralFields {
   toClass(Map<String, dynamic> map) {
     toGeneralClass(map);
 
-    if (map.containsKey('id')) {
+    if (ControlHelper.checkMapValue(map, 'id')) {
       setId(map['id']);
     }
-    if (map.containsKey('userId')) {
+    if (ControlHelper.checkMapValue(map, 'userId')) {
       setUserId(map['userId']);
     }
-    if (map.containsKey('postId')) {
+    if (ControlHelper.checkMapValue(map, 'postId')) {
       setPostId(map['postId']);
     }
-    if (map.containsKey('enLikeSaveType')) {
+    if (ControlHelper.checkMapValue(map, 'enLikeSaveType')) {
       setEnLikeSaveType(ExPostLikeSaveType.getEnum(map['enLikeSaveType'])!);
     }
   }

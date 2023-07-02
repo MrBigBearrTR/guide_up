@@ -1,5 +1,7 @@
 import 'package:guide_up/core/models/general/general_fields_model.dart';
 
+import '../../utils/control_helper.dart';
+
 /// [@author MrBigBear] 
 class Post extends GeneralFields {
   String? _id;
@@ -49,7 +51,7 @@ class Post extends GeneralFields {
     _photo = photo;
   }
 
-  bool? isThereCategory() {
+  bool isThereCategory() {
     return _isThereCategory;
   }
 
@@ -71,22 +73,22 @@ class Post extends GeneralFields {
   toClass(Map<String, dynamic> map) {
     toGeneralClass(map);
 
-    if (map.containsKey('id')) {
+    if (ControlHelper.checkMapValue(map, 'id')) {
       setId(map['id']);
     }
-    if (map.containsKey('userId')) {
+    if (ControlHelper.checkMapValue(map, 'userId')) {
       setUserId(map['userId']);
     }
-    if (map.containsKey('topic')) {
+    if (ControlHelper.checkMapValue(map, 'topic')) {
       setTopic(map['topic']);
     }
-    if (map.containsKey('content')) {
+    if (ControlHelper.checkMapValue(map, 'content')) {
       setContent(map['content']);
     }
-    if (map.containsKey('photo')) {
+    if (ControlHelper.checkMapValue(map, 'photo')) {
       setPhoto(map['photo']);
     }
-    if (map.containsKey('isThereCategory')) {
+    if (ControlHelper.checkMapValue(map, 'isThereCategory')) {
       setThereCategory(map['isThereCategory']);
     }
   }

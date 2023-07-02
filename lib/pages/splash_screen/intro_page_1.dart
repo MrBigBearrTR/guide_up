@@ -53,7 +53,7 @@ class _IntroPage1State extends State<IntroPage1>
                   child: Transform.scale(
                     scale: _animation.value,
                     child: Image.asset(
-                      'assets/img/GuideUpLogo.png',
+                      'assets/logo/guideUpLogo.png',
                       height: 200,
                       width: 200,
                     ),

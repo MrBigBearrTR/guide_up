@@ -1,14 +1,13 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
+import 'package:guide_up/core/constant/color_constants.dart';
 import 'package:guide_up/core/constant/router_constants.dart';
 import 'package:guide_up/core/models/users/user_detail/user_detail_model.dart';
 import 'package:guide_up/core/utils/secure_storage_helper.dart';
-import 'package:guide_up/core/constant/color_constants.dart';
 import 'package:guide_up/pages/home/mentor/mentor_card.dart';
 import 'package:guide_up/repository/mentor/mentor_repository.dart';
 
 import '../../core/utils/user_helper.dart';
-import '../../ui/material/custom_material.dart';
 
 final List<String> imgList = [
   'https://images1.welcomesoftware.com/Zz0xYWZiMThkNjI1NDYxMWVkODJkZjdhNjM2MmRjMGQ2OA==?width=800&q=80',
@@ -264,4 +263,3 @@ class _HomeScreenBodyState extends State<HomeScreenBody> {
     );
   }
 }
-

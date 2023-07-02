@@ -3,40 +3,36 @@ import 'package:guide_up/core/models/users/user_model.dart';
 
 import '../../core/constant/firestore_collectioon_constant.dart';
 
-class UserRepository{
+class UserRepository {
   late final CollectionReference<Map<String, dynamic>> userCollections;
 
   UserRepository() {
-    userCollections = FirebaseFirestore.instance
-        .collection(FirestoreCollectionConstant.user);
+    userCollections =
+        FirebaseFirestore.instance.collection(FirestoreCollectionConstant.user);
   }
 
   Future<UserModel?> getUserByUid(String uid) async {
+    var query = await userCollections.where("id", isEqualTo: uid).get();
 
-    var query = await userCollections.where("id",isEqualTo: uid).get();
-
-    if(query.docs.isNotEmpty){
-
+    if (query.docs.isNotEmpty) {
       return UserModel().toClass(query.docs.first.data());
     }
     return null;
   }
+
   Future<String?> getUserIdByUid(String uid) async {
+    var query = await userCollections.where("id", isEqualTo: uid).get();
 
-    var query = await userCollections.where("id",isEqualTo: uid).get();
-
-    if(query.docs.isNotEmpty){
-
+    if (query.docs.isNotEmpty) {
       return query.docs.first.id;
     }
     return null;
   }
-  Future<UserModel?> getUserByUserId(String userId) async {
 
+  Future<UserModel?> getUserByUserId(String userId) async {
     var query = await userCollections.doc(userId).get();
 
-    if(query.data()!=null){
-
+    if (query.data() != null) {
       return UserModel().toClass(query.data()!);
     }
     return null;

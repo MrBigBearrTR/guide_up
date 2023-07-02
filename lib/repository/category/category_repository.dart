@@ -16,8 +16,10 @@ class CategoryRepository {
   Future<List<Category>> getMainCategoryList() async {
     List<Category> categoryList = [];
 
-    var query =
-        await categoryCollections.where("mainCategory", isNull: true).orderBy("name").get();
+    var query = await categoryCollections
+        .where("mainCategory", isNull: true)
+        .orderBy("name")
+        .get();
 
     categoryList = convertResponseObjectToList(query.docs.iterator);
 
