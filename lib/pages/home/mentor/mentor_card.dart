@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:guide_up/core/constant/color_constants.dart';
 import 'package:guide_up/core/models/mentor/mentor_model.dart';
+import 'package:guide_up/core/utils/user_info_helper.dart';
 
 class MentorCard extends StatefulWidget {
   final Mentor mentor;
@@ -37,11 +38,10 @@ class _MentorCardState extends State<MentorCard> {
       margin: const EdgeInsets.fromLTRB(10, 10, 10, 0),
       child: Column(
         children: [
-          const Padding(
+           Padding(
             padding: EdgeInsets.all(8.0),
             child: CircleAvatar(
-              backgroundImage: NetworkImage(
-                  'https://media.licdn.com/dms/image/D4D03AQEIKjOOeI3xjQ/profile-displayphoto-shrink_800_800/0/1679749604159?e=2147483647&v=beta&t=S_nH42SUC7g-mMjInbFLzwODI4XC34UTFJq-g_PUtUs'),
+              backgroundImage: UserInfoHelper.getProfilePictureByPath(_mentor.getPhoto()),
               radius: 35,
             ),
           ),
