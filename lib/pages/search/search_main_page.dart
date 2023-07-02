@@ -5,17 +5,21 @@ import 'package:guide_up/core/constant/navigation_constants.dart';
 import 'package:guide_up/core/models/users/user_detail/user_detail_model.dart';
 import 'package:guide_up/core/utils/secure_storage_helper.dart';
 import 'package:guide_up/pages/post/post_card.dart';
+import 'package:guide_up/pages/search/category/category_select_helper.dart';
 import 'package:guide_up/pages/search/search_side_page.dart';
+import 'package:guide_up/service/mentor/mentor_service.dart';
 import 'package:guide_up/service/post/post_service.dart';
 
 import '../../core/constant/color_constants.dart';
-import '../../repository/mentor/mentor_repository.dart';
+import '../../core/models/category/category_model.dart';
 import '../../ui/material/custom_material.dart';
 import '../home/mentor/mentor_card.dart';
 
 class SearchMainPage extends StatefulWidget {
   final GlobalKey<CurvedNavigationBarState> navigationKey;
-  const SearchMainPage({Key? key, required this.navigationKey}) : super(key: key);
+
+  const SearchMainPage({Key? key, required this.navigationKey})
+      : super(key: key);
 
   @override
   State<SearchMainPage> createState() {
@@ -30,12 +34,21 @@ class _SearchMainPageState extends State<SearchMainPage> {
 
   final TextEditingController _searchController = TextEditingController();
   late UserDetail? detail;
-
+  final CategorySelectHelper _categorySelectHelper = CategorySelectHelper();
+  List<Category> categoryList = [];
 
   @override
   void initState() {
     super.initState();
     getDetail();
+    _categorySelectHelper.addListener(() {
+      if (_categorySelectHelper.categoryList.length != categoryList.length) {
+        categoryList.clear();
+        setState(() {
+          categoryList.addAll(_categorySelectHelper.categoryList);
+        });
+      }
+    });
   }
 
   @override
@@ -50,8 +63,8 @@ class _SearchMainPageState extends State<SearchMainPage> {
           ),
         ),
       ),
-      drawer: const Drawer(
-        child: SearchSidePage(),
+      drawer: Drawer(
+        child: SearchSidePage(selector: _categorySelectHelper),
       ),
       body: Container(
         decoration: CustomMaterial.backgroundBoxDecoration,
@@ -86,6 +99,45 @@ class _SearchMainPageState extends State<SearchMainPage> {
                 ),
               ),
             ),
+            SizedBox(
+              height: categoryList.isNotEmpty ? 70 : 0,
+              width: MediaQuery.of(context).size.width,
+              child: ListView.builder(
+                itemBuilder: (context, index) {
+                  final category = categoryList[index];
+                  return Container(
+                    decoration: BoxDecoration(
+                      color: ColorConstants.theme1PowderSkin,
+                      borderRadius: BorderRadius.circular(20),
+                    ),
+                    margin: EdgeInsets.fromLTRB(10, 0, 10, 0),
+                    alignment: Alignment.center,
+                    width: 180,
+                    child: ListTile(
+                      title: Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: Text(
+                          category.getName()!,
+                          style: GoogleFonts.nunito(
+                            color: ColorConstants.theme1Dark,
+                            fontSize: 12,
+                            fontStyle: FontStyle.italic,
+                          ),
+                        ),
+                      ),
+                      trailing: const Icon(Icons.clear,),
+                      onTap: () {
+                        _categorySelectHelper.removeCategory(category);
+                        setState(() {});
+                      },
+                    ),
+                  );
+                },
+                padding: EdgeInsets.all(0),
+                itemCount: categoryList.length,
+                scrollDirection: Axis.horizontal,
+              ),
+            ),
             Padding(
               padding: const EdgeInsets.all(8.0),
               child: Row(
@@ -105,29 +157,34 @@ class _SearchMainPageState extends State<SearchMainPage> {
               ),
             ),
             Expanded(
-              child: FutureBuilder(
-                builder: (context, snapshot) {
-                  if (snapshot.connectionState == ConnectionState.waiting) {
-                    return const Center(
-                      child: CircularProgressIndicator(),
-                    );
-                  } else if (snapshot.hasError) {
-                    return const Center(
-                      child: Text('Mentorları şu an listeyemiyoruz.'),
-                    );
-                  } else {
-                    return ListView.builder(
-                      itemBuilder: (context, index) {
-                        final mentor = snapshot.data![index];
-                        return MentorCard(mentor: mentor);
-                      },
-                      itemCount: snapshot.data!.length,
-                      scrollDirection: Axis.horizontal,
-                      shrinkWrap: true,
-                    );
-                  }
-                },
-                future: MentorRepository().getTopMentorList(),
+              child: SingleChildScrollView(
+                child: SizedBox(
+                  height: 200,
+                  child: FutureBuilder(
+                    builder: (context, snapshot) {
+                      if (snapshot.connectionState == ConnectionState.waiting) {
+                        return const Center(
+                          child: CircularProgressIndicator(),
+                        );
+                      } else if (snapshot.hasError) {
+                        return const Center(
+                          child: Text('Mentorları şu an listeyemiyoruz.'),
+                        );
+                      } else {
+                        return ListView.builder(
+                          itemBuilder: (context, index) {
+                            final mentor = snapshot.data![index];
+                            return MentorCard(mentor: mentor);
+                          },
+                          itemCount: snapshot.data!.length,
+                          scrollDirection: Axis.horizontal,
+                          shrinkWrap: true,
+                        );
+                      }
+                    },
+                    future: MentorService().getTopMentorList(5),
+                  ),
+                ),
               ),
             ),
             Padding(
@@ -147,8 +204,9 @@ class _SearchMainPageState extends State<SearchMainPage> {
                   ),
                   TextButton(
                     onPressed: () {
-                      final navigationState=navigationKey.currentState!;
-                      navigationState.setPage(NavigationConstants.guidePageIndex);
+                      final navigationState = navigationKey.currentState!;
+                      navigationState
+                          .setPage(NavigationConstants.guidePageIndex);
                     },
                     child: const Text(
                       'Hepsini Gör',

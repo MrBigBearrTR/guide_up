@@ -61,7 +61,7 @@ class _MyProjectsState extends State<MyProjects> {
           Padding(
             padding: const EdgeInsets.only(right: 8.0),
             child: Image.asset(
-              'assets/img/GuideUpLogo.png', // Logo resminin yolunu buraya ekleyin
+              'assets/logo/guideUpLogo.png', // Logo resminin yolunu buraya ekleyin
               width: 62,
               height: 62,
             ),

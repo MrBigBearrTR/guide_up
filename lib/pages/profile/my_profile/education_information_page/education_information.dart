@@ -1,6 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import '../../../../core/constant/router_constants.dart';
+
 import '../../../../ui/material/custom_material.dart';
 
 class EducationInformation extends StatefulWidget {
@@ -29,17 +29,12 @@ class _EducationInformationState extends State<EducationInformation> {
       resizeToAvoidBottomInset: false,
       appBar: AppBar(
         title: const Text(''),
-        leading: IconButton(
-          icon: const Icon(CupertinoIcons.arrow_turn_up_left),
-          onPressed: () {
-            Navigator.pushNamed(context, RouterConstants.myProfileAccountPage);
-          },
-        ),
         actions: [
           Padding(
             padding: const EdgeInsets.only(right: 8.0),
             child: Image.asset(
-              'assets/img/GuideUpLogo.png', // Logo resminin yolunu buraya ekleyin
+              'assets/logo/guideUpLogo.png',
+              // Logo resminin yolunu buraya ekleyin
               width: 62,
               height: 62,
             ),
@@ -47,7 +42,7 @@ class _EducationInformationState extends State<EducationInformation> {
         ],
       ),
       body: Container(
-        decoration: CustomMaterial.backgroundBoxDecoration ,
+        decoration: CustomMaterial.backgroundBoxDecoration,
         padding: const EdgeInsets.all(16),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -192,7 +187,7 @@ class _EducationInformationState extends State<EducationInformation> {
               if (date != null) {
                 setState(() {
                   _startDateController.text =
-                  '${date.day}/${date.month}/${date.year}';
+                      '${date.day}/${date.month}/${date.year}';
                 });
               }
             },
@@ -203,7 +198,7 @@ class _EducationInformationState extends State<EducationInformation> {
     if (pickedDate != null) {
       setState(() {
         _startDateController.text =
-        '${pickedDate.day}/${pickedDate.month}/${pickedDate.year}';
+            '${pickedDate.day}/${pickedDate.month}/${pickedDate.year}';
       });
     }
   }
@@ -221,7 +216,7 @@ class _EducationInformationState extends State<EducationInformation> {
               if (date != null) {
                 setState(() {
                   _endDateController.text =
-                  '${date.day}/${date.month}/${date.year}';
+                      '${date.day}/${date.month}/${date.year}';
                 });
               }
             },
@@ -232,7 +227,7 @@ class _EducationInformationState extends State<EducationInformation> {
     if (pickedDate != null) {
       setState(() {
         _endDateController.text =
-        '${pickedDate.day}/${pickedDate.month}/${pickedDate.year}';
+            '${pickedDate.day}/${pickedDate.month}/${pickedDate.year}';
       });
     }
   }

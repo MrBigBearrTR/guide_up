@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:guide_up/core/models/users/user_detail/user_detail_model.dart';
 import 'package:guide_up/pages/search/category/category_card.dart';
+import 'package:guide_up/pages/search/category/category_select_helper.dart';
 import 'package:guide_up/pages/search/category/list_size_control.dart';
 import 'package:guide_up/repository/category/category_repository.dart';
 import 'package:guide_up/ui/material/custom_material.dart';
@@ -10,14 +11,19 @@ import '../../core/utils/secure_storage_helper.dart';
 import '../../core/utils/user_helper.dart';
 
 class SearchSidePage extends StatefulWidget {
-  const SearchSidePage({Key? key}) : super(key: key);
+  final CategorySelectHelper selector;
+
+  const SearchSidePage({Key? key, required this.selector}) : super(key: key);
 
   @override
-  State<SearchSidePage> createState() => _SearchSidePageState();
+  State<SearchSidePage> createState() => _SearchSidePageState(selector);
 }
 
 class _SearchSidePageState extends State<SearchSidePage> {
   UserDetail? _userDetail;
+  final CategorySelectHelper selector;
+
+  _SearchSidePageState(this.selector);
 
   @override
   void initState() {
@@ -108,6 +114,7 @@ class _SearchSidePageState extends State<SearchSidePage> {
                           headerCount: 0,
                           category: category,
                           mainListSizeControl: listSizeControl,
+                          selector: selector,
                         );
                       },
                       itemCount: categorySnap.data!.length,

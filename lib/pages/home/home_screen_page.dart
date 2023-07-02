@@ -6,11 +6,11 @@ import 'package:guide_up/core/constant/router_constants.dart';
 import 'package:guide_up/core/models/users/user_detail/user_detail_model.dart';
 import 'package:guide_up/core/utils/secure_storage_helper.dart';
 import 'package:guide_up/pages/home/mentor/mentor_card.dart';
-import 'package:guide_up/repository/mentor/mentor_repository.dart';
 
 import '../../core/constant/navigation_constants.dart';
 import '../../core/utils/user_helper.dart';
 import '../../core/utils/user_info_helper.dart';
+import '../../service/mentor/mentor_service.dart';
 
 final List<String> imgList = [
   'https://images1.welcomesoftware.com/Zz0xYWZiMThkNjI1NDYxMWVkODJkZjdhNjM2MmRjMGQ2OA==?width=800&q=80',
@@ -62,9 +62,9 @@ class _HomeScreenState extends State<HomeScreen> {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: ColorConstants.theme1White,
-        title: Text(
+        title: const Text(
           'G u i d e  U p',
-          style: const TextStyle(
+          style: TextStyle(
             color: ColorConstants.appcolor1,
             fontSize: 25,
           ),
@@ -94,18 +94,9 @@ class _HomeScreenState extends State<HomeScreen> {
             child: Padding(
               padding: const EdgeInsets.all(8.0),
               child: CircleAvatar(
-
                 radius: 20.0,
                 backgroundColor: ColorConstants.theme2Orange,
-                // Arka plan rengi
                 backgroundImage: UserInfoHelper.getProfilePicture(userDetail),
-                child: UserInfoHelper.isProfileNotEmpty(userDetail)
-                    ? null
-                    : const Icon(
-                        Icons.person,
-                        size: 60.0,
-                        color: Color(0xFF2C4059), // Siluet rengi
-                      ),
               ),
             ),
           ),
@@ -185,12 +176,12 @@ class _HomeScreenState extends State<HomeScreen> {
                               },
                               itemCount: snapshot.data!.length,
                               scrollDirection: Axis.horizontal,
-                              padding: EdgeInsets.all(0),
+                              padding: const EdgeInsets.all(0),
                               shrinkWrap: true,
                             );
                           }
                         },
-                        future: MentorRepository().getTopMentorList(),
+                        future: MentorService().getTopMentorList(5),
                       ),
                     ),
                     const SizedBox(
@@ -223,10 +214,10 @@ class _HomeScreenState extends State<HomeScreen> {
                         height: 250,
                       ),
                     ),
-                    Row(
+                    const Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        const Text(
+                        Text(
                           'Senin için Önerilenler',
                           style: TextStyle(
                               fontWeight: FontWeight.bold, fontSize: 20),
@@ -258,7 +249,7 @@ class _HomeScreenState extends State<HomeScreen> {
                             );
                           }
                         },
-                        future: MentorRepository().getTopMentorList(),
+                        future: MentorService().getTopMentorList(5),
                       ),
                     ),
                     const SizedBox(
