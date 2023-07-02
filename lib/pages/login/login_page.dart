@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:guide_up/core/constant/router_constants.dart';
 import 'package:guide_up/core/constant/color_constants.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:guide_up/pages/login/fade_animation.dart';
+import 'package:guide_up/ui/material/custom_material.dart';
 
 
 import '../../core/utils/user_helper.dart';
@@ -147,17 +149,7 @@ class _LoginPageState extends State<LoginPage> {
           child: Center(
             child: SingleChildScrollView(
               child: Container(
-                decoration: const BoxDecoration(
-                    gradient: LinearGradient(
-                  colors: [
-                    ColorConstants.appcolor2,
-                    ColorConstants.appcolor2,
-                    ColorConstants.appcolor1,
-                    ColorConstants.appcolor1,
-                  ],
-                  begin: Alignment.bottomRight,
-                  end: Alignment.topCenter,
-                )),
+                decoration: CustomMaterial.backgroundRegisterWithLoginDecoration,
                 child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
@@ -479,7 +471,7 @@ class _LoginPageState extends State<LoginPage> {
                             'Üye değil misiniz ? ',
                             style: TextStyle(
                                 color: ColorConstants.itemWhite,
-                                fontFamily: 'Lato'),
+                                fontFamily: 'lato'),
                           ),
                           const SizedBox(height: 8),
                           TextButton(
