@@ -1,19 +1,20 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:guide_up/core/constant/color_constants.dart';
+import 'package:guide_up/core/constant/router_constants.dart';
 import 'package:guide_up/core/models/users/user_detail/user_detail_model.dart';
 import 'package:guide_up/core/models/users/user_model.dart';
-import 'package:guide_up/pages/home/home_screen_page.dart';
-import 'package:guide_up/pages/login/login_page.dart';
-import 'package:intl/intl.dart';
 import 'package:image_picker/image_picker.dart';
-import 'dart:io';
+import 'package:intl/intl.dart';
 
 import '../../core/utils/user_helper.dart';
 
 class RegisterWithDetail extends StatefulWidget {
   final UserModel userModel;
 
-  const RegisterWithDetail({Key? key, required this.userModel}) : super(key: key);
+  const RegisterWithDetail({Key? key, required this.userModel})
+      : super(key: key);
 
   @override
   State<RegisterWithDetail> createState() => _RegisterWithDetailState();
@@ -75,8 +76,8 @@ class _RegisterWithDetailState extends State<RegisterWithDetail> {
     }
 
     if (unfilledFields.isNotEmpty) {
-      String unfilledFieldsMessage = "Lütfen aşağıdaki alanları doldurun: " +
-          unfilledFields.join(", ");
+      String unfilledFieldsMessage =
+          "Lütfen aşağıdaki alanları doldurun: " + unfilledFields.join(", ");
 
       _showSnackBar(unfilledFieldsMessage);
       return;
@@ -94,31 +95,28 @@ class _RegisterWithDetailState extends State<RegisterWithDetail> {
     userDetail.setName(name);
     userDetail.setSurname(surname);
 
-
-
-
     userDetail.setAbout(about);
     userDetail.setPhoto(photo);
     userDetail.setPhone(phone);
 
     try {
-      UserDetail registeredDetail = await UserHelper().saveUserDetail(userDetail);
+      UserDetail registeredDetail =
+          await UserHelper().saveUserDetail(userDetail);
 
       // Simulated delay for 2 seconds
       await Future.delayed(Duration(seconds: 2));
 
       // Redirect to the home page when the save operation is successful
-      Navigator.pushReplacement(
+      Navigator.pushReplacementNamed(
         context,
-        MaterialPageRoute(
-          builder: (context) => HomeScreen(),
-        ),
+        RouterConstants.homePage,
       );
     } catch (e) {
       print('Error occurred while saving user detail: $e');
       _showSnackBar('An error occurred while saving user detail');
     }
   }
+
   void _selectDate(BuildContext context) async {
     final DateTime? picked = await showDatePicker(
       context: context,
@@ -137,8 +135,10 @@ class _RegisterWithDetailState extends State<RegisterWithDetail> {
     final snackBar = SnackBar(content: Text(message));
     ScaffoldMessenger.of(context).showSnackBar(snackBar);
   }
+
   Future<void> _pickImage() async {
-    final pickedFile = await _imagePicker.pickImage(source: ImageSource.gallery);
+    final pickedFile =
+        await _imagePicker.pickImage(source: ImageSource.gallery);
 
     if (pickedFile != null) {
       setState(() {
@@ -246,8 +246,8 @@ class _RegisterWithDetailState extends State<RegisterWithDetail> {
                         padding: const EdgeInsets.symmetric(
                             horizontal: 15, vertical: 5),
                         decoration: BoxDecoration(
-                          border: Border.all(
-                              color: Colors.deepOrange, width: 1),
+                          border:
+                              Border.all(color: Colors.deepOrange, width: 1),
                           boxShadow: const [
                             BoxShadow(
                               color: Colors.deepOrange,
@@ -290,8 +290,8 @@ class _RegisterWithDetailState extends State<RegisterWithDetail> {
                         padding: const EdgeInsets.symmetric(
                             horizontal: 15, vertical: 5),
                         decoration: BoxDecoration(
-                          border: Border.all(
-                              color: Colors.deepOrange, width: 1),
+                          border:
+                              Border.all(color: Colors.deepOrange, width: 1),
                           boxShadow: const [
                             BoxShadow(
                               color: Colors.deepOrange,
@@ -334,8 +334,8 @@ class _RegisterWithDetailState extends State<RegisterWithDetail> {
                         padding: const EdgeInsets.symmetric(
                             horizontal: 15, vertical: 5),
                         decoration: BoxDecoration(
-                          border: Border.all(
-                              color: Colors.deepOrange, width: 1),
+                          border:
+                              Border.all(color: Colors.deepOrange, width: 1),
                           boxShadow: const [
                             BoxShadow(
                               color: Colors.deepOrange,
@@ -378,8 +378,8 @@ class _RegisterWithDetailState extends State<RegisterWithDetail> {
                         padding: const EdgeInsets.symmetric(
                             horizontal: 15, vertical: 5),
                         decoration: BoxDecoration(
-                          border: Border.all(
-                              color: Colors.deepOrange, width: 1),
+                          border:
+                              Border.all(color: Colors.deepOrange, width: 1),
                           boxShadow: const [
                             BoxShadow(
                               color: Colors.deepOrange,
@@ -417,10 +417,13 @@ class _RegisterWithDetailState extends State<RegisterWithDetail> {
                       Container(
                         width: double.infinity,
                         height: 50,
-                        margin: const EdgeInsets.symmetric(horizontal: 20, vertical: 20),
-                        padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 5),
+                        margin: const EdgeInsets.symmetric(
+                            horizontal: 20, vertical: 20),
+                        padding: const EdgeInsets.symmetric(
+                            horizontal: 15, vertical: 5),
                         decoration: BoxDecoration(
-                          border: Border.all(color: Colors.deepOrange, width: 1),
+                          border:
+                              Border.all(color: Colors.deepOrange, width: 1),
                           boxShadow: const [
                             BoxShadow(
                               color: Colors.deepOrange,
@@ -456,15 +459,17 @@ class _RegisterWithDetailState extends State<RegisterWithDetail> {
                           ],
                         ),
                       ),
-
                       const SizedBox(height: 10),
                       Container(
                         width: double.infinity,
                         height: 50,
-                        margin: const EdgeInsets.symmetric(horizontal: 20, vertical: 20),
-                        padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 5),
+                        margin: const EdgeInsets.symmetric(
+                            horizontal: 20, vertical: 20),
+                        padding: const EdgeInsets.symmetric(
+                            horizontal: 15, vertical: 5),
                         decoration: BoxDecoration(
-                          border: Border.all(color: Colors.deepOrange, width: 1),
+                          border:
+                              Border.all(color: Colors.deepOrange, width: 1),
                           boxShadow: const [
                             BoxShadow(
                               color: Colors.deepOrange,

@@ -47,16 +47,15 @@ class _SearchSidePageState extends State<SearchSidePage> {
               ),
               child: Row(
                 children: [
-                   Padding(
-                    padding: EdgeInsets.all(10),
+                  Padding(
+                    padding: const EdgeInsets.all(10),
                     child: CircleAvatar(
                       radius: 40,
                       backgroundColor: ColorConstants.theme1White,
-                      backgroundImage:
-                        _userDetail != null
-                            ? AssetImage('assets/img/unknown_user.png')
-                            : AssetImage('assets/logo/guideUpLogoWithBackground.png')
-                      ,
+                      backgroundImage: _userDetail != null
+                          ? const AssetImage('assets/img/unknown_user.png')
+                          : const AssetImage(
+                              'assets/logo/guideUpLogoWithBackground.png'),
                     ),
                   ),
                   const SizedBox(width: 20),

@@ -1,5 +1,7 @@
+import 'package:curved_navigation_bar/curved_navigation_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:guide_up/core/constant/navigation_constants.dart';
 import 'package:guide_up/core/models/users/user_detail/user_detail_model.dart';
 import 'package:guide_up/core/utils/secure_storage_helper.dart';
 import 'package:guide_up/pages/post/post_card.dart';
@@ -12,17 +14,23 @@ import '../../ui/material/custom_material.dart';
 import '../home/mentor/mentor_card.dart';
 
 class SearchMainPage extends StatefulWidget {
-  const SearchMainPage({Key? key}) : super(key: key);
+  final GlobalKey<CurvedNavigationBarState> navigationKey;
+  const SearchMainPage({Key? key, required this.navigationKey}) : super(key: key);
 
   @override
   State<SearchMainPage> createState() {
-    return _SearchMainPageState();
+    return _SearchMainPageState(navigationKey);
   }
 }
 
 class _SearchMainPageState extends State<SearchMainPage> {
+  final GlobalKey<CurvedNavigationBarState> navigationKey;
+
+  _SearchMainPageState(this.navigationKey);
+
   final TextEditingController _searchController = TextEditingController();
   late UserDetail? detail;
+
 
   @override
   void initState() {
@@ -34,7 +42,13 @@ class _SearchMainPageState extends State<SearchMainPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Araştırma Zamanı'),
+        title: Text(
+          'Araştırma Zamanı',
+          style: GoogleFonts.nunito(
+            textStyle: const TextStyle(
+                color: ColorConstants.theme2Dark, fontWeight: FontWeight.bold),
+          ),
+        ),
       ),
       drawer: const Drawer(
         child: SearchSidePage(),
@@ -76,11 +90,10 @@ class _SearchMainPageState extends State<SearchMainPage> {
               padding: const EdgeInsets.all(8.0),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
-
                 children: [
                   Text(
                     'En Sevilen Mentorlar',
-                    style: GoogleFonts.lato(
+                    style: GoogleFonts.nunito(
                       textStyle: const TextStyle(
                         fontSize: 20,
                         fontWeight: FontWeight.bold,
@@ -88,15 +101,6 @@ class _SearchMainPageState extends State<SearchMainPage> {
                       ),
                     ),
                   ),
-                  TextButton(
-                    onPressed: () {},
-                    child: const Text(
-                      'Hepsini Gör',
-                      style: TextStyle(
-                        color: ColorConstants.info,
-                      ),
-                    ),
-                  )
                 ],
               ),
             ),
@@ -133,7 +137,7 @@ class _SearchMainPageState extends State<SearchMainPage> {
                 children: [
                   Text(
                     "En Sevilen Guide'ler",
-                    style: GoogleFonts.lato(
+                    style: GoogleFonts.nunito(
                       textStyle: const TextStyle(
                         fontSize: 20,
                         fontWeight: FontWeight.bold,
@@ -142,7 +146,10 @@ class _SearchMainPageState extends State<SearchMainPage> {
                     ),
                   ),
                   TextButton(
-                    onPressed: () {},
+                    onPressed: () {
+                      final navigationState=navigationKey.currentState!;
+                      navigationState.setPage(NavigationConstants.guidePageIndex);
+                    },
                     child: const Text(
                       'Hepsini Gör',
                       style: TextStyle(

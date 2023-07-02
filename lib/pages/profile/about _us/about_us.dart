@@ -21,7 +21,7 @@ class AboutUs extends StatelessWidget {
             children: [
               Text(
                 'Guide UP Hakkında',
-                style: GoogleFonts.lato(
+                style: GoogleFonts.nunito(
                   fontSize: 20,
                   fontWeight: FontWeight.bold,
                 ),
@@ -33,12 +33,12 @@ class AboutUs extends StatelessWidget {
                     'birbirleriyle bilgi ve deneyim paylaşımını sağlamaktır. '
                     'Guide UP ile kullanıcılar, deneyimli mentörlerle iletişim kurabilir, '
                     'rehberlik alabilir ve hedeflerine ulaşmak için gerekli kaynaklara erişebilir.',
-                style: GoogleFonts.lato(),
+                style: GoogleFonts.nunito(),
               ),
               const SizedBox(height: 16),
               Text(
                 'Misyonumuz',
-                style: GoogleFonts.lato(
+                style: GoogleFonts.nunito(
                   fontSize: 20,
                   fontWeight: FontWeight.bold,
                 ),
@@ -50,12 +50,12 @@ class AboutUs extends StatelessWidget {
                     'Mentorluk ve rehberlik aracılığıyla kullanıcılara ilham vermek, '
                     'bilgi ve deneyim paylaşımını teşvik etmek ve başarıya giden yolculuklarında '
                     'yanlarında olmak en önemli hedeflerimizdendir.',
-                style: GoogleFonts.lato(),
+                style: GoogleFonts.nunito(),
               ),
               const SizedBox(height: 16),
               Text(
                 'Guide UP Farklı Kılanlar',
-                style: GoogleFonts.lato(
+                style: GoogleFonts.nunito(
                   fontSize: 20,
                   fontWeight: FontWeight.bold,
                 ),
@@ -67,7 +67,7 @@ class AboutUs extends StatelessWidget {
                     '- İletişim ve mesajlaşma araçları\n'
                     '- Zengin içerik kaynakları ve rehberlik materyalleri\n'
                     '- Kullanıcı deneyimine odaklı kullanıcı arayüzü ve kolay kullanım',
-                style: GoogleFonts.lato(),
+                style: GoogleFonts.nunito(),
               ),
               Padding(
                 padding: const EdgeInsets.only(top: 0, left: 52),

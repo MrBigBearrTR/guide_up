@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:guide_up/core/constant/color_constants.dart';
-import 'package:guide_up/core/models/users/user_model.dart';
 import 'package:guide_up/core/models/mentor/mentor_model.dart';
-import 'package:guide_up/repository/mentor/mentor_repository.dart';
 
 class MentorCard extends StatefulWidget {
   final Mentor mentor;
@@ -18,7 +16,6 @@ class _MentorCardState extends State<MentorCard> {
     _mentor = mentor;
   }
 
-  //List<Mentor> _topMentorlist = [];
   late Mentor _mentor;
 
   @override
@@ -26,7 +23,7 @@ class _MentorCardState extends State<MentorCard> {
     return Container(
       decoration: BoxDecoration(
         color: Colors.white,
-        borderRadius: BorderRadius.only(
+        borderRadius: const BorderRadius.only(
             topLeft: Radius.circular(10),
             topRight: Radius.circular(10),
             bottomLeft: Radius.circular(10),
@@ -36,61 +33,65 @@ class _MentorCardState extends State<MentorCard> {
             color: Colors.grey.withOpacity(0.5),
             //spreadRadius: 5,
             blurRadius: 7,
-            offset: Offset(0, 3),
+            offset: const Offset(0, 3),
           )
         ],
       ),
       width: 150,
-      margin: EdgeInsets.fromLTRB(30, 10, 0, 0),
+      margin: const EdgeInsets.fromLTRB(10, 10, 10, 0),
       child: Column(
         children: [
-          CircleAvatar(
-            backgroundImage: NetworkImage(
-                'https://media.licdn.com/dms/image/D4D03AQEIKjOOeI3xjQ/profile-displayphoto-shrink_800_800/0/1679749604159?e=2147483647&v=beta&t=S_nH42SUC7g-mMjInbFLzwODI4XC34UTFJq-g_PUtUs'),
-            radius: 35,
+          const Padding(
+            padding: EdgeInsets.all(8.0),
+            child: CircleAvatar(
+              backgroundImage: NetworkImage(
+                  'https://media.licdn.com/dms/image/D4D03AQEIKjOOeI3xjQ/profile-displayphoto-shrink_800_800/0/1679749604159?e=2147483647&v=beta&t=S_nH42SUC7g-mMjInbFLzwODI4XC34UTFJq-g_PUtUs'),
+              radius: 35,
+            ),
           ),
           Text(
             '${_mentor.getName()!} ${_mentor.getLastname()}',
-            style: TextStyle(fontWeight: FontWeight.bold),
+            style: const TextStyle(fontWeight: FontWeight.bold),
           ),
-          // Row(
-          //   mainAxisAlignment: MainAxisAlignment.center,
-          //   children: [
-          //     ListView.builder(
-          //       itemBuilder: (context, index) {
-          //         return Icon(
-          //           Icons.star,
-          //           color: Colors.amber,
-          //           size: 2,
-          //         );
-          //       },
-          //       itemCount: _mentor.getRate(),
-          //     ),
-          //   ],
-          // ),
-          Card(
-            child: Padding(
-              padding: EdgeInsets.all(4.0),
-              child: Text(
-                'Mobil Uygulama',
-                style: TextStyle(
-                  fontSize: 15,
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              SizedBox(
+                width: _mentor.getRate()! * 25,
+                height: 10,
+                child: ListView.builder(
+                  itemBuilder: (context, index) {
+                    return const Icon(
+                      Icons.star,
+                      color: Colors.amber,
+                      size: 25,
+                    );
+                  },
+                  itemCount: _mentor.getRate(),
+                  scrollDirection: Axis.horizontal,
                 ),
               ),
-            ),
-            color: ColorConstants.theme1CloudBlue,
+            ],
           ),
-          Card(
-            child: Padding(
-              padding: EdgeInsets.all(4.0),
-              child: Text(
-                'Bilişim Teknolojileri',
-                style: TextStyle(
-                  fontSize: 15,
-                ),
+          const Padding(
+            padding: EdgeInsets.fromLTRB(0, 20, 0, 0),
+            child: Text(
+              'Mobil Uygulama',
+              style: TextStyle(
+                fontSize: 8,
+                color: ColorConstants.theme1Mustard,
               ),
             ),
-            color: ColorConstants.theme1BrightCloudBlue,
+          ),
+          const Padding(
+            padding: EdgeInsets.all(4.0),
+            child: Text(
+              'Bilişim Teknolojileri',
+              style: TextStyle(
+                fontSize: 8,
+                color: ColorConstants.theme2Orange,
+              ),
+            ),
           ),
         ],
       ),

@@ -42,7 +42,7 @@ class _ErrorPageState extends State<ErrorPage> {
                 Text(
                   'Ooopps!',
                   textAlign: TextAlign.center,
-                  style: GoogleFonts.lato(
+                  style: GoogleFonts.nunito(
                       textStyle: const TextStyle(
                     fontSize: 51,
                     fontWeight: FontWeight.bold,
@@ -52,7 +52,7 @@ class _ErrorPageState extends State<ErrorPage> {
                 Text(
                   'Aradığınız sayfayı bulamadık :(\n Geri dönmeye ne dersin!',
                   textAlign: TextAlign.center,
-                  style: GoogleFonts.lato(
+                  style: GoogleFonts.nunito(
                       textStyle: const TextStyle(
                     fontSize: 16,
                     fontWeight: FontWeight.bold,
@@ -78,7 +78,7 @@ class _ErrorPageState extends State<ErrorPage> {
                             ))),
                         child: Text(
                           "Ana Sayfaya Dön",
-                          style: GoogleFonts.lato(
+                          style: GoogleFonts.nunito(
                               textStyle: const TextStyle(
                                   color: ColorConstants.theme1White,
                                   fontWeight: FontWeight.bold)),

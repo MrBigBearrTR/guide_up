@@ -51,6 +51,7 @@ dependencies:
   url_launcher: ^6.1.11
   simple_animations: ^4.0.0
   flutter_launcher_icons: ^0.13.1
+  firebase_storage: ^11.2.4
 dev_dependencies:
   flutter_test:
     sdk: flutter

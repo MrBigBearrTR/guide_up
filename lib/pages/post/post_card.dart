@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:guide_up/core/utils/user_info_helper.dart';
 
 import '../../core/constant/color_constants.dart';
 import '../../core/dto/post/post_card_view.dart';
@@ -14,12 +15,10 @@ class PostCard extends StatelessWidget {
     return Card(
       color: ColorConstants.theme1White,
       child: ListTile(
-
         title: Text(
           postCardView.topic!,
-          style: GoogleFonts.lato(
+          style: GoogleFonts.nunito(
             textStyle: const TextStyle(
-              //fontSize: 11,
               fontWeight: FontWeight.bold,
               color: ColorConstants.theme2Dark,
             ),
@@ -28,15 +27,18 @@ class PostCard extends StatelessWidget {
         subtitle: Text(
           postCardView.content!,
           maxLines: 3,
-          style: GoogleFonts.lato(
+          style: GoogleFonts.nunito(
             textStyle: const TextStyle(
               fontSize: 11,
-              //fontWeight: FontWeight.bold,
               color: ColorConstants.theme2DarkBlue,
             ),
           ),
         ),
-        leading: Image(image: AssetImage('assets/img/unknown_user.png'),)
+        leading: CircleAvatar(
+          radius: 30,
+          backgroundImage:
+              UserInfoHelper.getProfilePictureByPath(postCardView.userPhoto),
+        ),
       ),
     );
   }

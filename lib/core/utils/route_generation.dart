@@ -3,7 +3,6 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:guide_up/pages/profile/my_profile/my_profile_account.dart';
 
-import '../../pages/login/auth_page.dart';
 import '../../pages/login/login_page.dart';
 import '../../pages/other/error_page.dart';
 import '../../pages/other/test_data_conrol_page.dart';
@@ -48,8 +47,6 @@ class RouteGenerator {
         return _createRoute(const NavigatorPage(), settings);
       case RouterConstants.loginPage:
         return _createRoute(const LoginPage(), settings);
-      case RouterConstants.authPage:
-        return _createRoute(const AuthPage(), settings);
       case RouterConstants.splashScreenPage:
         return _createRoute(const SplashScreen(), settings);
       case RouterConstants.profilePage:

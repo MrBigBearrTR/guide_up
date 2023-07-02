@@ -1,8 +1,8 @@
-import 'dart:io';
-
 import 'package:flutter/material.dart';
 import 'package:guide_up/core/enumeration/enums/EnLinkType.dart';
 import 'package:guide_up/core/enumeration/extensions/ExLinkType.dart';
+import 'package:guide_up/core/utils/user_info_helper.dart';
+import 'package:guide_up/service/user/user_detail/user_detail_service.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:intl/intl.dart';
 
@@ -81,13 +81,15 @@ class _MyProfileAccountState extends State<MyProfileAccount> {
 
   Future<void> pickProfileImage() async {
     final imagePicker = ImagePicker();
-    final pickedImage =
-        await imagePicker.pickImage(source: ImageSource.gallery);
-    setState(() {
-      if (pickedImage != null) {
-        profileImagePath = pickedImage.path;
-      }
-    });
+    final pickedImage = await imagePicker.pickImage(
+        source: ImageSource.gallery, maxWidth: 500, maxHeight: 500);
+    if (pickedImage != null) {
+      profileImagePath = pickedImage.path;
+      userDetail = await UserDetailService()
+          .updateUserPhotoByPathAndUserDetail(profileImagePath, userDetail!);
+      setState(() {});
+    }
+    setState(() {});
   }
 
   Future<void> showDatePickerDialog() async {
@@ -229,10 +231,9 @@ class _MyProfileAccountState extends State<MyProfileAccount> {
                           radius: 60.0,
                           backgroundColor: ColorConstants.theme2Orange,
                           // Arka plan rengi
-                          backgroundImage: profileImagePath.isNotEmpty
-                              ? FileImage(File(profileImagePath))
-                              : null,
-                          child: profileImagePath.isNotEmpty
+                          backgroundImage:
+                              UserInfoHelper.getProfilePicture(userDetail),
+                          child: UserInfoHelper.isProfileNotEmpty(userDetail)
                               ? null
                               : const Icon(
                                   Icons.person,

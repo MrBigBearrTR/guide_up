@@ -8,6 +8,7 @@ import 'package:guide_up/ui/material/custom_material.dart';
 import 'package:line_awesome_flutter/line_awesome_flutter.dart';
 
 import '../../core/utils/user_helper.dart';
+import '../../core/utils/user_info_helper.dart';
 
 class ProfileMain extends StatefulWidget {
   const ProfileMain({Key? key}) : super(key: key);
@@ -41,27 +42,6 @@ class _ProfileMainState extends State<ProfileMain> {
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,
-        leading: Positioned(
-          top: 20,
-          left: 0,
-          child: Container(
-            width: 55,
-            height: 55,
-            decoration: const BoxDecoration(
-              shape: BoxShape.circle,
-              color: ColorConstants.theme2Orange,
-            ),
-            child: InkWell(
-              onTap: () {
-                Navigator.pushNamed(context, RouterConstants.homePage);
-              },
-              child: const Icon(
-                Icons.arrow_back_rounded,
-                color: ColorConstants.appcolor4,
-              ),
-            ),
-          ),
-        ),
         title: Text(
           "Profilim",
           style: Theme.of(context).textTheme.headlineMedium?.copyWith(
@@ -93,11 +73,18 @@ class _ProfileMainState extends State<ProfileMain> {
                     ),
                     child: Row(
                       children: [
-                        const Padding(
+                         Padding(
                           padding: EdgeInsets.all(10),
                           child: CircleAvatar(
                             radius: 40,
-                            backgroundImage: AssetImage('assets/img/unknown_user.png'),
+                            backgroundImage: UserInfoHelper.getProfilePicture(userDetail),
+                            child: UserInfoHelper.isProfileNotEmpty(userDetail)
+                                ? null
+                                : const Icon(
+                              Icons.person,
+                              size: 60.0,
+                              color: Color(0xFF2C4059), // Siluet rengi
+                            ),
                           ),
                         ),
                         const SizedBox(width: 20),
