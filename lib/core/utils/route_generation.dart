@@ -7,6 +7,8 @@ import '../../pages/login/auth_page.dart';
 import '../../pages/login/login_page.dart';
 import '../../pages/other/error_page.dart';
 import '../../pages/other/test_data_conrol_page.dart';
+import '../../pages/profile/about _us/about_us.dart';
+import '../../pages/profile/help_and_support/help_and_support.dart';
 import '../../pages/profile/my_profile/abilities_page/abilities.dart';
 import '../../pages/profile/my_profile/education_information_page/education_information.dart';
 import '../../pages/profile/my_profile/my_projects_page/my_projects.dart';
@@ -64,6 +66,10 @@ class RouteGenerator {
         return _createRoute(const MyProjects(), settings);
       case RouterConstants.educationInformation:
         return _createRoute(const EducationInformation(), settings);
+      case RouterConstants.helpAndSupport:
+        return _createRoute(const HelpAndSupport(), settings);
+      case RouterConstants.aboutUs:
+        return _createRoute(const AboutUs(), settings);
       default:
         return _createRoute(const ErrorPage(), settings);
     }

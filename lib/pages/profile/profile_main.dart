@@ -41,6 +41,27 @@ class _ProfileMainState extends State<ProfileMain> {
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,
+        leading: Positioned(
+          top: 20,
+          left: 0,
+          child: Container(
+            width: 55,
+            height: 55,
+            decoration: const BoxDecoration(
+              shape: BoxShape.circle,
+              color: ColorConstants.theme2Orange,
+            ),
+            child: InkWell(
+              onTap: () {
+                Navigator.pushNamed(context, RouterConstants.homePage);
+              },
+              child: const Icon(
+                Icons.arrow_back_rounded,
+                color: ColorConstants.appcolor4,
+              ),
+            ),
+          ),
+        ),
         title: Text(
           "Profilim",
           style: Theme.of(context).textTheme.headlineMedium?.copyWith(
@@ -341,6 +362,10 @@ class _ProfileMainState extends State<ProfileMain> {
                                   color: ColorConstants.itemBlack,
                                 ),
                           ),
+                          onTap: () {
+                            Navigator.pushNamed(
+                                context, RouterConstants.helpAndSupport);
+                          },
                           trailing: Container(
                             width: 40,
                             height: 40,
@@ -383,6 +408,10 @@ class _ProfileMainState extends State<ProfileMain> {
                                   color: ColorConstants.itemBlack,
                                 ),
                           ),
+                          onTap: () {
+                            Navigator.pushNamed(
+                                context, RouterConstants.aboutUs);
+                          },
                           trailing: Container(
                             width: 40,
                             height: 40,

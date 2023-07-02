@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-
 import '../../../../core/constant/router_constants.dart';
+import '../../../../ui/material/custom_material.dart';
 
 class MyProjects extends StatefulWidget {
   const MyProjects({Key? key}) : super(key: key);
@@ -57,27 +57,39 @@ class _MyProjectsState extends State<MyProjects> {
             Navigator.pushNamed(context, RouterConstants.myProfileAccountPage);
           },
         ),
-      ),
-      body: ListView.builder(
-        itemCount: projects.length,
-        itemBuilder: (BuildContext context, int index) {
-          final project = projects[index];
-          return Card(
-            elevation: 2,
-            margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-            child: ListTile(
-              title: Text(project.name),
-              subtitle: const Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-
-              ),
-              trailing: IconButton(
-                icon: const Icon(Icons.delete),
-                onPressed: () => removeProject(project),
-              ),
+        actions: [
+          Padding(
+            padding: const EdgeInsets.only(right: 8.0),
+            child: Image.asset(
+              'assets/img/GuideUpLogo.png', // Logo resminin yolunu buraya ekleyin
+              width: 62,
+              height: 62,
             ),
-          );
-        },
+          ),
+        ],
+      ),
+      body: Container(
+        decoration: CustomMaterial.backgroundBoxDecoration ,
+        child: ListView.builder(
+          itemCount: projects.length,
+          itemBuilder: (BuildContext context, int index) {
+            final project = projects[index];
+            return Card(
+              elevation: 2,
+              margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+              child: ListTile(
+                title: Text(project.name),
+                subtitle: const Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                ),
+                trailing: IconButton(
+                  icon: const Icon(Icons.delete),
+                  onPressed: () => removeProject(project),
+                ),
+              ),
+            );
+          },
+        ),
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () {

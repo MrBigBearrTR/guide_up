@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 import '../../../../core/constant/router_constants.dart';
+import '../../../../ui/material/custom_material.dart';
 
 class Abilities extends StatefulWidget {
   const Abilities({Key? key}) : super(key: key);
@@ -45,64 +46,80 @@ class _AbilitiesState extends State<Abilities> {
         leading: IconButton(
           icon: const Icon(CupertinoIcons.arrow_turn_up_left),
           onPressed: () {
-            Navigator.pushNamed(context, RouterConstants.myProfileAccountPage);
+            Navigator.pushNamed(
+              context,
+              RouterConstants.myProfileAccountPage,
+            );
           },
         ),
-      ),
-      body: Padding(
-        padding: const EdgeInsets.all(16.0),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            const Text(
-              'Yeteneklerinizi Ekleyin',
-              style: TextStyle(
-                fontSize: 24,
-                fontWeight: FontWeight.bold,
-              ),
+        actions: [
+          Padding(
+            padding: const EdgeInsets.only(right: 8.0),
+            child: Image.asset(
+              'assets/img/GuideUpLogo.png', // Logo resminin yolunu buraya ekleyin
+              width: 62,
+              height: 62,
             ),
-            const SizedBox(height: 16),
-            Row(
-              children: [
-                Expanded(
-                  child: TextFormField(
-                    controller: _abilityController,
-                    decoration: const InputDecoration(
-                      hintText: 'Yetenek',
+          ),
+        ],
+      ),
+      body: Container(
+        decoration: CustomMaterial.backgroundBoxDecoration ,
+        child: Padding(
+          padding: const EdgeInsets.all(16.0),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              const Text(
+                'Yeteneklerinizi Ekleyin',
+                style: TextStyle(
+                  fontSize: 24,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+              const SizedBox(height: 16),
+              Row(
+                children: [
+                  Expanded(
+                    child: TextFormField(
+                      controller: _abilityController,
+                      decoration: const InputDecoration(
+                        hintText: 'Yetenek',
+                      ),
                     ),
                   ),
-                ),
-                const SizedBox(width: 16),
-                ElevatedButton(
-                  onPressed: addAbility,
-                  child: const Text('Ekle'),
-                ),
-              ],
-            ),
-            const SizedBox(height: 16),
-            const Text(
-              'Yetenekleriniz',
-              style: TextStyle(
-                fontSize: 18,
-                fontWeight: FontWeight.bold,
-              ),
-            ),
-            const SizedBox(height: 8),
-            ListView.builder(
-              shrinkWrap: true,
-              itemCount: abilities.length,
-              itemBuilder: (BuildContext context, int index) {
-                final ability = abilities[index];
-                return ListTile(
-                  title: Text(ability),
-                  trailing: IconButton(
-                    icon: const Icon(Icons.delete),
-                    onPressed: () => removeAbility(ability),
+                  const SizedBox(width: 16),
+                  ElevatedButton(
+                    onPressed: addAbility,
+                    child: const Text('Ekle'),
                   ),
-                );
-              },
-            ),
-          ],
+                ],
+              ),
+              const SizedBox(height: 16),
+              const Text(
+                'Yetenekleriniz',
+                style: TextStyle(
+                  fontSize: 18,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+              const SizedBox(height: 8),
+              ListView.builder(
+                shrinkWrap: true,
+                itemCount: abilities.length,
+                itemBuilder: (BuildContext context, int index) {
+                  final ability = abilities[index];
+                  return ListTile(
+                    title: Text(ability),
+                    trailing: IconButton(
+                      icon: const Icon(Icons.delete),
+                      onPressed: () => removeAbility(ability),
+                    ),
+                  );
+                },
+              ),
+            ],
+          ),
         ),
       ),
     );

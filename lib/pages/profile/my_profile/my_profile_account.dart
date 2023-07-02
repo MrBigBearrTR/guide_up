@@ -1,5 +1,3 @@
-import 'dart:io';
-
 import 'package:flutter/material.dart';
 import 'package:guide_up/core/enumeration/enums/EnLinkType.dart';
 import 'package:guide_up/core/enumeration/extensions/ExLinkType.dart';
@@ -13,9 +11,10 @@ import '../../../core/models/users/user_detail/user_links_model.dart';
 import '../../../core/models/users/user_model.dart';
 import '../../../core/utils/control_helper.dart';
 import '../../../core/utils/secure_storage_helper.dart';
+import '../../../ui/material/custom_material.dart';
+import '../licenses_and_certificates/licenses_And_Certificates.dart';
 import '../../../repository/user/user_detail/user_links_repository.dart';
 import '../../../repository/user/user_repository.dart';
-import '../licenses_and_certificates/licenses_And_Certificates.dart';
 
 class MyProfileAccount extends StatefulWidget {
   const MyProfileAccount({Key? key}) : super(key: key);
@@ -200,7 +199,9 @@ class _MyProfileAccountState extends State<MyProfileAccount> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Padding(
+      body: Container(
+      decoration: CustomMaterial.backgroundBoxDecoration ,
+      child: Padding(
         padding: const EdgeInsets.all(16.0),
         child: Stack(
           children: [
@@ -702,6 +703,7 @@ class _MyProfileAccountState extends State<MyProfileAccount> {
           ],
         ),
       ),
+    ),
     );
   }
 
