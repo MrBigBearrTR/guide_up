@@ -77,14 +77,17 @@ class _MyProjectsState extends State<MyProjects> {
             return Card(
               elevation: 2,
               margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-              child: ListTile(
-                title: Text(project.name),
-                subtitle: const Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                ),
-                trailing: IconButton(
-                  icon: const Icon(Icons.delete),
-                  onPressed: () => removeProject(project),
+              child: Container(
+                color: ColorConstants.theme1PowderSkinOpacity, // card arka plan rengi
+                child: ListTile(
+                  title: Text(project.name),
+                  subtitle: const Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                  ),
+                  trailing: IconButton(
+                    icon: const Icon(Icons.delete),
+                    onPressed: () => removeProject(project),
+                  ),
                 ),
               ),
             );

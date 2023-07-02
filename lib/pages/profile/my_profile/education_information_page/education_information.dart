@@ -1,8 +1,9 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:guide_up/ui/material/custom_material.dart';
+
 import '../../../../core/constant/color_constants.dart';
-import '../../../../ui/material/custom_material.dart';
 
 class EducationInformation extends StatefulWidget {
   const EducationInformation({Key? key}) : super(key: key);
@@ -29,14 +30,15 @@ class _EducationInformationState extends State<EducationInformation> {
     return Scaffold(
       resizeToAvoidBottomInset: false,
       appBar: AppBar(
-        title: Text('',
-          style: GoogleFonts.nunito(
-          ),
+        title: Text(
+          '',
+          style: GoogleFonts.nunito(),
         ),
         leading: IconButton(
           icon: const Icon(CupertinoIcons.arrow_turn_up_left),
           onPressed: () {
-            Navigator.pop(context);},
+            Navigator.pop(context);
+          },
         ),
         actions: [
           Padding(
@@ -50,7 +52,7 @@ class _EducationInformationState extends State<EducationInformation> {
         ],
       ),
       body: Container(
-        decoration: CustomMaterial.backgroundBoxDecoration ,
+        decoration: CustomMaterial.backgroundBoxDecoration,
         padding: const EdgeInsets.all(16),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -207,13 +209,14 @@ class _EducationInformationState extends State<EducationInformation> {
               },
               style: ButtonStyle(
                 backgroundColor: MaterialStateProperty.all<Color>(
-                    ColorConstants.warningDark, // Arkaplan rengi
+                  ColorConstants.warningDark, // Arkaplan rengi
                 ),
                 foregroundColor: MaterialStateProperty.all<Color>(
                   ColorConstants.itemWhite, // Metin rengi
                 ),
               ),
-              child: Text('Kaydet',
+              child: Text(
+                'Kaydet',
                 style: GoogleFonts.nunito(
                   fontSize: 15,
                   fontWeight: FontWeight.bold,

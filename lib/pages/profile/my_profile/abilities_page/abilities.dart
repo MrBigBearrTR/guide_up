@@ -86,6 +86,11 @@ class _AbilitiesState extends State<Abilities> {
                       style: const TextStyle(fontFamily: 'Nunito'), // Yazı tipi
                       decoration: const InputDecoration(
                         hintText: 'Yetenek',
+                        focusedBorder: UnderlineInputBorder(
+                          borderSide: BorderSide(
+                            color: ColorConstants.warningDark, // Alt çizgi rengi
+                          ),
+                        ),
                       ),
                     ),
                   ),

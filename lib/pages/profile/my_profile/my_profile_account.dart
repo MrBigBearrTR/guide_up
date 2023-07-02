@@ -96,6 +96,17 @@ class _MyProfileAccountState extends State<MyProfileAccount> {
   Future<void> showDatePickerDialog() async {
     final DateTime? pickedDate = await showDatePicker(
       context: context,
+      builder: (BuildContext context, Widget? child) {
+        return Theme(
+          data: ThemeData(
+            colorScheme: const ColorScheme.light(
+              primary: ColorConstants.theme1DarkBlue,
+            ),
+            dialogBackgroundColor: ColorConstants.itemWhite,
+          ),
+          child: child ?? const Text(""),
+        );
+      },
       initialDate: selectedDate,
       firstDate: DateTime(1900),
       lastDate: DateTime.now(),
@@ -107,6 +118,7 @@ class _MyProfileAccountState extends State<MyProfileAccount> {
       });
     }
   }
+
 
   void addOtherLink() {
     String title = "";
