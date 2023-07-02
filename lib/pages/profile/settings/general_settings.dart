@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
 
+import '../../../ui/material/custom_material.dart';
+
 void main() {
   runApp(const MyApp());
 }
 
 class MyApp extends StatelessWidget {
-  const MyApp({super.key});
+  const MyApp({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -42,21 +44,34 @@ class _GeneralSettingsState extends State<GeneralSettings> {
           'Genel Ayarlar',
           style: TextStyle(fontSize: 24.0, fontWeight: FontWeight.bold),
         ),
+        actions: [
+          Padding(
+            padding: const EdgeInsets.only(right: 8.0),
+            child: Image.asset(
+              'assets/img/GuideUpLogo.png', // Logo resminin yolunu buraya ekleyin
+              width: 62,
+              height: 62,
+            ),
+          ),
+        ],
       ),
-      body: SingleChildScrollView(
-        padding: const EdgeInsets.all(16.0),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            const SizedBox(height: 16.0),
-            _buildPasswordSection(),
-            const SizedBox(height: 16.0),
-            _buildLanguageSection(),
-            const SizedBox(height: 16.0),
-            _buildPhoneNumberSection(),
-            const SizedBox(height: 16.0),
-            _buildThemeSection(),
-          ],
+      body: Container(
+        decoration: CustomMaterial.backgroundBoxDecoration ,
+        child: SingleChildScrollView(
+          padding: const EdgeInsets.all(16.0),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              const SizedBox(height: 16.0),
+              _buildPasswordSection(),
+              const SizedBox(height: 16.0),
+              _buildLanguageSection(),
+              const SizedBox(height: 16.0),
+              _buildPhoneNumberSection(),
+              const SizedBox(height: 16.0),
+              _buildThemeSection(),
+            ],
+          ),
         ),
       ),
     );
@@ -75,13 +90,13 @@ class _GeneralSettingsState extends State<GeneralSettings> {
           decoration: InputDecoration(
             labelText: 'Mevcut şifre',
             floatingLabelStyle: TextStyle(
-              color: Color(0xFFFE5722), // Metin rengi
+              color: Color(0xFF212832), // Metin rengi
             ),
             border: OutlineInputBorder(
               borderSide: BorderSide(color: Color(0xFF98C2D0)), // Kutunun çevresi rengi
             ),
             focusedBorder: OutlineInputBorder(
-              borderSide: BorderSide(color: Color(0xFFFE5722)), // Odaklandığında kutunun çevresi rengi
+              borderSide: BorderSide(color: Color(0xFF212832)), // Odaklandığında kutunun çevresi rengi
             ),
             prefixIcon: Icon(
               Icons.lock_outlined,
@@ -100,13 +115,13 @@ class _GeneralSettingsState extends State<GeneralSettings> {
           decoration: InputDecoration(
             labelText: 'Yeni şifre',
             floatingLabelStyle: TextStyle(
-              color: Color(0xFFFE5722), // Metin rengi
+              color: Color(0xFF212832), // Metin rengi
             ),
             border: OutlineInputBorder(
               borderSide: BorderSide(color: Color(0xFF98C2D0)), // Kutunun çevresi rengi
             ),
             focusedBorder: OutlineInputBorder(
-              borderSide: BorderSide(color: Color(0xFFFE5722)), // Odaklandığında kutunun çevresi rengi
+              borderSide: BorderSide(color: Color(0xFF212832)), // Odaklandığında kutunun çevresi rengi
             ),
             prefixIcon: Icon(
               Icons.lock,
@@ -125,13 +140,13 @@ class _GeneralSettingsState extends State<GeneralSettings> {
           decoration: InputDecoration(
             labelText: 'Şifreyi tekrar yaz',
             floatingLabelStyle: TextStyle(
-              color: Color(0xFFFE5722), // Metin rengi
+              color: Color(0xFF212832), // Metin rengi
     ),
             border: OutlineInputBorder(
               borderSide: BorderSide(color: Color(0xFF98C2D0)), // Kutunun çevresi rengi
             ),
             focusedBorder: OutlineInputBorder(
-              borderSide: BorderSide(color: Color(0xFFFE5722)), // Odaklandığında kutunun çevresi rengi
+              borderSide: BorderSide(color: Color(0xFF212832)), // Odaklandığında kutunun çevresi rengi
             ),
             prefixIcon: Icon(
               Icons.lock_outlined,
@@ -198,7 +213,7 @@ class _GeneralSettingsState extends State<GeneralSettings> {
           onChanged: (String? newValue) {
             // Dil seçildiğinde yapılacak işlemler
           },
-          items: <String>['Türkçe', 'Almanca', 'Diğer']
+          items: <String>['Türkçe', 'İngilizce']
               .map<DropdownMenuItem<String>>((String value) {
             return DropdownMenuItem<String>(
               value: value,
@@ -223,13 +238,13 @@ class _GeneralSettingsState extends State<GeneralSettings> {
           decoration: InputDecoration(
             labelText: 'Telefon Numarası Gir',
             floatingLabelStyle: TextStyle(
-              color: Color(0xFFFE5722), // Metin rengi
+              color: Color(0xFF212832), // Metin rengi
             ),
             border: OutlineInputBorder(
               borderSide: BorderSide(color: Color(0xFF98C2D0)), // Kutunun çevresi rengi
             ),
             focusedBorder: OutlineInputBorder(
-              borderSide: BorderSide(color: Color(0xFFFE5722)), // Odaklandığında kutunun çevresi rengi
+              borderSide: BorderSide(color: Color(0xFF212832)), // Odaklandığında kutunun çevresi rengi
             ),
             prefixIcon: Icon(
               Icons.phone,

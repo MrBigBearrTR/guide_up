@@ -69,354 +69,369 @@ class _ProfileMainState extends State<ProfileMain> {
               ),
         ),
       ),
-      body: SingleChildScrollView(
+      body: SizedBox(
+        height: MediaQuery.of(context).size.height,
+        width: MediaQuery.of(context).size.width,
         child: Container(
           decoration: CustomMaterial.backgroundBoxDecoration,
-          padding: const EdgeInsets.all(CupertinoScrollbar.defaultThickness),
-          child: Column(
-            children: [
-              Container(
-                decoration: BoxDecoration(
-                  color: ColorConstants.theme2DarkBlue,
-                  borderRadius: BorderRadius.circular(10),
-                  boxShadow: [
-                    BoxShadow(
-                      color: Colors.black.withOpacity(0.3),
-                      blurRadius: 8,
-                      offset: const Offset(0, 2),
-                    ),
-                  ],
-                ),
-                child: Row(
-                  children: [
-                    const CircleAvatar(
-                      radius: 52,
-                      backgroundImage: AssetImage('assets/img/img.png'),
-                    ),
-                    const SizedBox(width: 20),
-                    Column(
-                      children: [
-                        Text(
-                          '${userDetail != null ? (" ${userDetail!.getName() ?? ""} ${userDetail!.getSurname() ?? ""}") : ""}',
-                          style: Theme.of(context)
-                              .textTheme
-                              .headlineMedium
-                              ?.copyWith(
-                                color: ColorConstants.appcolor4,
-                              ),
-                        ),
-                        const SizedBox(height: 8),
-                        Text(
-                          "${UserHelper().auth.currentUser!.email}",
-                          style:
-                              Theme.of(context).textTheme.bodyMedium?.copyWith(
-                                    color: ColorConstants.appcolor4,
-                                  ),
+          child: SingleChildScrollView(
+            child: Container(
+              padding: const EdgeInsets.all(CupertinoScrollbar.defaultThickness),
+              child: Column(
+                children: [
+                  Container(
+                    decoration: BoxDecoration(
+                      color: ColorConstants.theme2DarkBlue,
+                      borderRadius: BorderRadius.circular(10),
+                      boxShadow: [
+                        BoxShadow(
+                          color: Colors.black.withOpacity(0.3),
+                          blurRadius: 8,
+                          offset: const Offset(0, 2),
                         ),
                       ],
                     ),
-                  ],
-                ),
-              ),
-              const SizedBox(height: 20),
-              const SizedBox(height: 30),
-              const SizedBox(height: 10),
-              Container(
-                padding: const EdgeInsets.all(16),
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(10),
-                  color: ColorConstants.theme1BrightCloudBlue,
-                  boxShadow: [
-                    BoxShadow(
-                      color: Colors.black.withOpacity(0.3),
-                      blurRadius: 8,
-                      offset: const Offset(0, 2),
-                    ),
-                  ],
-                ),
-                child: Column(
-                  children: [
-                    InkWell(
-                      onTap: () {
-                        Navigator.pushNamed(
-                            context, RouterConstants.myProfileAccountPage);
-                      },
-                      child: ListTile(
-                        leading: Container(
-                          width: 40,
-                          height: 40,
-                          decoration: const BoxDecoration(
-                              boxShadow: [
-                                BoxShadow(
-                                    color: ColorConstants.theme2DarkOpacity20,
-                                    blurRadius: 25.0)
-                              ],
-                              shape: BoxShape.circle,
-                              color: ColorConstants.theme1BrightCloudBlue),
-                          child: const Icon(
-                            LineAwesomeIcons.user_check,
-                            color: ColorConstants.itemBlack,
+                    child: Row(
+                      children: [
+                        const Padding(
+                          padding: EdgeInsets.all(10),
+                          child: CircleAvatar(
+                            radius: 40,
+                            backgroundImage: AssetImage('assets/img/unknown_user.png'),
                           ),
                         ),
-                        title: Text(
-                          "Hesabım",
-                          style:
-                              Theme.of(context).textTheme.bodyLarge?.copyWith(
-                                    color: ColorConstants.itemBlack,
+                        const SizedBox(width: 20),
+                        Column(
+                          children: [
+                            Text(
+                              userDetail != null ? (" ${userDetail!.getName() ?? ""} ${userDetail!.getSurname() ?? ""}") : "",
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .headlineMedium
+                                  ?.copyWith(
+                                    color: ColorConstants.appcolor4,
                                   ),
+                            ),
+                            const SizedBox(height: 8),
+                            Text(
+                              "${UserHelper().auth.currentUser!.email}",
+                              style:
+                                  Theme.of(context).textTheme.bodyMedium?.copyWith(
+                                        color: ColorConstants.appcolor4,
+                                      ),
+                            ),
+                          ],
                         ),
-                        trailing: Container(
-                          width: 40,
-                          height: 40,
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(100),
-                            color: ColorConstants.theme2Orange,
+                      ],
+                    ),
+                  ),
+                  const SizedBox(height: 40),
+                  Container(
+                    padding: const EdgeInsets.all(16),
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(10),
+                      color: ColorConstants.theme1BrightCloudBlue,
+                      boxShadow: [
+                        BoxShadow(
+                          color: Colors.black.withOpacity(0.3),
+                          blurRadius: 8,
+                          offset: const Offset(0, 2),
+                        ),
+                      ],
+                    ),
+                    child: Column(
+                      children: [
+                        InkWell(
+                          onTap: () {
+                            Navigator.pushNamed(
+                                context, RouterConstants.myProfileAccountPage);
+                          },
+                          child: ListTile(
+                            leading: Container(
+                              width: 40,
+                              height: 40,
+                              decoration: const BoxDecoration(
+                                  boxShadow: [
+                                    BoxShadow(
+                                        color: ColorConstants.theme2DarkOpacity20,
+                                        blurRadius: 25.0)
+                                  ],
+                                  shape: BoxShape.circle,
+                                  color: ColorConstants.theme1BrightCloudBlue),
+                              child: const Icon(
+                                LineAwesomeIcons.user_check,
+                                color: ColorConstants.itemBlack,
+                              ),
+                            ),
+                            title: Text(
+                              "Hesabım",
+                              style:
+                                  Theme.of(context).textTheme.bodyLarge?.copyWith(
+                                        color: ColorConstants.itemBlack,
+                                      ),
+                            ),
+                            trailing: Container(
+                              width: 40,
+                              height: 40,
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(100),
+                                color: ColorConstants.theme2Orange,
+                              ),
+                              child: const Icon(LineAwesomeIcons.angle_right,
+                                  size: 18.0, color: ColorConstants.appcolor4),
+                            ),
                           ),
-                          child: const Icon(LineAwesomeIcons.angle_right,
-                              size: 18.0, color: ColorConstants.appcolor4),
                         ),
-                      ),
-                    ),
-                    const Divider(
-                      height: 0.01,
-                      color: Colors.black12,
-                    ),
-                    const SizedBox(height: 16),
-                    ListTile(
-                      onTap: () {
-                        Navigator.pushNamed(
-                            context, RouterConstants.generalSettingsPage);
-                      },
-                      leading: Container(
-                        width: 40,
-                        height: 40,
-                        decoration: const BoxDecoration(
-                            boxShadow: [
-                              BoxShadow(
-                                  color: ColorConstants.theme2DarkOpacity20,
-                                  blurRadius: 25.0)
-                            ],
-                            shape: BoxShape.circle,
-                            color: ColorConstants.theme1BrightCloudBlue),
-                        child: const Icon(
-                          LineAwesomeIcons.cog,
-                          color: ColorConstants.itemBlack,
+                        const Divider(
+                          height: 0.01,
+                          color: Colors.black12,
                         ),
-                      ),
-                      title: Text(
-                        "Genel Ayarlar",
-                        style: Theme.of(context).textTheme.bodyLarge?.copyWith(
+                        const SizedBox(height: 16),
+                        ListTile(
+                          onTap: () {
+                            Navigator.pushNamed(
+                                context, RouterConstants.generalSettingsPage);
+                          },
+                          leading: Container(
+                            width: 40,
+                            height: 40,
+                            decoration: const BoxDecoration(
+                                boxShadow: [
+                                  BoxShadow(
+                                      color: ColorConstants.theme2DarkOpacity20,
+                                      blurRadius: 25.0)
+                                ],
+                                shape: BoxShape.circle,
+                                color: ColorConstants.theme1BrightCloudBlue),
+                            child: const Icon(
+                              LineAwesomeIcons.cog,
                               color: ColorConstants.itemBlack,
                             ),
-                      ),
-                      trailing: Container(
-                        width: 40,
-                        height: 40,
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(100),
-                          color: ColorConstants.theme2Orange,
+                          ),
+                          title: Text(
+                            "Genel Ayarlar",
+                            style: Theme.of(context).textTheme.bodyLarge?.copyWith(
+                                  color: ColorConstants.itemBlack,
+                                ),
+                          ),
+                          trailing: Container(
+                            width: 40,
+                            height: 40,
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(100),
+                              color: ColorConstants.theme2Orange,
+                            ),
+                            child: const Icon(
+                              LineAwesomeIcons.angle_right,
+                              size: 18.0,
+                              color: ColorConstants.appcolor4,
+                            ),
+                          ),
                         ),
-                        child: const Icon(
-                          LineAwesomeIcons.angle_right,
-                          size: 18.0,
-                          color: ColorConstants.appcolor4,
+                        const Divider(
+                          height: 0.01,
+                          color: Colors.black12,
                         ),
-                      ),
-                    ),
-                    const Divider(
-                      height: 0.01,
-                      color: Colors.black12,
-                    ),
-                    const SizedBox(height: 16),
-                    ListTile(
-                      leading: Container(
-                        width: 40,
-                        height: 40,
-                        decoration: const BoxDecoration(
-                            boxShadow: [
-                              BoxShadow(
-                                  color: ColorConstants.theme2DarkOpacity20,
-                                  blurRadius: 25.0)
-                            ],
-                            shape: BoxShape.circle,
-                            color: ColorConstants.theme1BrightCloudBlue),
-                        child: const Icon(
-                          LineAwesomeIcons.wallet,
-                          color: ColorConstants.itemBlack,
-                        ),
-                      ),
-                      title: Text(
-                        "Ödeme Yöntemleri",
-                        style: Theme.of(context).textTheme.bodyLarge?.copyWith(
+                        const SizedBox(height: 16),
+                        ListTile(
+                          leading: Container(
+                            width: 40,
+                            height: 40,
+                            decoration: const BoxDecoration(
+                                boxShadow: [
+                                  BoxShadow(
+                                      color: ColorConstants.theme2DarkOpacity20,
+                                      blurRadius: 25.0)
+                                ],
+                                shape: BoxShape.circle,
+                                color: ColorConstants.theme1BrightCloudBlue),
+                            child: const Icon(
+                              LineAwesomeIcons.wallet,
                               color: ColorConstants.itemBlack,
                             ),
-                      ),
-                      trailing: Container(
-                        width: 40,
-                        height: 40,
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(100),
-                          color: ColorConstants.theme2Orange,
-                        ),
-                        child: const Icon(
-                          LineAwesomeIcons.angle_right,
-                          size: 18.0,
-                          color: ColorConstants.appcolor4,
-                        ),
-                      ),
-                    ),
-                    const Divider(
-                      height: 0.01,
-                      color: Colors.black12,
-                    ),
-                    const SizedBox(height: 16),
-                    InkWell(
-                      onTap: () {
-                        UserHelper().signOut();
-                        Navigator.pushReplacementNamed(
-                            context, RouterConstants.homePage);
-                      },
-                      child: ListTile(
-                        leading: Container(
-                          width: 40,
-                          height: 40,
-                          decoration: const BoxDecoration(
-                              boxShadow: [
-                                BoxShadow(
-                                    color: ColorConstants.theme2DarkOpacity20,
-                                    blurRadius: 25.0)
-                              ],
-                              shape: BoxShape.circle,
-                              color: ColorConstants.theme1BrightCloudBlue),
-                          child: const Icon(
-                            LineAwesomeIcons.alternate_sign_out,
-                            color: ColorConstants.itemBlack,
+                          ),
+                          title: Text(
+                            "Ödeme Yöntemleri",
+                            style: Theme.of(context).textTheme.bodyLarge?.copyWith(
+                                  color: ColorConstants.itemBlack,
+                                ),
+                          ),
+                          trailing: Container(
+                            width: 40,
+                            height: 40,
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(100),
+                              color: ColorConstants.theme2Orange,
+                            ),
+                            child: const Icon(
+                              LineAwesomeIcons.angle_right,
+                              size: 18.0,
+                              color: ColorConstants.appcolor4,
+                            ),
                           ),
                         ),
-                        title: Text(
-                          "Çıkış Yap",
-                          style:
-                              Theme.of(context).textTheme.bodyLarge?.copyWith(
-                                    color: ColorConstants.itemBlack,
-                                  ),
+                        const Divider(
+                          height: 0.01,
+                          color: Colors.black12,
                         ),
-                        trailing: Container(
-                          width: 40,
-                          height: 40,
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(100),
-                            color: ColorConstants.theme2Orange,
-                          ),
-                          child: const Icon(
-                            LineAwesomeIcons.angle_right,
-                            size: 18.0,
-                            color: ColorConstants.appcolor4,
+                        const SizedBox(height: 16),
+                        InkWell(
+                          onTap: () {
+                            UserHelper().signOut();
+                            Navigator.pushReplacementNamed(
+                                context, RouterConstants.homePage);
+                          },
+                          child: ListTile(
+                            leading: Container(
+                              width: 40,
+                              height: 40,
+                              decoration: const BoxDecoration(
+                                  boxShadow: [
+                                    BoxShadow(
+                                        color: ColorConstants.theme2DarkOpacity20,
+                                        blurRadius: 25.0)
+                                  ],
+                                  shape: BoxShape.circle,
+                                  color: ColorConstants.theme1BrightCloudBlue),
+                              child: const Icon(
+                                LineAwesomeIcons.alternate_sign_out,
+                                color: ColorConstants.itemBlack,
+                              ),
+                            ),
+                            title: Text(
+                              "Çıkış Yap",
+                              style:
+                                  Theme.of(context).textTheme.bodyLarge?.copyWith(
+                                        color: ColorConstants.itemBlack,
+                                      ),
+                            ),
+                            trailing: Container(
+                              width: 40,
+                              height: 40,
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(100),
+                                color: ColorConstants.theme2Orange,
+                              ),
+                              child: const Icon(
+                                LineAwesomeIcons.angle_right,
+                                size: 18.0,
+                                color: ColorConstants.appcolor4,
+                              ),
+                            ),
                           ),
                         ),
-                      ),
+                      ],
                     ),
-                  ],
-                ),
+                  ),
+                  const SizedBox(height: 40),
+                  Container(
+                    padding: const EdgeInsets.all(16),
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(10),
+                      color: ColorConstants.theme1BrightCloudBlue,
+                      boxShadow: [
+                        BoxShadow(
+                          color: Colors.black.withOpacity(0.3),
+                          blurRadius: 8,
+                          offset: const Offset(0, 2),
+                        ),
+                      ],
+                    ),
+                    child: Column(
+                      children: [
+                        ListTile(
+                          leading: Container(
+                            width: 40,
+                            height: 40,
+                            decoration: const BoxDecoration(
+                                boxShadow: [
+                                  BoxShadow(
+                                      color: ColorConstants.theme2DarkOpacity20,
+                                      blurRadius: 25.0)
+                                ],
+                                shape: BoxShape.circle,
+                                color: ColorConstants.theme1BrightCloudBlue),
+                            child: const Icon(
+                              LineAwesomeIcons.question_circle,
+                              color: ColorConstants.itemBlack,
+                            ),
+                          ),
+                          title: Text(
+                            "Yardım ve Destek",
+                            style: Theme.of(context).textTheme.bodyLarge?.copyWith(
+                                  color: ColorConstants.itemBlack,
+                                ),
+                          ),
+                          onTap: () {
+                            Navigator.pushNamed(
+                                context, RouterConstants.helpAndSupport);
+                          },
+                          trailing: Container(
+                            width: 40,
+                            height: 40,
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(100),
+                              color: ColorConstants.theme2Orange,
+                            ),
+                            child: const Icon(
+                              LineAwesomeIcons.angle_right,
+                              size: 18.0,
+                              color: ColorConstants.appcolor4,
+                            ),
+                          ),
+                        ),
+                        const Divider(
+                          height: 0.01,
+                          color: Colors.black12,
+                        ),
+                        const SizedBox(height: 16),
+                        ListTile(
+                          leading: Container(
+                            width: 40,
+                            height: 40,
+                            decoration: const BoxDecoration(
+                                boxShadow: [
+                                  BoxShadow(
+                                      color: ColorConstants.theme2DarkOpacity20,
+                                      blurRadius: 25.0)
+                                ],
+                                shape: BoxShape.circle,
+                                color: ColorConstants.theme1BrightCloudBlue),
+                            child: const Icon(
+                              LineAwesomeIcons.info_circle,
+                              color: ColorConstants.itemBlack,
+                            ),
+                          ),
+                          title: Text(
+                            "Hakkımızda",
+                            style: Theme.of(context).textTheme.bodyLarge?.copyWith(
+                                  color: ColorConstants.itemBlack,
+                                ),
+                          ),
+                          onTap: () {
+                            Navigator.pushNamed(
+                                context, RouterConstants.aboutUs);
+                          },
+                          trailing: Container(
+                            width: 40,
+                            height: 40,
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(100),
+                              color: ColorConstants.theme2Orange,
+                            ),
+                            child: const Icon(
+                              LineAwesomeIcons.angle_right,
+                              size: 18.0,
+                              color: ColorConstants.appcolor4,
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                ],
               ),
-              const SizedBox(height: 50),
-              Container(
-                padding: const EdgeInsets.all(16),
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(10),
-                  color: ColorConstants.theme1BrightCloudBlue,
-                  boxShadow: [
-                    BoxShadow(
-                      color: Colors.black.withOpacity(0.3),
-                      blurRadius: 8,
-                      offset: const Offset(0, 2),
-                    ),
-                  ],
-                ),
-                child: Column(
-                  children: [
-                    ListTile(
-                      leading: Container(
-                        width: 40,
-                        height: 40,
-                        decoration: const BoxDecoration(
-                            boxShadow: [
-                              BoxShadow(
-                                  color: ColorConstants.theme2DarkOpacity20,
-                                  blurRadius: 25.0)
-                            ],
-                            shape: BoxShape.circle,
-                            color: ColorConstants.theme1BrightCloudBlue),
-                        child: const Icon(
-                          LineAwesomeIcons.question_circle,
-                          color: ColorConstants.itemBlack,
-                        ),
-                      ),
-                      title: Text(
-                        "Yardım ve Destek",
-                        style: Theme.of(context).textTheme.bodyLarge?.copyWith(
-                              color: ColorConstants.itemBlack,
-                            ),
-                      ),
-                      trailing: Container(
-                        width: 40,
-                        height: 40,
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(100),
-                          color: ColorConstants.theme2Orange,
-                        ),
-                        child: const Icon(
-                          LineAwesomeIcons.angle_right,
-                          size: 18.0,
-                          color: ColorConstants.appcolor4,
-                        ),
-                      ),
-                    ),
-                    const Divider(
-                      height: 0.01,
-                      color: Colors.black12,
-                    ),
-                    const SizedBox(height: 16),
-                    ListTile(
-                      leading: Container(
-                        width: 40,
-                        height: 40,
-                        decoration: const BoxDecoration(
-                            boxShadow: [
-                              BoxShadow(
-                                  color: ColorConstants.theme2DarkOpacity20,
-                                  blurRadius: 25.0)
-                            ],
-                            shape: BoxShape.circle,
-                            color: ColorConstants.theme1BrightCloudBlue),
-                        child: const Icon(
-                          LineAwesomeIcons.info_circle,
-                          color: ColorConstants.itemBlack,
-                        ),
-                      ),
-                      title: Text(
-                        "Hakkımızda",
-                        style: Theme.of(context).textTheme.bodyLarge?.copyWith(
-                              color: ColorConstants.itemBlack,
-                            ),
-                      ),
-                      trailing: Container(
-                        width: 40,
-                        height: 40,
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(100),
-                          color: ColorConstants.theme2Orange,
-                        ),
-                        child: const Icon(
-                          LineAwesomeIcons.angle_right,
-                          size: 18.0,
-                          color: ColorConstants.appcolor4,
-                        ),
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-            ],
+            ),
           ),
         ),
       ),

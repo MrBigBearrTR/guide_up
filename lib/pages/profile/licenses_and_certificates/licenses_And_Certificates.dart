@@ -1,16 +1,19 @@
 import 'package:flutter/material.dart';
 import ' license_And_Certificate_Add.dart';
 import ' licenses_And_Certificates_Arrangement.dart';
+import '../../../ui/material/custom_material.dart';
 
 class LicensesAndCertificatesPage extends StatefulWidget {
   const LicensesAndCertificatesPage({Key? key}) : super(key: key);
 
   @override
   // ignore: library_private_types_in_public_api
-  _LicensesAndCertificatesPageState createState() => _LicensesAndCertificatesPageState();
+  _LicensesAndCertificatesPageState createState() =>
+      _LicensesAndCertificatesPageState();
 }
 
-class _LicensesAndCertificatesPageState extends State<LicensesAndCertificatesPage> {
+class _LicensesAndCertificatesPageState
+    extends State<LicensesAndCertificatesPage> {
   List<String> licensesAndCertificatesList = []; // Sertifikalar ve lisanslar listesi
 
   @override
@@ -38,7 +41,9 @@ class _LicensesAndCertificatesPageState extends State<LicensesAndCertificatesPag
           ),
         ],
       ),
-        body: licensesAndCertificatesList.isEmpty
+      body: Container(
+        decoration: CustomMaterial.backgroundBoxDecoration ,
+        child: licensesAndCertificatesList.isEmpty
             ? Center(
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
@@ -46,7 +51,7 @@ class _LicensesAndCertificatesPageState extends State<LicensesAndCertificatesPag
               Padding(
                 padding: const EdgeInsets.only(top: 0, left: 0),
                 child: Image.asset(
-                  'assets/img/GuideUpLogo.png',
+                  'assets/logo/guideUpLogo.png',
                   width: 200,
                   height: 200,
                 ),
@@ -55,13 +60,16 @@ class _LicensesAndCertificatesPageState extends State<LicensesAndCertificatesPag
                 onTap: () {
                   Navigator.push(
                     context,
-                    MaterialPageRoute(builder: (context) => LicenseAndCertificateAddPage(
-                      onAdd: (String url) {
-                        setState(() {
-                          licensesAndCertificatesList.add(url);
-                        });
-                      },
-                    ),),
+                    MaterialPageRoute(
+                      builder: (context) =>
+                          LicenseAndCertificateAddPage(
+                            onAdd: (String url) {
+                              setState(() {
+                                licensesAndCertificatesList.add(url);
+                              });
+                            },
+                          ),
+                    ),
                   );
                 },
                 child: Container(
@@ -75,78 +83,82 @@ class _LicensesAndCertificatesPageState extends State<LicensesAndCertificatesPag
                   ),
                 ),
               ),
-
             ],
           ),
         )
+            : ListView.builder(
+          itemCount: licensesAndCertificatesList.length,
+          itemBuilder: (context, index) {
+            final url = licensesAndCertificatesList[index];
 
-        : ListView.builder(
-        itemCount: licensesAndCertificatesList.length,
-        itemBuilder: (context, index) {
-          final url = licensesAndCertificatesList[index];
-
-          return ListTile(
-            title: Text(url),
-            trailing: Row(
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                IconButton(
-                  icon: const Icon(Icons.edit),
-                  onPressed: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => LicensesAndCertificatesArrangementPage(
-                          url: url,
-                          onUpdate: (String updatedUrl) {
-                            setState(() {
-                              licensesAndCertificatesList[index] = updatedUrl;
-                            });
-                          },
-                          onDelete: () {
-                            setState(() {
-                              licensesAndCertificatesList.removeAt(index);
-                            });
-                          },
+            return ListTile(
+              title: Text(url),
+              trailing: Row(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  IconButton(
+                    icon: const Icon(Icons.edit),
+                    onPressed: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) =>
+                              LicensesAndCertificatesArrangementPage(
+                                url: url,
+                                onUpdate: (String updatedUrl) {
+                                  setState(() {
+                                    licensesAndCertificatesList[index] =
+                                        updatedUrl;
+                                  });
+                                },
+                                onDelete: () {
+                                  setState(() {
+                                    licensesAndCertificatesList
+                                        .removeAt(index);
+                                  });
+                                },
+                              ),
                         ),
-                      ),
-                    );
-                  },
-                ),
-                IconButton(
-                  icon: const Icon(Icons.delete),
-                  onPressed: () {
-                    showDialog(
-                      context: context,
-                      builder: (BuildContext context) {
-                        return AlertDialog(
-                          title: const Text("Silmek istediğinize emin misiniz?"),
-                          actions: [
-                            TextButton(
-                              child: const Text("Evet"),
-                              onPressed: () {
-                                setState(() {
-                                  licensesAndCertificatesList.removeAt(index);
-                                });
-                                Navigator.of(context).pop();
-                              },
-                            ),
-                            TextButton(
-                              child: const Text("Hayır"),
-                              onPressed: () {
-                                Navigator.of(context).pop();
-                              },
-                            ),
-                          ],
-                        );
-                      },
-                    );
-                  },
-                ),
-              ],
-            ),
-          );
-        },
+                      );
+                    },
+                  ),
+                  IconButton(
+                    icon: const Icon(Icons.delete),
+                    onPressed: () {
+                      showDialog(
+                        context: context,
+                        builder: (BuildContext context) {
+                          return AlertDialog(
+                            title: const Text(
+                                "Silmek istediğinize emin misiniz?"),
+                            actions: [
+                              TextButton(
+                                child: const Text("Evet"),
+                                onPressed: () {
+                                  setState(() {
+                                    licensesAndCertificatesList
+                                        .removeAt(index);
+                                  });
+                                  Navigator.of(context).pop();
+                                },
+                              ),
+                              TextButton(
+                                child: const Text("Hayır"),
+                                onPressed: () {
+                                  Navigator.of(context).pop();
+                                },
+                              ),
+                            ],
+                          );
+                        },
+                      );
+                    },
+                  ),
+                ],
+              ),
+            );
+          },
+        ),
       ),
     );
   }

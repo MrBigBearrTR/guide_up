@@ -22,7 +22,7 @@ class _LoginPageState extends State<LoginPage> {
   void signInWithGoogle(BuildContext context) async {
     try {
       UserCredential? fireUser = await UserHelper().signInWithGoogle();
-      if (fireUser != null) {
+      if (fireUser.user != null) {
         // Giriş başarılı, kullanıcıyı kullanabilirsiniz
         Navigator.pushReplacementNamed(context, RouterConstants.homePage);
       } else {
@@ -167,7 +167,7 @@ class _LoginPageState extends State<LoginPage> {
                     0.5,
                       Image.asset(
                         scale: 3,
-                        'assets/img/GuideUpLogo.png',
+                        'assets/logo/guideUpLogoWithBackground.png',
                       ),
                 ),
                       //WELCOME BACK

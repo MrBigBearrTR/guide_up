@@ -1,14 +1,10 @@
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:guide_up/core/constant/color_constants.dart';
-import 'package:guide_up/core/models/users/user_detail/user_detail_model.dart';
+import 'package:guide_up/core/models/users/user_model.dart';
 import 'package:guide_up/pages/login/login_page.dart';
 import 'package:guide_up/pages/register_page/register_with_detail.dart';
-import '../../core/constant/router_constants.dart';
-import '../../core/utils/user_helper.dart';
-import '../login/companenets/my_textfield.dart';
-import 'package:guide_up/core/models/users/user_model.dart';
 
+import '../../core/utils/user_helper.dart';
 
 class RegisterPage extends StatefulWidget {
   const RegisterPage({Key? key}) : super(key: key);
@@ -18,7 +14,7 @@ class RegisterPage extends StatefulWidget {
 }
 
 class _RegisterPageState extends State<RegisterPage> {
-  bool passwordVisible=false;
+  bool passwordVisible = false;
   late TextEditingController _emailController;
   late TextEditingController _passwordController;
   late TextEditingController _confirmPasswordController;
@@ -39,6 +35,7 @@ class _RegisterPageState extends State<RegisterPage> {
     _confirmPasswordController.dispose();
     super.dispose();
   }
+
   void _showSnackBar(String message) {
     final snackBar = SnackBar(content: Text(message));
     ScaffoldMessenger.of(context).showSnackBar(snackBar);
@@ -89,14 +86,13 @@ class _RegisterPageState extends State<RegisterPage> {
         }
 
         UserModel registeredUser =
-        await UserHelper().registerWithUserModelAndDetail(userModel);
+            await UserHelper().registerWithUserModelAndDetail(userModel);
         // Kayıt başarılı, işlemleri devam ettirebilirsiniz.
         print('Kayıt başarılı: $registeredUser');
         Navigator.push(
           context,
           MaterialPageRoute(
-            builder: (context) =>
-                RegisterWithDetail(userModel: registeredUser),
+            builder: (context) => RegisterWithDetail(userModel: registeredUser),
           ),
         );
       } catch (error) {
@@ -110,7 +106,6 @@ class _RegisterPageState extends State<RegisterPage> {
       );
     }
   }
-
 
   @override
   Widget build(BuildContext context) {
@@ -139,8 +134,7 @@ class _RegisterPageState extends State<RegisterPage> {
                     children: [
                       const Align(
                         alignment: Alignment.center,
-                        child:
-                        Text(
+                        child: Text(
                           'G u i d e U p ',
                           style: TextStyle(
                             height: 14,
@@ -156,7 +150,7 @@ class _RegisterPageState extends State<RegisterPage> {
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: <Widget>[
                           Image.asset(
-                            'assets/img/GuideUpLogo.png',
+                            'assets/logo/guideUpLogo.png',
                             height: 200,
                             width: 200,
                             alignment: Alignment.center,
@@ -191,56 +185,56 @@ class _RegisterPageState extends State<RegisterPage> {
                       ),
                       const Align(
                         alignment: Alignment.bottomLeft,
-                        child: Text( ' KAYIT OLUN ' ,
-                          style:  TextStyle (
-                            color:  ColorConstants.appcolor4,
+                        child: Text(
+                          ' KAYIT OLUN ',
+                          style: TextStyle(
+                            color: ColorConstants.appcolor4,
                             fontSize: 30,
                             fontFamily: 'Lato',
                             fontWeight: FontWeight.w800,
                           ),
-
                         ),
                       ),
                       const SizedBox(height: 50),
-                  Container(
-                      width: double.infinity,
-                      height: 50,
-                      margin: const EdgeInsets.symmetric(
-                          horizontal: 20, vertical: 20),
-                      padding: const EdgeInsets.symmetric(
-                          horizontal: 15, vertical: 5),
-                      decoration: BoxDecoration(
-                          border: Border.all(
-                              color: Colors.deepOrange, width: 1),
-                          boxShadow: const [
-                            BoxShadow(
-                                color: Colors.deepOrange,
-                                blurRadius: 10,
-                                offset: Offset(1, 1)),
-                          ],
-                          color: Colors.white,
-                          borderRadius: const BorderRadius.all(
-                              Radius.circular(20))),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.start,
-                        children: [
-                          const Icon(Icons.email_outlined),
-                          Expanded(
-                            child: Container(
-                              margin: const EdgeInsets.only(left: 10),
-                              child: TextFormField(
-                                controller: _emailController,
-                                obscureText: false,
-                                maxLines: 1,
-                                decoration: const InputDecoration(
-                                  border: UnderlineInputBorder(),
-                                  hintText: "Email",
+                      Container(
+                          width: double.infinity,
+                          height: 50,
+                          margin: const EdgeInsets.symmetric(
+                              horizontal: 20, vertical: 20),
+                          padding: const EdgeInsets.symmetric(
+                              horizontal: 15, vertical: 5),
+                          decoration: BoxDecoration(
+                              border: Border.all(
+                                  color: Colors.deepOrange, width: 1),
+                              boxShadow: const [
+                                BoxShadow(
+                                    color: Colors.deepOrange,
+                                    blurRadius: 10,
+                                    offset: Offset(1, 1)),
+                              ],
+                              color: Colors.white,
+                              borderRadius:
+                                  const BorderRadius.all(Radius.circular(20))),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.start,
+                            children: [
+                              const Icon(Icons.email_outlined),
+                              Expanded(
+                                child: Container(
+                                  margin: const EdgeInsets.only(left: 10),
+                                  child: TextFormField(
+                                    controller: _emailController,
+                                    obscureText: false,
+                                    maxLines: 1,
+                                    decoration: const InputDecoration(
+                                      border: UnderlineInputBorder(),
+                                      hintText: "Email",
+                                    ),
+                                  ),
                                 ),
                               ),
-                            ),
-                          ),
-                        ],
-                      )),
+                            ],
+                          )),
                       const SizedBox(height: 1),
                       Container(
                         width: double.infinity,
@@ -250,8 +244,8 @@ class _RegisterPageState extends State<RegisterPage> {
                         padding: const EdgeInsets.symmetric(
                             horizontal: 15, vertical: 5),
                         decoration: BoxDecoration(
-                            border: Border.all(
-                                color: Colors.deepOrange, width: 1),
+                            border:
+                                Border.all(color: Colors.deepOrange, width: 1),
                             boxShadow: const [
                               BoxShadow(
                                   color: Colors.deepOrange,
@@ -259,15 +253,14 @@ class _RegisterPageState extends State<RegisterPage> {
                                   offset: Offset(1, 1)),
                             ],
                             color: Colors.white,
-                            borderRadius: const BorderRadius.all(
-                                Radius.circular(20))),
+                            borderRadius:
+                                const BorderRadius.all(Radius.circular(20))),
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.start,
                           children: [
                             const Icon(Icons.key),
                             Expanded(
                               child: Container(
-
                                 margin: const EdgeInsets.only(left: 10),
                                 child: TextFormField(
                                   controller: _passwordController,
@@ -282,7 +275,7 @@ class _RegisterPageState extends State<RegisterPage> {
                                           : Icons.visibility_off),
                                       onPressed: () {
                                         setState(
-                                              () {
+                                          () {
                                             passwordVisible = !passwordVisible;
                                           },
                                         );
@@ -296,7 +289,6 @@ class _RegisterPageState extends State<RegisterPage> {
                                 ),
                               ),
                             ),
-
                           ],
                         ),
                       ),
@@ -309,8 +301,8 @@ class _RegisterPageState extends State<RegisterPage> {
                         padding: const EdgeInsets.symmetric(
                             horizontal: 15, vertical: 5),
                         decoration: BoxDecoration(
-                            border: Border.all(
-                                color: Colors.deepOrange, width: 1),
+                            border:
+                                Border.all(color: Colors.deepOrange, width: 1),
                             boxShadow: const [
                               BoxShadow(
                                   color: Colors.deepOrange,
@@ -318,15 +310,14 @@ class _RegisterPageState extends State<RegisterPage> {
                                   offset: Offset(1, 1)),
                             ],
                             color: Colors.white,
-                            borderRadius: const BorderRadius.all(
-                                Radius.circular(20))),
+                            borderRadius:
+                                const BorderRadius.all(Radius.circular(20))),
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.start,
                           children: [
                             const Icon(Icons.key),
                             Expanded(
                               child: Container(
-
                                 margin: const EdgeInsets.only(left: 10),
                                 child: TextFormField(
                                   controller: _confirmPasswordController,
@@ -341,7 +332,7 @@ class _RegisterPageState extends State<RegisterPage> {
                                           : Icons.visibility_off),
                                       onPressed: () {
                                         setState(
-                                              () {
+                                          () {
                                             passwordVisible = !passwordVisible;
                                           },
                                         );
@@ -355,7 +346,6 @@ class _RegisterPageState extends State<RegisterPage> {
                                 ),
                               ),
                             ),
-
                           ],
                         ),
                       ),
@@ -366,20 +356,21 @@ class _RegisterPageState extends State<RegisterPage> {
                         width: 320,
                         height: 50,
                         child: DecoratedBox(
-                              decoration: BoxDecoration(
-                                  color:Colors.white,
-                                  border: Border.all(color: Colors.deepOrange ,width: 1 ),
-                                  borderRadius: BorderRadius.circular(20),
-                                  boxShadow: const <BoxShadow>[
-                                    BoxShadow(
-                                        color: Colors.deepOrange,
-                                        blurRadius: 10,
-                                        offset: Offset(1, 1)),
-                                  ]
-                              ),
-                              child:Padding(
-                                  padding: const EdgeInsets.only(left:30, right:30),
-                                  child:  DropdownButton<String>(
+                          decoration: BoxDecoration(
+                              color: Colors.white,
+                              border: Border.all(
+                                  color: Colors.deepOrange, width: 1),
+                              borderRadius: BorderRadius.circular(20),
+                              boxShadow: const <BoxShadow>[
+                                BoxShadow(
+                                    color: Colors.deepOrange,
+                                    blurRadius: 10,
+                                    offset: Offset(1, 1)),
+                              ]),
+                          child: Padding(
+                              padding:
+                                  const EdgeInsets.only(left: 30, right: 30),
+                              child: DropdownButton<String>(
                                 value: selectedRole,
                                 hint: const Text(
                                   'Kullanıcı Seçiniz?',
@@ -387,7 +378,7 @@ class _RegisterPageState extends State<RegisterPage> {
                                 ),
                                 onChanged: (newValue) {
                                   setState(() {
-                                    selectedRole = newValue! ;
+                                    selectedRole = newValue!;
                                   });
                                 },
                                 items: <String>[
@@ -405,29 +396,27 @@ class _RegisterPageState extends State<RegisterPage> {
                                     ),
                                   );
                                 }).toList(),
-                                      icon: const Padding(
-                                  padding: EdgeInsets.only(left:20),
-                                  child:Icon(Icons.arrow_circle_down_sharp)
-                              ),
-                          iconEnabledColor: Colors.black,
-                          style: const TextStyle(
-                              color: Colors.white,
-                              fontSize: 20
-                          ),
+                                icon: const Padding(
+                                    padding: EdgeInsets.only(left: 20),
+                                    child: Icon(Icons.arrow_circle_down_sharp)),
+                                iconEnabledColor: Colors.black,
+                                style: const TextStyle(
+                                    color: Colors.white, fontSize: 20),
 
-                          dropdownColor: Colors.white, //dropdown background color
-                          underline: Container(), //remove underline
-                          isExpanded: true, //make true to make width 100%
-                        )
+                                dropdownColor: Colors.white,
+                                //dropdown background color
+                                underline: Container(),
+                                //remove underline
+                                isExpanded: true, //make true to make width 100%
+                              )),
+                        ),
                       ),
-                              ),
-              ),
-                       const SizedBox(
+                      const SizedBox(
                         height: 20,
                       ),
                       SizedBox(
                         width: 320,
-                        child:  ElevatedButton(
+                        child: ElevatedButton(
                           onPressed: () {
                             _register(context);
                           },
@@ -439,10 +428,8 @@ class _RegisterPageState extends State<RegisterPage> {
                                   borderRadius: BorderRadius.circular(20))),
                           child: Ink(
                             decoration: BoxDecoration(
-                                gradient: const LinearGradient(colors: [
-                                  Colors.deepOrange,
-                                  Colors.orange
-                                ]),
+                                gradient: const LinearGradient(
+                                    colors: [Colors.deepOrange, Colors.orange]),
                                 borderRadius: BorderRadius.circular(20)),
                             child: Container(
                               width: 400,
@@ -459,8 +446,9 @@ class _RegisterPageState extends State<RegisterPage> {
                           ),
                         ),
                       ),
-                      const SizedBox( height: 40 ,
-                        child:  Padding(
+                      const SizedBox(
+                        height: 40,
+                        child: Padding(
                           padding: EdgeInsets.symmetric(horizontal: 25.0),
                           child: Row(
                             children: [
@@ -483,9 +471,9 @@ class _RegisterPageState extends State<RegisterPage> {
                               ),
                               Expanded(
                                   child: Divider(
-                                    thickness: 2,
-                                    color: ColorConstants.itemWhite,
-                                  ))
+                                thickness: 2,
+                                color: ColorConstants.itemWhite,
+                              ))
                             ],
                           ),
                         ),
@@ -502,14 +490,11 @@ class _RegisterPageState extends State<RegisterPage> {
                                 borderRadius: BorderRadius.circular(20))),
                         child: Ink(
                           decoration: BoxDecoration(
-                              gradient: const LinearGradient(colors: [
-                                Colors.deepOrange,
-                                Colors.orange
-                              ]),
-
+                              gradient: const LinearGradient(
+                                  colors: [Colors.deepOrange, Colors.orange]),
                               borderRadius: BorderRadius.circular(20)),
-                          child:
-                          Row( mainAxisAlignment: MainAxisAlignment.center,
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
                             children: [
                               SizedBox(
                                 width: 30,
@@ -561,17 +546,16 @@ class _RegisterPageState extends State<RegisterPage> {
                               ),
                             ),
                           ),
-                              ],
-                            ),
-                          ],
-                        ),
+                        ],
                       ),
-              ),
-                  ],
-          ),
+                    ],
+                  ),
                 ),
               ),
+            ],
+          ),
+        ),
+      ),
     );
-
   }
 }

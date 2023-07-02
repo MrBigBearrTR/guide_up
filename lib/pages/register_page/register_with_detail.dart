@@ -192,7 +192,7 @@ class _RegisterWithDetailState extends State<RegisterWithDetail> {
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: <Widget>[
                           Image.asset(
-                            'assets/img/GuideUpLogo.png',
+                            'assets/logo/guideUpLogo.png',
                             height: 200,
                             width: 200,
                             alignment: Alignment.center,

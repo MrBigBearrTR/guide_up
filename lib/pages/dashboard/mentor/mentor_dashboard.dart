@@ -32,7 +32,7 @@ class _MentorDashboardState extends State<MentorDashboard> {
               children: [
                 const CircleAvatar(
                   radius: 52,
-                  backgroundImage: AssetImage('assets/img/img.png'),
+                  backgroundImage: AssetImage('assets/img/unknown_user.png'),
                 ),
                 const SizedBox(height: 20),
                 Text(

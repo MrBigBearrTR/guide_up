@@ -29,7 +29,7 @@ class _CategoryCardState extends State<CategoryCard> {
     _mainListSizeControl = mainListSizeControl;
   }
 
-  List<Category> _subCatlist = [];
+  List<Category> _subCategoryList = [];
   late int _headerCount;
   late Category _category;
   late ListSizeControl listSizeControl;
@@ -51,8 +51,8 @@ class _CategoryCardState extends State<CategoryCard> {
             _category.getName()!,
           ),
           onTap: () async {
-            if (_subCatlist.isNotEmpty) {
-              _subCatlist = [];
+            if (_subCategoryList.isNotEmpty) {
+              _subCategoryList = [];
               _mainListSizeControl.removeLastSize();
               listSizeControl.setListSize(0);
               setState(() {});
@@ -63,7 +63,7 @@ class _CategoryCardState extends State<CategoryCard> {
                 if (value.isNotEmpty) {
                   listSizeControl.setListSize(value.length);
                   _mainListSizeControl.addListSize(value.length);
-                  _subCatlist = value;
+                  _subCategoryList = value;
                   setState(() {});
                 }
               });
@@ -78,7 +78,7 @@ class _CategoryCardState extends State<CategoryCard> {
               child: ListView.builder(
                 physics: const NeverScrollableScrollPhysics(),
                 itemBuilder: (context, index) {
-                  final category = _subCatlist[index];
+                  final category = _subCategoryList[index];
 
                   return CategoryCard(
                     headerCount: (_headerCount + 1),
@@ -86,7 +86,7 @@ class _CategoryCardState extends State<CategoryCard> {
                     mainListSizeControl: listSizeControl,
                   );
                 },
-                itemCount: _subCatlist.length,
+                itemCount: _subCategoryList.length,
                 padding: const EdgeInsets.all(0),
               ),
             );
