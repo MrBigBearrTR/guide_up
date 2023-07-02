@@ -115,10 +115,11 @@ Sprint içinde tamamlanması tahmin edilen puan: 140 Puan
 
 Puan tamamlama mantığı: Toplamda proje boyunca tamamlanması gereken 340 puanlık backlog bulunmaktadır. 3 sprint'e bölündüğünde sprint 2  içerisindeki görevlerin dağılımına göre Sprint 2 'nin  140 puan  olması gerektiğine karar verildi.
 
-Daily Scrum:  Dily Scrum Toplantıları Discord ve whatssapp üzerinden devam etmekte olup hairici olarak slack üzerinden de yapılmaya devam etmektedir. Retroo.io ile Sprint 2 başında anonim olarak katılıp fikrilerimizi beyan ettiğimiz 1 saatlik bir retro ile toplantılarımızda neye öncelik vereceğimize karar verdik. Daily Scrum toplantısı örneği  ve Retro toplantımız jpeg veya word olarak Readme'de tarafımızdan paylaşılmaktadır:
+Daily Scrum:  Dily Scrum Toplantıları Discord ve whatssapp üzerinden devam etmekte olup hairici olarak slack üzerinden de yapılmaya devam etmektedir. Retroo.io ile Sprint 2 başında anonim olarak katılıp fikrilerimizi beyan ettiğimiz 1 saatlik bir retro ile toplantılarımızda neye öncelik vereceğimize karar verdik. Daily Scrum toplantısı örneği  ve Retro toplantımız jpeg veya word olarak Readme'de tarafımızdan paylaşılmaktadır:(https://drive.google.com/file/d/1h3IaxpDLrY9biUqc5BkPJZPQU_sBSnRC/view?usp=sharing) VE RETROMUZ (https://drive.google.com/file/d/12wyB8al8LQb-yJaMM_da6SODFBxZ6vCS/view?usp=sharing)
 
 Sprint board update: Sprint board screenshotları: Tamamını görmek için (https://miro.com/app/board/uXjVMBG0TQU=/)
 
+<iframe width="768" height="432" src="https://miro.com/app/live-embed/uXjVMBG0TQU=/?moveToViewport=6427,729,3675,5453&embedId=857000318297" frameborder="0" scrolling="no" allow="fullscreen; clipboard-read; clipboard-write" allowfullscreen></iframe>
 
 
 Ürün Durumu Ekran Görüntüleri : 
