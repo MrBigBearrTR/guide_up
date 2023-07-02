@@ -74,17 +74,10 @@ class _ProfileMainState extends State<ProfileMain> {
                     child: Row(
                       children: [
                          Padding(
-                          padding: EdgeInsets.all(10),
+                          padding: const EdgeInsets.all(10),
                           child: CircleAvatar(
                             radius: 40,
                             backgroundImage: UserInfoHelper.getProfilePicture(userDetail),
-                            child: UserInfoHelper.isProfileNotEmpty(userDetail)
-                                ? null
-                                : const Icon(
-                              Icons.person,
-                              size: 60.0,
-                              color: Color(0xFF2C4059), // Siluet rengi
-                            ),
                           ),
                         ),
                         const SizedBox(width: 20),

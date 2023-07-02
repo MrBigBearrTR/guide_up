@@ -99,13 +99,6 @@ class _HomeScreenState extends State<HomeScreen> {
                 backgroundColor: ColorConstants.theme2Orange,
                 // Arka plan rengi
                 backgroundImage: UserInfoHelper.getProfilePicture(userDetail),
-                child: UserInfoHelper.isProfileNotEmpty(userDetail)
-                    ? null
-                    : const Icon(
-                        Icons.person,
-                        size: 60.0,
-                        color: Color(0xFF2C4059), // Siluet rengi
-                      ),
               ),
             ),
           ),

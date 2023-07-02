@@ -4,13 +4,15 @@ import 'package:google_fonts/google_fonts.dart';
 import '../../../ui/material/custom_material.dart';
 
 class AboutUs extends StatelessWidget {
-  const AboutUs({Key? key});
+  const AboutUs({Key? key}): super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Hakkımızda'),
+        title: Text('Hakkımızda',
+          style: GoogleFonts.nunito(),
+        ),
       ),
       body: Container(
         decoration: CustomMaterial.backgroundBoxDecoration,
@@ -70,11 +72,11 @@ class AboutUs extends StatelessWidget {
                 style: GoogleFonts.nunito(),
               ),
               Padding(
-                padding: const EdgeInsets.only(top: 0, left: 52),
+                padding: const EdgeInsets.only(top: 0, left: 85),
                 child: Image.asset(
-                  'assets/img/GuideUpLogo.png',
-                  width: 200,
-                  height: 200,
+                  'assets/logo/guideUpLogo.png',
+                  width: 180,
+                  height: 180,
                 ),
               ),
             ],

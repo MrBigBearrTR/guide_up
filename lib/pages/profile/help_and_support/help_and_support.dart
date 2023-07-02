@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:guide_up/ui/material/custom_material.dart';
 
 class HelpAndSupport extends StatelessWidget {
@@ -8,7 +9,9 @@ class HelpAndSupport extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Yardım ve Destek'),
+        title: Text('Yardım ve Destek',
+          style: GoogleFonts.nunito(),
+        ),
       ),
       body: Container(
         decoration: CustomMaterial.backgroundBoxDecoration ,
@@ -17,9 +20,9 @@ class HelpAndSupport extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              const Text(
+              Text(
                 'Sıkça Sorulan Sorular:',
-                style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                style: GoogleFonts.nunito(fontSize: 20, fontWeight: FontWeight.bold),
               ),
               const SizedBox(height: 16),
               const FAQItem(
@@ -34,17 +37,18 @@ class HelpAndSupport extends StatelessWidget {
               ),
               // Diğer sıkça sorulan soruları buraya ekleyebilirsiniz.
               const SizedBox(height: 16),
-              const Text(
+              Text(
                 'Destek İçin İletişim:',
-                style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                style: GoogleFonts.nunito(fontSize: 20, fontWeight: FontWeight.bold),
               ),
               const SizedBox(height: 8),
-              const Text('E-posta: info@GuideUP.com'),
-              const Text('Telefon: 123-456-7890'),
+              Text('E-posta: info@GuideUP.com',style: GoogleFonts.nunito(),),
+              Text('Telefon: 123-456-7890',style: GoogleFonts.nunito(),
+              ),
               Padding(
-                padding: const EdgeInsets.only(top: 30, left: 52),
+                padding: const EdgeInsets.only(top: 40, left: 60),
                 child: Image.asset(
-                  'assets/img/GuideUpLogo.png',
+                  'assets/logo/guideUpLogo.png',
                   width: 250,
                   height: 250,
                 ),
@@ -90,7 +94,7 @@ class _FAQItemState extends State<FAQItem> {
               children: [
                 Text(
                   widget.question,
-                  style: const TextStyle(fontWeight: FontWeight.bold),
+                  style: GoogleFonts.nunito(fontWeight: FontWeight.bold),
                 ),
                 Icon(isExpanded ? Icons.expand_less : Icons.expand_more),
               ],

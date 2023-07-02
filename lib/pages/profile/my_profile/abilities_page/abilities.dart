@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-
-import '../../../../core/constant/router_constants.dart';
+import 'package:google_fonts/google_fonts.dart';
+import '../../../../core/constant/color_constants.dart';
 import '../../../../ui/material/custom_material.dart';
 
 class Abilities extends StatefulWidget {
@@ -42,21 +42,20 @@ class _AbilitiesState extends State<Abilities> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Yetenekler'),
+        title: Text('Yetenekler',
+          style: GoogleFonts.nunito(),
+        ),
         leading: IconButton(
           icon: const Icon(CupertinoIcons.arrow_turn_up_left),
           onPressed: () {
-            Navigator.pushNamed(
-              context,
-              RouterConstants.myProfileAccountPage,
-            );
+            Navigator.pop(context);
           },
         ),
         actions: [
           Padding(
             padding: const EdgeInsets.only(right: 8.0),
             child: Image.asset(
-              'assets/img/GuideUpLogo.png', // Logo resminin yolunu buraya ekleyin
+              'assets/logo/guideUpLogo.png', // Logo resminin yolunu buraya ekleyin
               width: 62,
               height: 62,
             ),
@@ -70,9 +69,9 @@ class _AbilitiesState extends State<Abilities> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              const Text(
+              Text(
                 'Yeteneklerinizi Ekleyin',
-                style: TextStyle(
+                style: GoogleFonts.nunito(
                   fontSize: 24,
                   fontWeight: FontWeight.bold,
                 ),
@@ -83,6 +82,8 @@ class _AbilitiesState extends State<Abilities> {
                   Expanded(
                     child: TextFormField(
                       controller: _abilityController,
+                      cursorColor: ColorConstants.warningDark,
+                      style: const TextStyle(fontFamily: 'Nunito'), // Yazı tipi
                       decoration: const InputDecoration(
                         hintText: 'Yetenek',
                       ),
@@ -91,14 +92,23 @@ class _AbilitiesState extends State<Abilities> {
                   const SizedBox(width: 16),
                   ElevatedButton(
                     onPressed: addAbility,
-                    child: const Text('Ekle'),
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: ColorConstants.warningDark,
+                    ),
+                    child: Text('Ekle',
+                      style: GoogleFonts.nunito(
+                        color: ColorConstants.itemWhite, // Metin rengi
+                        fontSize: 18,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
                   ),
                 ],
               ),
               const SizedBox(height: 16),
-              const Text(
+              Text(
                 'Yetenekleriniz',
-                style: TextStyle(
+                style: GoogleFonts.nunito(
                   fontSize: 18,
                   fontWeight: FontWeight.bold,
                 ),
