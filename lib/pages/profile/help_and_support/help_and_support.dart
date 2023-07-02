@@ -44,7 +44,7 @@ class HelpAndSupport extends StatelessWidget {
               Padding(
                 padding: const EdgeInsets.only(top: 30, left: 52),
                 child: Image.asset(
-                  'assets/img/GuideUpLogo.png',
+                  'assets/logo/guideUpLogo.png',
                   width: 250,
                   height: 250,
                 ),

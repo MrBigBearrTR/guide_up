@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:guide_up/core/constant/color_constants.dart';
 import 'package:guide_up/core/models/category/category_model.dart';
+import 'package:guide_up/pages/search/category/category_select_helper.dart';
 import 'package:guide_up/pages/search/category/list_size_control.dart';
 import 'package:guide_up/repository/category/category_repository.dart';
 
@@ -8,32 +9,31 @@ class CategoryCard extends StatefulWidget {
   final int headerCount;
   final Category category;
   final ListSizeControl mainListSizeControl;
+  final CategorySelectHelper selector;
 
   const CategoryCard(
       {Key? key,
       required this.headerCount,
       required this.category,
-      required this.mainListSizeControl})
+      required this.mainListSizeControl,
+      required this.selector})
       : super(key: key);
 
   @override
   State<CategoryCard> createState() =>
-      _CategoryCardState(headerCount, category, mainListSizeControl);
+      _CategoryCardState(headerCount, category, mainListSizeControl, selector);
 }
 
 class _CategoryCardState extends State<CategoryCard> {
-  _CategoryCardState(
-      int headerCount, Category category, ListSizeControl mainListSizeControl) {
-    _headerCount = headerCount;
-    _category = category;
-    _mainListSizeControl = mainListSizeControl;
-  }
+  _CategoryCardState(this._headerCount, this._category,
+      this._mainListSizeControl, this.selector);
 
   List<Category> _subCategoryList = [];
-  late int _headerCount;
-  late Category _category;
+  final int _headerCount;
+  final Category _category;
+  final ListSizeControl _mainListSizeControl;
+  final CategorySelectHelper selector;
   late ListSizeControl listSizeControl;
-  late ListSizeControl _mainListSizeControl;
 
   @override
   void initState() {
@@ -64,7 +64,10 @@ class _CategoryCardState extends State<CategoryCard> {
                   listSizeControl.setListSize(value.length);
                   _mainListSizeControl.addListSize(value.length);
                   _subCategoryList = value;
+                  selector.removeCategory(_category);
                   setState(() {});
+                }else{
+                  selector.addCategory(_category);
                 }
               });
             }
@@ -84,6 +87,7 @@ class _CategoryCardState extends State<CategoryCard> {
                     headerCount: (_headerCount + 1),
                     category: category,
                     mainListSizeControl: listSizeControl,
+                    selector: selector,
                   );
                 },
                 itemCount: _subCategoryList.length,
@@ -99,5 +103,4 @@ class _CategoryCardState extends State<CategoryCard> {
       ]),
     );
   }
-
 }

@@ -72,7 +72,7 @@ class AboutUs extends StatelessWidget {
               Padding(
                 padding: const EdgeInsets.only(top: 0, left: 52),
                 child: Image.asset(
-                  'assets/img/GuideUpLogo.png',
+                  'assets/logo/guideUpLogo.png',
                   width: 200,
                   height: 200,
                 ),
