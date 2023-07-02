@@ -4,6 +4,7 @@ import 'package:guide_up/core/models/users/user_detail/user_detail_model.dart';
 import 'package:guide_up/core/models/users/user_model.dart';
 import 'package:guide_up/pages/home/home_screen_page.dart';
 import 'package:guide_up/pages/login/login_page.dart';
+import 'package:guide_up/ui/material/custom_material.dart';
 import 'package:intl/intl.dart';
 import 'package:image_picker/image_picker.dart';
 import 'dart:io';
@@ -153,18 +154,7 @@ class _RegisterWithDetailState extends State<RegisterWithDetail> {
     return Scaffold(
       key: _scaffoldKey,
       body: Container(
-        decoration: const BoxDecoration(
-          gradient: LinearGradient(
-            begin: Alignment.bottomRight,
-            end: Alignment.topCenter,
-            colors: [
-              ColorConstants.appcolor2,
-              ColorConstants.appcolor2,
-              ColorConstants.appcolor1,
-              ColorConstants.appcolor1,
-            ],
-          ),
-        ),
+        decoration: CustomMaterial.backgroundRegisterWithLoginDecoration,
         child: SingleChildScrollView(
           child: Column(
             children: <Widget>[
@@ -193,8 +183,8 @@ class _RegisterWithDetailState extends State<RegisterWithDetail> {
                         children: <Widget>[
                           Image.asset(
                             'assets/logo/guideUpLogo.png',
-                            height: 200,
-                            width: 200,
+                            height: 100,
+                            width: 100,
                             alignment: Alignment.center,
                           ),
                         ],

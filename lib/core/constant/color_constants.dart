@@ -38,6 +38,13 @@ class ColorConstants {
     theme2White,
   ];
 
+  static const List<Color> backgroundRegisterWithLoginColors= [
+   appcolor2,
+    appcolor2,
+    appcolor1,
+    appcolor1,
+  ];
+
   static Color calculateSlideItemColor(int headerCount) {
 
     switch(headerCount){

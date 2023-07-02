@@ -12,4 +12,12 @@ class CustomMaterial {
     ),
   );
 
+  static const  backgroundRegisterWithLoginDecoration = BoxDecoration(
+    gradient: LinearGradient(
+      begin: Alignment.bottomRight,
+      end: Alignment.topCenter,
+      colors: ColorConstants.backgroundRegisterWithLoginColors,
+    ),
+  );
+
 }
