@@ -128,6 +128,10 @@ Sprint board update: Sprint board screenshotları: Tamamını görmek için (htt
 
 ![sprint2 ](https://github.com/MrBigBearrTR/guide_up/assets/91954062/b2094064-8201-40f3-9564-831163fae98f)
 
+![1 ](https://github.com/MrBigBearrTR/guide_up/assets/91954062/bc32092d-5bcc-45a5-a034-3d1dc1aa4123)
+
+![2 ](https://github.com/MrBigBearrTR/guide_up/assets/91954062/82b65be9-8c98-4829-8681-b639d29898e3)
+
 
 Ürün Durumu Ekran Görüntüleri : 
 
