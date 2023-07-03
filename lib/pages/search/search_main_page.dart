@@ -12,7 +12,6 @@ import 'package:guide_up/service/post/post_service.dart';
 
 import '../../core/constant/color_constants.dart';
 import '../../core/models/category/category_model.dart';
-import '../../core/models/mentor/mentor_model.dart';
 import '../../ui/material/custom_material.dart';
 import '../home/mentor/mentor_card.dart';
 
@@ -37,7 +36,6 @@ class _SearchMainPageState extends State<SearchMainPage> {
   late UserDetail? detail;
   final CategorySelectHelper _categorySelectHelper = CategorySelectHelper();
   List<Category> categoryList = [];
-  List<Mentor> _mentorList = [];
   bool _isSearch = true;
   bool _isOnlyMentor = true;
   String _searchSwitchTitle = "Sadece Mentor";
@@ -79,7 +77,7 @@ class _SearchMainPageState extends State<SearchMainPage> {
             Container(
               decoration: BoxDecoration(
                 color: ColorConstants.theme1BrightCloudBlue,
-                borderRadius: _isSearch
+                borderRadius: _isSearch && categoryList.isEmpty
                     ? const BorderRadius.only(
                         bottomLeft: Radius.circular(20),
                         bottomRight: Radius.circular(20),
@@ -93,6 +91,14 @@ class _SearchMainPageState extends State<SearchMainPage> {
                   padding: const EdgeInsets.symmetric(horizontal: 8.0),
                   // Use a Material design search bar
                   child: TextField(
+                    onSubmitted:(value) {
+                      searchByText();
+                    },
+                    style: GoogleFonts.nunito(
+                      textStyle: const TextStyle(
+                        color: ColorConstants.theme2Dark,
+                      ),
+                    ),
                     controller: _searchController,
                     decoration: InputDecoration(
                       hintText: 'Ara..',
@@ -105,14 +111,11 @@ class _SearchMainPageState extends State<SearchMainPage> {
                           setState(() {});
                         },
                       ),
+
                       // Add a search icon or button to the search bar
                       prefixIcon: IconButton(
                         icon: const Icon(Icons.search),
-                        onPressed: () {
-                          _isSearch = false;
-                          search();
-                          setState(() {});
-                        },
+                        onPressed: () => searchByText(),
                       ),
                       border: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(20.0),
@@ -135,7 +138,14 @@ class _SearchMainPageState extends State<SearchMainPage> {
                       : const BorderRadius.all(Radius.zero),
                 ),
                 child: SwitchListTile(
-                  title: Text(_searchSwitchTitle),
+                  title: Text(
+                    _searchSwitchTitle,
+                    style: GoogleFonts.nunito(
+                      textStyle: const TextStyle(
+                        color: ColorConstants.theme2Dark,
+                      ),
+                    ),
+                  ),
                   value: _isOnlyMentor,
                   onChanged: (bool newValue) {
                     _searchSwitchTitle =
@@ -445,12 +455,8 @@ class _SearchMainPageState extends State<SearchMainPage> {
     detail = await SecureStorageHelper().getUserDetail();
   }
 
-  void search() async {
-    _mentorList = await MentorService()
-        .searchMentorList(_searchController.value.text, categoryList, 0);
-    print(_mentorList);
-    for (var mentor in _mentorList) {
-      print(mentor.getName());
-    }
+  searchByText() {
+    _isSearch = false;
+    setState(() {});
   }
 }

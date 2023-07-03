@@ -35,7 +35,7 @@ class MentorRepository {
     List<Mentor> mentorList = [];
 
     var query = await _mentorCollections
-        .where(searchColumn, isGreaterThanOrEqualTo: searchValue)
+        .where(searchColumn, isGreaterThanOrEqualTo:  searchValue)
         .where(searchColumn, isLessThanOrEqualTo: searchValue + '\uf8ff')
         .get();
 

@@ -35,7 +35,7 @@ class PostRepository {
     List<Post> postList = [];
 
     var query = await _postCollections
-        .where(searchColumn, isGreaterThanOrEqualTo: searchValue)
+        .where(searchColumn, isGreaterThanOrEqualTo:  searchValue)
         .where(searchColumn, isLessThanOrEqualTo: searchValue + '\uf8ff')
         .get();
 
