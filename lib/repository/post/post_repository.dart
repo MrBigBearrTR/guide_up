@@ -31,6 +31,22 @@ class PostRepository {
     return null;
   }
 
+  Future<List<Post>> searchBySearchColumn(String searchColumn,String searchValue) async {
+    List<Post> postList = [];
+
+    var query = await _postCollections
+        .where(searchColumn, isGreaterThanOrEqualTo: searchValue)
+        .where(searchColumn, isLessThanOrEqualTo: searchValue + '\uf8ff')
+        .get();
+
+    if (query.docs.isNotEmpty) {
+
+      postList = convertResponseObjectToList(query.docs.iterator);
+    }
+
+    return postList;
+  }
+
   Future<List<Post>> getUserPostListByUserId(String userId) async {
     List<Post> postList = [];
     var query = await _postCollections.where("userId", isEqualTo: userId).get();

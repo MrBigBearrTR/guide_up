@@ -1,11 +1,13 @@
 import 'package:guide_up/core/models/general/general_fields_model.dart';
 
+import '../../utils/control_helper.dart';
+
 /// [@author MrBigBear] 
 class Mentor extends GeneralFields {
   String? _id;
   String? _userId;
   String? _name;
-  String? _lastname;
+  String? _surname;
   String? _photo;
   int? _rate;
 
@@ -33,12 +35,12 @@ class Mentor extends GeneralFields {
     _name = name;
   }
 
-  String? getLastname() {
-    return _lastname;
+  String? getSurname() {
+    return _surname;
   }
 
-  void setLastname(String lastname) {
-    _lastname = lastname;
+  void setSurname(String surname) {
+    _surname = surname;
   }
 
   String? getPhoto() {
@@ -62,7 +64,7 @@ class Mentor extends GeneralFields {
     map['id'] = getId();
     map['userid'] = getUserId();
     map['name'] = getName();
-    map['lastname'] = getLastname();
+    map['surname'] = getSurname();
     map['photo'] = getPhoto();
     map['rate'] = getRate();
     return map;
@@ -71,22 +73,22 @@ class Mentor extends GeneralFields {
   toClass(Map<String, dynamic> map) {
     toGeneralClass(map);
 
-    if (map.containsKey('id')) {
+    if (ControlHelper.checkMapValue(map, 'id')) {
       setId(map['id']);
     }
-    if (map.containsKey('userid')) {
+    if (ControlHelper.checkMapValue(map, 'userid')) {
       setUserId(map['userid']);
     }
-    if (map.containsKey('name')) {
+    if (ControlHelper.checkMapValue(map, 'name')) {
       setName(map['name']);
     }
-    if (map.containsKey('lastname')) {
-      setLastname(map['lastname']);
+    if (ControlHelper.checkMapValue(map, 'surname')) {
+      setSurname(map['surname']);
     }
-    if (map.containsKey('photo')) {
+    if (ControlHelper.checkMapValue(map, 'photo')) {
       setPhoto(map['photo']);
     }
-    if (map.containsKey('rate')) {
+    if (ControlHelper.checkMapValue(map, 'rate')) {
       setRate(map['rate']);
     }
   }

@@ -46,7 +46,7 @@ class _MentorCardState extends State<MentorCard> {
             ),
           ),
           Text(
-            '${_mentor.getName()!} ${_mentor.getLastname()}',
+            '${_mentor.getName()!} ${_mentor.getSurname()}',
             style: const TextStyle(fontWeight: FontWeight.bold),
           ),
           Row(

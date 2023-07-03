@@ -31,6 +31,22 @@ class MentorRepository {
     return null;
   }
 
+  Future<List<Mentor>> searchBySearchColumn(String searchColumn,String searchValue) async {
+    List<Mentor> mentorList = [];
+
+    var query = await _mentorCollections
+        .where(searchColumn, isGreaterThanOrEqualTo: searchValue)
+        .where(searchColumn, isLessThanOrEqualTo: searchValue + '\uf8ff')
+        .get();
+
+    if (query.docs.isNotEmpty) {
+
+      mentorList = convertResponseObjectToList(query.docs.iterator);
+    }
+
+    return mentorList;
+  }
+
   // Senin için Önerilen Mentorlar için Recommend
   Future<List<Mentor>> getRecommendMentorListByUserId(String userId) async {
     // List<Mentor> mentorList = [];

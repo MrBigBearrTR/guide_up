@@ -60,6 +60,7 @@ class _HomeScreenState extends State<HomeScreen> {
   Widget build(BuildContext context) {
     controlForSplashScreen(context);
     return Scaffold(
+      extendBody: true,
       appBar: AppBar(
         backgroundColor: ColorConstants.theme1White,
         title: const Text(
