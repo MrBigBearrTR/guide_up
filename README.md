@@ -116,7 +116,13 @@ Sprint içinde tamamlanması tahmin edilen puan: 140 Puan
 Puan tamamlama mantığı: Toplamda proje boyunca tamamlanması gereken 340 puanlık backlog bulunmaktadır. 3 sprint'e bölündüğünde sprint 2  içerisindeki görevlerin dağılımına göre Sprint 2 'nin  140 puan  olması gerektiğine karar verildi.
 Verilen görevler yerine getirildi ve  ilk hafta hedeflenen puana ulaşıldı. Tabloda bir sonraki görevlere geçildi. 
 
-Daily Scrum:  Dily Scrum Toplantıları Discord ve whatssapp üzerinden devam etmekte olup Discord toplantılarımız uzun sürdüğü zaman ara verilip değişiklik olması açısından slack üzerinden de yapılmaya devam etmektedir. Retroo.io ile Sprint 2 başında anonim olarak katılıp fikrilerimizi beyan ettiğimiz 1 saatlik bir retro ile toplantılarımızda neye öncelik vereceğimize karar verdik. Daily Scrum toplantısı örneği  ve Retro toplantımız jpeg veya word olarak Readme'de tarafımızdan paylaşılmaktadır:(https://drive.google.com/file/d/1MKLmqMgRqdntuS3jx19JAlqBzosLliT-/view?usp=sharing) VE RETROMUZ (https://drive.google.com/file/d/12wyB8al8LQb-yJaMM_da6SODFBxZ6vCS/view?usp=sharing)
+Daily Scrum:  Dily Scrum Toplantıları Discord ve whatssapp üzerinden devam etmekte olup Discord toplantılarımız uzun sürdüğü zaman ara verilip değişiklik olması açısından slack üzerinden de yapılmaya devam etmektedir. Retroo.io ile Sprint 2 başında anonim olarak katılıp fikrilerimizi beyan ettiğimiz 1 saatlik bir retro ile toplantılarımızda neye öncelik vereceğimize karar verdik. Daily Scrum toplantısı örneği  ve Retro toplantımız jpeg veya word olarak Readme'de tarafımızdan paylaşılmaktadır:
+
+(https://drive.google.com/file/d/1MKLmqMgRqdntuS3jx19JAlqBzosLliT-/view?usp=sharing)
+
+VE
+
+RETROMUZ (https://drive.google.com/file/d/12wyB8al8LQb-yJaMM_da6SODFBxZ6vCS/view?usp=sharing)
 
 Sprint board update: Sprint board screenshotları: Tamamını görmek için (https://miro.com/app/board/uXjVMBG0TQU=/)
 
@@ -145,8 +151,11 @@ https://github.com/MrBigBearrTR/guide_up/assets/91954062/89712391-3a7e-43b8-bc45
 Review: Figmada yaptığımız uygulamamızın tasarımlarına ve veri yapımıza göre uygulamamızın %80lik kısmı tamamnlanmış olup eksik kısımara yönelindi. Yapılan sayfalar: Register page, Login page , Search Page , Search bar , Profile page , Settings Page , dashboard ve Sprint 1 sayfa düzenlemeleri yapıldı.  Toplantılara eksiksiz tüm ekip üyeleri katıldı ve verilen görevler tamamlandı. Ekip arkadaşlarımız düzenli ve hızlı bir şekilde gece gündüz çalışamlarına devam etmektedir. 
 
 Sprint Retrospective:
+
 Ne iyi gitti? : Ekip arkadaşlarımız ile hız kazanmamız gerektiği yönündeki sprint 1 retromuz etkili oldu ve ekip olarak hız kazandık ve bunu uygulamamıza yansıtmış bulunduk. 
+
 Ne geliştirilebilir?: Ekisk sayfalarımız ve tasarımlarımız mevcut daha düzenli ve çözüm odaklı olup bu eksiklikleri giderebiliriz. 
+
 Hangi eylemleri gerçekleştireceğiz?  : 
 Eksik sayfalarımızı tamamlayıp sprint 3  ile uygulamamızda olabildiğince tam ve hazır hale getirmeye çalışacağız. 
 Her gün düzenli olarak ilerişimimizi daha güçlendirmek ve odağımızın dağılmaması için toplantılar yapacapız. 
