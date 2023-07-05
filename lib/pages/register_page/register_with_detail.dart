@@ -7,6 +7,8 @@ import 'package:guide_up/core/models/users/user_detail/user_detail_model.dart';
 import 'package:guide_up/core/models/users/user_model.dart';
 import 'package:guide_up/pages/home/home_screen_page.dart';
 import 'package:guide_up/pages/login/login_page.dart';
+import 'package:guide_up/service/user/user_detail/user_detail_service.dart';
+import 'package:guide_up/service/user/user_service.dart';
 import 'package:guide_up/ui/material/custom_material.dart';
 import 'package:intl/intl.dart';
 import 'package:image_picker/image_picker.dart';
@@ -15,9 +17,9 @@ import 'package:intl/intl.dart';
 import '../../core/utils/user_helper.dart';
 
 class RegisterWithDetail extends StatefulWidget {
-  final UserModel userModel;
 
-  const RegisterWithDetail({Key? key, required this.userModel})
+
+  const RegisterWithDetail({Key? key })
       : super(key: key);
 
   @override
@@ -31,9 +33,11 @@ class _RegisterWithDetailState extends State<RegisterWithDetail> {
   late TextEditingController _aboutController;
   late TextEditingController _photoController;
   late TextEditingController _phoneController;
+  DateTime selectedDate = DateTime.now();
   final _scaffoldKey = GlobalKey<ScaffoldState>();
   File? _image;
   final ImagePicker _imagePicker = ImagePicker();
+  late String userId ;
 
   @override
   void initState() {
@@ -89,23 +93,22 @@ class _RegisterWithDetailState extends State<RegisterWithDetail> {
 
     String name = _nameController.text;
     String surname = _surnameController.text;
-    String birthday = _birthdayController.text;
     String about = _aboutController.text;
-    String photo = _photoController.text;
+    String? photo = await pickProfileImage();
     String phone = _phoneController.text;
 
     UserDetail userDetail = UserDetail();
-    userDetail.setUserId(widget.userModel.getId()!);
+    userDetail.setUserId(userId);
     userDetail.setName(name);
     userDetail.setSurname(surname);
-
+    userDetail.setBirthday(selectedDate);
     userDetail.setAbout(about);
-    userDetail.setPhoto(photo);
+    userDetail.setPhoto(pickProfileImage() as String);
     userDetail.setPhone(phone);
 
     try {
       UserDetail registeredDetail =
-          await UserHelper().saveUserDetail(userDetail);
+          await UserDetailService().add(userDetail);
 
       // Simulated delay for 2 seconds
       await Future.delayed(Duration(seconds: 2));
@@ -120,6 +123,20 @@ class _RegisterWithDetailState extends State<RegisterWithDetail> {
       _showSnackBar('An error occurred while saving user detail');
     }
   }
+  Future<String?> pickProfileImage() async {
+    final imagePicker = ImagePicker();
+    final pickedImage = await imagePicker.pickImage(
+      source: ImageSource.gallery,
+      maxWidth: 500,
+      maxHeight: 500,
+    );
+    if (pickedImage != null) {
+      setState(() {
+        _image = File(pickedImage.path);
+        _photoController.text = pickedImage.path;
+      });
+    }
+  }
 
   void _selectDate(BuildContext context) async {
     final DateTime? picked = await showDatePicker(
@@ -129,8 +146,9 @@ class _RegisterWithDetailState extends State<RegisterWithDetail> {
       lastDate: DateTime.now(),
     );
     if (picked != null) {
+      selectedDate = picked;
       setState(() {
-        _birthdayController.text = DateFormat('dd-MM-yyyy').format(picked);
+        _birthdayController.text = DateFormat('dd-MM-yyyy').format(selectedDate);
       });
     }
   }
@@ -154,6 +172,7 @@ class _RegisterWithDetailState extends State<RegisterWithDetail> {
 
   @override
   Widget build(BuildContext context) {
+    userId = ModalRoute.of(context)!.settings.arguments as String ;
     return Scaffold(
       key: _scaffoldKey,
       body: Container(

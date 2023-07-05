@@ -1,3 +1,4 @@
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
@@ -62,7 +63,7 @@ class UserHelper {
     }
   }
 
-  void createUser(String username, String password) async {
+  Future<String> createUser(String username, String password) async  {
     try {
       var userCredential = await auth.createUserWithEmailAndPassword(
           email: username, password: password);
@@ -70,8 +71,14 @@ class UserHelper {
       debugPrint("++" + userCredential.toString());
 
       sendEmailVerification(userCredential.user!);
+      if(userCredential.user != null) {
+        return userCredential.user!.uid;
+      }else {
+        return '' ;
+      }
     } catch (e) {
       debugPrint("--" + e.toString());
+      return '' ;
     }
   }
 
@@ -169,65 +176,57 @@ class UserHelper {
       if (credential.user != null) {
         String userUid = credential.user!.uid;
         userModel.setId(userUid);
-        final userCollections = FirebaseFirestore.instance.collection(
-            FirestoreCollectionConstant.user);
-        var userReturn = await userCollections.add(userModel.toMap());
 
-        //userModel.setId(userUid); // User ID'sini UserModel nesnesine atadık
+        final userCollections = FirebaseFirestore.instance.collection(FirestoreCollectionConstant.user);
+        var userReturn = await userCollections.add(userModel.toMap());
 
         return userModel;
       } else {
         throw Exception('Kullanıcı oluşturma başarısız oldu.');
       }
     } catch (error) {
-      // Hata durumunda uygun bir işlem yapabilirsiniz.
       print('Hata: $error');
       throw error;
     }
-
   }
 
   Future<UserDetail> getUserDetail() async {
     UserDetail detail = UserDetail();
-    final userDetailCollections = FirebaseFirestore.instance.collection(
-        FirestoreCollectionConstant.userDetail);
+    final userDetailCollections = FirebaseFirestore.instance.collection(FirestoreCollectionConstant.userDetail);
 
     String? userId = await SecureStorageHelper().getUserId();
     if (userId != null) {
-      var snapshot = await userDetailCollections.where(
-          "userId", isEqualTo: userId).get();
+      var snapshot = await userDetailCollections
+          .where("userId", isEqualTo: userId)
+          .get();
       var documents = snapshot.docs;
 
-      // Liste olarak UserDetail verilerini almak için
-      List<UserDetail> userDetailList = [];
-      for (var doc in documents) {
-        UserDetail tempDetail = UserDetail();
-        tempDetail.toClass(doc.data());
-        userDetailList.add(tempDetail);
-      }
-
-      // Tek bir UserDetail verisini almak için
       if (documents.isNotEmpty) {
         detail.toClass(documents.first.data());
+        detail.setId(documents.first.id);// UserDetail ID'sini atadık
+
       }
+
+
     }
 
     return detail;
   }
   Future<UserDetail> saveUserDetail(UserDetail userDetail) async {
     try {
+
       final userDetailCollections = FirebaseFirestore.instance.collection('userDetail');
 
       var userReturn = await userDetailCollections.add(userDetail.toMap());
-
       userDetail.setId(userReturn.id);
-      await userDetailCollections.doc(userReturn.id).update(userDetail.toMap()); //guncellendi
+      await userDetailCollections.doc(userReturn.id).update(userDetail.toMap());
+
+      //guncellendi
       return userDetail;
     } catch (error) {
-
       throw error;
     }
-
-
   }
-}
+  }
+
+
