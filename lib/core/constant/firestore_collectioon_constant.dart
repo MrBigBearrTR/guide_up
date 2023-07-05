@@ -4,6 +4,9 @@ class FirestoreCollectionConstant {
   static const String userDetail = "userDetail";
   static const String userDetailCategories = "userDetailCategories";
   static const String userLinks = "userLinks";
+  static const String userAbilities = "userAbilities";
+  static const String userProject = "userProject";
+
 
   static const String category = "category";
   static const String mentor = "mentor";
@@ -14,4 +17,6 @@ class FirestoreCollectionConstant {
 
   static const String uploadProfilePicturesPath="users/profile_pictures/";
   static const String uploadPostPicturesPath="post/post_pictures/";
+
+
 }

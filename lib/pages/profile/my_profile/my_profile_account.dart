@@ -119,7 +119,6 @@ class _MyProfileAccountState extends State<MyProfileAccount> {
     }
   }
 
-
   void addOtherLink() {
     String title = "";
     String link = "";
@@ -146,8 +145,8 @@ class _MyProfileAccountState extends State<MyProfileAccount> {
                     borderSide: BorderSide(color: ColorConstants.theme2Orange),
                   ),
                   labelText: "Başlık",
-                  labelStyle: GoogleFonts.nunito(
-                      color: ColorConstants.theme2Orange),
+                  labelStyle:
+                      GoogleFonts.nunito(color: ColorConstants.theme2Orange),
                   border: const OutlineInputBorder(),
                 ),
                 onChanged: (value) {
@@ -166,8 +165,8 @@ class _MyProfileAccountState extends State<MyProfileAccount> {
                     borderSide: BorderSide(color: ColorConstants.theme2Orange),
                   ),
                   labelText: "Link",
-                  labelStyle: GoogleFonts.nunito(
-                      color: ColorConstants.theme2Orange),
+                  labelStyle:
+                      GoogleFonts.nunito(color: ColorConstants.theme2Orange),
                   border: const OutlineInputBorder(),
                 ),
                 onChanged: (value) {
@@ -198,10 +197,9 @@ class _MyProfileAccountState extends State<MyProfileAccount> {
                   backgroundColor: ColorConstants.theme2DarkBlue),
               child: Text(
                 "Tamam",
-                style:
-                GoogleFonts.nunito(
+                style: GoogleFonts.nunito(
                     color: ColorConstants.theme2Orange // Metin rengi
-                        ),
+                    ),
               ),
             ),
           ],
@@ -425,7 +423,8 @@ class _MyProfileAccountState extends State<MyProfileAccount> {
                         );
                       } else if (snapshot.hasError) {
                         return Center(
-                          child: Text('Veriler alınırken bir hata oluştu.',
+                          child: Text(
+                            'Veriler alınırken bir hata oluştu.',
                             style: GoogleFonts.nunito(),
                           ),
                         );
@@ -534,7 +533,7 @@ class _MyProfileAccountState extends State<MyProfileAccount> {
                           icon: const Icon(Icons.add),
                           onPressed: () {
                             Navigator.pushNamed(
-                                context, RouterConstants.educationInformation);
+                                context, RouterConstants.usereducationInformation);
                           },
                         ),
                         IconButton(
@@ -567,7 +566,7 @@ class _MyProfileAccountState extends State<MyProfileAccount> {
                           icon: const Icon(Icons.add),
                           onPressed: () {
                             Navigator.pushNamed(
-                                context, RouterConstants.myProjects);
+                                context, RouterConstants.userProjectPage);
                           },
                         ),
                         IconButton(
@@ -600,7 +599,7 @@ class _MyProfileAccountState extends State<MyProfileAccount> {
                           icon: const Icon(Icons.add),
                           onPressed: () {
                             Navigator.pushNamed(
-                                context, RouterConstants.abilities);
+                                context, RouterConstants.userAbilities);
                           },
                         ),
                         IconButton(

@@ -5,15 +5,15 @@ import 'package:guide_up/ui/material/custom_material.dart';
 
 import '../../../../core/constant/color_constants.dart';
 
-class EducationInformation extends StatefulWidget {
-  const EducationInformation({Key? key}) : super(key: key);
+class UserEducationInformation extends StatefulWidget {
+  const UserEducationInformation({Key? key}) : super(key: key);
 
   @override
   // ignore: library_private_types_in_public_api
-  _EducationInformationState createState() => _EducationInformationState();
+  _UserEducationInformationState createState() => _UserEducationInformationState();
 }
 
-class _EducationInformationState extends State<EducationInformation> {
+class _UserEducationInformationState extends State<UserEducationInformation> {
   final TextEditingController _startDateController = TextEditingController();
   final TextEditingController _endDateController = TextEditingController();
   String? projectLink;
