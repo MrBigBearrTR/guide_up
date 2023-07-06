@@ -53,11 +53,13 @@ class _MenteeDashboardMainPageState extends State<MenteeDashboardMainPage> {
           children: [
             Column(
               children: [
+                // Mentee'nin profil fotoğrafı
                 const CircleAvatar(
                   radius: 50,
                   backgroundImage: AssetImage('assets/img/unknown_user.png'),
                 ),
                 const SizedBox(height: 8),
+                // Mentee'nin isim-soyisim bilgileri
                 Text(
                   '${userDetail != null ? (" ${userDetail!.getName()!} ${userDetail!.getSurname()!}") : "User"}',
                   style: const TextStyle(fontSize: 20),
@@ -87,12 +89,17 @@ class _MenteeDashboardMainPageState extends State<MenteeDashboardMainPage> {
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                         children: [
-                          //1.
+                          // Süre(Duration)
                           CircleAvatar(
                             backgroundColor: ColorConstants.theme2White,
-                            child: Icon(
-                              Icons.timeline,
-                              color: ColorConstants.success,
+                            child: InkWell(
+                              // onTap: () {
+                              //   //Duration sayfasına yönlendirilecek.
+                              // },
+                              child: Icon(
+                                Icons.timeline,
+                                color: ColorConstants.success,
+                              ),
                             ),
                           ),
                           Column(
@@ -107,12 +114,17 @@ class _MenteeDashboardMainPageState extends State<MenteeDashboardMainPage> {
                             ],
                           ),
                           SizedBox(width: 40),
-                          //2.
+                          // Favoriler
                           CircleAvatar(
                             backgroundColor: ColorConstants.theme2White,
-                            child: Icon(
-                              Icons.person,
-                              color: ColorConstants.warningDark,
+                            child: InkWell(
+                              // onTap: () {
+                              //   //Favoriler sayfasına yönlendirilecek.
+                              // },
+                              child: Icon(
+                                Icons.person,
+                                color: ColorConstants.warningDark,
+                              ),
                             ),
                           ),
                           Column(
@@ -132,12 +144,17 @@ class _MenteeDashboardMainPageState extends State<MenteeDashboardMainPage> {
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                         children: [
-                          //3.
+                          // Yorumlar
                           CircleAvatar(
                             backgroundColor: ColorConstants.theme2White,
-                            child: Icon(
-                              Icons.chat,
-                              color: ColorConstants.theme1Mustard,
+                            child: InkWell(
+                              // onTap: () {
+                              //   //Commend sayfasına yönlendirilecek.
+                              // },
+                              child: Icon(
+                                Icons.chat,
+                                color: ColorConstants.theme1Mustard,
+                              ),
                             ),
                           ),
                           Column(
@@ -152,12 +169,17 @@ class _MenteeDashboardMainPageState extends State<MenteeDashboardMainPage> {
                             ],
                           ),
                           SizedBox(width: 40),
-                          //4.
+                          // Ödemeler
                           CircleAvatar(
                             backgroundColor: ColorConstants.theme2White,
-                            child: Icon(
-                              Icons.currency_lira,
-                              color: ColorConstants.infoDark,
+                            child: InkWell(
+                              // onTap: () {
+                              //   //Ödeme sayfasına yönlendirilecek.
+                              // },
+                              child: Icon(
+                                Icons.currency_lira,
+                                color: ColorConstants.infoDark,
+                              ),
                             ),
                           ),
                           Column(
