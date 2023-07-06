@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import ' license_And_Certificate_Add.dart';
 import ' licenses_And_Certificates_Arrangement.dart';
+import '../../../core/constant/color_constants.dart';
 import '../../../ui/material/custom_material.dart';
 
 class LicensesAndCertificatesPage extends StatefulWidget {
@@ -78,7 +80,7 @@ class _LicensesAndCertificatesPageState
                     "Lisans veya Sertifika Ekleyin",
                     style: TextStyle(
                       fontSize: 16,
-                      color: Color(0xFF0E90EC),
+                      color: ColorConstants.theme2Orange,
                     ),
                   ),
                 ),
@@ -129,11 +131,21 @@ class _LicensesAndCertificatesPageState
                         context: context,
                         builder: (BuildContext context) {
                           return AlertDialog(
-                            title: const Text(
-                                "Silmek istediğinize emin misiniz?"),
+                            title: Text(
+                                "Silmek istediğinize emin misiniz?",
+                              style: GoogleFonts.nunito(
+                                color: ColorConstants.itemWhite,
+                              ),
+                            ),
                             actions: [
                               TextButton(
-                                child: const Text("Evet"),
+                                child: Text("Evet",
+                                  style: GoogleFonts.nunito(
+                                    color: ColorConstants.warningDark,
+                                    fontSize: 14,
+                                    fontWeight: FontWeight.bold,
+                                  ),
+                                ),
                                 onPressed: () {
                                   setState(() {
                                     licensesAndCertificatesList
@@ -143,12 +155,19 @@ class _LicensesAndCertificatesPageState
                                 },
                               ),
                               TextButton(
-                                child: const Text("Hayır"),
+                                child: Text("Hayır",
+                                  style: GoogleFonts.nunito(
+                                    color: ColorConstants.warningDark,
+                                    fontSize: 14,
+                                    fontWeight: FontWeight.bold,
+                                  ),
+                                ),
                                 onPressed: () {
                                   Navigator.of(context).pop();
                                 },
                               ),
                             ],
+                            backgroundColor: ColorConstants.theme1DarkBlue, // Popup arka plan rengi
                           );
                         },
                       );

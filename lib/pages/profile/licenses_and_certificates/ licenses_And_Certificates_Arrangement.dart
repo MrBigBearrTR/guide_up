@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 
+import '../../../core/constant/color_constants.dart';
 import '../../../ui/material/custom_material.dart';
 
 class LicensesAndCertificatesArrangementPage extends StatefulWidget {
@@ -33,7 +35,8 @@ class _LicensesAndCertificatesArrangementPageState
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text("Lisans ve Sertifika Düzenle"),
+        title: Text("Lisans ve Sertifika Düzenle",
+            style: GoogleFonts.nunito()),
       ),
       body: Container(
         decoration: CustomMaterial.backgroundBoxDecoration ,
@@ -42,21 +45,23 @@ class _LicensesAndCertificatesArrangementPageState
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              const Text(
+              Text(
                 "URL:",
-                style: TextStyle(
+                style: GoogleFonts.nunito(
+                  fontSize: 16,
                   fontWeight: FontWeight.bold,
                 ),
               ),
               const SizedBox(height: 8.0),
               TextFormField(
                 controller: _urlController,
+                cursorColor: ColorConstants.warningDark,
                 decoration: InputDecoration(
                   border: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(8.0),
                   ),
                   focusedBorder: OutlineInputBorder(
-                    borderSide: const BorderSide(color: Colors.orange),
+                    borderSide: const BorderSide(color: ColorConstants.warningDark,),
                     borderRadius: BorderRadius.circular(8.0),
                   ),
                 ),
@@ -71,7 +76,16 @@ class _LicensesAndCertificatesArrangementPageState
                       widget.onUpdate(updatedUrl);
                       Navigator.pop(context);
                     },
-                    child: const Text("Güncelle"),
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: ColorConstants.warningDark,
+                    ),
+                    child: Text("Güncelle",
+                      style: GoogleFonts.nunito(
+                        color: ColorConstants.itemWhite, // Metin rengi
+                        fontSize: 14,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
                   ),
                   ElevatedButton(
                     onPressed: () {
@@ -79,10 +93,20 @@ class _LicensesAndCertificatesArrangementPageState
                         context: context,
                         builder: (BuildContext context) {
                           return AlertDialog(
-                            title: const Text("Silmek istediğinize emin misiniz?"),
+                            title: Text("Silmek istediğinize emin misiniz?",
+                              style: GoogleFonts.nunito(
+                                color: ColorConstants.itemWhite,
+                              ),
+                            ),
                             actions: [
                               TextButton(
-                                child: const Text("Evet"),
+                                child: Text("Evet",
+                                  style: GoogleFonts.nunito(
+                                    color: ColorConstants.warningDark,
+                                    fontSize: 14,
+                                    fontWeight: FontWeight.bold,
+                                  ),
+                                ),
                                 onPressed: () {
                                   widget.onDelete();
                                   Navigator.pop(context);
@@ -90,18 +114,33 @@ class _LicensesAndCertificatesArrangementPageState
                                 },
                               ),
                               TextButton(
-                                child: const Text("Hayır"),
+                                child: Text("Hayır",
+                                  style: GoogleFonts.nunito(
+                                    color: ColorConstants.warningDark,
+                                    fontSize: 14,
+                                    fontWeight: FontWeight.bold,
+                                  ),
+                                ),
                                 onPressed: () {
                                   Navigator.pop(context);
                                 },
                               ),
                             ],
+                            backgroundColor: ColorConstants.theme1DarkBlue,
                           );
                         },
                       );
                     },
-                    style: ElevatedButton.styleFrom(backgroundColor: Colors.red),
-                    child: const Text("Sil"),
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: ColorConstants.dangerDark,
+                      ),
+                    child: Text("Sil",
+                      style: GoogleFonts.nunito(
+                        color: ColorConstants.itemWhite, // Metin rengi
+                        fontSize: 14,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
                   ),
                 ],
               ),

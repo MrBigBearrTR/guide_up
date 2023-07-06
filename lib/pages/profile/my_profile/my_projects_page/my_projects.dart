@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import '../../../../core/constant/router_constants.dart';
+import 'package:google_fonts/google_fonts.dart';
+import '../../../../core/constant/color_constants.dart';
 import '../../../../ui/material/custom_material.dart';
 
 class MyProjects extends StatefulWidget {
@@ -54,8 +55,7 @@ class _MyProjectsState extends State<MyProjects> {
         leading: IconButton(
           icon: const Icon(CupertinoIcons.arrow_turn_up_left),
           onPressed: () {
-            Navigator.pushNamed(context, RouterConstants.myProfileAccountPage);
-          },
+            Navigator.pop(context);},
         ),
         actions: [
           Padding(
@@ -77,14 +77,17 @@ class _MyProjectsState extends State<MyProjects> {
             return Card(
               elevation: 2,
               margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-              child: ListTile(
-                title: Text(project.name),
-                subtitle: const Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                ),
-                trailing: IconButton(
-                  icon: const Icon(Icons.delete),
-                  onPressed: () => removeProject(project),
+              child: Container(
+                color: ColorConstants.theme1PowderSkinOpacity, // card arka plan rengi
+                child: ListTile(
+                  title: Text(project.name),
+                  subtitle: const Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                  ),
+                  trailing: IconButton(
+                    icon: const Icon(Icons.delete),
+                    onPressed: () => removeProject(project),
+                  ),
                 ),
               ),
             );
@@ -97,26 +100,61 @@ class _MyProjectsState extends State<MyProjects> {
             context: context,
             builder: (BuildContext context) {
               return AlertDialog(
-                title: const Text('Yeni Proje Ekle'),
+                title: Text(
+                  'Yeni Proje Ekle',
+                  style: GoogleFonts.nunito(
+                    color: ColorConstants.itemWhite, // Yazı rengi
+                  ),
+                ),
                 content: Column(
                   mainAxisSize: MainAxisSize.min,
                   children: [
                     TextField(
                       controller: projectNameController,
+                      cursorColor: ColorConstants.warningDark,
+                      style: GoogleFonts.nunito(), // Yazı tipi
                       decoration: const InputDecoration(
                         labelText: 'Proje Adı',
+                        labelStyle: TextStyle(
+                          color: ColorConstants.theme2White, // Yazı rengi
+                        ),
+                        focusedBorder: UnderlineInputBorder(
+                          borderSide: BorderSide(
+                            color: ColorConstants.warningDark, // Alt çizgi rengi
+                          ),
+                        ),
                       ),
                     ),
                     TextField(
                       controller: projectDescriptionController,
+                      cursorColor: ColorConstants.warningDark,
+                      style: GoogleFonts.nunito(), // Yazı tipi
                       decoration: const InputDecoration(
                         labelText: 'Proje Açıklaması',
+                        labelStyle: TextStyle(
+                          color: ColorConstants.theme2White, // Yazı rengi
+                        ),
+                        focusedBorder: UnderlineInputBorder(
+                          borderSide: BorderSide(
+                            color: ColorConstants.warningDark, // Alt çizgi rengi
+                          ),
+                        ),
                       ),
                     ),
                     TextField(
                       controller: projectLinkController,
+                      cursorColor: ColorConstants.warningDark,
+                      style: GoogleFonts.nunito(), // Yazı tipi
                       decoration: const InputDecoration(
                         labelText: 'Proje Linki (isteğe bağlı)',
+                        labelStyle: TextStyle(
+                          color: ColorConstants.theme2White, // Yazı rengi
+                        ),
+                        focusedBorder: UnderlineInputBorder(
+                          borderSide: BorderSide(
+                            color: ColorConstants.warningDark, // Alt çizgi rengi
+                          ),
+                        ),
                       ),
                     ),
                   ],
@@ -124,20 +162,34 @@ class _MyProjectsState extends State<MyProjects> {
                 actions: [
                   TextButton(
                     onPressed: () => Navigator.pop(context),
-                    child: const Text('İptal'),
+                    child: Text('İptal',
+                      style: GoogleFonts.nunito(
+                        fontSize: 15,
+                        fontWeight: FontWeight.bold,
+                        color: ColorConstants.itemWhite, // Metin rengi
+                      ),
+                    ),
                   ),
                   ElevatedButton(
                     onPressed: () {
                       addProject();
                       Navigator.pop(context);
                     },
-                    child: const Text('Ekle'),
+                    child: Text('Ekle',
+                      style: GoogleFonts.nunito(
+                        fontSize: 15,
+                        fontWeight: FontWeight.bold,
+                        color: ColorConstants.theme2Dark, // Metin rengi
+                      ),
+                    ),
                   ),
                 ],
+                backgroundColor: ColorConstants.theme1DarkBlue, // Arka plan rengi
               );
             },
           );
         },
+        backgroundColor: ColorConstants.warningDark, // Arka plan rengi
         child: const Icon(Icons.add),
       ),
     );

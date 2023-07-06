@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:guide_up/core/enumeration/enums/EnLinkType.dart';
 import 'package:guide_up/core/enumeration/extensions/ExLinkType.dart';
 import 'package:guide_up/core/utils/user_info_helper.dart';
@@ -95,6 +96,17 @@ class _MyProfileAccountState extends State<MyProfileAccount> {
   Future<void> showDatePickerDialog() async {
     final DateTime? pickedDate = await showDatePicker(
       context: context,
+      builder: (BuildContext context, Widget? child) {
+        return Theme(
+          data: ThemeData(
+            colorScheme: const ColorScheme.light(
+              primary: ColorConstants.theme1DarkBlue,
+            ),
+            dialogBackgroundColor: ColorConstants.itemWhite,
+          ),
+          child: child ?? const Text(""),
+        );
+      },
       initialDate: selectedDate,
       firstDate: DateTime(1900),
       lastDate: DateTime.now(),
@@ -115,9 +127,9 @@ class _MyProfileAccountState extends State<MyProfileAccount> {
       context: context,
       builder: (BuildContext context) {
         return AlertDialog(
-          title: const Text(
+          title: Text(
             "+ Link Ekle",
-            style: TextStyle(
+            style: GoogleFonts.nunito(
               color: ColorConstants.theme2Orange,
             ),
           ),
@@ -125,16 +137,17 @@ class _MyProfileAccountState extends State<MyProfileAccount> {
             mainAxisSize: MainAxisSize.min,
             children: [
               TextFormField(
-                decoration: const InputDecoration(
-                  enabledBorder: OutlineInputBorder(
+                decoration: InputDecoration(
+                  enabledBorder: const OutlineInputBorder(
                     borderSide: BorderSide(color: ColorConstants.theme2Orange),
                   ),
-                  focusedBorder: OutlineInputBorder(
+                  focusedBorder: const OutlineInputBorder(
                     borderSide: BorderSide(color: ColorConstants.theme2Orange),
                   ),
                   labelText: "Başlık",
-                  labelStyle: TextStyle(color: ColorConstants.theme2Orange),
-                  border: OutlineInputBorder(),
+                  labelStyle:
+                      GoogleFonts.nunito(color: ColorConstants.theme2Orange),
+                  border: const OutlineInputBorder(),
                 ),
                 onChanged: (value) {
                   setState(() {
@@ -144,16 +157,17 @@ class _MyProfileAccountState extends State<MyProfileAccount> {
               ),
               const SizedBox(height: 8.0),
               TextFormField(
-                decoration: const InputDecoration(
-                  enabledBorder: OutlineInputBorder(
+                decoration: InputDecoration(
+                  enabledBorder: const OutlineInputBorder(
                     borderSide: BorderSide(color: ColorConstants.theme2Orange),
                   ),
-                  focusedBorder: OutlineInputBorder(
+                  focusedBorder: const OutlineInputBorder(
                     borderSide: BorderSide(color: ColorConstants.theme2Orange),
                   ),
                   labelText: "Link",
-                  labelStyle: TextStyle(color: ColorConstants.theme2Orange),
-                  border: OutlineInputBorder(),
+                  labelStyle:
+                      GoogleFonts.nunito(color: ColorConstants.theme2Orange),
+                  border: const OutlineInputBorder(),
                 ),
                 onChanged: (value) {
                   link = value;
@@ -181,11 +195,11 @@ class _MyProfileAccountState extends State<MyProfileAccount> {
               },
               style: ElevatedButton.styleFrom(
                   backgroundColor: ColorConstants.theme2DarkBlue),
-              child: const Text(
+              child: Text(
                 "Tamam",
-                style:
-                    TextStyle(color: ColorConstants.theme2Orange // Metin rengi
-                        ),
+                style: GoogleFonts.nunito(
+                    color: ColorConstants.theme2Orange // Metin rengi
+                    ),
               ),
             ),
           ],
@@ -211,13 +225,13 @@ class _MyProfileAccountState extends State<MyProfileAccount> {
             children: [
               ListView(
                 children: [
-                  const Center(
+                  Center(
                     child: Text(
                       "Profilim",
-                      style: TextStyle(
+                      style: GoogleFonts.nunito(
                         fontSize: 24.0,
                         fontWeight: FontWeight.bold,
-                        color: Color(0xFF2C394C),
+                        color: ColorConstants.appcolor2,
                       ),
                     ),
                   ),
@@ -233,13 +247,6 @@ class _MyProfileAccountState extends State<MyProfileAccount> {
                           // Arka plan rengi
                           backgroundImage:
                               UserInfoHelper.getProfilePicture(userDetail),
-                          child: UserInfoHelper.isProfileNotEmpty(userDetail)
-                              ? null
-                              : const Icon(
-                                  Icons.person,
-                                  size: 60.0,
-                                  color: Color(0xFF2C4059), // Siluet rengi
-                                ),
                         ),
                       ],
                     ),
@@ -248,10 +255,10 @@ class _MyProfileAccountState extends State<MyProfileAccount> {
                   TextFormField(
                     decoration: InputDecoration(
                       labelText: 'Hakkımda',
-                      labelStyle: TextStyle(
+                      labelStyle: GoogleFonts.nunito(
                         color: (_aboutController.value.text.isNotEmpty)
-                            ? const Color(0xFF07617C)
-                            : const Color(0xFFFF8800),
+                            ? ColorConstants.theme1DarkBlue
+                            : ColorConstants.warningDark,
                       ),
                       border: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(8.0),
@@ -259,14 +266,14 @@ class _MyProfileAccountState extends State<MyProfileAccount> {
                       focusedBorder: OutlineInputBorder(
                         borderSide: BorderSide(
                           color: (_aboutController.value.text.isNotEmpty)
-                              ? const Color(0xFF07617C)
-                              : const Color(0xFFFF8800),
+                              ? ColorConstants.theme1DarkBlue
+                              : ColorConstants.warningDark,
                         ),
                         borderRadius: BorderRadius.circular(8.0),
                       ),
                     ),
                     controller: _aboutController,
-                    cursorColor: const Color(0xFF07617C),
+                    cursorColor: ColorConstants.theme1DarkBlue,
                     onChanged: (value) {
                       setState(() {});
                     },
@@ -275,10 +282,10 @@ class _MyProfileAccountState extends State<MyProfileAccount> {
                   TextFormField(
                     decoration: InputDecoration(
                       labelText: 'İsim',
-                      labelStyle: TextStyle(
+                      labelStyle: GoogleFonts.nunito(
                         color: (_nameController.value.text.isNotEmpty)
-                            ? const Color(0xFFFF8800)
-                            : const Color(0xFF07617C),
+                            ? ColorConstants.warningDark
+                            : ColorConstants.theme1DarkBlue,
                       ),
                       border: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(8.0),
@@ -286,13 +293,13 @@ class _MyProfileAccountState extends State<MyProfileAccount> {
                       focusedBorder: OutlineInputBorder(
                         borderSide: BorderSide(
                           color: (_nameController.value.text.isNotEmpty)
-                              ? const Color(0xFFFF8800)
-                              : const Color(0xFF07617C),
+                              ? ColorConstants.warningDark
+                              : ColorConstants.theme1DarkBlue,
                         ),
                         borderRadius: BorderRadius.circular(8.0),
                       ),
                     ),
-                    cursorColor: const Color(0xFF07617C),
+                    cursorColor: ColorConstants.theme1DarkBlue,
                     controller: _nameController,
                     onChanged: (value) {
                       setState(() {});
@@ -305,10 +312,10 @@ class _MyProfileAccountState extends State<MyProfileAccount> {
                   TextFormField(
                     decoration: InputDecoration(
                       labelText: 'Soyisim',
-                      labelStyle: TextStyle(
+                      labelStyle: GoogleFonts.nunito(
                         color: (_lastnameController.value.text.isNotEmpty)
-                            ? const Color(0xFF07617C)
-                            : const Color(0xFFFF8800),
+                            ? ColorConstants.theme1DarkBlue
+                            : ColorConstants.warningDark,
                       ),
                       border: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(8.0),
@@ -316,13 +323,13 @@ class _MyProfileAccountState extends State<MyProfileAccount> {
                       focusedBorder: OutlineInputBorder(
                         borderSide: BorderSide(
                           color: (_lastnameController.value.text.isNotEmpty)
-                              ? const Color(0xFF07617C)
-                              : const Color(0xFFFF8800),
+                              ? ColorConstants.theme1DarkBlue
+                              : ColorConstants.warningDark,
                         ),
                         borderRadius: BorderRadius.circular(8.0),
                       ),
                     ),
-                    cursorColor: const Color(0xFF07617C),
+                    cursorColor: ColorConstants.theme1DarkBlue,
                     controller: _lastnameController,
                     onChanged: (value) {
                       setState(() {});
@@ -335,10 +342,10 @@ class _MyProfileAccountState extends State<MyProfileAccount> {
                   TextFormField(
                     decoration: InputDecoration(
                       labelText: 'Kullanıcı Adı',
-                      labelStyle: TextStyle(
+                      labelStyle: GoogleFonts.nunito(
                         color: (_usernameController.value.text.isNotEmpty)
-                            ? const Color(0xFF07617C)
-                            : const Color(0xFFFF8800),
+                            ? ColorConstants.theme1DarkBlue
+                            : ColorConstants.warningDark,
                       ),
                       border: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(8.0),
@@ -346,13 +353,13 @@ class _MyProfileAccountState extends State<MyProfileAccount> {
                       focusedBorder: OutlineInputBorder(
                         borderSide: BorderSide(
                           color: (_usernameController.value.text.isNotEmpty)
-                              ? const Color(0xFFFF8800)
-                              : const Color(0xFF07617C),
+                              ? ColorConstants.warningDark
+                              : ColorConstants.theme1DarkBlue,
                         ),
                         borderRadius: BorderRadius.circular(8.0),
                       ),
                     ),
-                    cursorColor: const Color(0xFF07617C),
+                    cursorColor: ColorConstants.theme1DarkBlue,
                     controller: _usernameController,
                     onChanged: (value) {
                       setState(() {});
@@ -365,14 +372,14 @@ class _MyProfileAccountState extends State<MyProfileAccount> {
                   TextFormField(
                     decoration: InputDecoration(
                       labelText: 'Doğum Tarihi',
-                      labelStyle: const TextStyle(
-                        color: Color(0xFFFF8800),
+                      labelStyle: GoogleFonts.nunito(
+                        color: ColorConstants.warningDark,
                       ),
                       border: const OutlineInputBorder(),
                       suffixIcon: IconButton(
                         icon: const Icon(Icons.calendar_today),
                         onPressed: showDatePickerDialog,
-                        color: const Color(0xFF07617C),
+                        color: ColorConstants.theme1DarkBlue,
                       ),
                     ),
                     readOnly: true,
@@ -382,10 +389,10 @@ class _MyProfileAccountState extends State<MyProfileAccount> {
                   TextFormField(
                     decoration: InputDecoration(
                       labelText: 'E-posta',
-                      labelStyle: TextStyle(
+                      labelStyle: GoogleFonts.nunito(
                         color: (_emailController.value.text.isNotEmpty)
-                            ? const Color(0xFF07617C)
-                            : const Color(0xFFFF8800),
+                            ? ColorConstants.theme1DarkBlue
+                            : ColorConstants.warningDark,
                       ),
                       border: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(8.0),
@@ -393,13 +400,13 @@ class _MyProfileAccountState extends State<MyProfileAccount> {
                       focusedBorder: OutlineInputBorder(
                         borderSide: BorderSide(
                           color: (_emailController.value.text.isNotEmpty)
-                              ? const Color(0xFF07617C)
-                              : const Color(0xFFFF8800),
+                              ? ColorConstants.theme1DarkBlue
+                              : ColorConstants.warningDark,
                         ),
                         borderRadius: BorderRadius.circular(8.0),
                       ),
                     ),
-                    cursorColor: const Color(0xFF07617C),
+                    cursorColor: ColorConstants.theme1DarkBlue,
                     onChanged: (value) {
                       setState(() {});
                     },
@@ -415,8 +422,11 @@ class _MyProfileAccountState extends State<MyProfileAccount> {
                           child: CircularProgressIndicator(),
                         );
                       } else if (snapshot.hasError) {
-                        return const Center(
-                          child: Text('Veriler alınırken bir hata oluştu.'),
+                        return Center(
+                          child: Text(
+                            'Veriler alınırken bir hata oluştu.',
+                            style: GoogleFonts.nunito(),
+                          ),
                         );
                       } else {
                         return SizedBox(
@@ -446,10 +456,10 @@ class _MyProfileAccountState extends State<MyProfileAccount> {
                       const SizedBox(height: 0.0),
                       TextButton(
                         onPressed: addOtherLink,
-                        child: const Text(
+                        child: Text(
                           "+ Link Ekle",
-                          style: TextStyle(
-                            color: Color(0xFFEF6C00),
+                          style: GoogleFonts.nunito(
+                            color: ColorConstants.theme2Orange,
                           ),
                         ),
                       ),
@@ -462,7 +472,7 @@ class _MyProfileAccountState extends State<MyProfileAccount> {
                           return Container(
                             decoration: BoxDecoration(
                               border: Border.all(
-                                color: const Color(0xFF2C4059),
+                                color: ColorConstants.theme2DarkBlue,
                                 width: 1.0,
                               ),
                               borderRadius: BorderRadius.circular(4.0),
@@ -474,7 +484,7 @@ class _MyProfileAccountState extends State<MyProfileAccount> {
                               children: [
                                 Text(
                                   link['title']!,
-                                  style: const TextStyle(
+                                  style: GoogleFonts.nunito(
                                     fontWeight: FontWeight.bold,
                                   ),
                                 ),
@@ -490,7 +500,7 @@ class _MyProfileAccountState extends State<MyProfileAccount> {
                                       },
                                       child: const Icon(
                                         Icons.delete,
-                                        color: Color(0xFF2C4059),
+                                        color: ColorConstants.theme2DarkBlue,
                                       ),
                                     ),
                                   ],
@@ -506,15 +516,15 @@ class _MyProfileAccountState extends State<MyProfileAccount> {
                   Container(
                     width: 430,
                     height: 60,
-                    color: const Color(0xFFEEEEEE),
+                    color: ColorConstants.theme1PowderSkinOpacity,
                     alignment: Alignment.topLeft,
                     padding: const EdgeInsets.all(10),
                     margin: const EdgeInsets.all(10),
                     child: Row(
                       children: [
-                        const Text(
+                        Text(
                           "Eğitim Bilgileri",
-                          style: TextStyle(
+                          style: GoogleFonts.nunito(
                             fontWeight: FontWeight.bold,
                           ),
                         ),
@@ -523,7 +533,7 @@ class _MyProfileAccountState extends State<MyProfileAccount> {
                           icon: const Icon(Icons.add),
                           onPressed: () {
                             Navigator.pushNamed(
-                                context, RouterConstants.educationInformation);
+                                context, RouterConstants.usereducationInformation);
                           },
                         ),
                         IconButton(
@@ -539,15 +549,15 @@ class _MyProfileAccountState extends State<MyProfileAccount> {
                   Container(
                     width: 430,
                     height: 60,
-                    color: const Color(0xFFEEEEEE),
+                    color: ColorConstants.theme1PowderSkinOpacity,
                     alignment: Alignment.topLeft,
                     padding: const EdgeInsets.all(10),
                     margin: const EdgeInsets.all(10),
                     child: Row(
                       children: [
-                        const Text(
+                        Text(
                           "Projelerim",
-                          style: TextStyle(
+                          style: GoogleFonts.nunito(
                             fontWeight: FontWeight.bold,
                           ),
                         ),
@@ -556,7 +566,7 @@ class _MyProfileAccountState extends State<MyProfileAccount> {
                           icon: const Icon(Icons.add),
                           onPressed: () {
                             Navigator.pushNamed(
-                                context, RouterConstants.myProjects);
+                                context, RouterConstants.userProjectPage);
                           },
                         ),
                         IconButton(
@@ -572,15 +582,15 @@ class _MyProfileAccountState extends State<MyProfileAccount> {
                   Container(
                     width: 430,
                     height: 60,
-                    color: const Color(0xFFEEEEEE),
+                    color: ColorConstants.theme1PowderSkinOpacity,
                     alignment: Alignment.topLeft,
                     padding: const EdgeInsets.all(10),
                     margin: const EdgeInsets.all(10),
                     child: Row(
                       children: [
-                        const Text(
+                        Text(
                           "Yetenekler",
-                          style: TextStyle(
+                          style: GoogleFonts.nunito(
                             fontWeight: FontWeight.bold,
                           ),
                         ),
@@ -589,7 +599,7 @@ class _MyProfileAccountState extends State<MyProfileAccount> {
                           icon: const Icon(Icons.add),
                           onPressed: () {
                             Navigator.pushNamed(
-                                context, RouterConstants.abilities);
+                                context, RouterConstants.userAbilities);
                           },
                         ),
                         IconButton(
@@ -605,9 +615,10 @@ class _MyProfileAccountState extends State<MyProfileAccount> {
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      const Text(
+                      Text(
                         "Lisanslar ve sertifikalar",
-                        style: TextStyle(
+                        style: GoogleFonts.nunito(
+                          fontSize: 15,
                           fontWeight: FontWeight.bold,
                         ),
                       ),
@@ -616,12 +627,12 @@ class _MyProfileAccountState extends State<MyProfileAccount> {
                         width: double.infinity,
                         padding: const EdgeInsets.symmetric(vertical: 12.0),
                         decoration: BoxDecoration(
-                          color: const Color(0xFF2C4059), // İstediğiniz renk
+                          color: ColorConstants.theme1DarkBlue, // renk
                           borderRadius: BorderRadius.circular(8.0),
                           border: Border.all(
-                            color: const Color(0xFFFE5722),
-                            // İstediğiniz kenar çizgisi rengi
-                            width: 2.0, // İstediğiniz kenar çizgisi kalınlığı
+                            color: ColorConstants.theme2Orange,
+                            // kenar çizgisi rengi
+                            width: 2.0, // kenar çizgisi kalınlığı
                           ),
                         ),
                         child: TextButton(
@@ -633,10 +644,10 @@ class _MyProfileAccountState extends State<MyProfileAccount> {
                                       const LicensesAndCertificatesPage()),
                             );
                           },
-                          child: const Text(
+                          child: Text(
                             'Lisans ve sertifika ekle  ',
-                            style: TextStyle(
-                              color: Color(0xFFFE5722),
+                            style: GoogleFonts.nunito(
+                              color: ColorConstants.itemWhite,
                             ),
                           ),
                         ),
@@ -652,8 +663,8 @@ class _MyProfileAccountState extends State<MyProfileAccount> {
                 child: ElevatedButton(
                   onPressed: () {},
                   style: ElevatedButton.styleFrom(
-                    foregroundColor: const Color(0xFFEF6C00),
-                    backgroundColor: const Color(0xFF2C4059),
+                    foregroundColor: ColorConstants.theme2Orange,
+                    backgroundColor: ColorConstants.theme2DarkBlue,
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(20.0),
                     ),
@@ -673,7 +684,7 @@ class _MyProfileAccountState extends State<MyProfileAccount> {
                   height: 55,
                   decoration: const BoxDecoration(
                     shape: BoxShape.circle,
-                    color: Color(0xFF2C4059),
+                    color: ColorConstants.theme2DarkBlue,
                   ),
                   child: InkWell(
                     onTap: () {
@@ -681,7 +692,7 @@ class _MyProfileAccountState extends State<MyProfileAccount> {
                     },
                     child: const Icon(
                       Icons.arrow_back_rounded,
-                      color: Color(0xFFEF6C00),
+                      color: ColorConstants.theme2Orange,
                     ),
                   ),
                 ),

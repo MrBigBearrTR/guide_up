@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 
+import '../../../core/constant/color_constants.dart';
 import '../../../ui/material/custom_material.dart';
 
 void main() {
@@ -40,9 +42,11 @@ class _GeneralSettingsState extends State<GeneralSettings> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text(
+        title: Text(
           'Genel Ayarlar',
-          style: TextStyle(fontSize: 24.0, fontWeight: FontWeight.bold),
+          style: GoogleFonts.nunito(
+              fontSize: 24.0,
+              fontWeight: FontWeight.bold),
         ),
         actions: [
           Padding(
@@ -81,84 +85,86 @@ class _GeneralSettingsState extends State<GeneralSettings> {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        const Text(
+        Text(
           'Şifre Yenile',
-          style: TextStyle(fontSize: 18.0, fontWeight: FontWeight.bold),
+          style: GoogleFonts.nunito(
+              fontSize: 18.0,
+              fontWeight: FontWeight.bold),
         ),
         const SizedBox(height: 8.0),
-        const TextField(
+        TextField(
           decoration: InputDecoration(
             labelText: 'Mevcut şifre',
-            floatingLabelStyle: TextStyle(
-              color: Color(0xFF212832), // Metin rengi
+            floatingLabelStyle: GoogleFonts.nunito(
+              color: ColorConstants.appcolor3, // Metin rengi
             ),
-            border: OutlineInputBorder(
-              borderSide: BorderSide(color: Color(0xFF98C2D0)), // Kutunun çevresi rengi
+            border: const OutlineInputBorder(
+              borderSide: BorderSide(color: ColorConstants.theme1CloudBlue), // Kutunun çevresi rengi
             ),
-            focusedBorder: OutlineInputBorder(
-              borderSide: BorderSide(color: Color(0xFF212832)), // Odaklandığında kutunun çevresi rengi
+            focusedBorder: const OutlineInputBorder(
+              borderSide: BorderSide(color: ColorConstants.appcolor3), // Odaklandığında kutunun çevresi rengi
             ),
-            prefixIcon: Icon(
+            prefixIcon: const Icon(
               Icons.lock_outlined,
-              color: Color(0xFFDAE4EC), // Icon rengi
+              color: ColorConstants.theme1BrightCloudBlue, // Icon rengi
             ),
             filled: true,
-            fillColor: Color(0xFF98C2D0), // Kutunun iç dolgu rengi
-            labelStyle: TextStyle(
-              color: Color(0xFFFFFFFF), // Metin rengi
+            fillColor: ColorConstants.theme1CloudBlue, // Kutunun iç dolgu rengi
+            labelStyle: GoogleFonts.nunito(
+              color: ColorConstants.itemWhite, // Metin rengi
             ),
           ),
-          cursorColor: Color(0xFFEEEEEE), // İmleç rengi
+          cursorColor: ColorConstants.theme2White, // İmleç rengi
         ),
         const SizedBox(height: 8.0),
-        const TextField(
+        TextField(
           decoration: InputDecoration(
             labelText: 'Yeni şifre',
-            floatingLabelStyle: TextStyle(
-              color: Color(0xFF212832), // Metin rengi
+            floatingLabelStyle: GoogleFonts.nunito(
+              color: ColorConstants.appcolor3, // Metin rengi
             ),
-            border: OutlineInputBorder(
-              borderSide: BorderSide(color: Color(0xFF98C2D0)), // Kutunun çevresi rengi
+            border: const OutlineInputBorder(
+              borderSide: BorderSide(color: ColorConstants.theme1CloudBlue), // Kutunun çevresi rengi
             ),
-            focusedBorder: OutlineInputBorder(
-              borderSide: BorderSide(color: Color(0xFF212832)), // Odaklandığında kutunun çevresi rengi
+            focusedBorder: const OutlineInputBorder(
+              borderSide: BorderSide(color: ColorConstants.appcolor3), // Odaklandığında kutunun çevresi rengi
             ),
-            prefixIcon: Icon(
+            prefixIcon: const Icon(
               Icons.lock,
-              color: Color(0xFFDAE4EC), // Icon rengi
+              color: ColorConstants.theme1BrightCloudBlue, // Icon rengi
             ),
             filled: true,
-            fillColor: Color(0xFF98C2D0), // Kutunun iç dolgu rengi
-            labelStyle: TextStyle(
-              color: Color(0xFFFFFFFF), // Metin rengi
+            fillColor: ColorConstants.theme1CloudBlue, // Kutunun iç dolgu rengi
+            labelStyle: GoogleFonts.nunito(
+              color: ColorConstants.itemWhite, // Metin rengi
             ),
           ),
-          cursorColor: Color(0xFFEEEEEE), // İmleç rengi
+          cursorColor: ColorConstants.theme2White, // İmleç rengi
         ),
         const SizedBox(height: 8.0),
-        const TextField(
+        TextField(
           decoration: InputDecoration(
             labelText: 'Şifreyi tekrar yaz',
-            floatingLabelStyle: TextStyle(
-              color: Color(0xFF212832), // Metin rengi
+            floatingLabelStyle: GoogleFonts.nunito(
+              color: ColorConstants.appcolor3, // Metin rengi
     ),
-            border: OutlineInputBorder(
-              borderSide: BorderSide(color: Color(0xFF98C2D0)), // Kutunun çevresi rengi
+            border: const OutlineInputBorder(
+              borderSide: BorderSide(color: ColorConstants.theme1CloudBlue), // Kutunun çevresi rengi
             ),
-            focusedBorder: OutlineInputBorder(
-              borderSide: BorderSide(color: Color(0xFF212832)), // Odaklandığında kutunun çevresi rengi
+            focusedBorder: const OutlineInputBorder(
+              borderSide: BorderSide(color: ColorConstants.appcolor3), // Odaklandığında kutunun çevresi rengi
             ),
-            prefixIcon: Icon(
+            prefixIcon: const Icon(
               Icons.lock_outlined,
-              color: Color(0xFFDAE4EC), // Icon rengi
+              color: ColorConstants.theme1BrightCloudBlue, // Icon rengi
             ),
             filled: true,
-            fillColor: Color(0xFF98C2D0), // Kutunun iç dolgu rengi
-            labelStyle: TextStyle(
-              color: Color(0xFFFFFFFF), // Metin rengi
+            fillColor: ColorConstants.theme1CloudBlue, // Kutunun iç dolgu rengi
+            labelStyle: GoogleFonts.nunito(
+              color: ColorConstants.itemWhite, // Metin rengi
             ),
           ),
-          cursorColor: Color(0xFFEEEEEE), // İmleç rengi
+          cursorColor: ColorConstants.theme2White, // İmleç rengi
         ),
         const SizedBox(height: 1.0),
         Row(
@@ -169,9 +175,14 @@ class _GeneralSettingsState extends State<GeneralSettings> {
                 // Şifremi Unuttum butonuna basıldığında yapılacak işlemler
               },
               style: ButtonStyle(
-                foregroundColor: MaterialStateProperty.all<Color>(const Color(0xFF07617C)), // Buton metin rengi
+                foregroundColor: MaterialStateProperty.all<Color>(ColorConstants.theme1DarkBlue), // Buton metin rengi
               ),
-              child: const Text('Şifremi Unuttum'),
+              child: Text('Şifremi Unuttum',
+                style: GoogleFonts.nunito(
+                fontSize: 15,
+                fontWeight: FontWeight.bold,
+              ),
+              ),
             ),
             ElevatedButton(
               onPressed: () {
@@ -181,19 +192,24 @@ class _GeneralSettingsState extends State<GeneralSettings> {
                 });
               },
               style: ButtonStyle(
-                backgroundColor: MaterialStateProperty.all<Color>(const Color(0xFFFE5722)), // Buton arkaplan rengi
-                foregroundColor: MaterialStateProperty.all<Color>(Colors.white), // Buton yazı rengi
+                backgroundColor: MaterialStateProperty.all<Color>(ColorConstants.theme2Orange), // Buton arkaplan rengi
+                foregroundColor: MaterialStateProperty.all<Color>(ColorConstants.itemWhite), // Buton yazı rengi
               ),
-              child: const Text('Şifreyi Yenile'),
+              child: Text('Şifreyi Yenile',
+                style: GoogleFonts.nunito(
+                fontSize: 15,
+                fontWeight: FontWeight.bold,
+              ),),
             ),
 
           ],
         ),
         const SizedBox(height: 8.0),
         if (_isPasswordChanged)
-          const Text(
+          Text(
             'Şifre değiştirme başarılı!',
-            style: TextStyle(color: Colors.green),
+            style: GoogleFonts.nunito(
+                color: ColorConstants.success),
           ),
       ],
     );
@@ -203,9 +219,11 @@ class _GeneralSettingsState extends State<GeneralSettings> {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        const Text(
+        Text(
           'Dil Değiştir',
-          style: TextStyle(fontSize: 18.0, fontWeight: FontWeight.bold),
+          style: GoogleFonts.nunito(
+              fontSize: 18.0,
+              fontWeight: FontWeight.bold),
         ),
         const SizedBox(height: 8.0),
         DropdownButton<String>(
@@ -226,37 +244,39 @@ class _GeneralSettingsState extends State<GeneralSettings> {
   }
 
   Widget _buildPhoneNumberSection() {
-    return const Column(
+    return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Text(
           'Telefon Numarası',
-          style: TextStyle(fontSize: 18.0, fontWeight: FontWeight.bold),
+          style: GoogleFonts.nunito(
+              fontSize: 18.0,
+              fontWeight: FontWeight.bold),
         ),
-        SizedBox(height: 8.0),
+        const SizedBox(height: 8.0),
         TextField(
           decoration: InputDecoration(
             labelText: 'Telefon Numarası Gir',
-            floatingLabelStyle: TextStyle(
-              color: Color(0xFF212832), // Metin rengi
+            floatingLabelStyle: GoogleFonts.nunito(
+              color: ColorConstants.appcolor3, // Metin rengi
             ),
-            border: OutlineInputBorder(
-              borderSide: BorderSide(color: Color(0xFF98C2D0)), // Kutunun çevresi rengi
+            border: const OutlineInputBorder(
+              borderSide: BorderSide(color: ColorConstants.theme1CloudBlue), // Kutunun çevresi rengi
             ),
-            focusedBorder: OutlineInputBorder(
-              borderSide: BorderSide(color: Color(0xFF212832)), // Odaklandığında kutunun çevresi rengi
+            focusedBorder: const OutlineInputBorder(
+              borderSide: BorderSide(color: ColorConstants.appcolor3), // Odaklandığında kutunun çevresi rengi
             ),
-            prefixIcon: Icon(
+            prefixIcon: const Icon(
               Icons.phone,
-              color: Color(0xFFDAE4EC), // Icon rengi
+              color: ColorConstants.theme1BrightCloudBlue, // Icon rengi
             ),
             filled: true,
-            fillColor: Color(0xFF98C2D0), // Kutunun iç dolgu rengi
-            labelStyle: TextStyle(
-              color: Color(0xFFFFFFFF), // Metin rengi
+            fillColor: ColorConstants.theme1CloudBlue, // Kutunun iç dolgu rengi
+            labelStyle: GoogleFonts.nunito(
+              color: ColorConstants.itemWhite, // Metin rengi
             ),
           ),
-          cursorColor: Color(0xFFEEEEEE), // İmleç rengi
+          cursorColor: ColorConstants.theme2White, // İmleç rengi
         ),
 
 
@@ -268,13 +288,17 @@ class _GeneralSettingsState extends State<GeneralSettings> {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        const Text(
+        Text(
           'Tema Ayarları',
-          style: TextStyle(fontSize: 18.0, fontWeight: FontWeight.bold),
+          style: GoogleFonts.nunito(fontSize: 18.0, fontWeight: FontWeight.bold),
         ),
         const SizedBox(height: 8.0),
         SwitchListTile(
-          title: const Text('Koyu Tema'),
+          title: Text('Koyu Tema',
+            style: GoogleFonts.nunito(
+              fontSize: 18,
+              fontWeight: FontWeight.bold,
+            ),),
           value: _isDarkThemeEnabled,
           onChanged: (bool newValue) {
             setState(() {
@@ -294,15 +318,15 @@ class _GeneralSettingsState extends State<GeneralSettings> {
             ),
             child: IconTheme(
               data: IconThemeData(
-                color: _isDarkThemeEnabled ? const Color(0xFF07617C) : const Color(0xFF98C2D0), // Icon rengi
+                color: _isDarkThemeEnabled ? ColorConstants.theme1DarkBlue : ColorConstants.theme1CloudBlue, // Icon rengi
               ),
               child: const Icon(Icons.brightness_4),
             ),
           ),
-          activeColor: const Color(0xFFFE5722), // Koyu tema etkinleştirildiğindeki renk
-          activeTrackColor: const Color(0xFF07617C), // Koyu tema etkinleştirildiğindeki renk
-          inactiveThumbColor: const Color(0xFFFE5722), // Koyu tema devre dışı bırakıldığında başlığın rengi
-          inactiveTrackColor: const Color(0xFF98C2D0), // Koyu tema devre dışı bırakıldığında iz sürücü rengi
+          activeColor: ColorConstants.theme2Orange, // Koyu tema etkinleştirildiğindeki renk
+          activeTrackColor: ColorConstants.theme1DarkBlue, // Koyu tema etkinleştirildiğindeki renk
+          inactiveThumbColor: ColorConstants.theme2Orange, // Koyu tema devre dışı bırakıldığında başlığın rengi
+          inactiveTrackColor: ColorConstants.theme1CloudBlue, // Koyu tema devre dışı bırakıldığında iz sürücü rengi
         ),
 
       ],

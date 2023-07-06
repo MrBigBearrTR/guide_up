@@ -1,17 +1,19 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
+import 'package:guide_up/ui/material/custom_material.dart';
 
-import '../../../../ui/material/custom_material.dart';
+import '../../../../core/constant/color_constants.dart';
 
-class EducationInformation extends StatefulWidget {
-  const EducationInformation({Key? key}) : super(key: key);
+class UserEducationInformation extends StatefulWidget {
+  const UserEducationInformation({Key? key}) : super(key: key);
 
   @override
   // ignore: library_private_types_in_public_api
-  _EducationInformationState createState() => _EducationInformationState();
+  _UserEducationInformationState createState() => _UserEducationInformationState();
 }
 
-class _EducationInformationState extends State<EducationInformation> {
+class _UserEducationInformationState extends State<UserEducationInformation> {
   final TextEditingController _startDateController = TextEditingController();
   final TextEditingController _endDateController = TextEditingController();
   String? projectLink;
@@ -28,13 +30,21 @@ class _EducationInformationState extends State<EducationInformation> {
     return Scaffold(
       resizeToAvoidBottomInset: false,
       appBar: AppBar(
-        title: const Text(''),
+        title: Text(
+          '',
+          style: GoogleFonts.nunito(),
+        ),
+        leading: IconButton(
+          icon: const Icon(CupertinoIcons.arrow_turn_up_left),
+          onPressed: () {
+            Navigator.pop(context);
+          },
+        ),
         actions: [
           Padding(
             padding: const EdgeInsets.only(right: 8.0),
             child: Image.asset(
-              'assets/logo/guideUpLogo.png',
-              // Logo resminin yolunu buraya ekleyin
+              'assets/logo/guideUpLogo.png', // Logo resminin yolunu buraya ekleyin
               width: 62,
               height: 62,
             ),
@@ -47,43 +57,57 @@ class _EducationInformationState extends State<EducationInformation> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            const Text(
+            Text(
               'Eğitim Ekle',
-              style: TextStyle(
+              style: GoogleFonts.nunito(
                 fontWeight: FontWeight.bold,
                 fontSize: 24,
               ),
             ),
             const SizedBox(height: 16),
-            const Text(
+            Text(
               'Okul',
-              style: TextStyle(
+              style: GoogleFonts.nunito(
                 fontWeight: FontWeight.bold,
                 fontSize: 18,
               ),
             ),
             TextFormField(
+              style: const TextStyle(fontFamily: 'Nunito'), // Yazı tipi
+              cursorColor: ColorConstants.warningDark,
               decoration: const InputDecoration(
                 hintText: 'Okul Adı',
+                focusedBorder: UnderlineInputBorder(
+                  borderSide: BorderSide(
+                    color: ColorConstants.warningDark, // Alt çizgi rengi
+                  ),
+                ),
               ),
             ),
             const SizedBox(height: 16),
-            const Text(
+            Text(
               'Bölüm',
-              style: TextStyle(
+              style: GoogleFonts.nunito(
                 fontWeight: FontWeight.bold,
                 fontSize: 18,
               ),
             ),
             TextFormField(
+              style: const TextStyle(fontFamily: 'Nunito'), // Yazı tipi
+              cursorColor: ColorConstants.warningDark,
               decoration: const InputDecoration(
                 hintText: 'Bölüm Adı',
+                focusedBorder: UnderlineInputBorder(
+                  borderSide: BorderSide(
+                    color: ColorConstants.warningDark, // Alt çizgi rengi
+                  ),
+                ),
               ),
             ),
             const SizedBox(height: 16),
-            const Text(
+            Text(
               'Başlangıç Tarihi',
-              style: TextStyle(
+              style: GoogleFonts.nunito(
                 fontWeight: FontWeight.bold,
                 fontSize: 18,
               ),
@@ -97,14 +121,19 @@ class _EducationInformationState extends State<EducationInformation> {
                   controller: _startDateController,
                   decoration: const InputDecoration(
                     hintText: 'Başlangıç Tarihi',
+                    focusedBorder: UnderlineInputBorder(
+                      borderSide: BorderSide(
+                        color: ColorConstants.warningDark, // Alt çizgi rengi
+                      ),
+                    ),
                   ),
                 ),
               ),
             ),
             const SizedBox(height: 16),
-            const Text(
+            Text(
               'Bitiş Tarihi',
-              style: TextStyle(
+              style: GoogleFonts.nunito(
                 fontWeight: FontWeight.bold,
                 fontSize: 18,
               ),
@@ -116,23 +145,36 @@ class _EducationInformationState extends State<EducationInformation> {
               child: AbsorbPointer(
                 child: TextFormField(
                   controller: _endDateController,
+                  style: const TextStyle(fontFamily: 'Nunito'), // Yazı tipi
                   decoration: const InputDecoration(
                     hintText: 'Bitiş Tarihi',
+                    focusedBorder: UnderlineInputBorder(
+                      borderSide: BorderSide(
+                        color: ColorConstants.warningDark, // Alt çizgi rengi
+                      ),
+                    ),
                   ),
                 ),
               ),
             ),
             const SizedBox(height: 16),
-            const Text(
+            Text(
               'Proje Linki',
-              style: TextStyle(
+              style: GoogleFonts.nunito(
                 fontWeight: FontWeight.bold,
                 fontSize: 18,
               ),
             ),
             TextFormField(
+              style: const TextStyle(fontFamily: 'Nunito'), // Yazı tipi
+              cursorColor: ColorConstants.warningDark,
               decoration: const InputDecoration(
                 hintText: 'Proje Linki',
+                focusedBorder: UnderlineInputBorder(
+                  borderSide: BorderSide(
+                    color: ColorConstants.warningDark, // Alt çizgi rengi
+                  ),
+                ),
               ),
               onChanged: (value) {
                 setState(() {
@@ -141,16 +183,23 @@ class _EducationInformationState extends State<EducationInformation> {
               },
             ),
             const SizedBox(height: 16),
-            const Text(
+            Text(
               'Not',
-              style: TextStyle(
+              style: GoogleFonts.nunito(
                 fontWeight: FontWeight.bold,
                 fontSize: 18,
               ),
             ),
             TextFormField(
+              style: const TextStyle(fontFamily: 'Nunito'), // Yazı tipi
+              cursorColor: ColorConstants.warningDark,
               decoration: const InputDecoration(
                 hintText: 'Not',
+                focusedBorder: UnderlineInputBorder(
+                  borderSide: BorderSide(
+                    color: ColorConstants.warningDark, // Alt çizgi rengi
+                  ),
+                ),
               ),
             ),
             const SizedBox(height: 16),
@@ -160,13 +209,19 @@ class _EducationInformationState extends State<EducationInformation> {
               },
               style: ButtonStyle(
                 backgroundColor: MaterialStateProperty.all<Color>(
-                  const Color(0xFF212832), // Arkaplan rengi
+                  ColorConstants.warningDark, // Arkaplan rengi
                 ),
                 foregroundColor: MaterialStateProperty.all<Color>(
-                  const Color(0xFFEEEEEE), // Yazı rengi
+                  ColorConstants.itemWhite, // Metin rengi
                 ),
               ),
-              child: const Text('Kaydet'),
+              child: Text(
+                'Kaydet',
+                style: GoogleFonts.nunito(
+                  fontSize: 15,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
             ),
           ],
         ),
@@ -187,7 +242,7 @@ class _EducationInformationState extends State<EducationInformation> {
               if (date != null) {
                 setState(() {
                   _startDateController.text =
-                      '${date.day}/${date.month}/${date.year}';
+                  '${date.day}/${date.month}/${date.year}';
                 });
               }
             },
@@ -198,7 +253,7 @@ class _EducationInformationState extends State<EducationInformation> {
     if (pickedDate != null) {
       setState(() {
         _startDateController.text =
-            '${pickedDate.day}/${pickedDate.month}/${pickedDate.year}';
+        '${pickedDate.day}/${pickedDate.month}/${pickedDate.year}';
       });
     }
   }
@@ -216,7 +271,7 @@ class _EducationInformationState extends State<EducationInformation> {
               if (date != null) {
                 setState(() {
                   _endDateController.text =
-                      '${date.day}/${date.month}/${date.year}';
+                  '${date.day}/${date.month}/${date.year}';
                 });
               }
             },
@@ -227,7 +282,7 @@ class _EducationInformationState extends State<EducationInformation> {
     if (pickedDate != null) {
       setState(() {
         _endDateController.text =
-            '${pickedDate.day}/${pickedDate.month}/${pickedDate.year}';
+        '${pickedDate.day}/${pickedDate.month}/${pickedDate.year}';
       });
     }
   }

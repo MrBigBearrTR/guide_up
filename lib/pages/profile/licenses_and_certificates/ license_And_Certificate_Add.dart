@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 
+import '../../../core/constant/color_constants.dart';
 import '../../../ui/material/custom_material.dart';
 
 class LicenseAndCertificateAddPage extends StatefulWidget {
@@ -26,7 +28,8 @@ class _LicenseAndCertificateAddPageState
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text("Lisans ve Sertifika Ekle"),
+        title: Text("Lisans ve Sertifika Ekle",
+          style: GoogleFonts.nunito(),),
       ),
       body: Container(
         decoration: CustomMaterial.backgroundBoxDecoration ,
@@ -36,77 +39,81 @@ class _LicenseAndCertificateAddPageState
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                const Text(
+                Text(
                   "Tür:",
-                  style: TextStyle(
+                  style: GoogleFonts.nunito(
                     fontWeight: FontWeight.bold,
                   ),
                 ),
                 TextFormField(
                   controller: _turController,
+                  cursorColor: ColorConstants.warningDark,
                   decoration: InputDecoration(
                     border: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(8.0),
                     ),
                     focusedBorder: OutlineInputBorder(
-                      borderSide: const BorderSide(color: Colors.orange),
+                      borderSide: const BorderSide(color: ColorConstants.warningDark),
                       borderRadius: BorderRadius.circular(8.0),
                     ),
                   ),
                 ),
                 const SizedBox(height: 16.0),
-                const Text(
+                Text(
                   "Veren Organizasyon:",
-                  style: TextStyle(
+                  style: GoogleFonts.nunito(
                     fontWeight: FontWeight.bold,
                   ),
                 ),
                 TextFormField(
                   controller: _verenOrganizasyonController,
+                  cursorColor: ColorConstants.warningDark,
                   decoration: InputDecoration(
                     border: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(8.0),
                     ),
                     focusedBorder: OutlineInputBorder(
-                      borderSide: const BorderSide(color: Colors.orange),
+                      borderSide: const BorderSide(color: ColorConstants.warningDark),
                       borderRadius: BorderRadius.circular(8.0),
                     ),
                   ),
                 ),
                 const SizedBox(height: 16.0),
-                const Text(
+                Text(
                   "Yeterlilik kimliği:",
-                  style: TextStyle(
+                  style: GoogleFonts.nunito(
                     fontWeight: FontWeight.bold,
                   ),
                 ),
                 TextFormField(
                   controller: _yeterlilikKimligiController,
+                  cursorColor: ColorConstants.warningDark,
                   decoration: InputDecoration(
                     border: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(8.0),
                     ),
                     focusedBorder: OutlineInputBorder(
-                      borderSide: const BorderSide(color: Colors.orange),
+                      borderSide: const BorderSide(color: ColorConstants.warningDark),
                       borderRadius: BorderRadius.circular(8.0),
                     ),
                   ),
                 ),
                 const SizedBox(height: 16.0),
-                const Text(
+                Text(
                   "URL:",
-                  style: TextStyle(
+                  style: GoogleFonts.nunito(
                     fontWeight: FontWeight.bold,
                   ),
                 ),
                 TextFormField(
                   controller: _urlController,
+                  cursorColor: ColorConstants.warningDark,
                   decoration: InputDecoration(
                     border: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(8.0),
                     ),
                     focusedBorder: OutlineInputBorder(
-                      borderSide: const BorderSide(color: Colors.orange),
+                      borderSide: const BorderSide(color: ColorConstants.warningDark),
                       borderRadius: BorderRadius.circular(8.0),
                     ),
                   ),
@@ -115,18 +122,12 @@ class _LicenseAndCertificateAddPageState
                 ElevatedButton(
                   onPressed: () {
                     String ad = _turController.text.trim();
-                    String verenOrganizasyon =
-                    _verenOrganizasyonController.text.trim();
-                    String yeterlilikKimligi =
-                    _yeterlilikKimligiController.text.trim();
+                    String verenOrganizasyon = _verenOrganizasyonController.text.trim();
+                    String yeterlilikKimligi = _yeterlilikKimligiController.text.trim();
                     String url = _urlController.text.trim();
 
-                    if (ad.isNotEmpty &&
-                        verenOrganizasyon.isNotEmpty &&
-                        yeterlilikKimligi.isNotEmpty &&
-                        url.isNotEmpty) {
-                      String bilgiler =
-                          "$ad\n$verenOrganizasyon\n$yeterlilikKimligi\n$url";
+                    if (ad.isNotEmpty && verenOrganizasyon.isNotEmpty && yeterlilikKimligi.isNotEmpty && url.isNotEmpty) {
+                      String bilgiler = "$ad\n$verenOrganizasyon\n$yeterlilikKimligi\n$url";
                       widget.onAdd(bilgiler);
                       Navigator.pop(context);
                     } else {
@@ -134,31 +135,50 @@ class _LicenseAndCertificateAddPageState
                         context: context,
                         builder: (BuildContext context) {
                           return AlertDialog(
-                            title: const Text("Hata"),
-                            content: const Text("Tüm alanları doldurun."),
+                            title: Text(
+                              "Hata",
+                              style: GoogleFonts.nunito(
+                                color: ColorConstants.itemWhite, // Yazı rengi
+                              ),
+                            ),
+                            content: Text(
+                              "Tüm alanları doldurun.",
+                              style: GoogleFonts.nunito(
+                          color: ColorConstants.itemWhite, // Yazı rengi
+                          ),
+                            ),
                             actions: [
                               TextButton(
-                                child: const Text("Tamam"),
+                                child: Text(
+                                  "Tamam",
+                                  style: GoogleFonts.nunito(
+                                    color: ColorConstants.warningDark, // Yazı rengi
+                                    ),
+                                ),
                                 onPressed: () {
                                   Navigator.pop(context);
                                 },
                               ),
                             ],
+                            backgroundColor: ColorConstants.theme1DarkBlue, // Popup arka plan rengi
                           );
                         },
                       );
                     }
                   },
                   style: ElevatedButton.styleFrom(
-                    backgroundColor: const Color(0xFF2C4059),
+                    backgroundColor: ColorConstants.warningDark,
                   ),
-                  child: const Text(
+                  child: Text(
                     "Ekle",
-                    style: TextStyle(
-                      color: Color(0xFFEF6C00), // Metin rengi
+                    style: GoogleFonts.nunito(
+                      fontSize: 15,
+                      fontWeight: FontWeight.bold,
+                      color: ColorConstants.itemWhite, // Metin rengi
                     ),
                   ),
-                ),
+                )
+
               ],
             ),
           ),

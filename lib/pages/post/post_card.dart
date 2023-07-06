@@ -12,11 +12,14 @@ class PostCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final String topic = postCardView.topic ?? 'Unknown Topic';
+    final String content = postCardView.content ?? 'Unknown Content';
+
     return Card(
       color: ColorConstants.theme1White,
       child: ListTile(
         title: Text(
-          postCardView.topic!,
+          topic,
           style: GoogleFonts.nunito(
             textStyle: const TextStyle(
               fontWeight: FontWeight.bold,
@@ -25,7 +28,7 @@ class PostCard extends StatelessWidget {
           ),
         ),
         subtitle: Text(
-          postCardView.content!,
+          content,
           maxLines: 3,
           softWrap: true,
           style: GoogleFonts.nunito(
@@ -38,9 +41,10 @@ class PostCard extends StatelessWidget {
         leading: CircleAvatar(
           radius: 30,
           backgroundImage:
-              UserInfoHelper.getProfilePictureByPath(postCardView.userPhoto),
+          UserInfoHelper.getProfilePictureByPath(postCardView.userPhoto),
         ),
       ),
     );
   }
 }
+
