@@ -6,12 +6,12 @@ import '../../core/constant/firestore_collectioon_constant.dart';
 class MenteeRepository {
   late final CollectionReference<Map<String, dynamic>> _menteeCollection;
 
-
   MenteeRepository() {
     _menteeCollection = FirebaseFirestore.instance
         .collection(FirestoreCollectionConstant.mentee);
   }
-Future<Mentee> add(Mentee mentee) async {
+
+  Future<Mentee> add(Mentee mentee) async {
     mentee.dbCheck(mentee.getUserId()!);
 
     var process = await _menteeCollection.add(mentee.toMap());
@@ -31,8 +31,23 @@ Future<Mentee> add(Mentee mentee) async {
     return null;
   }
 
-  Future<List<Mentee>> getMenteeListByUserId(
-      String userId) async {
+  Future<List<Mentee>> getList(int limit) async {
+    List<Mentee> mentorList = [];
+
+    QuerySnapshot<Map<String, dynamic>> query;
+
+    if (limit > 0) {
+      query = await _menteeCollection.limit(limit).get();
+    } else {
+      query = await _menteeCollection.get();
+    }
+
+    mentorList = convertResponseObjectToList(query.docs.iterator);
+
+    return mentorList;
+  }
+
+  Future<List<Mentee>> getMenteeListByUserId(String userId) async {
     List<Mentee> menteeList = [];
     var query =
         await _menteeCollection.where("userId", isEqualTo: userId).get();
@@ -56,9 +71,7 @@ Future<Mentee> add(Mentee mentee) async {
   }
 
   Future update(Mentee mentee) async {
-    await _menteeCollection
-        .doc(mentee.getId()!)
-        .update(mentee.toMap());
+    await _menteeCollection.doc(mentee.getId()!).update(mentee.toMap());
   }
 
   List<Mentee> convertResponseObjectToList(
@@ -75,4 +88,3 @@ Future<Mentee> add(Mentee mentee) async {
     return returnList;
   }
 }
-
