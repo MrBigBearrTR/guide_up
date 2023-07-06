@@ -11,6 +11,7 @@ class FirestoreCollectionConstant {
   static const String category = "category";
   static const String mentor = "mentor";
   static const String mentee = "mentee";
+  static const String mentorFavourite = "mentorFavourite";
 
   static const String post = "post";
   static const String postCategories = "postCategories";
