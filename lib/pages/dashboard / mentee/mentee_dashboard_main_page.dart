@@ -40,7 +40,7 @@ class _MenteeDashboardMainPageState extends State<MenteeDashboardMainPage> {
         centerTitle: true,
         title: Text(
           '${userDetail != null ? (" ${userDetail!.getName()!} Dashboard") : "Mentee Dashboard"}',
-          style: TextStyle(
+          style: const TextStyle(
             color: ColorConstants.appcolor1,
             fontSize: 25,
           ),
@@ -53,19 +53,19 @@ class _MenteeDashboardMainPageState extends State<MenteeDashboardMainPage> {
           children: [
             Column(
               children: [
-                CircleAvatar(
+                const CircleAvatar(
                   radius: 50,
                   backgroundImage: AssetImage('assets/img/unknown_user.png'),
                 ),
-                SizedBox(height: 8),
+                const SizedBox(height: 8),
                 Text(
                   '${userDetail != null ? (" ${userDetail!.getName()!} ${userDetail!.getSurname()!}") : "User"}',
-                  style: TextStyle(fontSize: 20),
+                  style: const TextStyle(fontSize: 20),
                 ),
                 Text('${UserHelper().auth.currentUser!.email}'),
-                SizedBox(height: 40),
+                const SizedBox(height: 40),
                 Container(
-                  padding: EdgeInsets.fromLTRB(20, 8, 20, 8),
+                  padding: const EdgeInsets.fromLTRB(20, 8, 20, 8),
                   width: 330,
                   height: 200,
                   decoration: BoxDecoration(
@@ -79,7 +79,7 @@ class _MenteeDashboardMainPageState extends State<MenteeDashboardMainPage> {
                       ),
                     ],
                   ),
-                  child: Column(
+                  child: const Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text('İstatistikler', style: TextStyle(fontSize: 20)),
@@ -176,8 +176,8 @@ class _MenteeDashboardMainPageState extends State<MenteeDashboardMainPage> {
                     ],
                   ),
                 ),
-                SizedBox(height: 40),
-                Text(
+                const SizedBox(height: 40),
+                const Text(
                   'Yorumlarım',
                   style: TextStyle(fontSize: 20),
                 ),
@@ -198,9 +198,10 @@ class _MenteeDashboardMainPageState extends State<MenteeDashboardMainPage> {
                   ),
                   child: Column(
                     children: [
-                      Row(
+                      const Row(
                         mainAxisAlignment: MainAxisAlignment.start,
                         children: [
+                          SizedBox(width: 50),
                           Icon(
                             Icons.star,
                             size: 20,
@@ -228,24 +229,25 @@ class _MenteeDashboardMainPageState extends State<MenteeDashboardMainPage> {
                           ),
                         ],
                       ),
-                      SizedBox(height: 10),
+                      const SizedBox(height: 10),
                       Row(
                         children: [
-                          CircleAvatar(
+                          const CircleAvatar(
                             radius: 25,
                             backgroundImage:
                                 AssetImage('assets/img/unknown_user.png'),
                           ),
+                          const SizedBox(width: 6),
                           Container(
                             width: 220,
-                            child: Expanded(
+                            child: const Expanded(
                               child: Text(
-                                'Yazılım alanındaki deneyimleriniz ile şu an çok daha iyi yerler geleceğime inanıyorum.',
+                                ' Yazılım alanındaki deneyimleriniz ile çok daha iyi yerler geleceğime inanıyorum.',
                                 style: TextStyle(fontSize: 12),
                               ),
                             ),
-                          ),
-                          IconButton(onPressed: () {}, icon: Icon(Icons.edit),),
+                          ),                     
+                          Expanded(child: IconButton(onPressed: () {}, icon: Icon(Icons.edit),)),
                         ],
                       ),
                     ],
