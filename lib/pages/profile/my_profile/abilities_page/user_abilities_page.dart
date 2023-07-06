@@ -3,7 +3,7 @@ import 'package:guide_up/core/utils/secure_storage_helper.dart';
 import 'package:guide_up/repository/user/user_abilities/user_abilities_repository.dart';
 
 import '../../../../core/constant/color_constants.dart';
-import '../../../../core/models/users/user_abilities/user_abilities.dart';
+import '../../../../core/models/users/user_abilities/user_abilities_model.dart';
 
 class UserAbilitiesPage extends StatefulWidget {
   const UserAbilitiesPage({Key? key}) : super(key: key);

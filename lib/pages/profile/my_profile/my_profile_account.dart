@@ -533,7 +533,7 @@ class _MyProfileAccountState extends State<MyProfileAccount> {
                           icon: const Icon(Icons.add),
                           onPressed: () {
                             Navigator.pushNamed(
-                                context, RouterConstants.usereducationInformation);
+                                context, RouterConstants.userEducationInformationPage);
                           },
                         ),
                         IconButton(

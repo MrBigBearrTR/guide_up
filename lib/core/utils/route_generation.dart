@@ -61,8 +61,8 @@ class RouteGenerator {
         return _createRoute(const UserAbilitiesPage(), settings);
       case RouterConstants.userProjectPage:
          return _createRoute(const UserProjectPage(), settings);
-       case RouterConstants.usereducationInformation:
-        return _createRoute(const UserEducationInformation(), settings);
+       case RouterConstants.userEducationInformationPage:
+        return _createRoute(const UserEducationInformationPage(), settings);
       case RouterConstants.helpAndSupport:
         return _createRoute(const HelpAndSupport(), settings);
       case RouterConstants.aboutUs:
