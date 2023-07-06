@@ -51,7 +51,8 @@ class _LoginPageState extends State<LoginPage> {
           },
         );
       }
-    } catch (e) {
+    }
+    catch (e) {
       // Hata oluştu, hata mesajını ele alabilirsiniz
       showDialog(
         context: context,

@@ -10,6 +10,13 @@ class UserRepository {
     userCollections =
         FirebaseFirestore.instance.collection(FirestoreCollectionConstant.user);
   }
+  Future<String> add(UserModel userModel) async {
+    userModel.dbCheck('admin');
+
+    var process = await userCollections.add(userModel.toMap());
+
+    return process.id;
+  }
 
   Future<UserModel?> getUserByUid(String uid) async {
     var query = await userCollections.where("id", isEqualTo: uid).get();

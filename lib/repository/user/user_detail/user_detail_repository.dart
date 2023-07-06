@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:guide_up/core/constant/secure_strorage_constant.dart';
 import 'package:guide_up/core/models/users/user_detail/user_detail_model.dart';
+import 'package:guide_up/core/models/users/user_model.dart';
 
 import '../../../core/constant/firestore_collectioon_constant.dart';
 
@@ -11,6 +12,17 @@ class UserDetailRepository {
   UserDetailRepository() {
     _userDetailCollections = FirebaseFirestore.instance
         .collection(FirestoreCollectionConstant.userDetail);
+  }
+
+  Future<UserDetail> add(UserDetail userDetail) async {
+    userDetail.dbCheck(userDetail.getUserId()!);
+
+    var process = await _userDetailCollections.add(userDetail.toMap());
+
+    userDetail.setId(process.id);
+    await _userDetailCollections.doc(process.id).update(userDetail.toMap());
+
+    return userDetail;
   }
 
   Future<UserDetail?> get(String id) async {

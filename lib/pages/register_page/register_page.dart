@@ -1,8 +1,11 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:guide_up/core/constant/color_constants.dart';
+import 'package:guide_up/core/constant/router_constants.dart';
 import 'package:guide_up/core/models/users/user_model.dart';
 import 'package:guide_up/pages/register_page/register_with_detail.dart';
+import 'package:guide_up/service/user/user_service.dart';
 import 'package:guide_up/ui/material/custom_material.dart';
 
 import '../../core/constant/router_constants.dart';
@@ -38,13 +41,14 @@ class _RegisterPageState extends State<RegisterPage> {
     super.dispose();
   }
 
+
   void _showSnackBar(String message) {
     final snackBar = SnackBar(content: Text(message));
     ScaffoldMessenger.of(context).showSnackBar(snackBar);
   }
 
   void _register(BuildContext context) async {
-    String email = _emailController.text;
+    String email = _emailController.text; // trim ekle
     String password = _passwordController.text;
     String confirmPassword = _confirmPasswordController.text;
     bool isMentor = selectedRole == 'Mentor';
@@ -79,24 +83,21 @@ class _RegisterPageState extends State<RegisterPage> {
 
       try {
         // Check if email is already registered
-        bool isEmailRegistered = await UserHelper().isEmailRegistered(email);
+        bool isEmailRegistered = await UserHelper().isEmailRegistered(userModel.getEmail()!);
         if (isEmailRegistered) {
           ScaffoldMessenger.of(context).showSnackBar(
             SnackBar(content: Text("Bu e-posta zaten kayıtlı")),
           );
           return;
         }
-
-        UserModel registeredUser =
-            await UserHelper().registerWithUserModelAndDetail(userModel);
-        // Kayıt başarılı, işlemleri devam ettirebilirsiniz.
-        print('Kayıt başarılı: $registeredUser');
-        Navigator.push(
-          context,
-          MaterialPageRoute(
-            builder: (context) => RegisterWithDetail(userModel: registeredUser),
-          ),
-        );
+        String registeredUserId =
+            await UserService().saveUserModel(userModel);
+            // Kayıt başarılı, işlemleri devam ettirebilirsiniz.
+        print('Kayıt başarılı: $registeredUserId');
+        if(registeredUserId.isEmpty) {
+          throw Exception('Kayıt bilgisi gelmedi  ');
+        }
+       Navigator.pushNamed(context, RouterConstants.registerWithDetailPage,arguments: registeredUserId);
       } catch (error) {
         // Kayıt başarısız, hata mesajını göster veya işlem yap.
         print('Kayıt başarısız: $error');
@@ -105,6 +106,65 @@ class _RegisterPageState extends State<RegisterPage> {
       // Parolalar uyuşmuyor, hata mesajını göster veya işlem yap.
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(content: Text("Parolalar uyuşmuyor")),
+      );
+    }
+  }
+  void signInWithGoogle(BuildContext context) async {
+    try {
+      UserCredential? fireUser = await UserHelper().signInWithGoogle();
+      if (fireUser.user != null) {
+        // Giriş başarılı, kullanıcıyı kullanabilirsiniz
+        Navigator.pushReplacementNamed(context, RouterConstants.homePage);
+      } else {
+        // Giriş başarısız, hata mesajını ele alabilirsiniz
+        showDialog(
+          context: context,
+          builder: (context) {
+            return AlertDialog(
+              backgroundColor: ColorConstants.itemWhite,
+              title: const Text('Hata'),
+              content: const Text('Google ile giriş yaparken bir hata oluştu.'),
+              actions: [
+                TextButton(
+                  onPressed: () {
+                    Navigator.pop(context);
+                  },
+                  child: const Text(
+                    'Tamam',
+                    style: TextStyle(
+                      color: ColorConstants.itemBlack,
+                    ),
+                  ),
+                ),
+              ],
+            );
+          },
+        );
+      }
+    } catch (e) {
+      // Hata oluştu, hata mesajını ele alabilirsiniz
+      showDialog(
+        context: context,
+        builder: (context) {
+          return AlertDialog(
+            backgroundColor: ColorConstants.itemWhite,
+            title: const Text('Hata'),
+            content: Text('Google ile giriş yaparken bir hata oluştu: $e'),
+            actions: [
+              TextButton(
+                onPressed: () {
+                  Navigator.pop(context);
+                },
+                child: const Text(
+                  'Tamam',
+                  style: TextStyle(
+                    color: ColorConstants.itemBlack,
+                  ),
+                ),
+              ),
+            ],
+          );
+        },
       );
     }
   }
@@ -471,7 +531,7 @@ class _RegisterPageState extends State<RegisterPage> {
                       ),
                       ElevatedButton(
                         onPressed: () {
-                          _register(context);
+                          signInWithGoogle(context);
                         },
                         style: ElevatedButton.styleFrom(
                             shadowColor: Colors.deepOrange,
