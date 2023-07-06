@@ -1,11 +1,9 @@
-import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
-import 'package:guide_up/core/constant/router_constants.dart';
-import 'package:guide_up/core/constant/color_constants.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/material.dart';
+import 'package:guide_up/core/constant/color_constants.dart';
+import 'package:guide_up/core/constant/router_constants.dart';
 import 'package:guide_up/pages/login/fade_animation.dart';
 import 'package:guide_up/ui/material/custom_material.dart';
-
 
 import '../../core/utils/user_helper.dart';
 
@@ -17,7 +15,7 @@ class LoginPage extends StatefulWidget {
 }
 
 class _LoginPageState extends State<LoginPage> {
-  bool passwordVisible=false;
+  bool passwordVisible = false;
   final emailController = TextEditingController();
   final passwordController = TextEditingController();
 
@@ -139,7 +137,6 @@ class _LoginPageState extends State<LoginPage> {
     }
   }
 
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -151,22 +148,22 @@ class _LoginPageState extends State<LoginPage> {
               child: Container(
                 decoration: CustomMaterial.backgroundRegisterWithLoginDecoration,
                 child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      //LOGO
-                      const SizedBox(height: 10),
-                FadeAnimation(
-                    0.5,
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    //LOGO
+                    const SizedBox(height: 10),
+                    FadeAnimation(
+                      0.5,
                       Image.asset(
                         scale: 3,
                         'assets/logo/guideUpLogoWithBackground.png',
                       ),
-                ),
-                      //WELCOME BACK
-                      const SizedBox(height: 5),
-                      const FadeAnimation(
-                        1,
-                       Padding(
+                    ),
+                    //WELCOME BACK
+                    const SizedBox(height: 5),
+                    const FadeAnimation(
+                      1,
+                      Padding(
                         padding: EdgeInsets.symmetric(horizontal: 40),
                         child: Text(
                           'GuideUp ',
@@ -178,11 +175,11 @@ class _LoginPageState extends State<LoginPage> {
                           ),
                         ),
                       ),
-              ),
-                      const SizedBox(height: 10),
-                const FadeAnimation(
-                    1.5,
-                       Padding(
+                    ),
+                    const SizedBox(height: 10),
+                    const FadeAnimation(
+                      1.5,
+                      Padding(
                         padding: EdgeInsets.symmetric(horizontal: 40),
                         child: Text(
                           'Seni Burada Görmek Güzel  ',
@@ -194,119 +191,118 @@ class _LoginPageState extends State<LoginPage> {
                           ),
                         ),
                       ),
-                ),
-                      const SizedBox(height: 1),
-                      //USERNAME TEXTfield
-                      FadeAnimation(
-                        2,
-                        Container(
-                            width: double.infinity,
-                            height: 70,
-                            margin: const EdgeInsets.symmetric(
-                                horizontal: 20, vertical: 20),
-                            padding: const EdgeInsets.symmetric(
-                                horizontal: 15, vertical: 5),
-                            decoration: BoxDecoration(
-                                border: Border.all(
-                                    color: Colors.deepOrange, width: 1),
-                                boxShadow: const [
-                                  BoxShadow(
-                                      color: Colors.deepOrange,
-                                      blurRadius: 10,
-                                      offset: Offset(1, 1)),
-                                ],
-                                color: Colors.white,
-                                borderRadius: const BorderRadius.all(
-                                    Radius.circular(20))),
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.start,
-                              children: [
-                                const Icon(Icons.email_outlined),
-                                Expanded(
-                                  child: Container(
-                                    margin: const EdgeInsets.only(left: 10),
-                                    child: TextFormField(
-                                      controller: emailController,
-                                      obscureText: false,
-                                      maxLines: 1,
-                                      decoration: const InputDecoration(
-                                        label: Text(" E-mail ..."),
-                                        border: InputBorder.none,
-                                      ),
+                    ),
+                    const SizedBox(height: 1),
+                    //USERNAME TEXTfield
+                    FadeAnimation(
+                      2,
+                      Container(
+                          width: double.infinity,
+                          height: 70,
+                          margin: const EdgeInsets.symmetric(
+                              horizontal: 20, vertical: 20),
+                          padding: const EdgeInsets.symmetric(
+                              horizontal: 15, vertical: 5),
+                          decoration: BoxDecoration(
+                              border: Border.all(
+                                  color: Colors.deepOrange, width: 1),
+                              boxShadow: const [
+                                BoxShadow(
+                                    color: Colors.deepOrange,
+                                    blurRadius: 10,
+                                    offset: Offset(1, 1)),
+                              ],
+                              color: Colors.white,
+                              borderRadius:
+                                  const BorderRadius.all(Radius.circular(20))),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.start,
+                            children: [
+                              const Icon(Icons.email_outlined),
+                              Expanded(
+                                child: Container(
+                                  margin: const EdgeInsets.only(left: 10),
+                                  child: TextFormField(
+                                    controller: emailController,
+                                    obscureText: false,
+                                    maxLines: 1,
+                                    decoration: const InputDecoration(
+                                      label: Text(" E-mail ..."),
+                                      border: InputBorder.none,
                                     ),
                                   ),
                                 ),
-                              ],
-                            )),
-                      ),
+                              ),
+                            ],
+                          )),
+                    ),
 
-                      const SizedBox(height: 1),
-                      //FORGOT PASSWORD ?
-                      FadeAnimation(
-                        2.5,
-                        Container(
-                            width: double.infinity,
-                            height: 70,
-                            margin: const EdgeInsets.symmetric(
-                                horizontal: 20, vertical: 20),
-                            padding: const EdgeInsets.symmetric(
-                                horizontal: 15, vertical: 5),
-                            decoration: BoxDecoration(
-                                border: Border.all(
-                                    color: Colors.deepOrange, width: 1),
-                                boxShadow: const [
-                                  BoxShadow(
-                                      color: Colors.deepOrange,
-                                      blurRadius: 10,
-                                      offset: Offset(1, 1)),
-                                ],
-                                color: Colors.white,
-                                borderRadius: const BorderRadius.all(
-                                    Radius.circular(20))),
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.start,
-                              children: [
-                                const Icon(Icons.key),
-                                Expanded(
-                                  child: Container(
-
-                                    margin: const EdgeInsets.only(left: 10),
-                                    child: TextFormField(
-                                      controller: passwordController,
-                                      maxLines: 1,
-                                      obscureText: passwordVisible,
-                                      decoration: InputDecoration(
-                                        border: UnderlineInputBorder(),
-                                        hintText: "Password",
-                                        suffixIcon: IconButton(
-                                          icon: Icon(passwordVisible
-                                              ? Icons.visibility
-                                              : Icons.visibility_off),
-                                          onPressed: () {
-                                            setState(
-                                                  () {
-                                                passwordVisible = !passwordVisible;
-                                              },
-                                            );
+                    const SizedBox(height: 1),
+                    //FORGOT PASSWORD ?
+                    FadeAnimation(
+                      2.5,
+                      Container(
+                        width: double.infinity,
+                        height: 70,
+                        margin: const EdgeInsets.symmetric(
+                            horizontal: 20, vertical: 20),
+                        padding: const EdgeInsets.symmetric(
+                            horizontal: 15, vertical: 5),
+                        decoration: BoxDecoration(
+                            border:
+                                Border.all(color: Colors.deepOrange, width: 1),
+                            boxShadow: const [
+                              BoxShadow(
+                                  color: Colors.deepOrange,
+                                  blurRadius: 10,
+                                  offset: Offset(1, 1)),
+                            ],
+                            color: Colors.white,
+                            borderRadius:
+                                const BorderRadius.all(Radius.circular(20))),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          children: [
+                            const Icon(Icons.key),
+                            Expanded(
+                              child: Container(
+                                margin: const EdgeInsets.only(left: 10),
+                                child: TextFormField(
+                                  onFieldSubmitted: (value) =>
+                                      signUserIn(context),
+                                  controller: passwordController,
+                                  maxLines: 1,
+                                  obscureText: passwordVisible,
+                                  decoration: InputDecoration(
+                                    border: UnderlineInputBorder(),
+                                    hintText: "Password",
+                                    suffixIcon: IconButton(
+                                      icon: Icon(passwordVisible
+                                          ? Icons.visibility
+                                          : Icons.visibility_off),
+                                      onPressed: () {
+                                        setState(
+                                          () {
+                                            passwordVisible = !passwordVisible;
                                           },
-                                        ),
-                                        alignLabelWithHint: false,
-                                        filled: true,
-                                      ),
-                                      keyboardType: TextInputType.visiblePassword,
-                                      textInputAction: TextInputAction.done,
+                                        );
+                                      },
                                     ),
-                                    ),
+                                    alignLabelWithHint: false,
+                                    filled: true,
                                   ),
-
-
-                      ],
-              ),
-              ),
+                                  keyboardType: TextInputType.visiblePassword,
+                                  textInputAction: TextInputAction.done,
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
                       ),
-                        const SizedBox(height: 1),
-                FadeAnimation(
-                    3,
+                    ),
+                    const SizedBox(height: 1),
+                    FadeAnimation(
+                      3,
                       Padding(
                         padding: const EdgeInsets.all(25.0),
                         child: Row(
@@ -329,52 +325,50 @@ class _LoginPageState extends State<LoginPage> {
                           ],
                         ),
                       ),
-                ),
+                    ),
 
-                      //SİGN İN BUTTON
-                      const SizedBox(
-                        height: 1,
-                      ),
-                      FadeAnimation(
-                        3.5,
-                        ElevatedButton(
-                          onPressed: () {
-                            signUserIn(context);
-                          },
-                          style: ElevatedButton.styleFrom(
-                              shadowColor: Colors.deepOrange,
-                              elevation: 18,
-                              padding: EdgeInsets.zero,
-                              shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(20))),
-                          child: Ink(
-                            decoration: BoxDecoration(
-                                gradient: const LinearGradient(colors: [
-                                  Colors.deepOrange,
-                                  Colors.orange
-                                ]),
-                                borderRadius: BorderRadius.circular(20)),
-                            child: Container(
-                              width: 300,
-                              height: 40,
-                              alignment: Alignment.center,
-                              child: const Text(
-                                'Giriş Yap',
-                                style: TextStyle(
-                                  fontSize: 25,
-                                  color: Colors.white,
-                                ),
+                    //SİGN İN BUTTON
+                    const SizedBox(
+                      height: 1,
+                    ),
+                    FadeAnimation(
+                      3.5,
+                      ElevatedButton(
+                        onPressed: () {
+                          signUserIn(context);
+                        },
+                        style: ElevatedButton.styleFrom(
+                            shadowColor: Colors.deepOrange,
+                            elevation: 18,
+                            padding: EdgeInsets.zero,
+                            shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(20))),
+                        child: Ink(
+                          decoration: BoxDecoration(
+                              gradient: const LinearGradient(
+                                  colors: [Colors.deepOrange, Colors.orange]),
+                              borderRadius: BorderRadius.circular(20)),
+                          child: Container(
+                            width: 300,
+                            height: 40,
+                            alignment: Alignment.center,
+                            child: const Text(
+                              'Giriş Yap',
+                              style: TextStyle(
+                                fontSize: 25,
+                                color: Colors.white,
                               ),
                             ),
                           ),
                         ),
                       ),
+                    ),
 
-                      const SizedBox(height: 20),
-                      //CONTİNUE BUTTON
-                const FadeAnimation(
-                    4,
-                       Padding(
+                    const SizedBox(height: 20),
+                    //CONTİNUE BUTTON
+                    const FadeAnimation(
+                      4,
+                      Padding(
                         padding: EdgeInsets.symmetric(horizontal: 25.0),
                         child: Row(
                           children: [
@@ -491,22 +485,15 @@ class _LoginPageState extends State<LoginPage> {
                       )
                 ),
 
-                      // GOOGLE SİGN BUTTON
-                      //REGİSTER
-
-            ],
+                    // GOOGLE SİGN BUTTON
+                    //REGİSTER
+                  ],
+                ),
+              ),
             ),
-    ),
-    ),
-    ),
-    ),
-    ),
+          ),
+        ),
+      ),
     );
-
-
   }
-
-
 }
-
-

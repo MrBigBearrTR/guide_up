@@ -5,7 +5,7 @@ import 'package:guide_up/core/constant/color_constants.dart';
 import 'package:guide_up/core/constant/router_constants.dart';
 import 'package:guide_up/core/models/users/user_detail/user_detail_model.dart';
 import 'package:guide_up/core/utils/secure_storage_helper.dart';
-import 'package:guide_up/pages/home/mentor/mentor_card.dart';
+import 'package:guide_up/pages/mentor/card_pages/mentor_card.dart';
 
 import '../../core/constant/navigation_constants.dart';
 import '../../core/utils/user_helper.dart';
@@ -60,8 +60,10 @@ class _HomeScreenState extends State<HomeScreen> {
   Widget build(BuildContext context) {
     controlForSplashScreen(context);
     return Scaffold(
+
       appBar: AppBar(
         backgroundColor: ColorConstants.theme1White,
+        automaticallyImplyLeading: false,
         title: const Text(
           'G u i d e  U p',
           style: TextStyle(

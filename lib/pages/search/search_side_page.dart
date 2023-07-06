@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:guide_up/core/models/users/user_detail/user_detail_model.dart';
+import 'package:guide_up/core/utils/user_info_helper.dart';
 import 'package:guide_up/pages/search/category/category_card.dart';
 import 'package:guide_up/pages/search/category/category_select_helper.dart';
 import 'package:guide_up/pages/search/category/list_size_control.dart';
@@ -58,10 +59,7 @@ class _SearchSidePageState extends State<SearchSidePage> {
                     child: CircleAvatar(
                       radius: 40,
                       backgroundColor: ColorConstants.theme1White,
-                      backgroundImage: _userDetail != null
-                          ? const AssetImage('assets/img/unknown_user.png')
-                          : const AssetImage(
-                              'assets/logo/guideUpLogoWithBackground.png'),
+                      backgroundImage: UserInfoHelper.getProfilePicture(_userDetail),
                     ),
                   ),
                   const SizedBox(width: 20),
