@@ -1,31 +1,38 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:guide_up/core/models/mentor/mentor_model.dart';
-import 'package:guide_up/core/utils/secure_storage_helper.dart';
 
 import '../../core/constant/firestore_collectioon_constant.dart';
 
 class MentorRepository {
-  late final CollectionReference<Map<String, dynamic>> mentorCollections;
+  late final CollectionReference<Map<String, dynamic>> _mentorCollections;
 
   MentorRepository() {
-    mentorCollections = FirebaseFirestore.instance
+    _mentorCollections = FirebaseFirestore.instance
         .collection(FirestoreCollectionConstant.mentor);
   }
 
-  //Sık Kullanılan Mentorlar için Top kelimesini kullandım.
-  Future<List<Mentor>> getTopMentorList() async {
-    // List<Mentor> mentorList = [];
+  Future<Mentor> add(Mentor mentor) async {
+    mentor.dbCheck(mentor.getUserId()!);
 
-    // var query =
-    //     await mentorCollections.get();
+    var process = await _mentorCollections.add(mentor.toMap());
 
-    // mentorList = convertResponseObjectToList(query.docs.iterator);
+    mentor.setId(process.id);
+    await _mentorCollections.doc(process.id).update(mentor.toMap());
 
-    return getList();
+    return mentor;
+  }
+
+  Future<Mentor?> get(String id) async {
+    var query = await _mentorCollections.doc(id).get();
+
+    if (query.data() != null) {
+      return Mentor().toClass(query.data()!);
+    }
+    return null;
   }
 
   // Senin için Önerilen Mentorlar için Recommend
-  Future<List<Mentor>> getRecommendMentorListByUserId (String userId) async {
+  Future<List<Mentor>> getRecommendMentorListByUserId(String userId) async {
     // List<Mentor> mentorList = [];
 
     // var query =
@@ -33,31 +40,26 @@ class MentorRepository {
 
     // mentorList = convertResponseObjectToList(query.docs.iterator);
 
-    return getList();
+    return getList(0);
   }
 
-  Future<List<Mentor>> getList() async {
+  Future<List<Mentor>> getList(int limit) async {
     List<Mentor> mentorList = [];
 
-    var query = await mentorCollections.get();
+    QuerySnapshot<Map<String, dynamic>> query;
+    if (limit > 0) {
+      query = await _mentorCollections.limit(limit).get();
+    } else {
+      query = await _mentorCollections.get();
+    }
 
     mentorList = convertResponseObjectToList(query.docs.iterator);
 
     return mentorList;
   }
 
-  Future<Mentor> add(Mentor mentor) async {
-    String? userId = await SecureStorageHelper().getUserId();
-    if (userId != null) {
-      mentor.dbCheck(userId);
-    }
-
-    var process = await mentorCollections.add(mentor.toMap());
-
-    mentor.setId(process.id);
-    await mentorCollections.doc(process.id).update(mentor.toMap());
-
-    return mentor;
+  Future update(Mentor mentor) async {
+    await _mentorCollections.doc(mentor.getId()!).update(mentor.toMap());
   }
 
   List<Mentor> convertResponseObjectToList(

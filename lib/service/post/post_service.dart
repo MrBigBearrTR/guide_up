@@ -7,6 +7,7 @@ import 'package:guide_up/repository/post/post_repository.dart';
 import 'package:guide_up/repository/user/user_detail/user_detail_repository.dart';
 
 import '../../core/models/post/post_model.dart';
+import '../../core/utils/repository_helper.dart';
 
 class PostService {
   late PostLikeSaveRepository _postLikeSaveRepository;
@@ -62,9 +63,9 @@ class PostService {
         count++;
         likeMap[postLikeSave.getPostId()!] = count;
       }
-      List<MapEntry<String, int>> entryList = likeMap.entries.toList();
-      entryList.sort((a, b) => b.value.compareTo(a.value));
-      Map<String, int> sortedMap = Map.fromEntries(entryList);
+
+      Map<String, int> sortedMap = RepositoryHelper.sortedByCount(likeMap);
+
       if (limit > 0) {
         for (var entry in sortedMap.entries) {
           if (limit == 0) {

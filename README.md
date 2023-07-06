@@ -114,26 +114,56 @@ Sprint 3 planlaması yapıldı.
 Sprint içinde tamamlanması tahmin edilen puan: 140 Puan
 
 Puan tamamlama mantığı: Toplamda proje boyunca tamamlanması gereken 340 puanlık backlog bulunmaktadır. 3 sprint'e bölündüğünde sprint 2  içerisindeki görevlerin dağılımına göre Sprint 2 'nin  140 puan  olması gerektiğine karar verildi.
+Verilen görevler yerine getirildi ve  ilk hafta hedeflenen puana ulaşıldı. Tabloda bir sonraki görevlere geçildi. 
 
-Daily Scrum:  Dily Scrum Toplantıları Discord ve whatssapp üzerinden devam etmekte olup hairici olarak slack üzerinden de yapılmaya devam etmektedir. Retroo.io ile Sprint 2 başında anonim olarak katılıp fikrilerimizi beyan ettiğimiz 1 saatlik bir retro ile toplantılarımızda neye öncelik vereceğimize karar verdik. Daily Scrum toplantısı örneği  ve Retro toplantımız jpeg veya word olarak Readme'de tarafımızdan paylaşılmaktadır:
+Daily Scrum:  Dily Scrum Toplantıları Discord ve whatssapp üzerinden devam etmekte olup Discord toplantılarımız uzun sürdüğü zaman ara verilip değişiklik olması açısından slack üzerinden de yapılmaya devam etmektedir. Retroo.io ile Sprint 2 başında anonim olarak katılıp fikrilerimizi beyan ettiğimiz 1 saatlik bir retro ile toplantılarımızda neye öncelik vereceğimize karar verdik. Daily Scrum toplantısı örneği  ve Retro toplantımız jpeg veya word olarak Readme'de tarafımızdan paylaşılmaktadır:
+
+(https://drive.google.com/file/d/1MKLmqMgRqdntuS3jx19JAlqBzosLliT-/view?usp=sharing)
+
+VE
+
+RETROMUZ (https://drive.google.com/file/d/12wyB8al8LQb-yJaMM_da6SODFBxZ6vCS/view?usp=sharing)
 
 Sprint board update: Sprint board screenshotları: Tamamını görmek için (https://miro.com/app/board/uXjVMBG0TQU=/)
 
+![sprint2 ](https://github.com/MrBigBearrTR/guide_up/assets/91954062/b2094064-8201-40f3-9564-831163fae98f)
+
+![1 ](https://github.com/MrBigBearrTR/guide_up/assets/91954062/bc32092d-5bcc-45a5-a034-3d1dc1aa4123)
+
+![2 ](https://github.com/MrBigBearrTR/guide_up/assets/91954062/82b65be9-8c98-4829-8681-b639d29898e3)
 
 
 Ürün Durumu Ekran Görüntüleri : 
 
 
 
+https://github.com/MrBigBearrTR/guide_up/assets/91954062/44256e3b-f51a-4576-b6cc-92c04e92fe67
+
+
+
 Video Görüntüleri :  
+
+
+https://github.com/MrBigBearrTR/guide_up/assets/91954062/06ab7458-a82e-49de-9b22-e84742a55ff9
+
+https://github.com/MrBigBearrTR/guide_up/assets/91954062/89712391-3a7e-43b8-bc45-f48031548a5b
+
 
 
 ## Sprint 2 Review 
 
-Review: Figmada yaptığımız uygulamamızın tasarımlarına ve veri yapımıza göre uygulamamızın %80lik kısmı tamamnlanmış olup eksik kısımara yönelindi. Yapılan sayfalar: Register page, Login page , Search Page , Search bar , Profile page , Settings Page , dashboard ve Sprint 1 sayfa düzenlemeleri yapıldı.  Toplantılara eksiksiz tüm ekip üyeleri katıldı ve verilen görevler tamamlandı. 
+Review: Figmada yaptığımız uygulamamızın tasarımlarına ve veri yapımıza göre uygulamamızın %80lik kısmı tamamnlanmış olup eksik kısımara yönelindi. Yapılan sayfalar: Register page, Login page , Search Page , Search bar , Profile page , Settings Page , dashboard ve Sprint 1 sayfa düzenlemeleri yapıldı.  Toplantılara eksiksiz tüm ekip üyeleri katıldı ve verilen görevler tamamlandı. Ekip arkadaşlarımız düzenli ve hızlı bir şekilde gece gündüz çalışamlarına devam etmektedir. 
 
 Sprint Retrospective:
-- Daha hızlı olunmalı ve verilen görevler eksiksiz ve tam vaktinde yerine getirilmesi kararı alınmıştır.
+
+Ne iyi gitti? : Ekip arkadaşlarımız ile hız kazanmamız gerektiği yönündeki sprint 1 retromuz etkili oldu ve ekip olarak hız kazandık ve bunu uygulamamıza yansıtmış bulunduk. 
+
+Ne geliştirilebilir?: Ekisk sayfalarımız ve tasarımlarımız mevcut daha düzenli ve çözüm odaklı olup bu eksiklikleri giderebiliriz. 
+
+Hangi eylemleri gerçekleştireceğiz?  : 
+Eksik sayfalarımızı tamamlayıp sprint 3  ile uygulamamızda olabildiğince tam ve hazır hale getirmeye çalışacağız. 
+Her gün düzenli olarak ilerişimimizi daha güçlendirmek ve odağımızın dağılmaması için toplantılar yapacapız. 
+Hedefe kilit bir şekilde uygulamamızı kullanıcılar ile buluşturacağız. 
 
 
 
