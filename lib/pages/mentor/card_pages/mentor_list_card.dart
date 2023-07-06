@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:guide_up/core/utils/user_info_helper.dart';
+import 'package:guide_up/core/models/mentor/mentor_model.dart';
 
-import '../../core/constant/color_constants.dart';
-import '../../core/dto/post/post_card_view.dart';
+import '../../../core/constant/color_constants.dart';
+import '../../../core/utils/user_info_helper.dart';
 
-class PostCard extends StatelessWidget {
-  final PostCardView postCardView;
+class MentorListCard extends StatelessWidget {
+  final Mentor mentor;
 
-  const PostCard({Key? key, required this.postCardView}) : super(key: key);
+  const MentorListCard({Key? key, required this.mentor}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -16,7 +16,7 @@ class PostCard extends StatelessWidget {
       color: ColorConstants.theme1White,
       child: ListTile(
         title: Text(
-          postCardView.topic!,
+          mentor.getName()!,
           style: GoogleFonts.nunito(
             textStyle: const TextStyle(
               fontWeight: FontWeight.bold,
@@ -25,7 +25,7 @@ class PostCard extends StatelessWidget {
           ),
         ),
         subtitle: Text(
-          postCardView.content!,
+          mentor.getAbout() != null ? mentor.getAbout()! : "",
           maxLines: 3,
           softWrap: true,
           style: GoogleFonts.nunito(
@@ -38,7 +38,7 @@ class PostCard extends StatelessWidget {
         leading: CircleAvatar(
           radius: 30,
           backgroundImage:
-              UserInfoHelper.getProfilePictureByPath(postCardView.userPhoto),
+              UserInfoHelper.getProfilePictureByPath(mentor.getPhoto()),
         ),
       ),
     );

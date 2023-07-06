@@ -39,6 +39,26 @@ class RouteGenerator {
     }
   }
 
+  static Route<dynamic> createExceptRoute(
+      Widget routeWidget, {RouteSettings? settings}) {
+    if (defaultTargetPlatform == TargetPlatform.iOS) {
+      return CupertinoPageRoute(
+        settings: settings,
+        builder: (builder) => routeWidget,
+      );
+    } else if (defaultTargetPlatform == TargetPlatform.android) {
+      return MaterialPageRoute(
+        settings: settings,
+        builder: (builder) => routeWidget,
+      );
+    } else {
+      return CupertinoPageRoute(
+        settings: settings,
+        builder: (builder) => routeWidget,
+      );
+    }
+  }
+
   static Route<dynamic>? routeGeneration(RouteSettings settings) {
     switch (settings.name) {
       case RouterConstants.testDateControllerPage:

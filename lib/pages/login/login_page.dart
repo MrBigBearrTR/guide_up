@@ -277,7 +277,8 @@ class _LoginPageState extends State<LoginPage> {
                               child: Container(
                                 margin: const EdgeInsets.only(left: 10),
                                 child: TextFormField(
-                                  onFieldSubmitted: (value) => signUserIn(context),
+                                  onFieldSubmitted: (value) =>
+                                      signUserIn(context),
                                   controller: passwordController,
                                   maxLines: 1,
                                   obscureText: passwordVisible,

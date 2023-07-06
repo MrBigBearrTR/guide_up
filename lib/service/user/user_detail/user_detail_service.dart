@@ -23,4 +23,9 @@ class UserDetailService{
 
     return null;
   }
+
+  Future<UserDetail?> getUserByUserId(String userId) async {
+
+    return _userDetailRepository.getUserByUserId(userId);
+  }
 }

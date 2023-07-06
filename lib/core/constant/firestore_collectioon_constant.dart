@@ -10,8 +10,11 @@ class FirestoreCollectionConstant {
   static const String mentee = "mentee";
 
   static const String post = "post";
-  static const String postCategories = "post_categories";
-  static const String postLikeSave = "post_like_save";
+  static const String postCategories = "postCategories";
+  static const String postLikeSave = "postLikeSave";
+
+  static const String conversation = "conversation";
+  static const String messages = "messages";
 
   static const String uploadProfilePicturesPath="users/profile_pictures/";
   static const String uploadPostPicturesPath="post/post_pictures/";

@@ -13,7 +13,7 @@ import 'package:guide_up/service/post/post_service.dart';
 import '../../core/constant/color_constants.dart';
 import '../../core/models/category/category_model.dart';
 import '../../ui/material/custom_material.dart';
-import '../home/mentor/mentor_card.dart';
+import '../mentor/card_pages/mentor_card.dart';
 
 class SearchMainPage extends StatefulWidget {
   final GlobalKey<CurvedNavigationBarState> navigationKey;

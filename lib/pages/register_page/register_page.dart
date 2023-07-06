@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:guide_up/core/constant/color_constants.dart';
 import 'package:guide_up/core/models/users/user_model.dart';
-import 'package:guide_up/pages/login/login_page.dart';
 import 'package:guide_up/pages/register_page/register_with_detail.dart';
 
+import '../../core/constant/router_constants.dart';
 import '../../core/utils/user_helper.dart';
 
 class RegisterPage extends StatefulWidget {
@@ -531,12 +531,8 @@ class _RegisterPageState extends State<RegisterPage> {
                           const SizedBox(height: 8),
                           TextButton(
                             onPressed: () {
-                              Navigator.pushReplacement(
-                                context,
-                                MaterialPageRoute(
-                                  builder: (context) => const LoginPage(),
-                                ),
-                              );
+                              Navigator.pushReplacementNamed(
+                                  context, RouterConstants.loginPage);
                             },
                             child: const Text(
                               'Hemen Giriş Yapın',

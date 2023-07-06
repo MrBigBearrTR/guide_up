@@ -2,12 +2,13 @@ import 'package:guide_up/core/models/general/general_fields_model.dart';
 
 import '../../utils/control_helper.dart';
 
-/// [@author MrBigBear] 
+/// [@author MrBigBear]
 class Mentor extends GeneralFields {
   String? _id;
   String? _userId;
   String? _name;
   String? _surname;
+  String? _about;
   String? _photo;
   int? _rate;
 
@@ -43,6 +44,14 @@ class Mentor extends GeneralFields {
     _surname = surname;
   }
 
+  String? getAbout() {
+    return _about;
+  }
+
+  void setAbout(String about) {
+    _about = about;
+  }
+
   String? getPhoto() {
     return _photo;
   }
@@ -65,6 +74,7 @@ class Mentor extends GeneralFields {
     map['userid'] = getUserId();
     map['name'] = getName();
     map['surname'] = getSurname();
+    map['about'] = getAbout();
     map['photo'] = getPhoto();
     map['rate'] = getRate();
     return map;
@@ -84,6 +94,9 @@ class Mentor extends GeneralFields {
     }
     if (ControlHelper.checkMapValue(map, 'surname')) {
       setSurname(map['surname']);
+    }
+    if (ControlHelper.checkMapValue(map, 'about')) {
+      setAbout(map['about']);
     }
     if (ControlHelper.checkMapValue(map, 'photo')) {
       setPhoto(map['photo']);
