@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:guide_up/core/utils/secure_storage_helper.dart';
 import 'package:guide_up/repository/user/user_abilities/user_abilities_repository.dart';
 
@@ -62,17 +63,17 @@ class _UserAbilitiesPageState extends State<UserAbilitiesPage> {
       context: context,
       builder: (BuildContext context) {
         return AlertDialog(
-          title: const Text('Yeteneği Sil',
-              style: TextStyle(color: ColorConstants.itemWhite)),
-          content: const Text('Bu yeteneği silmek istediğinizden emin misiniz?',
-              style: TextStyle(color: ColorConstants.itemWhite)),
+          title: Text('Yeteneği Sil',
+              style: GoogleFonts.nunito(color: ColorConstants.itemWhite)),
+          content: Text('Bu yeteneği silmek istediğinizden emin misiniz?',
+              style: GoogleFonts.nunito(color: ColorConstants.itemWhite)),
           actions: [
             TextButton(
               onPressed: () {
                 Navigator.of(context).pop();
               },
-              child: const Text('İptal',
-                  style: TextStyle(color: ColorConstants.itemWhite)),
+              child: Text('İptal',
+                  style: GoogleFonts.nunito(color: ColorConstants.itemWhite)),
             ),
             TextButton(
               onPressed: () async {
@@ -85,10 +86,11 @@ class _UserAbilitiesPageState extends State<UserAbilitiesPage> {
                 } catch (error) {
                   print('Failed to delete ability from Firebase: $error');
                 }
+                // ignore: use_build_context_synchronously
                 Navigator.of(context).pop();
               },
-              child: const Text('Sil',
-                  style: TextStyle(color: ColorConstants.itemWhite)),
+              child: Text('Sil',
+                  style: GoogleFonts.nunito(color: ColorConstants.itemWhite)),
             ),
           ],
           backgroundColor: ColorConstants.theme1DarkBlue,
@@ -102,7 +104,12 @@ class _UserAbilitiesPageState extends State<UserAbilitiesPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Yetenekler'),
+        title: Text('Yetenekler',
+        style: GoogleFonts.nunito( // Yetenekler yazısının yazı tipi
+          fontSize: 22,
+          fontWeight: FontWeight.bold,
+        ),
+        ),
         backgroundColor: ColorConstants.theme2White, // AppBar arka plan rengi
         actions: [
           Padding(
@@ -128,13 +135,17 @@ class _UserAbilitiesPageState extends State<UserAbilitiesPage> {
                     child: CircularProgressIndicator(),
                   );
                 } else if (snapshot.hasError) {
-                  return const Center(
-                    child: Text('Yeteneklerinizi şu an listeyemiyoruz.'),
+                  return Center(
+                    child: Text('Yeteneklerinizi şu an listeyemiyoruz.',
+                      style: GoogleFonts.nunito(),
+                    ),
                   );
                 } else {
                   if ((snapshot.data != null && snapshot.data!.isEmpty)) {
-                    return const Center(
-                      child: Text('Yetenek kaydınız bulunamadı. Eklemeye ne dersiniz.'),
+                    return Center(
+                      child: Text('Yetenek kaydınız bulunamadı. Eklemeye ne dersiniz.',
+                        style: GoogleFonts.nunito(),
+                      ),
                     );
                   } else {
                     return ListView.builder(
@@ -148,7 +159,7 @@ class _UserAbilitiesPageState extends State<UserAbilitiesPage> {
                           child: ListTile(
                             title: Text(
                               ability.getAbility() ?? '',
-                              style: TextStyle(
+                              style: GoogleFonts.nunito(
                                 fontWeight: FontWeight.bold,
                                 color: ColorConstants.theme2Orange, // Yetenek metni rengi
                               ),
@@ -187,7 +198,7 @@ class _UserAbilitiesPageState extends State<UserAbilitiesPage> {
                           Expanded(
                             child: TextField(
                               controller: abilityController,
-                              decoration: InputDecoration(
+                              decoration: const InputDecoration(
                                 hintText: 'Yetenek ekle',
                                 border: InputBorder.none,
                               ),
@@ -197,7 +208,7 @@ class _UserAbilitiesPageState extends State<UserAbilitiesPage> {
                           const SizedBox(width: 8.0),
                           IconButton(
                             onPressed: addAbility,
-                            icon: Icon(
+                            icon: const Icon(
                               Icons.add,
                               color: ColorConstants.theme1DarkBlue,
                             ),
