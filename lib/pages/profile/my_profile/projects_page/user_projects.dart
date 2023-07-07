@@ -5,6 +5,7 @@ import 'package:guide_up/repository/user/user_project/user_project_repository.da
 
 import '../../../../core/constant/color_constants.dart';
 import '../../../../core/models/users/user_project/user_project_model.dart';
+import '../../../../ui/material/custom_material.dart';
 
 class UserProjectPage extends StatefulWidget {
   const UserProjectPage({Key? key}) : super(key: key);
@@ -195,7 +196,6 @@ class _UserProjectPageState extends State<UserProjectPage> {
             fontWeight: FontWeight.bold,
           ),
         ),
-        backgroundColor: ColorConstants.theme2White, // AppBar arka plan rengi
         actions: [
           Padding(
             padding: const EdgeInsets.only(right: 8.0),
@@ -207,7 +207,10 @@ class _UserProjectPageState extends State<UserProjectPage> {
           ),
         ],
       ),
-      body: Column(
+      body: Container(
+        decoration: CustomMaterial.backgroundBoxDecoration,
+        padding: const EdgeInsets.all(16.0),
+        child:  Column(
         children: [
           Expanded(
             child: FutureBuilder<List<UserProject>>(
@@ -269,13 +272,15 @@ class _UserProjectPageState extends State<UserProjectPage> {
           ),
         ],
       ),
-      floatingActionButton: FloatingActionButton(
-        backgroundColor: ColorConstants.theme1DarkBlue, // Buton kutusu arka plan rengi
-        onPressed: showAddProjectPopup,
-        child: const Icon(Icons.add,
-          color: ColorConstants.itemWhite,
+    ),
+        floatingActionButton: FloatingActionButton(
+          backgroundColor: ColorConstants.theme1DarkBlue, // Buton kutusu arka plan rengi
+          onPressed: showAddProjectPopup,
+          child: const Icon(
+            Icons.add,
+            color: ColorConstants.itemWhite,
+          ),
         ),
-      ),
     );
   }
 }

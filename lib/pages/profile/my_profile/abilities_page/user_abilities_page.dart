@@ -123,7 +123,7 @@ class _UserAbilitiesPageState extends State<UserAbilitiesPage> {
         ],
       ),
       body: Container(
-    decoration: CustomMaterial.backgroundBoxDecoration ,
+    decoration: CustomMaterial.backgroundBoxDecoration,
     padding: const EdgeInsets.all(16.0),
     child:  Column(
         children: [
