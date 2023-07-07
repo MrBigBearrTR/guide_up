@@ -569,12 +569,6 @@ class _MyProfileAccountState extends State<MyProfileAccount> {
                                 context, RouterConstants.userProjectPage);
                           },
                         ),
-                        IconButton(
-                          icon: const Icon(Icons.edit),
-                          onPressed: () {
-                            // Kalem butonuna tıklandığında yapılacak işlemler
-                          },
-                        ),
                       ],
                     ),
                   ),
@@ -600,12 +594,6 @@ class _MyProfileAccountState extends State<MyProfileAccount> {
                           onPressed: () {
                             Navigator.pushNamed(
                                 context, RouterConstants.userAbilities);
-                          },
-                        ),
-                        IconButton(
-                          icon: const Icon(Icons.edit),
-                          onPressed: () {
-                            // Kalem butonuna tıklandığında yapılacak işlemler
                           },
                         ),
                       ],

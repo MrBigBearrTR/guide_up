@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:guide_up/core/utils/secure_storage_helper.dart';
 import 'package:guide_up/repository/user/user_project/user_project_repository.dart';
 
@@ -71,27 +72,45 @@ class _UserProjectPageState extends State<UserProjectPage> {
       context: context,
       builder: (BuildContext context) {
         return AlertDialog(
-          title: const Text('Yeni Proje Ekle'),
+          title: Text(
+            'Yeni Proje Ekle',
+            style: GoogleFonts.nunito(color: ColorConstants.itemWhite), // Yazı rengini beyaz yapar
+          ),
           content: Column(
             mainAxisSize: MainAxisSize.min,
             children: [
               TextField(
                 controller: projectController,
-                decoration: const InputDecoration(
+                decoration: InputDecoration(
                   labelText: 'Proje Adı',
+                  labelStyle: GoogleFonts.nunito(color: ColorConstants.itemWhite), // Yazı rengini beyaz yapar
+                  focusedBorder: const UnderlineInputBorder(
+                    borderSide: BorderSide(color: ColorConstants.theme2Orange), // Yatay çizgi rengi
+                  ),
                 ),
+                cursorColor: ColorConstants.theme2Orange, // İmleç rengi
               ),
               TextField(
                 controller: descriptionController,
-                decoration: const InputDecoration(
+                decoration: InputDecoration(
                   labelText: 'Proje Açıklaması',
+                  labelStyle: GoogleFonts.nunito(color: ColorConstants.itemWhite), // Yazı rengini beyaz yapar
+                  focusedBorder: const UnderlineInputBorder(
+                    borderSide: BorderSide(color: ColorConstants.theme2Orange), // Yatay çizgi rengi
+                  ),
                 ),
+                cursorColor: ColorConstants.theme2Orange, // İmleç rengi
               ),
               TextField(
                 controller: linkController,
-                decoration: const InputDecoration(
+                decoration: InputDecoration(
                   labelText: 'Proje Linki (isteğe bağlı)',
+                  labelStyle: GoogleFonts.nunito(color: ColorConstants.itemWhite), // Yazı rengini beyaz yapar
+                  focusedBorder: const UnderlineInputBorder(
+                    borderSide: BorderSide(color: ColorConstants.theme2Orange), // Yatay çizgi rengi
+                  ),
                 ),
+                cursorColor: ColorConstants.theme2Orange, // İmleç rengi
               ),
             ],
           ),
@@ -100,14 +119,20 @@ class _UserProjectPageState extends State<UserProjectPage> {
               onPressed: () {
                 Navigator.of(context).pop();
               },
-              child: const Text('İptal'),
+              child: Text(
+                'İptal',
+                style: GoogleFonts.nunito(color: ColorConstants.itemWhite), // Yazı rengini beyaz yapar
+              ),
             ),
             ElevatedButton(
               onPressed: () {
                 addProject();
                 Navigator.of(context).pop();
               },
-              child: const Text('Ekle'),
+              child: Text(
+                'Ekle',
+                style: GoogleFonts.nunito(color: ColorConstants.info), // Yazı rengini mavi yapar
+              ),
             ),
           ],
           backgroundColor: ColorConstants.theme1DarkBlue,
@@ -116,19 +141,23 @@ class _UserProjectPageState extends State<UserProjectPage> {
     );
   }
 
+
   void deleteProject(UserProject project) async {
     showDialog(
       context: context,
       builder: (BuildContext context) {
         return AlertDialog(
-          title: const Text('Projeyi Sil'),
-          content: const Text('Bu projeyi silmek istediğinizden emin misiniz?'),
+          title: Text('Projeyi Sil',
+              style: GoogleFonts.nunito(color: ColorConstants.itemWhite)),
+          content: Text('Bu projeyi silmek istediğinizden emin misiniz?',
+              style: GoogleFonts.nunito(color: ColorConstants.itemWhite)),
           actions: [
             TextButton(
               onPressed: () {
                 Navigator.of(context).pop();
               },
-              child: const Text('İptal'),
+              child: Text('İptal',
+                  style: GoogleFonts.nunito(color: ColorConstants.itemWhite)),
             ),
             TextButton(
               onPressed: () async {
@@ -143,9 +172,11 @@ class _UserProjectPageState extends State<UserProjectPage> {
                 } catch (error) {
                   print('Failed to delete project from Firebase: $error');
                 }
+                // ignore: use_build_context_synchronously
                 Navigator.of(context).pop();
               },
-              child: const Text('Sil'),
+              child: Text('Sil',
+                  style: GoogleFonts.nunito(color: ColorConstants.itemWhite)),
             ),
           ],
           backgroundColor: ColorConstants.theme1DarkBlue,
@@ -155,11 +186,26 @@ class _UserProjectPageState extends State<UserProjectPage> {
   }
 
   @override
-  @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Projeler'),
+        title: Text('Projeler',
+          style: GoogleFonts.nunito( // Yetenekler yazısının yazı tipi
+            fontSize: 22,
+            fontWeight: FontWeight.bold,
+          ),
+        ),
+        backgroundColor: ColorConstants.theme2White, // AppBar arka plan rengi
+        actions: [
+          Padding(
+            padding: const EdgeInsets.only(right: 8.0),
+            child: Image.asset(
+              'assets/logo/guideUpLogo.png', // Logo resminin yolunu buraya ekleyin
+              width: 62,
+              height: 62,
+            ),
+          ),
+        ],
       ),
       body: Column(
         children: [
@@ -171,27 +217,46 @@ class _UserProjectPageState extends State<UserProjectPage> {
                     child: CircularProgressIndicator(),
                   );
                 } else if (snapshot.hasError) {
-                  return const Center(
-                    child: Text('Projelerinizi şu an listeyemiyoruz.'),
+                  return Center(
+                    child: Text('Projelerinizi şu an listeyemiyoruz.',
+                      style: GoogleFonts.nunito( // Yetenekler yazısının yazı tipi
+                        fontSize: 22,
+                        fontWeight: FontWeight.bold,
+                      ),),
                   );
                 } else {
                   if ((snapshot.data != null && snapshot.data!.isEmpty)) {
-                    return const Center(
+                    return Center(
                       child: Text(
-                          'Proje kaydınız bulunamadı. Eklemeye ne dersiniz?'),
+                          'Proje kaydınız bulunamadı. Eklemeye ne dersiniz?',
+                        style: GoogleFonts.nunito( // Yetenekler yazısının yazı tipi
+                          fontSize: 22,
+                          fontWeight: FontWeight.bold,
+                        ),),
                     );
                   } else {
                     return ListView.builder(
                       itemCount: snapshot.data!.length,
                       itemBuilder: (context, index) {
                         final project = snapshot.data![index];
-                        return ListTile(
-                          title: Text(project.getProject() ?? ''),
-                          subtitle: Text(project.getDescription() ?? ''),
+                        return Card(
+                          color: ColorConstants.theme1DarkBlue, // Eklenen Proje tablo rengi
+                          elevation: 2, // Card'ın gölgelendirme seviyesi
+                          margin: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+                          child: ListTile(
+                          title: Text(
+                            project.getProject() ?? '',
+                          style: GoogleFonts.nunito(
+                          fontWeight: FontWeight.bold,
+                          color: ColorConstants.theme2Orange, // Proje metni rengi
+                        ),
+                        ),
                           trailing: IconButton(
                             icon: const Icon(Icons.delete),
                             onPressed: () => deleteProject(project),
+                            color: ColorConstants.theme2Orange, // Silme butonu rengi
                           ),
+                        ),
                         );
                       },
                     );
@@ -205,8 +270,11 @@ class _UserProjectPageState extends State<UserProjectPage> {
         ],
       ),
       floatingActionButton: FloatingActionButton(
+        backgroundColor: ColorConstants.theme1DarkBlue, // Buton kutusu arka plan rengi
         onPressed: showAddProjectPopup,
-        child: const Icon(Icons.add),
+        child: const Icon(Icons.add,
+          color: ColorConstants.itemWhite,
+        ),
       ),
     );
   }
