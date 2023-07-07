@@ -15,8 +15,6 @@ class UserEducationInformationPage extends StatefulWidget {
 }
 
 class _UserEducationInformationPageState extends State<UserEducationInformationPage> {
-  TextEditingController firstNameController = TextEditingController();
-  TextEditingController lastNameController = TextEditingController();
   TextEditingController schoolController = TextEditingController();
   TextEditingController departmentController = TextEditingController();
   TextEditingController startDateController = TextEditingController();
@@ -50,8 +48,6 @@ class _UserEducationInformationPageState extends State<UserEducationInformationP
   }
 
   void addEducationInformation() async {
-    String firstName = firstNameController.text.trim();
-    String lastName = lastNameController.text.trim();
     String school = schoolController.text.trim();
     String department = departmentController.text.trim();
     String startDate = startDateController.text.trim();
@@ -62,16 +58,12 @@ class _UserEducationInformationPageState extends State<UserEducationInformationP
     String link = linkController.text.trim();
     String language = enlanguageController.text.trim();
 
-    if (firstName.isNotEmpty &&
-        lastName.isNotEmpty &&
-        school.isNotEmpty &&
+    if (school.isNotEmpty &&
         startDate.isNotEmpty &&
         grade.isNotEmpty &&
         description.isNotEmpty) {
       UserEducation userEducationInformation = UserEducation();
       userEducationInformation.setUserId(userId!);
-      userEducationInformation.setFirstName(firstName);
-      userEducationInformation.setLastName(lastName);
       userEducationInformation.setSchoolName(school);
       userEducationInformation.setDepartment(department);
       userEducationInformation.setStartDate(DateTime.parse(startDate));
@@ -86,8 +78,6 @@ class _UserEducationInformationPageState extends State<UserEducationInformationP
         await UserEducationInformationRepository().add(userEducationInformation);
 
         setState(() {
-          firstNameController.clear();
-          lastNameController.clear();
           schoolController.clear();
           departmentController.clear();
           startDateController.clear();
@@ -161,60 +151,6 @@ class _UserEducationInformationPageState extends State<UserEducationInformationP
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
-              TextFormField(
-                decoration: InputDecoration(
-                  labelText: 'Ad',
-                  labelStyle: GoogleFonts.nunito(
-                    color: (firstNameController.value.text.isNotEmpty)
-                        ? ColorConstants.theme1DarkBlue
-                        : ColorConstants.warningDark,
-                  ),
-                  border: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(8.0),
-                  ),
-                  focusedBorder: OutlineInputBorder(
-                    borderSide: BorderSide(
-                      color: (firstNameController.value.text.isNotEmpty)
-                          ? ColorConstants.theme1DarkBlue
-                          : ColorConstants.warningDark,
-                    ),
-                    borderRadius: BorderRadius.circular(8.0),
-                  ),
-                ),
-                controller: firstNameController,
-                cursorColor: ColorConstants.theme1DarkBlue,
-                onChanged: (value) {
-                  setState(() {});
-                },
-              ),
-              const SizedBox(height: 16.0),
-              TextFormField(
-                decoration: InputDecoration(
-                  labelText: 'Soyad',
-                  labelStyle: GoogleFonts.nunito(
-                    color: (lastNameController.value.text.isNotEmpty)
-                        ? ColorConstants.theme1DarkBlue
-                        : ColorConstants.warningDark,
-                  ),
-                  border: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(8.0),
-                  ),
-                  focusedBorder: OutlineInputBorder(
-                    borderSide: BorderSide(
-                      color: (lastNameController.value.text.isNotEmpty)
-                          ? ColorConstants.theme1DarkBlue
-                          : ColorConstants.warningDark,
-                    ),
-                    borderRadius: BorderRadius.circular(8.0),
-                  ),
-                ),
-                controller: lastNameController,
-                cursorColor: ColorConstants.theme1DarkBlue,
-                onChanged: (value) {
-                  setState(() {});
-                },
-              ),
-              const SizedBox(height: 16.0),
               TextFormField(
                 decoration: InputDecoration(
                   labelText: 'Okul Adı',

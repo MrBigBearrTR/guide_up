@@ -10,8 +10,6 @@ import '../../../utils/control_helper.dart';
 class UserEducation extends GeneralFields {
   String? _id;
   String? _userId;
-  String? _firstName;
-  String? _lastName;
   String? _schoolName;
   String? _department;
   EnDegreeType? _enDegreeType;
@@ -38,20 +36,6 @@ class UserEducation extends GeneralFields {
 
   void setUserId(String userId) {
     _userId = userId;
-  }
-  String? getFirstName() {
-    return _firstName;
-  }
-
-  void setFirstName(String firstName) {
-    _firstName = firstName;
-  }
-  String? getLastName() {
-    return _lastName;
-  }
-
-  void setLastName(String lastName) {
-    _lastName = lastName;
   }
 
   String? getSchoolName() {

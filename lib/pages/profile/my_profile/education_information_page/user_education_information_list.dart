@@ -53,6 +53,7 @@ class _UserEducationInformationListState extends State<UserEducationInformationL
                 } catch (error) {
                   print('Failed to delete educationInformation from Firebase: $error');
                 }
+                // ignore: use_build_context_synchronously
                 Navigator.of(context).pop();
               },
               child: const Text('Sil'),
@@ -92,7 +93,6 @@ class _UserEducationInformationListState extends State<UserEducationInformationL
                 itemBuilder: (context, index) {
                   final educationInformation = snapshot.data![index];
                   return ListTile(
-                    title: Text('${educationInformation.getFirstName()} ${educationInformation.getLastName()}'),
                     subtitle: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
