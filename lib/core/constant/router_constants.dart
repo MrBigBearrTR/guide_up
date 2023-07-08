@@ -13,5 +13,6 @@ class RouterConstants{
   static const String userEducationInformationPage="/userEducationInformationPage";
   static const String helpAndSupport="/helpAndSupport";
   static const String aboutUs="/aboutUs";
+  static const String licensesAndCertificatesPage="/licensesAndCertificatesPage";
 
 }
