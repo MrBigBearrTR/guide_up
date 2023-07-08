@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:guide_up/core/models/post/post_model.dart';
+import 'package:guide_up/core/models/users/user_detail/user_detail_model.dart';
 import 'package:guide_up/repository/post/post_repository.dart';
+import 'package:guide_up/repository/user/user_detail/user_detail_repository.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
 class GuidePage extends StatefulWidget {
@@ -10,6 +12,7 @@ class GuidePage extends StatefulWidget {
 
 class _GuidePageState extends State<GuidePage> {
   final PostRepository _postRepository = PostRepository();
+  final UserDetailRepository _userDetailRepository = UserDetailRepository();
 
   List<Post> posts = [];
   User? currentUser;
@@ -50,6 +53,30 @@ class _GuidePageState extends State<GuidePage> {
     }
   }
 
+  Future<void> editPost(Post post) async {
+    if (currentUser != null && post.getUserId() == currentUser!.uid) {
+      // Kullanıcı kendi postunu düzenleyebilir
+      // Düzenleme işlemi burada gerçekleştirilebilir
+      // Örneğin, düzenleme sayfasına yönlendirilebilir
+      print('Post düzenleme işlemi: ${post.getTopic()}');
+    }
+  }
+
+  Future<void> deletePost(Post post) async {
+    if (currentUser != null && post.getUserId() == currentUser!.uid) {
+      // Kullanıcı kendi postunu silebilir
+      await _postRepository.deletePost(post.getId()!);
+      fetchPosts();
+      print('Post silme işlemi: ${post.getTopic()}');
+    }
+  }
+
+  Future<UserDetail?> getUserDetail(String userId) async {
+    UserDetail? userDetail =
+    await _userDetailRepository.getUserByUserId(userId);
+    return userDetail;
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -60,9 +87,47 @@ class _GuidePageState extends State<GuidePage> {
         itemCount: posts.length,
         itemBuilder: (context, index) {
           Post post = posts[index];
-          return ListTile(
-            title: Text(post.getTopic() ?? ''),
-            subtitle: Text(post.getContent() ?? ''),
+          return FutureBuilder<UserDetail?>(
+            future: getUserDetail(post.getUserId()!),
+            builder: (context, snapshot) {
+              if (snapshot.connectionState == ConnectionState.waiting) {
+                return ListTile(
+                  title: Text('Loading...'),
+                );
+              }
+              if (snapshot.hasData) {
+                UserDetail? userDetail = snapshot.data;
+                return ListTile(
+                  title: Text(post.getTopic() ?? ''),
+                  subtitle: Text(post.getContent() ?? ''),
+                  leading: CircleAvatar(
+                    backgroundImage: NetworkImage(userDetail?.profileImage ?? ''),
+                  ),
+                  trailing: PopupMenuButton<String>(
+                    itemBuilder: (context) => <PopupMenuEntry<String>>[
+                      PopupMenuItem<String>(
+                        value: 'edit',
+                        child: Text('Edit'),
+                      ),
+                      PopupMenuItem<String>(
+                        value: 'delete',
+                        child: Text('Delete'),
+                      ),
+                    ],
+                    onSelected: (value) {
+                      if (value == 'edit') {
+                        editPost(post);
+                      } else if (value == 'delete') {
+                        deletePost(post);
+                      }
+                    },
+                  ),
+                );
+              }
+              return ListTile(
+                title: Text('Error'),
+              );
+            },
           );
         },
       ),

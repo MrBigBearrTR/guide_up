@@ -15,6 +15,8 @@ class UserDetail extends GeneralFields {
   String? _photo;
   String? _phone;
 
+  get profileImage => null;
+
   String? getId() {
     return _id;
   }
