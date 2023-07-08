@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:guide_up/core/constant/color_constants.dart';
 import 'package:guide_up/core/constant/router_constants.dart';
 import 'package:guide_up/core/models/users/user_detail/user_detail_model.dart';
-import 'package:guide_up/pages/dashboard/mentee/mentee_commend_card.dart';
+import 'package:guide_up/pages/dashboard/mentee/card/mentee_commend_card.dart';
 import 'package:guide_up/repository/mentee/mentee_repository.dart';
 import 'package:guide_up/core/utils/secure_storage_helper.dart';
 import 'package:guide_up/repository/mentor/mentor_commend_repository.dart';

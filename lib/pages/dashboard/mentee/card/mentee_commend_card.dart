@@ -3,7 +3,7 @@ import 'package:guide_up/core/constant/color_constants.dart';
 import 'package:guide_up/core/models/mentor/mentor_model.dart';
 import 'package:guide_up/core/utils/user_info_helper.dart';
 
-import '../../../core/models/mentor/mentee_model.dart';
+import '../../../../core/models/mentor/mentee_model.dart';
 
 class MenteeCommendCard extends StatefulWidget {
   final Mentee mentee;
