@@ -3,10 +3,12 @@ import 'package:guide_up/core/constant/color_constants.dart';
 import 'package:guide_up/core/models/mentor/mentor_model.dart';
 import 'package:guide_up/core/utils/user_info_helper.dart';
 
-class MenteeCommendCard extends StatefulWidget {
-  final Mentor mentor;
+import '../../../core/models/mentor/mentee_model.dart';
 
-  const MenteeCommendCard({Key? key, required this.mentor}) : super(key: key);
+class MenteeCommendCard extends StatefulWidget {
+  final Mentee mentee;
+
+  const MenteeCommendCard({Key? key, required this.mentee}) : super(key: key);
 
   @override
   State<MenteeCommendCard> createState() => _MenteeCommendCardState();

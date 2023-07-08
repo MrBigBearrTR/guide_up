@@ -11,7 +11,10 @@ import 'package:guide_up/service/mentee/mentee_service.dart';
 import '../../../core/utils/user_helper.dart';
 
 class MenteeDashboardMainPage extends StatefulWidget {
-  const MenteeDashboardMainPage({super.key});
+  //const MenteeDashboardMainPage({super.key});
+  final String userId;
+
+  MenteeDashboardMainPage({required this.userId});
 
   @override
   State<MenteeDashboardMainPage> createState() =>
@@ -20,11 +23,13 @@ class MenteeDashboardMainPage extends StatefulWidget {
 
 class _MenteeDashboardMainPageState extends State<MenteeDashboardMainPage> {
   UserDetail? userDetail;
+  Future<int>? menteeCountFuture;
 
   @override
   void initState() {
     super.initState();
     getUserDetail();
+    menteeCountFuture = MenteeRepository().getMenteeListCountByUserId(widget.userId);
   }
 
   void getUserDetail() async {
@@ -110,24 +115,24 @@ class _MenteeDashboardMainPageState extends State<MenteeDashboardMainPage> {
                           Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              // FutureBuilder<int>(
-                              //   future: MenteeRepository().getMenteeListCountByUserId(userId),
-                              //   builder: (BuildContext context,
-                              //       AsyncSnapshot<int> snapshot) {
-                              //     if (snapshot.connectionState ==
-                              //         ConnectionState.waiting) {
-                              //       // Veriler henüz yüklenmediyse, bekleme göster
-                              //       return CircularProgressIndicator();
-                              //     } else if (snapshot.hasError) {
-                              //       // Hata oluştuysa, hata mesajını göster
-                              //       return Text('Hata: ${snapshot.error}');
-                              //     } else {
-                              //       // Veriler hazırsa, sayıyı göster
-                              //       final int menteeCount = snapshot.data ?? 0;
-                              //       return Text('Mentor Sayısı: $menteeCount');
-                              //     }
-                              //   },
-                              // ),
+                               FutureBuilder<int>(
+                                 future: MenteeRepository().getMenteeListCountByUserId(userId),
+                                 builder: (BuildContext context,
+                                     AsyncSnapshot<int> snapshot) {
+                                   if (snapshot.connectionState ==
+                                       ConnectionState.waiting) {
+                                     // Veriler henüz yüklenmediyse, bekleme göster
+                                     return CircularProgressIndicator();
+                                   } else if (snapshot.hasError) {
+                                     // Hata oluştuysa, hata mesajını göster
+                                     return Text('Hata: ${snapshot.error}');
+                                   } else {
+                                     // Veriler hazırsa, sayıyı göster
+                                     final int menteeCount = snapshot.data ?? 0;
+                                     return Text('Mentor Sayısı: $menteeCount');
+                                   }
+                                 },
+                               ),
                               // Text(
                               //   '${}',
                               //   style: TextStyle(
@@ -246,8 +251,8 @@ class _MenteeDashboardMainPageState extends State<MenteeDashboardMainPage> {
                             } else {
                               return ListView.builder(
                                 itemBuilder: (context, index) {
-                                  final mentor = snapshot.data![index];
-                                  return MenteeCommendCard(mentor: mentor);
+                                  final userId = snapshot.data![index];
+                                  return MenteeCommendCard(mentee: mentee);
                                 },
                                 //itemCount: snapshot.data!.length,
                                 scrollDirection: Axis.horizontal,
