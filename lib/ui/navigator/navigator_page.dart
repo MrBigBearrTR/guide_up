@@ -27,7 +27,7 @@ class _NavigatorPageState extends State<NavigatorPage> {
           HomeScreen(navigationKey: navigationKey),
           SearchMainPage(navigationKey: navigationKey),
           MentorDashboard(),
-          GuideHomePage(),
+          GuidePage(),
           TestDataControl(),
 
         ],

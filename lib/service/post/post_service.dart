@@ -6,6 +6,7 @@ import 'package:guide_up/repository/post/post_like_save_repository.dart';
 import 'package:guide_up/repository/post/post_repository.dart';
 import 'package:guide_up/repository/user/user_detail/user_detail_repository.dart';
 
+
 import '../../core/models/post/post_model.dart';
 import '../../core/utils/repository_helper.dart';
 
@@ -94,4 +95,6 @@ class PostService {
 
     return postList;
   }
+
 }
+

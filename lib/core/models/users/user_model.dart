@@ -9,6 +9,9 @@ class UserModel extends GeneralFields {
   String? _email;
   bool _isMentor = false;
 
+  get profileImageUrl => null;
+
+
   String? getId() {
     return _id;
   }
