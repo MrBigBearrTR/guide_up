@@ -23,6 +23,14 @@ class _ChatMainPageState extends State<ChatMainPage> {
   List<Messages> messagesList = [];
   bool _checkMessagesControl = false;
   FocusNode _messagesFocusNode = FocusNode();
+  final ScrollController _scrollController = ScrollController();
+
+  @override
+  void initState() {
+    super.initState();
+
+    _scrollController.addListener(_scrollListener);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -60,7 +68,7 @@ class _ChatMainPageState extends State<ChatMainPage> {
           children: [
             Expanded(
               child: ListView.builder(
-                //controller: _scrollController,
+                controller: _scrollController,
                 reverse: true,
                 itemBuilder: (context, index) {
                   if (index + 1 < messagesList.length &&
@@ -127,10 +135,27 @@ class _ChatMainPageState extends State<ChatMainPage> {
     );
   }
 
+  void _scrollListener() {
+    if (_scrollController.offset >=
+            _scrollController.position.maxScrollExtent &&
+        !_scrollController.position.outOfRange) {
+      MessagesRepository()
+          .getMessagesList(
+              conversationCardView.id, 20, messagesList.last.getCreateDate()!)
+          .then((oldMessageList) {
+        if (oldMessageList.isNotEmpty) {
+          messagesList.addAll(oldMessageList);
+          setState(() {});
+        }
+      });
+    }
+  }
+
   void getMessagesList(ConversationCardView conversationCardView) async {
     if (!_checkMessagesControl) {
       messagesList = await MessagesRepository()
-          .getMessagesList(conversationCardView.id, 0);
+          .getMessagesList(conversationCardView.id, 20, null);
+
       if (messagesList.isNotEmpty) {
         _checkMessagesControl = true;
         setState(() {});

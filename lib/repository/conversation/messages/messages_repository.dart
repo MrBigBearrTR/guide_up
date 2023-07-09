@@ -73,23 +73,41 @@ class MessagesRepository {
   }
 
   Future<List<Messages>> getMessagesList(
-      String conversationId, int limit) async {
+      String conversationId, int limit, DateTime? lastDateTime) async {
     List<Messages> messagesList = [];
     QuerySnapshot<Map<String, dynamic>> query;
 
     if (limit > 0) {
-      query = await _conversationCollections
-          .doc(conversationId)
-          .collection(FirestoreCollectionConstant.messages)
-          .orderBy("createDate", descending: true)
-          .limit(limit)
-          .get();
+      if (lastDateTime == null) {
+        query = await _conversationCollections
+            .doc(conversationId)
+            .collection(FirestoreCollectionConstant.messages)
+            .orderBy("createDate", descending: true)
+            .limit(limit)
+            .get();
+      } else {
+        query = await _conversationCollections
+            .doc(conversationId)
+            .collection(FirestoreCollectionConstant.messages)
+            .orderBy("createDate", descending: true)
+            .startAfter([lastDateTime.toString()])
+            .limit(limit)
+            .get();
+      }
     } else {
-      query = await _conversationCollections
-          .doc(conversationId)
-          .collection(FirestoreCollectionConstant.messages)
-          .orderBy("createDate", descending: true)
-          .get();
+      if (lastDateTime == null) {
+        query = await _conversationCollections
+            .doc(conversationId)
+            .collection(FirestoreCollectionConstant.messages)
+            .orderBy("createDate", descending: true)
+            .get();
+      } else {
+        query = await _conversationCollections
+            .doc(conversationId)
+            .collection(FirestoreCollectionConstant.messages)
+            .orderBy("createDate", descending: true)
+            .startAfter([lastDateTime.toString()]).get();
+      }
     }
     if (query.docs.isNotEmpty) {
       return convertResponseObjectToList(query.docs.iterator);
