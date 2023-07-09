@@ -1,12 +1,20 @@
 import 'package:flutter/material.dart';
 import 'package:guide_up/core/constant/color_constants.dart';
+import 'package:guide_up/core/constant/router_constants.dart';
 import 'package:guide_up/core/models/users/user_detail/user_detail_model.dart';
+import 'package:guide_up/pages/dashboard/mentee/card/mentee_commend_card.dart';
+import 'package:guide_up/repository/mentee/mentee_repository.dart';
 import 'package:guide_up/core/utils/secure_storage_helper.dart';
+import 'package:guide_up/repository/mentor/mentor_commend_repository.dart';
+import 'package:guide_up/service/mentee/mentee_service.dart';
 
 import '../../../core/utils/user_helper.dart';
 
 class MenteeDashboardMainPage extends StatefulWidget {
-  const MenteeDashboardMainPage({super.key});
+  //const MenteeDashboardMainPage({super.key});
+  final String userId;
+
+  MenteeDashboardMainPage({required this.userId});
 
   @override
   State<MenteeDashboardMainPage> createState() =>
@@ -15,11 +23,13 @@ class MenteeDashboardMainPage extends StatefulWidget {
 
 class _MenteeDashboardMainPageState extends State<MenteeDashboardMainPage> {
   UserDetail? userDetail;
+  Future<int>? menteeCountFuture;
 
   @override
   void initState() {
     super.initState();
     getUserDetail();
+    menteeCountFuture = MenteeRepository().getMenteeListCountByUserId(widget.userId);
   }
 
   void getUserDetail() async {
@@ -80,7 +90,7 @@ class _MenteeDashboardMainPageState extends State<MenteeDashboardMainPage> {
                       ),
                     ],
                   ),
-                  child: const Column(
+                  child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text('İstatistikler', style: TextStyle(fontSize: 20)),
@@ -92,9 +102,10 @@ class _MenteeDashboardMainPageState extends State<MenteeDashboardMainPage> {
                           CircleAvatar(
                             backgroundColor: ColorConstants.theme2White,
                             child: InkWell(
-                              // onTap: () {
-                              //   //Duration sayfasına yönlendirilecek.
-                              // },
+                              onTap: () {
+                                Navigator.pushNamed(
+                                    context, RouterConstants.myMentors);
+                              },
                               child: Icon(
                                 Icons.timeline,
                                 color: ColorConstants.success,
@@ -104,12 +115,30 @@ class _MenteeDashboardMainPageState extends State<MenteeDashboardMainPage> {
                           Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              Text(
-                                '  28 Saat',
-                                style: TextStyle(
-                                    fontSize: 17, fontWeight: FontWeight.bold),
-                              ), //Burası veriden alınmalı.
-                              Text('  Süre'),
+                               FutureBuilder<int>(
+                                 future: MenteeRepository().getMenteeListCountByUserId(userId),
+                                 builder: (BuildContext context,
+                                     AsyncSnapshot<int> snapshot) {
+                                   if (snapshot.connectionState ==
+                                       ConnectionState.waiting) {
+                                     // Veriler henüz yüklenmediyse, bekleme göster
+                                     return CircularProgressIndicator();
+                                   } else if (snapshot.hasError) {
+                                     // Hata oluştuysa, hata mesajını göster
+                                     return Text('Hata: ${snapshot.error}');
+                                   } else {
+                                     // Veriler hazırsa, sayıyı göster
+                                     final int menteeCount = snapshot.data ?? 0;
+                                     return Text('Mentor Sayısı: $menteeCount');
+                                   }
+                                 },
+                               ),
+                              // Text(
+                              //   '${}',
+                              //   style: TextStyle(
+                              //       fontSize: 17, fontWeight: FontWeight.bold),
+                              // ), //Burası veriden alınmalı.
+                              Text('  Benim Mentorlarım'),
                             ],
                           ),
                           SizedBox(width: 40),
@@ -117,9 +146,10 @@ class _MenteeDashboardMainPageState extends State<MenteeDashboardMainPage> {
                           CircleAvatar(
                             backgroundColor: ColorConstants.theme2White,
                             child: InkWell(
-                              // onTap: () {
-                              //   //Favoriler sayfasına yönlendirilecek.
-                              // },
+                              onTap: () {
+                                Navigator.pushNamed(
+                                    context, RouterConstants.mentorFavourite);
+                              },
                               child: Icon(
                                 Icons.person,
                                 color: ColorConstants.warningDark,
@@ -147,9 +177,10 @@ class _MenteeDashboardMainPageState extends State<MenteeDashboardMainPage> {
                           CircleAvatar(
                             backgroundColor: ColorConstants.theme2White,
                             child: InkWell(
-                              // onTap: () {
-                              //   //Commend sayfasına yönlendirilecek.
-                              // },
+                              onTap: () {
+                                Navigator.pushNamed(
+                                    context, RouterConstants.myCommends);
+                              },
                               child: Icon(
                                 Icons.chat,
                                 color: ColorConstants.theme1Mustard,
@@ -172,9 +203,10 @@ class _MenteeDashboardMainPageState extends State<MenteeDashboardMainPage> {
                           CircleAvatar(
                             backgroundColor: ColorConstants.theme2White,
                             child: InkWell(
-                              // onTap: () {
-                              //   //Ödeme sayfasına yönlendirilecek.
-                              // },
+                              onTap: () {
+                                Navigator.pushNamed(
+                                    context, RouterConstants.myPayments);
+                              },
                               child: Icon(
                                 Icons.currency_lira,
                                 color: ColorConstants.infoDark,
@@ -202,7 +234,48 @@ class _MenteeDashboardMainPageState extends State<MenteeDashboardMainPage> {
                   'Yorumlarım',
                   style: TextStyle(fontSize: 20),
                 ),
-                /*Container(
+                SizedBox(
+                      height: 200,
+                      child: Expanded(
+                        child: FutureBuilder(
+                          builder: (context, snapshot) {
+                            if (snapshot.connectionState ==
+                                ConnectionState.waiting) {
+                              return const Center(
+                                child: CircularProgressIndicator(),
+                              );
+                            } else if (snapshot.hasError) {
+                              return const Center(
+                                child: Text('Mentorları şu an listeyemiyoruz.'),
+                              );
+                            } else {
+                              return ListView.builder(
+                                itemBuilder: (context, index) {
+                                  final userId = snapshot.data![index];
+                                  return MenteeCommendCard(mentee: mentee);
+                                },
+                                //itemCount: snapshot.data!.length,
+                                scrollDirection: Axis.horizontal,
+                                padding: const EdgeInsets.all(0),
+                                shrinkWrap: true,
+                              );
+                            }
+                          },
+                          future: MentorCommendRepository().getMentorCommendListByUserId(userId),
+                        ),
+                      ),
+                    ),
+              ],
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+/*
+Container(
                   padding: EdgeInsets.fromLTRB(20, 8, 20, 8),
                   width: 330,
                   height: 100,
@@ -268,17 +341,14 @@ class _MenteeDashboardMainPageState extends State<MenteeDashboardMainPage> {
                               ),
                             ),
                           ),
-                          Expanded(child: IconButton(onPressed: () {}, icon: Icon(Icons.edit),)),
+                          Expanded(
+                              child: IconButton(
+                            onPressed: () {},
+                            icon: Icon(Icons.edit),
+                          )),
                         ],
                       ),
                     ],
                   ),
-                ),*/
-              ],
-            ),
-          ],
-        ),
-      ),
-    );
-  }
-}
+                ),
+*/

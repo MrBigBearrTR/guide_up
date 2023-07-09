@@ -67,7 +67,7 @@ class Mentee extends GeneralFields {
     _categoryId = categoryId;
   }
 
-  bool? isApproval() {
+  bool isApproval() {
     return _isApproval;
   }
 
