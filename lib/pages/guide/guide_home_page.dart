@@ -1,9 +1,46 @@
 import 'package:flutter/material.dart';
-import 'package:guide_up/core/models/post/post_model.dart';
-import 'package:guide_up/core/models/users/user_detail/user_detail_model.dart';
-import 'package:guide_up/repository/post/post_repository.dart';
-import 'package:guide_up/repository/user/user_detail/user_detail_repository.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+
+class Post {
+  final String id;
+  final String userId;
+  final String topic;
+  final String content;
+  int likes;
+  List<String> comments;
+
+  Post({
+    required this.id,
+    required this.userId,
+    required this.topic,
+    required this.content,
+    this.likes = 0,
+    this.comments = const [],
+  });
+
+  factory Post.fromMap(Map<String, dynamic> map) {
+    return Post(
+      id: map['id'],
+      userId: map['userId'],
+      topic: map['topic'],
+      content: map['content'],
+      likes: map['likes'] ?? 0,
+      comments: List<String>.from(map['comments'] ?? []),
+    );
+  }
+
+  Map<String, dynamic> toMap() {
+    return {
+      'id': id,
+      'userId': userId,
+      'topic': topic,
+      'content': content,
+      'likes': likes,
+      'comments': comments,
+    };
+  }
+}
 
 class GuidePage extends StatefulWidget {
   @override
@@ -11,17 +48,16 @@ class GuidePage extends StatefulWidget {
 }
 
 class _GuidePageState extends State<GuidePage> {
-  final PostRepository _postRepository = PostRepository();
-  final UserDetailRepository _userDetailRepository = UserDetailRepository();
-
-  List<Post> posts = [];
+  final FirebaseFirestore _firestore = FirebaseFirestore.instance;
   User? currentUser;
+  List<Post> posts = [];
 
   @override
   void initState() {
     super.initState();
-    fetchUser();
-    fetchPosts();
+    fetchUser().then((_) {
+      fetchPosts();
+    });
   }
 
   Future<void> fetchUser() async {
@@ -33,8 +69,13 @@ class _GuidePageState extends State<GuidePage> {
 
   Future<void> fetchPosts() async {
     if (currentUser != null) {
-      List<Post> fetchedPosts =
-      await _postRepository.getUserPostListByUserId(currentUser!.uid);
+      QuerySnapshot<Map<String, dynamic>> postSnapshot =
+      await _firestore.collection('posts').get();
+
+      List<Post> fetchedPosts = postSnapshot.docs
+          .map((doc) => Post.fromMap(doc.data()))
+          .toList();
+
       setState(() {
         posts = fetchedPosts;
       });
@@ -43,38 +84,62 @@ class _GuidePageState extends State<GuidePage> {
 
   Future<void> addPost(String topic, String content) async {
     if (currentUser != null) {
-      Post newPost = Post();
-      newPost.setUserId(currentUser!.uid);
-      newPost.setTopic(topic);
-      newPost.setContent(content);
+      DocumentReference postRef = await _firestore.collection('posts').add({
+        'userId': currentUser!.uid,
+        'topic': topic,
+        'content': content,
+        'likes': 0,
+        'comments': [],
+      });
 
-      await _postRepository.add(newPost);
-      fetchPosts();
+      setState(() {
+        Post newPost = Post(
+          id: postRef.id,
+          userId: currentUser!.uid,
+          topic: topic,
+          content: content,
+          likes: 0,
+          comments: [],
+        );
+        posts.add(newPost);
+      });
     }
   }
 
-  Future<void> editPost(Post post) async {
-    if (currentUser != null && post.getUserId() == currentUser!.uid) {
-      // Kullanıcı kendi postunu düzenleyebilir
-      // Düzenleme işlemi burada gerçekleştirilebilir
-      // Örneğin, düzenleme sayfasına yönlendirilebilir
-      print('Post düzenleme işlemi: ${post.getTopic()}');
+  Future<void> deletePost(String postId) async {
+    if (currentUser != null) {
+      await _firestore.collection('posts').doc(postId).delete();
+      setState(() {
+        posts.removeWhere((post) => post.id == postId);
+      });
     }
   }
 
-  Future<void> deletePost(Post post) async {
-    if (currentUser != null && post.getUserId() == currentUser!.uid) {
-      // Kullanıcı kendi postunu silebilir
-      await _postRepository.deletePost(post.getId()!);
-      fetchPosts();
-      print('Post silme işlemi: ${post.getTopic()}');
+  Future<void> likePost(Post post) async {
+    if (currentUser != null) {
+      DocumentReference postRef = _firestore.collection('posts').doc(post.id);
+      int updatedLikes = post.likes + 1;
+
+      await postRef.update({'likes': updatedLikes});
+
+      setState(() {
+        post.likes = updatedLikes;
+      });
     }
   }
 
-  Future<UserDetail?> getUserDetail(String userId) async {
-    UserDetail? userDetail =
-    await _userDetailRepository.getUserByUserId(userId);
-    return userDetail;
+  Future<void> addComment(Post post, String comment) async {
+    if (currentUser != null) {
+      DocumentReference postRef = _firestore.collection('posts').doc(post.id);
+      List<String> updatedComments = List.from(post.comments);
+      updatedComments.add(comment);
+
+      await postRef.update({'comments': updatedComments});
+
+      setState(() {
+        post.comments = updatedComments;
+      });
+    }
   }
 
   @override
@@ -83,51 +148,87 @@ class _GuidePageState extends State<GuidePage> {
       appBar: AppBar(
         title: Text('Guide Page'),
       ),
-      body: ListView.builder(
+      body: posts.isEmpty
+          ? Center(
+        child: Text('No posts available.'),
+      )
+          : ListView.builder(
         itemCount: posts.length,
         itemBuilder: (context, index) {
           Post post = posts[index];
-          return FutureBuilder<UserDetail?>(
-            future: getUserDetail(post.getUserId()!),
-            builder: (context, snapshot) {
-              if (snapshot.connectionState == ConnectionState.waiting) {
-                return ListTile(
-                  title: Text('Loading...'),
-                );
-              }
-              if (snapshot.hasData) {
-                UserDetail? userDetail = snapshot.data;
-                return ListTile(
-                  title: Text(post.getTopic() ?? ''),
-                  subtitle: Text(post.getContent() ?? ''),
-                  leading: CircleAvatar(
-                    backgroundImage: NetworkImage(userDetail?.profileImage ?? ''),
+          return Container(
+            margin: EdgeInsets.symmetric(horizontal: 10, vertical: 5),
+            padding: EdgeInsets.all(10),
+            decoration: BoxDecoration(
+              color: Colors.white,
+              borderRadius: BorderRadius.circular(10),
+              boxShadow: [
+                BoxShadow(
+                  color: Colors.grey.withOpacity(0.2),
+                  spreadRadius: 1,
+                  blurRadius: 3,
+                ),
+              ],
+            ),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  post.topic,
+                  style: TextStyle(
+                    fontSize: 18,
+                    fontWeight: FontWeight.bold,
                   ),
-                  trailing: PopupMenuButton<String>(
-                    itemBuilder: (context) => <PopupMenuEntry<String>>[
-                      PopupMenuItem<String>(
-                        value: 'edit',
-                        child: Text('Edit'),
+                ),
+                SizedBox(height: 8),
+                Text(post.content),
+                SizedBox(height: 12),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Row(
+                      children: [
+                        IconButton(
+                          icon: Icon(Icons.thumb_up),
+                          color: Colors.blue,
+                          onPressed: () => likePost(post),
+                        ),
+                        Text(
+                          '${post.likes}',
+                          style: TextStyle(
+                            color: Colors.grey[600],
+                          ),
+                        ),
+                      ],
+                    ),
+                    IconButton(
+                      icon: Icon(Icons.comment),
+                      color: Colors.blue,
+                      onPressed: () => _showCommentsDialog(post),
+                    ),
+                  ],
+                ),
+                SizedBox(height: 8),
+                if (post.comments.isNotEmpty)
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        'Comments:',
+                        style: TextStyle(
+                          fontWeight: FontWeight.bold,
+                        ),
                       ),
-                      PopupMenuItem<String>(
-                        value: 'delete',
-                        child: Text('Delete'),
+                      SizedBox(height: 4),
+                      ...post.comments.map(
+                            (comment) => ListTile(
+                          title: Text(comment),
+                        ),
                       ),
                     ],
-                    onSelected: (value) {
-                      if (value == 'edit') {
-                        editPost(post);
-                      } else if (value == 'delete') {
-                        deletePost(post);
-                      }
-                    },
                   ),
-                );
-              }
-              return ListTile(
-                title: Text('Error'),
-              );
-            },
+              ],
+            ),
           );
         },
       ),
@@ -167,6 +268,16 @@ class _GuidePageState extends State<GuidePage> {
           }
         },
         child: Icon(Icons.add),
+      ),
+    );
+  }
+
+  void _showCommentsDialog(Post post) {
+    showDialog(
+      context: context,
+      builder: (context) => AddCommentDialog(
+        post: post,
+        onAddComment: addComment,
       ),
     );
   }
@@ -242,6 +353,75 @@ class _AddPostPageState extends State<AddPostPage> {
         ),
         TextButton(
           onPressed: addPost,
+          child: Text('Add'),
+        ),
+      ],
+    );
+  }
+}
+
+class AddCommentDialog extends StatefulWidget {
+  final Post post;
+  final Function(Post, String) onAddComment;
+
+  AddCommentDialog({required this.post, required this.onAddComment});
+
+  @override
+  _AddCommentDialogState createState() => _AddCommentDialogState();
+}
+
+class _AddCommentDialogState extends State<AddCommentDialog> {
+  TextEditingController commentController = TextEditingController();
+
+  void addComment() {
+    String comment = commentController.text.trim();
+
+    if (comment.isNotEmpty) {
+      widget.onAddComment(widget.post, comment);
+      Navigator.pop(context);
+    } else {
+      showDialog(
+        context: context,
+        builder: (context) => AlertDialog(
+          title: Text('Error'),
+          content: Text('Please enter a comment.'),
+          actions: [
+            TextButton(
+              onPressed: () {
+                Navigator.pop(context);
+              },
+              child: Text('OK'),
+            ),
+          ],
+        ),
+      );
+    }
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return AlertDialog(
+      title: Text('Add Comment'),
+      content: Column(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          TextField(
+            controller: commentController,
+            decoration: InputDecoration(
+              labelText: 'Comment',
+            ),
+          ),
+        ],
+      ),
+      actions: [
+        TextButton(
+          onPressed: () {
+            Navigator.pop(context);
+          },
+          child: Text('Cancel'),
+        ),
+        TextButton(
+          onPressed: addComment,
           child: Text('Add'),
         ),
       ],
