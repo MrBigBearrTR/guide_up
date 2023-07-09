@@ -1,198 +1,236 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-
 import '../../../core/constant/color_constants.dart';
 import '../../../ui/material/custom_material.dart';
 
 class LicenseAndCertificateAddPage extends StatefulWidget {
-  final Function(String) onAdd;
+  final Function(Map<String, String>) onAdd;
 
   const LicenseAndCertificateAddPage({Key? key, required this.onAdd}) : super(key: key);
 
   @override
-  // ignore: library_private_types_in_public_api
-  _LicenseAndCertificateAddPageState createState() =>
-      _LicenseAndCertificateAddPageState();
+  _LicenseAndCertificateAddPageState createState() => _LicenseAndCertificateAddPageState();
 }
 
-class _LicenseAndCertificateAddPageState
-    extends State<LicenseAndCertificateAddPage> {
-  final TextEditingController _urlController = TextEditingController();
-  final TextEditingController _turController = TextEditingController();
-  final TextEditingController _yeterlilikKimligiController =
-  TextEditingController();
-  final TextEditingController _verenOrganizasyonController =
-  TextEditingController();
+class _LicenseAndCertificateAddPageState extends State<LicenseAndCertificateAddPage> {
+  final _formKey = GlobalKey<FormState>();
+  final Map<String, String> _formData = {
+    'name': '',
+    'organization': '',
+    'issueDate': '',
+    'expiryDate': '',
+    'qualificationId': '',
+    'qualificationUrl': '',
+  };
+
+  void _submitForm() {
+    if (_formKey.currentState!.validate()) {
+      _formKey.currentState!.save();
+      widget.onAdd(_formData);
+      Navigator.pop(context);
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("Lisans ve Sertifika Ekle",
-          style: GoogleFonts.nunito(),),
+        title: const Text('Lisans veya Sertifika Ekle'),
       ),
       body: Container(
-        decoration: CustomMaterial.backgroundBoxDecoration ,
-        child: SingleChildScrollView(
-          child: Padding(
-            padding: const EdgeInsets.all(16.0),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  "Tür:",
-                  style: GoogleFonts.nunito(
-                    fontWeight: FontWeight.bold,
+        decoration: CustomMaterial.backgroundBoxDecoration,
+        padding: const EdgeInsets.all(16.0),
+        child: Form(
+          key: _formKey,
+          child: ListView(
+            children: [
+              TextFormField(
+                decoration: InputDecoration(
+                  labelText: 'Lisans veya Sertifika Adı',
+                  labelStyle: GoogleFonts.nunito(
+                    color: ColorConstants.theme1DarkBlue,
+                  ),
+                  border: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(8.0),
+                  ),
+                  focusedBorder: OutlineInputBorder(
+                    borderSide: BorderSide(
+                      color: ColorConstants.theme1DarkBlue,
+                    ),
+                    borderRadius: BorderRadius.circular(8.0),
                   ),
                 ),
-                TextFormField(
-                  controller: _turController,
-                  cursorColor: ColorConstants.warningDark,
-                  decoration: InputDecoration(
-                    border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(8.0),
+                validator: (value) {
+                  if (value!.isEmpty) {
+                    return 'Lisans veya Sertifika Adı boş olamaz';
+                  }
+                  return null;
+                },
+                onSaved: (value) {
+                  _formData['name'] = value!;
+                },
+              ),
+              const SizedBox(height: 16.0),
+              TextFormField(
+                decoration: InputDecoration(
+                  labelText: 'Veren Organizasyon',
+                  labelStyle: GoogleFonts.nunito(
+                    color: ColorConstants.theme1DarkBlue,
+                  ),
+                  border: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(8.0),
+                  ),
+                  focusedBorder: OutlineInputBorder(
+                    borderSide: BorderSide(
+                      color: ColorConstants.theme1DarkBlue,
                     ),
-                    focusedBorder: OutlineInputBorder(
-                      borderSide: const BorderSide(color: ColorConstants.warningDark),
-                      borderRadius: BorderRadius.circular(8.0),
-                    ),
+                    borderRadius: BorderRadius.circular(8.0),
                   ),
                 ),
-                const SizedBox(height: 16.0),
-                Text(
-                  "Veren Organizasyon:",
-                  style: GoogleFonts.nunito(
-                    fontWeight: FontWeight.bold,
+                validator: (value) {
+                  if (value!.isEmpty) {
+                    return 'Veren Organizasyon alanı boş olamaz';
+                  }
+                  return null;
+                },
+                onSaved: (value) {
+                  _formData['organization'] = value!;
+                },
+              ),
+              const SizedBox(height: 16.0),
+              TextFormField(
+                decoration: InputDecoration(
+                  labelText: 'Veriliş Tarihi',
+                  labelStyle: GoogleFonts.nunito(
+                    color: ColorConstants.theme1DarkBlue,
+                  ),
+                  border: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(8.0),
+                  ),
+                  focusedBorder: OutlineInputBorder(
+                    borderSide: BorderSide(
+                      color: ColorConstants.theme1DarkBlue,
+                    ),
+                    borderRadius: BorderRadius.circular(8.0),
                   ),
                 ),
-                TextFormField(
-                  controller: _verenOrganizasyonController,
-                  cursorColor: ColorConstants.warningDark,
-                  decoration: InputDecoration(
-                    border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(8.0),
+                validator: (value) {
+                  if (value!.isEmpty) {
+                    return 'Veriliş Tarihi boş olamaz';
+                  }
+                  return null;
+                },
+                onSaved: (value) {
+                  _formData['issueDate'] = value!;
+                },
+              ),
+              const SizedBox(height: 16.0),
+              TextFormField(
+                decoration: InputDecoration(
+                  labelText: 'Son Kullanma Tarihi',
+                  labelStyle: GoogleFonts.nunito(
+                    color: ColorConstants.theme1DarkBlue,
+                  ),
+                  border: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(8.0),
+                  ),
+                  focusedBorder: OutlineInputBorder(
+                    borderSide: BorderSide(
+                      color: ColorConstants.theme1DarkBlue,
                     ),
-                    focusedBorder: OutlineInputBorder(
-                      borderSide: const BorderSide(color: ColorConstants.warningDark),
-                      borderRadius: BorderRadius.circular(8.0),
-                    ),
+                    borderRadius: BorderRadius.circular(8.0),
                   ),
                 ),
-                const SizedBox(height: 16.0),
-                Text(
-                  "Yeterlilik kimliği:",
-                  style: GoogleFonts.nunito(
-                    fontWeight: FontWeight.bold,
-                  ),
-                ),
-                TextFormField(
-                  controller: _yeterlilikKimligiController,
-                  cursorColor: ColorConstants.warningDark,
-                  decoration: InputDecoration(
-                    border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(8.0),
-                    ),
-                    focusedBorder: OutlineInputBorder(
-                      borderSide: const BorderSide(color: ColorConstants.warningDark),
-                      borderRadius: BorderRadius.circular(8.0),
-                    ),
-                  ),
-                ),
-                const SizedBox(height: 16.0),
-                Text(
-                  "URL:",
-                  style: GoogleFonts.nunito(
-                    fontWeight: FontWeight.bold,
-                  ),
-                ),
-                TextFormField(
-                  controller: _urlController,
-                  cursorColor: ColorConstants.warningDark,
-                  decoration: InputDecoration(
-                    border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(8.0),
-                    ),
-                    focusedBorder: OutlineInputBorder(
-                      borderSide: const BorderSide(color: ColorConstants.warningDark),
-                      borderRadius: BorderRadius.circular(8.0),
-                    ),
-                  ),
-                ),
-                const SizedBox(height: 16.0),
-                ElevatedButton(
-                  onPressed: () {
-                    String ad = _turController.text.trim();
-                    String verenOrganizasyon = _verenOrganizasyonController.text.trim();
-                    String yeterlilikKimligi = _yeterlilikKimligiController.text.trim();
-                    String url = _urlController.text.trim();
+                validator: null,
+                onSaved: (value) {
+                  _formData['expiryDate'] = value!;
+                },
+                autovalidateMode: AutovalidateMode.disabled,
+              ),
 
-                    if (ad.isNotEmpty && verenOrganizasyon.isNotEmpty && yeterlilikKimligi.isNotEmpty && url.isNotEmpty) {
-                      String bilgiler = "$ad\n$verenOrganizasyon\n$yeterlilikKimligi\n$url";
-                      widget.onAdd(bilgiler);
-                      Navigator.pop(context);
-                    } else {
-                      showDialog(
-                        context: context,
-                        builder: (BuildContext context) {
-                          return AlertDialog(
-                            title: Text(
-                              "Hata",
-                              style: GoogleFonts.nunito(
-                                color: ColorConstants.itemWhite, // Yazı rengi
-                              ),
-                            ),
-                            content: Text(
-                              "Tüm alanları doldurun.",
-                              style: GoogleFonts.nunito(
-                                color: ColorConstants.itemWhite, // Yazı rengi
-                              ),
-                            ),
-                            actions: [
-                              TextButton(
-                                child: Text(
-                                  "Tamam",
-                                  style: GoogleFonts.nunito(
-                                    color: ColorConstants.warningDark, // Yazı rengi
-                                  ),
-                                ),
-                                onPressed: () {
-                                  Navigator.pop(context);
-                                },
-                              ),
-                            ],
-                            backgroundColor: ColorConstants.theme1DarkBlue, // Popup arka plan rengi
-                          );
-                        },
-                      );
-                    }
-                  },
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: ColorConstants.warningDark,
+              const SizedBox(height: 16.0),
+              TextFormField(
+                decoration: InputDecoration(
+                  labelText: 'Yetkilendirme ID',
+                  labelStyle: GoogleFonts.nunito(
+                    color: ColorConstants.theme1DarkBlue,
+                  ),
+                  border: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(8.0),
+                  ),
+                  focusedBorder: OutlineInputBorder(
+                    borderSide: BorderSide(
+                      color: ColorConstants.theme1DarkBlue,
+                    ),
+                    borderRadius: BorderRadius.circular(8.0),
+                  ),
+                ),
+                validator: (value) {
+                  if (value!.isEmpty) {
+                    return null; // Boş değer için hata mesajı döndürme
+                  }
+                  return 'Yetkilendirme ID boş olamaz';
+                },
+                onSaved: (value) {
+                  _formData['qualificationId'] = value!;
+                },
+              ),
+              const SizedBox(height: 16.0),
+              TextFormField(
+                decoration: InputDecoration(
+                  labelText: 'Yetkilendirme URL',
+                  labelStyle: GoogleFonts.nunito(
+                    color: ColorConstants.theme1DarkBlue,
+                  ),
+                  border: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(8.0),
+                  ),
+                  focusedBorder: OutlineInputBorder(
+                    borderSide: BorderSide(
+                      color: ColorConstants.theme1DarkBlue,
+                    ),
+                    borderRadius: BorderRadius.circular(8.0),
+                  ),
+                ),
+                validator: (value) {
+                  if (value!.isEmpty) {
+                    return null; // Boş değer için hata mesajı döndürme
+                  }
+                  return 'Yetkilendirme URL boş olamaz';
+                },
+                onSaved: (value) {
+                  _formData['qualificationUrl'] = value!;
+                },
+              ),
+
+              const SizedBox(height: 32.0),
+              ElevatedButton(
+                onPressed: _submitForm,
+                style: ElevatedButton.styleFrom(
+                  foregroundColor: ColorConstants.theme2Orange,
+                  backgroundColor: ColorConstants.theme2DarkBlue,
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(20.0),
+                  ),
+                ),
+                child: Padding(
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: 16.0,
+                    vertical: 8.0,
                   ),
                   child: Text(
-                    "Ekle",
+                    'Ekle',
                     style: GoogleFonts.nunito(
-                      fontSize: 15,
+                      fontSize: 16.0,
                       fontWeight: FontWeight.bold,
-                      color: ColorConstants.itemWhite, // Metin rengi
                     ),
                   ),
-                )
-
-              ],
-            ),
+                ),
+              ),
+            ],
           ),
         ),
       ),
     );
-  }
-
-  @override
-  void dispose() {
-    _urlController.dispose();
-    _verenOrganizasyonController.dispose();
-    _yeterlilikKimligiController.dispose();
-    _turController.dispose();
-    super.dispose();
   }
 }
