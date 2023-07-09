@@ -1,5 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:guide_up/core/models/users/user_abilities/user_abilities.dart';
+import 'package:guide_up/core/models/users/user_abilities/user_abilities_model.dart';
 import '../../../core/constant/firestore_collectioon_constant.dart';
 
 class UserAbilitiesRepository {

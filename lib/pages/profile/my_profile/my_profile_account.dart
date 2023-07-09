@@ -17,7 +17,6 @@ import '../../../core/utils/secure_storage_helper.dart';
 import '../../../repository/user/user_detail/user_links_repository.dart';
 import '../../../repository/user/user_repository.dart';
 import '../../../ui/material/custom_material.dart';
-import '../licenses_and_certificates/licenses_And_Certificates.dart';
 
 class MyProfileAccount extends StatefulWidget {
   const MyProfileAccount({Key? key}) : super(key: key);
@@ -533,7 +532,7 @@ class _MyProfileAccountState extends State<MyProfileAccount> {
                           icon: const Icon(Icons.add),
                           onPressed: () {
                             Navigator.pushNamed(
-                                context, RouterConstants.usereducationInformation);
+                                context, RouterConstants.userEducationInformationPage);
                           },
                         ),
                         IconButton(
@@ -569,12 +568,6 @@ class _MyProfileAccountState extends State<MyProfileAccount> {
                                 context, RouterConstants.userProjectPage);
                           },
                         ),
-                        IconButton(
-                          icon: const Icon(Icons.edit),
-                          onPressed: () {
-                            // Kalem butonuna tıklandığında yapılacak işlemler
-                          },
-                        ),
                       ],
                     ),
                   ),
@@ -600,12 +593,6 @@ class _MyProfileAccountState extends State<MyProfileAccount> {
                           onPressed: () {
                             Navigator.pushNamed(
                                 context, RouterConstants.userAbilities);
-                          },
-                        ),
-                        IconButton(
-                          icon: const Icon(Icons.edit),
-                          onPressed: () {
-                            // Kalem butonuna tıklandığında yapılacak işlemler
                           },
                         ),
                       ],
@@ -637,12 +624,8 @@ class _MyProfileAccountState extends State<MyProfileAccount> {
                         ),
                         child: TextButton(
                           onPressed: () {
-                            Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) =>
-                                      const LicensesAndCertificatesPage()),
-                            );
+                            Navigator.pushNamed(
+                                context, RouterConstants.licensesAndCertificatesPage);
                           },
                           child: Text(
                             'Lisans ve sertifika ekle  ',

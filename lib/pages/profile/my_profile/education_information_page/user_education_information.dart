@@ -1,289 +1,418 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:guide_up/ui/material/custom_material.dart';
-
+import 'package:guide_up/core/utils/secure_storage_helper.dart';
 import '../../../../core/constant/color_constants.dart';
+import '../../../../core/enumeration/extensions/ExLanguage.dart';
+import '../../../../core/models/users/user_education/user_education_model.dart';
+import '../../../../repository/user/user_education/user_education_repository.dart';
+import 'user_education_information_list.dart';
 
-class UserEducationInformation extends StatefulWidget {
-  const UserEducationInformation({Key? key}) : super(key: key);
+class UserEducationInformationPage extends StatefulWidget {
+  const UserEducationInformationPage({Key? key}) : super(key: key);
 
   @override
-  // ignore: library_private_types_in_public_api
-  _UserEducationInformationState createState() => _UserEducationInformationState();
+  State<UserEducationInformationPage> createState() => _UserEducationInformationPageState();
 }
 
-class _UserEducationInformationState extends State<UserEducationInformation> {
-  final TextEditingController _startDateController = TextEditingController();
-  final TextEditingController _endDateController = TextEditingController();
-  String? projectLink;
+class _UserEducationInformationPageState extends State<UserEducationInformationPage> {
+  TextEditingController schoolController = TextEditingController();
+  TextEditingController departmentController = TextEditingController();
+  TextEditingController startDateController = TextEditingController();
+  TextEditingController endDateController = TextEditingController();
+  TextEditingController gradeController = TextEditingController();
+  TextEditingController activitiesSocietiesController = TextEditingController();
+  TextEditingController descriptionController = TextEditingController();
+  TextEditingController linkController = TextEditingController();
+  TextEditingController enlanguageController = TextEditingController();
+
+  String? userId;
 
   @override
-  void dispose() {
-    _startDateController.dispose();
-    _endDateController.dispose();
-    super.dispose();
+  void initState() {
+    super.initState();
+    getUserId();
+  }
+
+  void getUserId() async {
+    if (userId == null) {
+      String? tempUserId = await SecureStorageHelper().getUserId();
+      if (tempUserId != null) {
+        setState(() {
+          userId = tempUserId;
+        });
+      } else {
+        // Kullanıcı oturum açmamışsa veya kimlik doğrulama kullanmıyorsanız,
+        // userId değerini uygun şekilde ayarlamanız gerekecektir.
+      }
+    }
+  }
+
+  void addEducationInformation() async {
+    String school = schoolController.text.trim();
+    String department = departmentController.text.trim();
+    String startDate = startDateController.text.trim();
+    String endDate = endDateController.text.trim();
+    String grade = gradeController.text.trim();
+    String activitiesSocieties = activitiesSocietiesController.text.trim();
+    String description = descriptionController.text.trim();
+    String link = linkController.text.trim();
+    String language = enlanguageController.text.trim();
+
+    if (school.isNotEmpty &&
+        startDate.isNotEmpty &&
+        grade.isNotEmpty &&
+        description.isNotEmpty) {
+      UserEducation userEducationInformation = UserEducation();
+      userEducationInformation.setUserId(userId!);
+      userEducationInformation.setSchoolName(school);
+      userEducationInformation.setDepartment(department);
+      userEducationInformation.setStartDate(DateTime.parse(startDate));
+      userEducationInformation.setEndDate(DateTime.parse(endDate));
+      userEducationInformation.setGrade(grade);
+      userEducationInformation.setActivitiesSocienties(activitiesSocieties);
+      userEducationInformation.setDescription(description);
+      userEducationInformation.setLink(link);
+      userEducationInformation.setEnLanguage(ExLanguage.getEnum(language));
+
+      try {
+        await UserEducationInformationRepository().add(userEducationInformation);
+
+        setState(() {
+          schoolController.clear();
+          departmentController.clear();
+          startDateController.clear();
+          endDateController.clear();
+          gradeController.clear();
+          activitiesSocietiesController.clear();
+          descriptionController.clear();
+          linkController.clear();
+          enlanguageController.clear();
+        });
+
+        // ignore: use_build_context_synchronously
+        showDialog(
+          context: context,
+          builder: (BuildContext context) {
+            return AlertDialog(
+              title: Text('Başarı',
+                style: GoogleFonts.nunito(),),
+              content: Text('Eğitim bilgisi başarıyla eklendi.',
+                style: GoogleFonts.nunito(),),
+              actions: [
+                TextButton(
+                  onPressed: () {
+                    Navigator.of(context).pop();
+                  },
+                  child: Text('Tamam',
+                    style: GoogleFonts.nunito(),),
+                ),
+              ],
+              backgroundColor: ColorConstants.theme1DarkBlue,
+            );
+          },
+        );
+
+        print('EducationInformation added to Firebase: $userEducationInformation');
+      } catch (error) {
+        print('Failed to add educationInformation to Firebase: $error');
+      }
+    }
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      resizeToAvoidBottomInset: false,
       appBar: AppBar(
-        title: Text(
-          '',
-          style: GoogleFonts.nunito(),
-        ),
-        leading: IconButton(
-          icon: const Icon(CupertinoIcons.arrow_turn_up_left),
-          onPressed: () {
-            Navigator.pop(context);
-          },
-        ),
+        backgroundColor: ColorConstants.itemWhite, // AppBar arka plan rengi
+        title: Text('Eğitim Bilgileri',
+          style: GoogleFonts.nunito( // Yetenekler yazısının yazı tipi
+            fontSize: 22,
+            fontWeight: FontWeight.bold,
+          ),),
         actions: [
-          Padding(
-            padding: const EdgeInsets.only(right: 8.0),
-            child: Image.asset(
-              'assets/logo/guideUpLogo.png', // Logo resminin yolunu buraya ekleyin
-              width: 62,
-              height: 62,
+          IconButton(
+            icon: const Icon(
+              Icons.edit,
+              color: ColorConstants.theme1DarkBlue, // Kalem ikonu rengi
             ),
+            onPressed: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => UserEducationInformationList(userId: userId),
+                ),
+              );
+            },
           ),
         ],
       ),
-      body: Container(
-        decoration: CustomMaterial.backgroundBoxDecoration,
-        padding: const EdgeInsets.all(16),
+      body: SingleChildScrollView(
+        padding: const EdgeInsets.all(16.0),
         child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
+          crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
-            Text(
-              'Eğitim Ekle',
-              style: GoogleFonts.nunito(
-                fontWeight: FontWeight.bold,
-                fontSize: 24,
-              ),
-            ),
-            const SizedBox(height: 16),
-            Text(
-              'Okul',
-              style: GoogleFonts.nunito(
-                fontWeight: FontWeight.bold,
-                fontSize: 18,
-              ),
-            ),
-            TextFormField(
-              style: const TextStyle(fontFamily: 'Nunito'), // Yazı tipi
-              cursorColor: ColorConstants.warningDark,
-              decoration: const InputDecoration(
-                hintText: 'Okul Adı',
-                focusedBorder: UnderlineInputBorder(
-                  borderSide: BorderSide(
-                    color: ColorConstants.warningDark, // Alt çizgi rengi
+              TextFormField(
+                decoration: InputDecoration(
+                  labelText: 'Okul Adı',
+                  labelStyle: GoogleFonts.nunito(
+                    color: (schoolController.value.text.isNotEmpty)
+                        ? ColorConstants.theme1DarkBlue
+                        : ColorConstants.warningDark,
                   ),
-                ),
-              ),
-            ),
-            const SizedBox(height: 16),
-            Text(
-              'Bölüm',
-              style: GoogleFonts.nunito(
-                fontWeight: FontWeight.bold,
-                fontSize: 18,
-              ),
-            ),
-            TextFormField(
-              style: const TextStyle(fontFamily: 'Nunito'), // Yazı tipi
-              cursorColor: ColorConstants.warningDark,
-              decoration: const InputDecoration(
-                hintText: 'Bölüm Adı',
-                focusedBorder: UnderlineInputBorder(
-                  borderSide: BorderSide(
-                    color: ColorConstants.warningDark, // Alt çizgi rengi
+                  border: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(8.0),
                   ),
-                ),
-              ),
-            ),
-            const SizedBox(height: 16),
-            Text(
-              'Başlangıç Tarihi',
-              style: GoogleFonts.nunito(
-                fontWeight: FontWeight.bold,
-                fontSize: 18,
-              ),
-            ),
-            GestureDetector(
-              onTap: () {
-                _selectStartDate(context);
-              },
-              child: AbsorbPointer(
-                child: TextFormField(
-                  controller: _startDateController,
-                  decoration: const InputDecoration(
-                    hintText: 'Başlangıç Tarihi',
-                    focusedBorder: UnderlineInputBorder(
-                      borderSide: BorderSide(
-                        color: ColorConstants.warningDark, // Alt çizgi rengi
-                      ),
+                  focusedBorder: OutlineInputBorder(
+                    borderSide: BorderSide(
+                      color: (schoolController.value.text.isNotEmpty)
+                          ? ColorConstants.theme1DarkBlue
+                          : ColorConstants.warningDark,
                     ),
+                    borderRadius: BorderRadius.circular(8.0),
                   ),
                 ),
+                controller: schoolController,
+                cursorColor: ColorConstants.theme1DarkBlue,
+                onChanged: (value) {
+                  setState(() {});
+                },
               ),
-            ),
-            const SizedBox(height: 16),
-            Text(
-              'Bitiş Tarihi',
-              style: GoogleFonts.nunito(
-                fontWeight: FontWeight.bold,
-                fontSize: 18,
-              ),
-            ),
-            GestureDetector(
-              onTap: () {
-                _selectEndDate(context);
-              },
-              child: AbsorbPointer(
-                child: TextFormField(
-                  controller: _endDateController,
-                  style: const TextStyle(fontFamily: 'Nunito'), // Yazı tipi
-                  decoration: const InputDecoration(
-                    hintText: 'Bitiş Tarihi',
-                    focusedBorder: UnderlineInputBorder(
-                      borderSide: BorderSide(
-                        color: ColorConstants.warningDark, // Alt çizgi rengi
-                      ),
+              const SizedBox(height: 16.0),
+              TextFormField(
+                decoration: InputDecoration(
+                  labelText: 'Departman (isteğe bağlı)',
+                  labelStyle: GoogleFonts.nunito(
+                    color: (departmentController.value.text.isNotEmpty)
+                        ? ColorConstants.theme1DarkBlue
+                        : ColorConstants.warningDark,
+                  ),
+                  border: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(8.0),
+                  ),
+                  focusedBorder: OutlineInputBorder(
+                    borderSide: BorderSide(
+                      color: (departmentController.value.text.isNotEmpty)
+                          ? ColorConstants.theme1DarkBlue
+                          : ColorConstants.warningDark,
                     ),
+                    borderRadius: BorderRadius.circular(8.0),
                   ),
                 ),
+                controller: departmentController,
+                cursorColor: ColorConstants.theme1DarkBlue,
+                onChanged: (value) {
+                  setState(() {});
+                },
               ),
-            ),
-            const SizedBox(height: 16),
-            Text(
-              'Proje Linki',
-              style: GoogleFonts.nunito(
-                fontWeight: FontWeight.bold,
-                fontSize: 18,
-              ),
-            ),
-            TextFormField(
-              style: const TextStyle(fontFamily: 'Nunito'), // Yazı tipi
-              cursorColor: ColorConstants.warningDark,
-              decoration: const InputDecoration(
-                hintText: 'Proje Linki',
-                focusedBorder: UnderlineInputBorder(
-                  borderSide: BorderSide(
-                    color: ColorConstants.warningDark, // Alt çizgi rengi
+              const SizedBox(height: 16.0),
+              TextFormField(
+                decoration: InputDecoration(
+                  labelText: 'Başlangıç Tarihi',
+                  labelStyle: GoogleFonts.nunito(
+                    color: (startDateController.value.text.isNotEmpty)
+                        ? ColorConstants.theme1DarkBlue
+                        : ColorConstants.warningDark,
+                  ),
+                  border: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(8.0),
+                  ),
+                  focusedBorder: OutlineInputBorder(
+                    borderSide: BorderSide(
+                      color: (startDateController.value.text.isNotEmpty)
+                          ? ColorConstants.theme1DarkBlue
+                          : ColorConstants.warningDark,
+                    ),
+                    borderRadius: BorderRadius.circular(8.0),
                   ),
                 ),
+                controller: startDateController,
+                cursorColor: ColorConstants.theme1DarkBlue,
+                onChanged: (value) {
+                  setState(() {});
+                },
               ),
-              onChanged: (value) {
-                setState(() {
-                  projectLink = value;
-                });
-              },
-            ),
-            const SizedBox(height: 16),
-            Text(
-              'Not',
-              style: GoogleFonts.nunito(
-                fontWeight: FontWeight.bold,
-                fontSize: 18,
-              ),
-            ),
-            TextFormField(
-              style: const TextStyle(fontFamily: 'Nunito'), // Yazı tipi
-              cursorColor: ColorConstants.warningDark,
-              decoration: const InputDecoration(
-                hintText: 'Not',
-                focusedBorder: UnderlineInputBorder(
-                  borderSide: BorderSide(
-                    color: ColorConstants.warningDark, // Alt çizgi rengi
+              const SizedBox(height: 16.0),
+              TextFormField(
+                decoration: InputDecoration(
+                  labelText: 'Bitiş Tarihi (isteğe bağlı)',
+                  labelStyle: GoogleFonts.nunito(
+                    color: (endDateController.value.text.isNotEmpty)
+                        ? ColorConstants.theme1DarkBlue
+                        : ColorConstants.warningDark,
+                  ),
+                  border: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(8.0),
+                  ),
+                  focusedBorder: OutlineInputBorder(
+                    borderSide: BorderSide(
+                      color: (endDateController.value.text.isNotEmpty)
+                          ? ColorConstants.theme1DarkBlue
+                          : ColorConstants.warningDark,
+                    ),
+                    borderRadius: BorderRadius.circular(8.0),
                   ),
                 ),
+                controller: endDateController,
+                cursorColor: ColorConstants.theme1DarkBlue,
+                onChanged: (value) {
+                  setState(() {});
+                },
               ),
-            ),
-            const SizedBox(height: 16),
+              const SizedBox(height: 16.0),
+              TextFormField(
+                decoration: InputDecoration(
+                  labelText: 'Sınıf',
+                  labelStyle: GoogleFonts.nunito(
+                    color: (gradeController.value.text.isNotEmpty)
+                        ? ColorConstants.theme1DarkBlue
+                        : ColorConstants.warningDark,
+                  ),
+                  border: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(8.0),
+                  ),
+                  focusedBorder: OutlineInputBorder(
+                    borderSide: BorderSide(
+                      color: (gradeController.value.text.isNotEmpty)
+                          ? ColorConstants.theme1DarkBlue
+                          : ColorConstants.warningDark,
+                    ),
+                    borderRadius: BorderRadius.circular(8.0),
+                  ),
+                ),
+                controller: gradeController,
+                cursorColor: ColorConstants.theme1DarkBlue,
+                onChanged: (value) {
+                  setState(() {});
+                },
+              ),
+              const SizedBox(height: 16.0),
+              TextFormField(
+                decoration: InputDecoration(
+                  labelText: 'Aktiviteler/Sosyal Faaliyetler (isteğe bağlı)',
+                  labelStyle: GoogleFonts.nunito(
+                    color: (activitiesSocietiesController.value.text.isNotEmpty)
+                        ? ColorConstants.theme1DarkBlue
+                        : ColorConstants.warningDark,
+                  ),
+                  border: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(8.0),
+                  ),
+                  focusedBorder: OutlineInputBorder(
+                    borderSide: BorderSide(
+                      color: (activitiesSocietiesController.value.text.isNotEmpty)
+                          ? ColorConstants.theme1DarkBlue
+                          : ColorConstants.warningDark,
+                    ),
+                    borderRadius: BorderRadius.circular(8.0),
+                  ),
+                ),
+                controller: activitiesSocietiesController,
+                cursorColor: ColorConstants.theme1DarkBlue,
+                onChanged: (value) {
+                  setState(() {});
+                },
+              ),
+              const SizedBox(height: 16.0),
+              TextFormField(
+                decoration: InputDecoration(
+                  labelText: 'Açıklama',
+                  labelStyle: GoogleFonts.nunito(
+                    color: (descriptionController.value.text.isNotEmpty)
+                        ? ColorConstants.theme1DarkBlue
+                        : ColorConstants.warningDark,
+                  ),
+                  border: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(8.0),
+                  ),
+                  focusedBorder: OutlineInputBorder(
+                    borderSide: BorderSide(
+                      color: (descriptionController.value.text.isNotEmpty)
+                          ? ColorConstants.theme1DarkBlue
+                          : ColorConstants.warningDark,
+                    ),
+                    borderRadius: BorderRadius.circular(8.0),
+                  ),
+                ),
+                controller: descriptionController,
+                cursorColor: ColorConstants.theme1DarkBlue,
+                onChanged: (value) {
+                  setState(() {});
+                },
+              ),
+              const SizedBox(height: 16.0),
+              TextFormField(
+                decoration: InputDecoration(
+                  labelText: 'Bağlantı (isteğe bağlı)',
+                  labelStyle: GoogleFonts.nunito(
+                    color: (linkController.value.text.isNotEmpty)
+                        ? ColorConstants.theme1DarkBlue
+                        : ColorConstants.warningDark,
+                  ),
+                  border: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(8.0),
+                  ),
+                  focusedBorder: OutlineInputBorder(
+                    borderSide: BorderSide(
+                      color: (linkController.value.text.isNotEmpty)
+                          ? ColorConstants.theme1DarkBlue
+                          : ColorConstants.warningDark,
+                    ),
+                    borderRadius: BorderRadius.circular(8.0),
+                  ),
+                ),
+                controller: linkController,
+                cursorColor: ColorConstants.theme1DarkBlue,
+                onChanged: (value) {
+                  setState(() {});
+                },
+              ),
+              const SizedBox(height: 16.0),
+              TextFormField(
+                decoration: InputDecoration(
+                  labelText: 'Dil Bilgisi',
+                  labelStyle: GoogleFonts.nunito(
+                    color: (enlanguageController.value.text.isNotEmpty)
+                        ? ColorConstants.theme1DarkBlue
+                        : ColorConstants.warningDark,
+                  ),
+                  border: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(8.0),
+                  ),
+                  focusedBorder: OutlineInputBorder(
+                    borderSide: BorderSide(
+                      color: (enlanguageController.value.text.isNotEmpty)
+                          ? ColorConstants.theme1DarkBlue
+                          : ColorConstants.warningDark,
+                    ),
+                    borderRadius: BorderRadius.circular(8.0),
+                  ),
+                ),
+                controller: enlanguageController,
+                cursorColor: ColorConstants.theme1DarkBlue,
+                onChanged: (value) {
+                  setState(() {});
+                },
+              ),
+          const SizedBox(height: 16.0),
             ElevatedButton(
               onPressed: () {
-                // Kaydet butonuna basıldığında işlemi yap
+                addEducationInformation();
               },
-              style: ButtonStyle(
-                backgroundColor: MaterialStateProperty.all<Color>(
-                  ColorConstants.warningDark, // Arkaplan rengi
-                ),
-                foregroundColor: MaterialStateProperty.all<Color>(
-                  ColorConstants.itemWhite, // Metin rengi
-                ),
+              style: ElevatedButton.styleFrom(
+                backgroundColor: ColorConstants.theme1DarkBlue, // Arka plan rengi
               ),
               child: Text(
-                'Kaydet',
+                'Ekle',
                 style: GoogleFonts.nunito(
-                  fontSize: 15,
-                  fontWeight: FontWeight.bold,
+                  color: ColorConstants.itemWhite, // Yazı rengi
                 ),
               ),
             ),
+
+
           ],
         ),
       ),
     );
-  }
-
-  void _selectStartDate(BuildContext context) async {
-    final DateTime? pickedDate = await showCupertinoModalPopup<DateTime>(
-      context: context,
-      builder: (BuildContext context) {
-        return SizedBox(
-          height: 216,
-          child: CupertinoDatePicker(
-            mode: CupertinoDatePickerMode.date,
-            initialDateTime: DateTime.now(),
-            onDateTimeChanged: (DateTime? date) {
-              if (date != null) {
-                setState(() {
-                  _startDateController.text =
-                  '${date.day}/${date.month}/${date.year}';
-                });
-              }
-            },
-          ),
-        );
-      },
-    );
-    if (pickedDate != null) {
-      setState(() {
-        _startDateController.text =
-        '${pickedDate.day}/${pickedDate.month}/${pickedDate.year}';
-      });
-    }
-  }
-
-  void _selectEndDate(BuildContext context) async {
-    final DateTime? pickedDate = await showCupertinoModalPopup<DateTime>(
-      context: context,
-      builder: (BuildContext context) {
-        return SizedBox(
-          height: 216,
-          child: CupertinoDatePicker(
-            mode: CupertinoDatePickerMode.date,
-            initialDateTime: DateTime.now(),
-            onDateTimeChanged: (DateTime? date) {
-              if (date != null) {
-                setState(() {
-                  _endDateController.text =
-                  '${date.day}/${date.month}/${date.year}';
-                });
-              }
-            },
-          ),
-        );
-      },
-    );
-    if (pickedDate != null) {
-      setState(() {
-        _endDateController.text =
-        '${pickedDate.day}/${pickedDate.month}/${pickedDate.year}';
-      });
-    }
   }
 }

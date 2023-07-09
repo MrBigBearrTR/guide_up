@@ -4,6 +4,8 @@ import 'package:guide_up/core/enumeration/extensions/ExDegreeType.dart';
 import 'package:guide_up/core/enumeration/extensions/ExLanguage.dart';
 import 'package:guide_up/core/models/general/general_fields_model.dart';
 
+import '../../../utils/control_helper.dart';
+
 /// [@author MrBigBear] 
 class UserEducation extends GeneralFields {
   String? _id;
@@ -17,6 +19,7 @@ class UserEducation extends GeneralFields {
   String? _activitiesSocienties;
   String? _description;
   String? _link;
+  String? _educationInformation;
   EnLanguage? _enLanguage;
 
   String? getId() {
@@ -107,11 +110,19 @@ class UserEducation extends GeneralFields {
     _link = link;
   }
 
+  String? getEducationInformation() {
+    return _educationInformation;
+  }
+
+  void setEducationInformation(String educationInformation) {
+    _educationInformation = educationInformation;
+  }
+
   EnLanguage? getEnLanguage() {
     return _enLanguage;
   }
 
-  void setEnLanguage(EnLanguage enLanguage) {
+  void setEnLanguage(EnLanguage? enLanguage) {
     _enLanguage = enLanguage;
   }
 
@@ -130,6 +141,7 @@ class UserEducation extends GeneralFields {
     map['description'] = getDescription();
     map['activitiesSocienties'] = getActivitiesSocienties();
     map['link'] = getLink();
+    map['educationInformation'] = getEducationInformation();
     if (getEnLanguage() != null) {
       map['enLanguage'] = getEnLanguage()!.name;
     }
@@ -139,41 +151,46 @@ class UserEducation extends GeneralFields {
   toClass(Map<String, dynamic> map) {
     toGeneralClass(map);
 
-    if (map.containsKey('id')) {
+    if (ControlHelper.checkMapValue(map, 'id')) {
       setId(map['id']);
     }
-    if (map.containsKey('userId')) {
-      setUserId(map['userId']);
+    if (ControlHelper.checkMapValue(map, 'userId')) {
+      setId(map['userId']);
     }
-    if (map.containsKey('schoolName')) {
-      setSchoolName(map['schoolName']);
+    if (ControlHelper.checkMapValue(map, 'schoolName')) {
+      setId(map['schoolName']);
     }
-    if (map.containsKey('department')) {
-      setDepartment(map['department']);
+    if (ControlHelper.checkMapValue(map, 'department')) {
+      setId(map['department']);
     }
-    if (map.containsKey('enDegreeType')) {
+    if (ControlHelper.checkMapValue(map, 'enDegreeType')) {
       setEnDegreeType(ExDegreeType.getEnum(map['enDegreeType'])!);
     }
-    if (map.containsKey('startDate')) {
-      setStartDate(map['startDate']);
+    if (ControlHelper.checkMapValue(map, 'startDate')) {
+      setId(map['startDate']);
     }
-    if (map.containsKey('endDate')) {
-      setEndDate(map['endDate']);
+    if (ControlHelper.checkMapValue(map, 'endDate')) {
+      setId(map['endDate']);
     }
-    if (map.containsKey('grade')) {
-      setGrade(map['grade']);
+    if (ControlHelper.checkMapValue(map, 'grade')) {
+      setId(map['grade']);
     }
-    if (map.containsKey('description')) {
-      setDescription(map['description']);
+    if (ControlHelper.checkMapValue(map, 'description')) {
+      setId(map['description']);
     }
-    if (map.containsKey('activitiesSocienties')) {
-      setActivitiesSocienties(map['activitiesSocienties']);
+    if (ControlHelper.checkMapValue(map, 'activitiesSocienties')) {
+      setId(map['activitiesSocienties']);
     }
-    if (map.containsKey('link')) {
-      setLink(map['link']);
+    if (ControlHelper.checkMapValue(map, 'link')) {
+      setId(map['link']);
     }
-    if (map.containsKey('enLanguage')) {
-      setEnLanguage(ExLanguage.getEnum(map['enLanguage'])!);
+    if (ControlHelper.checkMapValue(map, 'educationInformation')) {
+      setId(map['educationInformation']);
     }
+    if (ControlHelper.checkMapValue(map, 'enLanguage')) {
+      String language = map['enLanguage'];
+      setEnLanguage(ExLanguage.getEnum(language));
+    }
+
   }
 }

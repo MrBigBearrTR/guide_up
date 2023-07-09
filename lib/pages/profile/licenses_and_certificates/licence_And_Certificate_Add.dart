@@ -144,8 +144,8 @@ class _LicenseAndCertificateAddPageState
                             content: Text(
                               "Tüm alanları doldurun.",
                               style: GoogleFonts.nunito(
-                          color: ColorConstants.itemWhite, // Yazı rengi
-                          ),
+                                color: ColorConstants.itemWhite, // Yazı rengi
+                              ),
                             ),
                             actions: [
                               TextButton(
@@ -153,7 +153,7 @@ class _LicenseAndCertificateAddPageState
                                   "Tamam",
                                   style: GoogleFonts.nunito(
                                     color: ColorConstants.warningDark, // Yazı rengi
-                                    ),
+                                  ),
                                 ),
                                 onPressed: () {
                                   Navigator.pop(context);

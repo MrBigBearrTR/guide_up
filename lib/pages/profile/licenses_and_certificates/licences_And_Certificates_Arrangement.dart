@@ -131,9 +131,9 @@ class _LicensesAndCertificatesArrangementPageState
                         },
                       );
                     },
-                      style: ElevatedButton.styleFrom(
-                        backgroundColor: ColorConstants.dangerDark,
-                      ),
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: ColorConstants.dangerDark,
+                    ),
                     child: Text("Sil",
                       style: GoogleFonts.nunito(
                         color: ColorConstants.itemWhite, // Metin rengi

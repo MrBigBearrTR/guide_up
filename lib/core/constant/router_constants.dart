@@ -11,10 +11,11 @@ class RouterConstants{
   static const String generalSettingsPage="/generalSettingsPage";
   static const String userAbilities="/userAbilities";
   static const String userProjectPage="/userProjectPage";
-  static const String usereducationInformation="/usereducationInformation";
+  static const String userEducationInformationPage="/userEducationInformationPage";
   static const String helpAndSupport="/helpAndSupport";
   static const String aboutUs="/aboutUs";
   static const String messagesPage="/messagesPage";
+  static const String licensesAndCertificatesPage="/licensesAndCertificatesPage";
 
   static const String myMentors = 'myMentors';
   static const String mentorFavourite = 'mentorFavourite';

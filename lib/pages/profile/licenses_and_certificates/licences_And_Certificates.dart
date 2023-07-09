@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import ' license_And_Certificate_Add.dart';
-import ' licenses_And_Certificates_Arrangement.dart';
 import '../../../core/constant/color_constants.dart';
 import '../../../ui/material/custom_material.dart';
+import 'licence_And_Certificate_Add.dart';
+import 'licences_And_Certificates_Arrangement.dart';
 
 class LicensesAndCertificatesPage extends StatefulWidget {
   const LicensesAndCertificatesPage({Key? key}) : super(key: key);
@@ -132,7 +132,7 @@ class _LicensesAndCertificatesPageState
                         builder: (BuildContext context) {
                           return AlertDialog(
                             title: Text(
-                                "Silmek istediğinize emin misiniz?",
+                              "Silmek istediğinize emin misiniz?",
                               style: GoogleFonts.nunito(
                                 color: ColorConstants.itemWhite,
                               ),
