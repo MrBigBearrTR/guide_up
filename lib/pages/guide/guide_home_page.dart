@@ -5,12 +5,14 @@ import 'package:guide_up/repository/post/post_repository.dart';
 import 'package:guide_up/repository/user/user_detail/user_detail_repository.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
-class GuidePage extends StatefulWidget {
+class GuideHomePage extends StatefulWidget {
+  const GuideHomePage({Key? key}) : super(key: key);
+
   @override
-  _GuidePageState createState() => _GuidePageState();
+  State<GuideHomePage> createState() => _GuideHomePageState();
 }
 
-class _GuidePageState extends State<GuidePage> {
+class _GuideHomePageState extends State<GuideHomePage> {
   final PostRepository _postRepository = PostRepository();
   final UserDetailRepository _userDetailRepository = UserDetailRepository();
 
@@ -34,7 +36,7 @@ class _GuidePageState extends State<GuidePage> {
   Future<void> fetchPosts() async {
     if (currentUser != null) {
       List<Post> fetchedPosts =
-      await _postRepository.getUserPostListByUserId(currentUser!.uid);
+          await _postRepository.getUserPostListByUserId(currentUser!.uid);
       setState(() {
         posts = fetchedPosts;
       });
@@ -73,7 +75,7 @@ class _GuidePageState extends State<GuidePage> {
 
   Future<UserDetail?> getUserDetail(String userId) async {
     UserDetail? userDetail =
-    await _userDetailRepository.getUserByUserId(userId);
+        await _userDetailRepository.getUserByUserId(userId);
     return userDetail;
   }
 
@@ -101,7 +103,8 @@ class _GuidePageState extends State<GuidePage> {
                   title: Text(post.getTopic() ?? ''),
                   subtitle: Text(post.getContent() ?? ''),
                   leading: CircleAvatar(
-                    backgroundImage: NetworkImage(userDetail?.profileImage ?? ''),
+                    backgroundImage:
+                        NetworkImage(userDetail?.profileImage ?? ''),
                   ),
                   trailing: PopupMenuButton<String>(
                     itemBuilder: (context) => <PopupMenuEntry<String>>[
