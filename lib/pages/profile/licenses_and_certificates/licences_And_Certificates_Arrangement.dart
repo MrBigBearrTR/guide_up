@@ -101,7 +101,7 @@ class _LicensesAndCertificatesArrangementPageState
               TextFormField(
                 initialValue: widget.data['organization'],
                 decoration: InputDecoration(
-                  labelText: 'Kuruluş',
+                  labelText: 'Veren Organizasyon',
                   labelStyle: GoogleFonts.nunito(
                     color: ColorConstants.theme1DarkBlue,
                   ),
@@ -117,7 +117,7 @@ class _LicensesAndCertificatesArrangementPageState
                 ),
                 validator: (value) {
                   if (value!.isEmpty) {
-                    return 'Kuruluş alanı boş olamaz';
+                    return 'Veren Organizasyon alanı boş olamaz';
                   }
                   return null;
                 },
@@ -171,16 +171,12 @@ class _LicensesAndCertificatesArrangementPageState
                     borderRadius: BorderRadius.circular(8.0),
                   ),
                 ),
-                validator: (value) {
-                  if (value!.isEmpty) {
-                    return 'Son Kullanma Tarihi boş olamaz';
-                  }
-                  return null;
-                },
+                validator: null, // Zorunluluk kontrolünü devre dışı bırakır
                 onSaved: (value) {
                   _updatedExpiryDate = value!;
                 },
               ),
+
               const SizedBox(height: 16.0),
               TextFormField(
                 initialValue: widget.data['qualificationId'],
@@ -200,10 +196,7 @@ class _LicensesAndCertificatesArrangementPageState
                   ),
                 ),
                 validator: (value) {
-                  if (value!.isEmpty) {
-                    return 'Yetkilendirme ID boş olamaz';
-                  }
-                  return null;
+                  return null; // Boş değer için hata mesajı döndürme
                 },
                 onSaved: (value) {
                   _updatedQualificationId = value!;
@@ -228,15 +221,13 @@ class _LicensesAndCertificatesArrangementPageState
                   ),
                 ),
                 validator: (value) {
-                  if (value!.isEmpty) {
-                    return 'Yetkilendirme URL boş olamaz';
-                  }
-                  return null;
+                  return null; // Boş değer için hata mesajı döndürme
                 },
                 onSaved: (value) {
                   _updatedQualificationUrl = value!;
                 },
               ),
+
               const SizedBox(height: 32.0),
               ElevatedButton(
                 onPressed: _submitForm,

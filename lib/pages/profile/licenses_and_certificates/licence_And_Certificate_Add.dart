@@ -73,7 +73,7 @@ class _LicenseAndCertificateAddPageState extends State<LicenseAndCertificateAddP
               const SizedBox(height: 16.0),
               TextFormField(
                 decoration: InputDecoration(
-                  labelText: 'Kuruluş',
+                  labelText: 'Veren Organizasyon',
                   labelStyle: GoogleFonts.nunito(
                     color: ColorConstants.theme1DarkBlue,
                   ),
@@ -89,7 +89,7 @@ class _LicenseAndCertificateAddPageState extends State<LicenseAndCertificateAddP
                 ),
                 validator: (value) {
                   if (value!.isEmpty) {
-                    return 'Kuruluş alanı boş olamaz';
+                    return 'Veren Organizasyon alanı boş olamaz';
                   }
                   return null;
                 },
@@ -141,16 +141,13 @@ class _LicenseAndCertificateAddPageState extends State<LicenseAndCertificateAddP
                     borderRadius: BorderRadius.circular(8.0),
                   ),
                 ),
-                validator: (value) {
-                  if (value!.isEmpty) {
-                    return 'Son Kullanma Tarihi boş olamaz';
-                  }
-                  return null;
-                },
+                validator: null,
                 onSaved: (value) {
                   _formData['expiryDate'] = value!;
                 },
+                autovalidateMode: AutovalidateMode.disabled,
               ),
+
               const SizedBox(height: 16.0),
               TextFormField(
                 decoration: InputDecoration(
@@ -170,9 +167,9 @@ class _LicenseAndCertificateAddPageState extends State<LicenseAndCertificateAddP
                 ),
                 validator: (value) {
                   if (value!.isEmpty) {
-                    return 'Yetkilendirme ID boş olamaz';
+                    return null; // Boş değer için hata mesajı döndürme
                   }
-                  return null;
+                  return 'Yetkilendirme ID boş olamaz';
                 },
                 onSaved: (value) {
                   _formData['qualificationId'] = value!;
@@ -197,14 +194,15 @@ class _LicenseAndCertificateAddPageState extends State<LicenseAndCertificateAddP
                 ),
                 validator: (value) {
                   if (value!.isEmpty) {
-                    return 'Yetkilendirme URL boş olamaz';
+                    return null; // Boş değer için hata mesajı döndürme
                   }
-                  return null;
+                  return 'Yetkilendirme URL boş olamaz';
                 },
                 onSaved: (value) {
                   _formData['qualificationUrl'] = value!;
                 },
               ),
+
               const SizedBox(height: 32.0),
               ElevatedButton(
                 onPressed: _submitForm,
