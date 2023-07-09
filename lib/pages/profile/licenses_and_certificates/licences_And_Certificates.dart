@@ -16,7 +16,7 @@ class LicensesAndCertificatesPage extends StatefulWidget {
 
 class _LicensesAndCertificatesPageState
     extends State<LicensesAndCertificatesPage> {
-  List<String> licensesAndCertificatesList = []; // Sertifikalar ve lisanslar listesi
+  List<Map<String, String>> licensesAndCertificatesList = [];
 
   @override
   Widget build(BuildContext context) {
@@ -31,9 +31,9 @@ class _LicensesAndCertificatesPageState
                 context,
                 MaterialPageRoute(
                   builder: (context) => LicenseAndCertificateAddPage(
-                    onAdd: (String url) {
+                    onAdd: (Map<String, String> data) {
                       setState(() {
-                        licensesAndCertificatesList.add(url);
+                        licensesAndCertificatesList.add(data);
                       });
                     },
                   ),
@@ -44,7 +44,7 @@ class _LicensesAndCertificatesPageState
         ],
       ),
       body: Container(
-        decoration: CustomMaterial.backgroundBoxDecoration ,
+        decoration: CustomMaterial.backgroundBoxDecoration,
         child: licensesAndCertificatesList.isEmpty
             ? Center(
           child: Column(
@@ -63,14 +63,13 @@ class _LicensesAndCertificatesPageState
                   Navigator.push(
                     context,
                     MaterialPageRoute(
-                      builder: (context) =>
-                          LicenseAndCertificateAddPage(
-                            onAdd: (String url) {
-                              setState(() {
-                                licensesAndCertificatesList.add(url);
-                              });
-                            },
-                          ),
+                      builder: (context) => LicenseAndCertificateAddPage(
+                        onAdd: (Map<String, String> data) {
+                          setState(() {
+                            licensesAndCertificatesList.add(data);
+                          });
+                        },
+                      ),
                     ),
                   );
                 },
@@ -91,10 +90,20 @@ class _LicensesAndCertificatesPageState
             : ListView.builder(
           itemCount: licensesAndCertificatesList.length,
           itemBuilder: (context, index) {
-            final url = licensesAndCertificatesList[index];
+            final data = licensesAndCertificatesList[index];
 
             return ListTile(
-              title: Text(url),
+              title: Text(data['name'] ?? ''),
+              subtitle: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text('Kuruluş: ${data['organization'] ?? ''}'),
+                  Text('Veriliş Tarihi: ${data['issueDate'] ?? ''}'),
+                  Text('Son Kullanma Tarihi: ${data['expiryDate'] ?? ''}'),
+                  Text('Yetkilendirme ID: ${data['qualificationId'] ?? ''}'),
+                  Text('Yetkilendirme URL: ${data['qualificationUrl'] ?? ''}'),
+                ],
+              ),
               trailing: Row(
                 mainAxisSize: MainAxisSize.min,
                 children: [
@@ -104,22 +113,19 @@ class _LicensesAndCertificatesPageState
                       Navigator.push(
                         context,
                         MaterialPageRoute(
-                          builder: (context) =>
-                              LicensesAndCertificatesArrangementPage(
-                                url: url,
-                                onUpdate: (String updatedUrl) {
-                                  setState(() {
-                                    licensesAndCertificatesList[index] =
-                                        updatedUrl;
-                                  });
-                                },
-                                onDelete: () {
-                                  setState(() {
-                                    licensesAndCertificatesList
-                                        .removeAt(index);
-                                  });
-                                },
-                              ),
+                          builder: (context) => LicensesAndCertificatesArrangementPage(
+                            data: data,
+                            onUpdate: (Map<String, String> updatedData) {
+                              setState(() {
+                                licensesAndCertificatesList[index] = updatedData;
+                              });
+                            },
+                            onDelete: () {
+                              setState(() {
+                                licensesAndCertificatesList.removeAt(index);
+                              });
+                            },
+                          ),
                         ),
                       );
                     },
@@ -139,7 +145,8 @@ class _LicensesAndCertificatesPageState
                             ),
                             actions: [
                               TextButton(
-                                child: Text("Evet",
+                                child: Text(
+                                  "Evet",
                                   style: GoogleFonts.nunito(
                                     color: ColorConstants.warningDark,
                                     fontSize: 14,
@@ -148,14 +155,14 @@ class _LicensesAndCertificatesPageState
                                 ),
                                 onPressed: () {
                                   setState(() {
-                                    licensesAndCertificatesList
-                                        .removeAt(index);
+                                    licensesAndCertificatesList.removeAt(index);
                                   });
                                   Navigator.of(context).pop();
                                 },
                               ),
                               TextButton(
-                                child: Text("Hayır",
+                                child: Text(
+                                  "Hayır",
                                   style: GoogleFonts.nunito(
                                     color: ColorConstants.warningDark,
                                     fontSize: 14,
@@ -167,7 +174,7 @@ class _LicensesAndCertificatesPageState
                                 },
                               ),
                             ],
-                            backgroundColor: ColorConstants.theme1DarkBlue, // Popup arka plan rengi
+                            backgroundColor: ColorConstants.theme1DarkBlue,
                           );
                         },
                       );
