@@ -1,7 +1,8 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:guide_up/core/constant/firestore_collectioon_constant.dart';
 import 'package:guide_up/core/models/post/post_model.dart';
+import 'package:guide_up/core/models/users/user_detail/user_detail_model.dart';
 
-import '../../core/constant/firestore_collectioon_constant.dart';
 
 class PostRepository {
   late final CollectionReference<Map<String, dynamic>> _postCollections;
@@ -83,6 +84,10 @@ class PostRepository {
     }
 
     return postList;
+  }
+
+  Future<void> deletePost(String postId) async {
+    await _postCollections.doc(postId).delete();
   }
 
   Future update(Post post) async {
