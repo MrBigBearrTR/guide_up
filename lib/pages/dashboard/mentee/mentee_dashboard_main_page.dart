@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:guide_up/core/constant/color_constants.dart';
-import 'package:guide_up/core/constant/router_constants.dart';
 import 'package:guide_up/core/models/users/user_detail/user_detail_model.dart';
 import 'package:guide_up/core/utils/secure_storage_helper.dart';
 
@@ -203,7 +202,7 @@ class _MenteeDashboardMainPageState extends State<MenteeDashboardMainPage> {
                   'Yorumlarım',
                   style: TextStyle(fontSize: 20),
                 ),
-                Container(
+                /*Container(
                   padding: EdgeInsets.fromLTRB(20, 8, 20, 8),
                   width: 330,
                   height: 100,
@@ -268,13 +267,13 @@ class _MenteeDashboardMainPageState extends State<MenteeDashboardMainPage> {
                                 style: TextStyle(fontSize: 12),
                               ),
                             ),
-                          ),                     
+                          ),
                           Expanded(child: IconButton(onPressed: () {}, icon: Icon(Icons.edit),)),
                         ],
                       ),
                     ],
                   ),
-                ),
+                ),*/
               ],
             ),
           ],

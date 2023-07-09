@@ -1,10 +1,12 @@
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:guide_up/core/constant/router_constants.dart';
 import 'package:guide_up/core/dto/conversation/conversation_card_view.dart';
 import 'package:guide_up/core/models/users/user_detail/user_detail_model.dart';
 
 import '../../../core/constant/color_constants.dart';
-import '../../../core/utils/user_info_helper.dart';
+import '../../../core/constant/firestore_collectioon_constant.dart';
 
 class ConversationCard extends StatelessWidget {
   final ConversationCardView conversationCardView;
@@ -19,6 +21,10 @@ class ConversationCard extends StatelessWidget {
     return Card(
       color: ColorConstants.theme1White,
       child: ListTile(
+        onTap: () {
+          Navigator.pushNamed(context, RouterConstants.messagesPage,
+              arguments: conversationCardView);
+        },
         title: Text(
           conversationCardView.otherParticipantFullName,
           style: GoogleFonts.nunito(
@@ -39,10 +45,21 @@ class ConversationCard extends StatelessWidget {
             ),
           ),
         ),
-        leading: CircleAvatar(
-          radius: 30,
-          backgroundImage:
-              UserInfoHelper.getProfilePictureByPath(conversationCardView.otherParticipantPhoto),
+        leading: FutureBuilder(
+          builder: (context, snapshot) {
+            if (snapshot.hasData) {
+              return CircleAvatar(
+                radius: 30,
+                backgroundImage: NetworkImage(snapshot.data!),
+              );
+            } else {
+              return Text("data");
+            }
+          },
+          future: FirebaseStorage.instance
+              .ref(
+                  '${FirestoreCollectionConstant.uploadProfilePicturesPath}${conversationCardView.otherParticipantUserId}')
+              .getDownloadURL(),
         ),
       ),
     );

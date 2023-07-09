@@ -60,7 +60,7 @@ class Conversation extends GeneralFields {
     return map;
   }
 
-  toClass(Map<String, dynamic> map) {
+  Conversation toClass(Map<String, dynamic> map) {
     toGeneralClass(map);
 
     if (ControlHelper.checkMapValue(map, 'id')) {
@@ -82,5 +82,6 @@ class Conversation extends GeneralFields {
     if (ControlHelper.checkMapValue(map, 'isHiddenFromSecond')) {
       setHiddenFromSecond(map['isHiddenFromSecond']);
     }
+    return this;
   }
 }

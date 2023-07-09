@@ -52,6 +52,10 @@ dependencies:
   simple_animations: ^4.0.0
   flutter_launcher_icons: ^0.13.1
   firebase_storage: ^11.2.4
+  firebase_messaging: ^14.6.4
+  flutter_local_notifications: ^9.2.0
+  http: ^1.1.0
+
 dev_dependencies:
   flutter_test:
     sdk: flutter

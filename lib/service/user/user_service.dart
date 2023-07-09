@@ -1,22 +1,25 @@
 import 'package:guide_up/core/models/users/user_model.dart';
 import 'package:guide_up/core/utils/user_helper.dart';
 import 'package:guide_up/repository/user/user_repository.dart';
+import 'package:guide_up/service/user/user_token_service.dart';
 
-class  UserService {
-  late UserRepository _userRepository ;
-  late UserHelper _userHelper ;
-  UserService(){
+class UserService {
+  late UserRepository _userRepository;
+
+  late UserHelper _userHelper;
+
+  UserService() {
     _userRepository = UserRepository();
-    _userHelper = UserHelper() ;
-
+    _userHelper = UserHelper();
   }
 
-  Future<String> saveUserModel (UserModel userModel)async {
-    var uid = await _userHelper.createUser(userModel.getEmail()! , userModel.getPassword()!);
+  Future<String> saveUserModel(UserModel userModel) async {
+    var uid = await _userHelper.createUser(
+        userModel.getEmail()!, userModel.getPassword()!);
     userModel.setId(uid);
     var userId = await _userRepository.add(userModel);
 
+    UserTokenService().setToken(userId);
     return userId;
-
   }
 }

@@ -71,7 +71,7 @@ class Mentor extends GeneralFields {
   Map<String, dynamic> toMap() {
     Map<String, dynamic> map = toGeneralMap();
     map['id'] = getId();
-    map['userid'] = getUserId();
+    map['userId'] = getUserId();
     map['name'] = getName();
     map['surname'] = getSurname();
     map['about'] = getAbout();
@@ -80,14 +80,14 @@ class Mentor extends GeneralFields {
     return map;
   }
 
-  toClass(Map<String, dynamic> map) {
+  Mentor toClass(Map<String, dynamic> map) {
     toGeneralClass(map);
 
     if (ControlHelper.checkMapValue(map, 'id')) {
       setId(map['id']);
     }
-    if (ControlHelper.checkMapValue(map, 'userid')) {
-      setUserId(map['userid']);
+    if (ControlHelper.checkMapValue(map, 'userId')) {
+      setUserId(map['userId']);
     }
     if (ControlHelper.checkMapValue(map, 'name')) {
       setName(map['name']);
@@ -104,5 +104,6 @@ class Mentor extends GeneralFields {
     if (ControlHelper.checkMapValue(map, 'rate')) {
       setRate(map['rate']);
     }
+    return this;
   }
 }

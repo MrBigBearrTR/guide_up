@@ -24,7 +24,6 @@ class _ProfileMainState extends State<ProfileMain> {
   void initState() {
     super.initState();
     getUserDetail();
-    UserHelper().getUserDetail();
   }
 
   void getUserDetail() async {

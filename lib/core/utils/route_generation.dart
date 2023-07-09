@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:guide_up/pages/conversation/messages/chat_main_page.dart';
 import 'package:guide_up/pages/profile/my_profile/my_profile_account.dart';
 import 'package:guide_up/pages/register_page/register_with_detail.dart';
 
@@ -12,8 +13,8 @@ import '../../pages/profile/help_and_support/help_and_support.dart';
 import '../../pages/profile/my_profile/abilities_page/user_abilities_page.dart';
 import '../../pages/profile/my_profile/education_information_page/user_education_information.dart';
 import '../../pages/profile/my_profile/projects_page/user_projects.dart';
-import '../../pages/profile/settings/general_settings.dart';
 import '../../pages/profile/profile_main.dart';
+import '../../pages/profile/settings/general_settings.dart';
 import '../../pages/register_page/register_page.dart';
 import '../../pages/splash_screen/splash_screen.dart';
 import '../../ui/navigator/navigator_page.dart';
@@ -40,8 +41,8 @@ class RouteGenerator {
     }
   }
 
-  static Route<dynamic> createExceptRoute(
-      Widget routeWidget, {RouteSettings? settings}) {
+  static Route<dynamic> createExceptRoute(Widget routeWidget,
+      {RouteSettings? settings}) {
     if (defaultTargetPlatform == TargetPlatform.iOS) {
       return CupertinoPageRoute(
         settings: settings,
@@ -83,13 +84,15 @@ class RouteGenerator {
       case RouterConstants.userAbilities:
         return _createRoute(const UserAbilitiesPage(), settings);
       case RouterConstants.userProjectPage:
-         return _createRoute(const UserProjectPage(), settings);
-       case RouterConstants.usereducationInformation:
+        return _createRoute(const UserProjectPage(), settings);
+      case RouterConstants.usereducationInformation:
         return _createRoute(const UserEducationInformation(), settings);
       case RouterConstants.helpAndSupport:
         return _createRoute(const HelpAndSupport(), settings);
       case RouterConstants.aboutUs:
         return _createRoute(const AboutUs(), settings);
+      case RouterConstants.messagesPage:
+        return _createRoute(const ChatMainPage(), settings);
       default:
         return _createRoute(const ErrorPage(), settings);
     }

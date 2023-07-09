@@ -5,10 +5,11 @@ import 'package:guide_up/core/models/general/general_fields_model.dart';
 import '../../../utils/control_helper.dart';
 
 class Messages extends GeneralFields {
-
   String? _id;
+  String? _conversationId;
   String? _senderUserId;
   String? _receiverUserId;
+  String? _content;
   EnMediaType? _enMediaType;
   String? _mediaUrl;
 
@@ -18,6 +19,14 @@ class Messages extends GeneralFields {
 
   void setId(String id) {
     _id = id;
+  }
+
+  String? getConversationId() {
+    return _conversationId;
+  }
+
+  void setConversationId(String conversationId) {
+    _conversationId = conversationId;
   }
 
   String? getSenderUserId() {
@@ -34,6 +43,14 @@ class Messages extends GeneralFields {
 
   void setReceiverUserId(String receiverUserId) {
     _receiverUserId = receiverUserId;
+  }
+
+  String? getContent() {
+    return _content;
+  }
+
+  void setContent(String content) {
+    _content = content;
   }
 
   EnMediaType? getEnMediaType() {
@@ -55,8 +72,10 @@ class Messages extends GeneralFields {
   Map<String, dynamic> toMap() {
     Map<String, dynamic> map = toGeneralMap();
     map['id'] = getId();
+    map['conversationId'] = getConversationId();
     map['senderUserId'] = getSenderUserId();
     map['receiverUserId'] = getReceiverUserId();
+    map['content'] = getContent();
     if (getEnMediaType() != null) {
       map['enMediaType'] = getEnMediaType()!.name;
     }
@@ -65,11 +84,15 @@ class Messages extends GeneralFields {
     return map;
   }
 
-  toClass(Map<String, dynamic> map) {
+  Messages toClass(Map<String, dynamic> map) {
     toGeneralClass(map);
 
     if (ControlHelper.checkMapValue(map, 'id')) {
       setId(map['id']);
+    }
+
+    if (ControlHelper.checkMapValue(map, 'conversationId')) {
+      setConversationId(map['conversationId']);
     }
 
     if (ControlHelper.checkMapValue(map, 'senderUserId')) {
@@ -80,6 +103,10 @@ class Messages extends GeneralFields {
       setReceiverUserId(map['receiverUserId']);
     }
 
+    if (ControlHelper.checkMapValue(map, 'content')) {
+      setContent(map['content']);
+    }
+
     if (ControlHelper.checkMapValue(map, 'enMediaType')) {
       setEnMediaType(ExMediaType.getEnum(map['enMediaType'])!);
     }
@@ -87,5 +114,6 @@ class Messages extends GeneralFields {
     if (ControlHelper.checkMapValue(map, 'mediaUrl')) {
       setReceiverUserId(map['mediaUrl']);
     }
+    return this;
   }
 }

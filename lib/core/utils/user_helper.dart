@@ -4,12 +4,10 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:google_sign_in/google_sign_in.dart';
-import 'package:guide_up/core/constant/firestore_collectioon_constant.dart';
 import 'package:guide_up/core/constant/secure_strorage_constant.dart';
 import 'package:guide_up/core/models/users/user_detail/user_detail_model.dart';
-import 'package:guide_up/core/models/users/user_model.dart';
-import 'package:guide_up/core/utils/secure_storage_helper.dart';
 import 'package:guide_up/repository/user/user_detail/user_detail_repository.dart';
+import 'package:guide_up/service/user/user_token_service.dart';
 
 class UserHelper {
   late FirebaseAuth auth;
@@ -39,6 +37,8 @@ class UserHelper {
             await UserDetailRepository().getUserByAuthUid(user.uid);
 
         if (userDetail != null) {
+          UserTokenService().setToken(userDetail.getUserId()!);
+
           const FlutterSecureStorage().write(
               key: SecureStrogeConstants.USER_DETAIL_KEY,
               value: userDetail.toJson());
@@ -66,7 +66,7 @@ class UserHelper {
     }
   }
 
-  Future<String> createUser(String username, String password) async  {
+  Future<String> createUser(String username, String password) async {
     try {
       var userCredential = await auth.createUserWithEmailAndPassword(
           email: username, password: password);
@@ -74,14 +74,14 @@ class UserHelper {
       debugPrint("++" + userCredential.toString());
 
       sendEmailVerification(userCredential.user!);
-      if(userCredential.user != null) {
+      if (userCredential.user != null) {
         return userCredential.user!.uid;
-      }else {
-        return '' ;
+      } else {
+        return '';
       }
     } catch (e) {
       debugPrint("--" + e.toString());
-      return '' ;
+      return '';
     }
   }
 
@@ -168,69 +168,4 @@ class UserHelper {
       return false;
     }
   }
-
-  Future<UserModel> registerWithUserModelAndDetail(UserModel userModel) async {
-    try {
-      UserCredential credential =
-          await FirebaseAuth.instance.createUserWithEmailAndPassword(
-        email: userModel.getEmail()!,
-        password: userModel.getPassword()!,
-      );
-
-      if (credential.user != null) {
-        String userUid = credential.user!.uid;
-        userModel.setId(userUid);
-
-        final userCollections = FirebaseFirestore.instance.collection(FirestoreCollectionConstant.user);
-        var userReturn = await userCollections.add(userModel.toMap());
-
-        return userModel;
-      } else {
-        throw Exception('Kullanıcı oluşturma başarısız oldu.');
-      }
-    } catch (error) {
-      print('Hata: $error');
-      throw error;
-    }
-  }
-
-  Future<UserDetail> getUserDetail() async {
-    UserDetail detail = UserDetail();
-    final userDetailCollections = FirebaseFirestore.instance.collection(FirestoreCollectionConstant.userDetail);
-
-    String? userId = await SecureStorageHelper().getUserId();
-    if (userId != null) {
-      var snapshot = await userDetailCollections
-          .where("userId", isEqualTo: userId)
-          .get();
-      var documents = snapshot.docs;
-
-      if (documents.isNotEmpty) {
-        detail.toClass(documents.first.data());
-        detail.setId(documents.first.id);// UserDetail ID'sini atadık
-
-      }
-
-
-    }
-
-    return detail;
-  }
-  Future<UserDetail> saveUserDetail(UserDetail userDetail) async {
-    try {
-
-      final userDetailCollections = FirebaseFirestore.instance.collection('userDetail');
-
-      var userReturn = await userDetailCollections.add(userDetail.toMap());
-      userDetail.setId(userReturn.id);
-      await userDetailCollections.doc(userReturn.id).update(userDetail.toMap());
-
-      //guncellendi
-      return userDetail;
-    } catch (error) {
-      throw error;
-    }
-  }
-  }
-
-
+}
