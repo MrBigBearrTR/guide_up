@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+
 import '../../../../core/constant/color_constants.dart';
 import '../../../../core/models/users/user_education/user_education_model.dart';
 import '../../../../repository/user/user_education/user_education_repository.dart';
@@ -6,33 +7,25 @@ import '../../../../repository/user/user_education/user_education_repository.dar
 class UserEducationInformationList extends StatefulWidget {
   final String? userId;
 
-  const UserEducationInformationList({Key? key, required this.userId}) : super(key: key);
+  const UserEducationInformationList({Key? key, required this.userId})
+      : super(key: key);
 
   @override
   // ignore: library_private_types_in_public_api
-  _UserEducationInformationListState createState() => _UserEducationInformationListState();
+  _UserEducationInformationListState createState() =>
+      _UserEducationInformationListState();
 }
 
-class _UserEducationInformationListState extends State<UserEducationInformationList> {
-  late Future<List<UserEducation>> _educationInformationList;
-
-  @override
-  void initState() {
-    super.initState();
-    _loadEducationInformationList();
-  }
-
-  void _loadEducationInformationList() {
-    _educationInformationList = UserEducationInformationRepository().getUserEducationInformationListByUserId(widget.userId!);
-  }
-
+class _UserEducationInformationListState
+    extends State<UserEducationInformationList> {
   void _deleteEducationInformation(UserEducation educationInformation) async {
     showDialog(
       context: context,
       builder: (BuildContext context) {
         return AlertDialog(
           title: const Text('Eğitim Bilgisini Sil'),
-          content: const Text('Bu eğitim bilgisini silmek istediğinizden emin misiniz?'),
+          content: const Text(
+              'Bu eğitim bilgisini silmek istediğinizden emin misiniz?'),
           actions: [
             TextButton(
               onPressed: () {
@@ -43,15 +36,16 @@ class _UserEducationInformationListState extends State<UserEducationInformationL
             TextButton(
               onPressed: () async {
                 try {
-                  await UserEducationInformationRepository().delete(educationInformation);
+                  await UserEducationInformationRepository()
+                      .delete(educationInformation);
 
-                  setState(() {
-                    _loadEducationInformationList();
-                  });
+                  setState(() {});
 
-                  print('EducationInformation deleted from Firebase: $educationInformation');
+                  print(
+                      'EducationInformation deleted from Firebase: $educationInformation');
                 } catch (error) {
-                  print('Failed to delete educationInformation from Firebase: $error');
+                  print(
+                      'Failed to delete educationInformation from Firebase: $error');
                 }
                 // ignore: use_build_context_synchronously
                 Navigator.of(context).pop();
@@ -72,7 +66,8 @@ class _UserEducationInformationListState extends State<UserEducationInformationL
         title: const Text('Eğitim Bilgileri'),
       ),
       body: FutureBuilder<List<UserEducation>>(
-        future: _educationInformationList,
+        future: UserEducationInformationRepository()
+            .getUserEducationInformationListByUserId(widget.userId!),
         builder: (context, snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {
             return const Center(
@@ -85,7 +80,8 @@ class _UserEducationInformationListState extends State<UserEducationInformationL
           } else {
             if (snapshot.data != null && snapshot.data!.isEmpty) {
               return const Center(
-                child: Text('Eğitim bilgisi kaydınız bulunamadı. Eklemeye ne dersiniz?'),
+                child: Text(
+                    'Eğitim bilgisi kaydınız bulunamadı. Eklemeye ne dersiniz?'),
               );
             } else {
               return ListView.builder(
@@ -96,24 +92,35 @@ class _UserEducationInformationListState extends State<UserEducationInformationL
                     subtitle: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Text('Okul: ${educationInformation.getSchoolName()}'),
-                        if (educationInformation.getDepartment()?.isNotEmpty == true)
-                          Text('Departman: ${educationInformation.getDepartment()}'),
-                        Text('Başlangıç Tarihi: ${educationInformation.getStartDate().toString()}'),
+                        Text(
+                            'Okul: ${educationInformation.getSchoolName() ?? ""}'),
+                        if (educationInformation.getDepartment()?.isNotEmpty ==
+                            true)
+                          Text(
+                              'Departman: ${educationInformation.getDepartment()}'),
+                        Text(
+                            'Başlangıç Tarihi: ${educationInformation.getStartDate() ?? ""}'),
                         if (educationInformation.getEndDate() != null)
-                          Text('Bitiş Tarihi: ${educationInformation.getEndDate().toString()}'),
-                        Text('Sınıf: ${educationInformation.getGrade()}'),
-                        if (educationInformation.getActivitiesSocienties()?.isNotEmpty == true)
-                          Text('Aktiviteler/Sosyal Faaliyetler: ${educationInformation.getActivitiesSocienties()}'),
-                        Text('Açıklama: ${educationInformation.getDescription()}'),
+                          Text(
+                              'Bitiş Tarihi: ${educationInformation.getEndDate() ?? ""}'),
+                        Text('Sınıf: ${educationInformation.getGrade() ?? ""}'),
+                        if (educationInformation
+                                .getActivitiesSocienties()
+                                ?.isNotEmpty ==
+                            true)
+                          Text(
+                              'Aktiviteler/Sosyal Faaliyetler: ${educationInformation.getActivitiesSocienties() ?? ""}'),
+                        Text(
+                            'Açıklama: ${educationInformation.getDescription() ?? ""}'),
                         if (educationInformation.getLink()?.isNotEmpty == true)
-                          Text('Bağlantı: ${educationInformation.getLink()}'),
-                        Text('Dil Bilgisi: ${educationInformation.getEnLanguage()}'),
+                          Text(
+                              'Bağlantı: ${educationInformation.getLink() ?? ""}'),
                       ],
                     ),
                     trailing: IconButton(
                       icon: const Icon(Icons.delete),
-                      onPressed: () => _deleteEducationInformation(educationInformation),
+                      onPressed: () =>
+                          _deleteEducationInformation(educationInformation),
                     ),
                   );
                 },

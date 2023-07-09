@@ -4,17 +4,16 @@ import 'package:guide_up/core/models/general/general_fields_model.dart';
 import '../../../enumeration/extensions/ExLanguage.dart';
 import '../../../utils/control_helper.dart';
 
-/// [@author MrBigBear] 
+/// [@author MrBigBear]
 class UserProject extends GeneralFields {
   String? _id;
   String? _userId;
   String? _experienceId;
-  String? _jobTitle;
+  String? _projectTitle;
   DateTime? _startDate;
   DateTime? _endDate;
   String? _description;
   String? _link;
-  String? _project;
   EnLanguage? _enLanguage;
 
   String? getId() {
@@ -41,12 +40,12 @@ class UserProject extends GeneralFields {
     _experienceId = experienceId;
   }
 
-  String? getJobTitle() {
-    return _jobTitle;
+  String? getProjectTitle() {
+    return _projectTitle;
   }
 
-  void setJobTitle(String jobTitle) {
-    _jobTitle = jobTitle;
+  void setProjectTitle(String projectTitle) {
+    _projectTitle = projectTitle;
   }
 
   DateTime? getStartDate() {
@@ -81,15 +80,6 @@ class UserProject extends GeneralFields {
     _link = link;
   }
 
-  String? getProject() {
-    return _project;
-  }
-
-  // ignore: non_constant_identifier_names
-  void setProject(String Project) {
-    _project = Project;
-  }
-
   EnLanguage? getEnLanguage() {
     return _enLanguage;
   }
@@ -103,12 +93,11 @@ class UserProject extends GeneralFields {
     map['id'] = getId();
     map['userId'] = getUserId();
     map['experienceId'] = getExperienceId();
-    map['jobTitle'] = getJobTitle();
+    map['projectTitle'] = getProjectTitle();
     map['startDate'] = getStartDate();
     map['endDate'] = getEndDate();
     map['description'] = getDescription();
     map['link'] = getLink();
-    map['project'] = getProject();
     if (getEnLanguage() != null) {
       map['enLanguage'] = getEnLanguage()!.name;
     }
@@ -122,28 +111,25 @@ class UserProject extends GeneralFields {
       setId(map['id']);
     }
     if (ControlHelper.checkMapValue(map, 'userId')) {
-      setId(map['userId']);
+      setUserId(map['userId']);
     }
     if (ControlHelper.checkMapValue(map, 'experienceId')) {
-      setId(map['experienceId']);
+      setExperienceId(map['experienceId']);
     }
-    if (ControlHelper.checkMapValue(map, 'jobTitle')) {
-      setId(map['jobTitle']);
+    if (ControlHelper.checkMapValue(map, 'projectTitle')) {
+      setProjectTitle(map['projectTitle']);
     }
     if (ControlHelper.checkMapValue(map, 'startDate')) {
-      setId(map['startDate']);
+      setStartDate(map['startDate']);
     }
     if (ControlHelper.checkMapValue(map, 'endDate')) {
-      setId(map['endDate']);
+      setEndDate(map['endDate']);
     }
     if (ControlHelper.checkMapValue(map, 'description')) {
-      setId(map['description']);
+      setDescription(map['description']);
     }
     if (ControlHelper.checkMapValue(map, 'link')) {
-      setId(map['link']);
-    }
-    if (ControlHelper.checkMapValue(map, 'project')) {
-      setId(map['project']);
+      setLink(map['link']);
     }
     if (ControlHelper.checkMapValue(map, 'enLanguage')) {
       setEnLanguage(ExLanguage.getEnum(map['enLanguage'])!);

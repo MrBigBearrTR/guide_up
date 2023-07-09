@@ -49,7 +49,7 @@ class _UserProjectPageState extends State<UserProjectPage> {
     if (project.isNotEmpty && description.isNotEmpty) {
       UserProject userProject = UserProject();
       userProject.setUserId(userId!);
-      userProject.setProject(project);
+      userProject.setProjectTitle(project);
       userProject.setDescription(description);
       userProject.setLink(link);
 
@@ -168,7 +168,7 @@ class _UserProjectPageState extends State<UserProjectPage> {
                   setState(() {});
 
                   print(
-                      'Project deleted from Firebase: ${project.getProject() ??
+                      'Project deleted from Firebase: ${project.getProjectTitle() ??
                           "Unknown project"}');
                 } catch (error) {
                   print('Failed to delete project from Firebase: $error');
@@ -248,7 +248,7 @@ class _UserProjectPageState extends State<UserProjectPage> {
                           margin: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
                           child: ListTile(
                           title: Text(
-                            project.getProject() ?? '',
+                            project.getProjectTitle() ?? '',
                           style: GoogleFonts.nunito(
                           fontWeight: FontWeight.bold,
                           color: ColorConstants.theme2Orange, // Proje metni rengi

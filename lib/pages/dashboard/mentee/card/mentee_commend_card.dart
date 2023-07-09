@@ -20,7 +20,27 @@ class _MenteeCommendCardState extends State<MenteeCommendCard> {
   @override
   Widget build(BuildContext context) {
     return ListTile(
-      title: Text(_mentorCommend.getCommend()!),
+      title: Row(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          SizedBox(
+            width: _mentorCommend.getRate()! * 25,
+            height: 10,
+            child: ListView.builder(
+              itemBuilder: (context, index) {
+                return const Icon(
+                  Icons.star,
+                  color: Colors.amber,
+                  size: 25,
+                );
+              },
+              itemCount: _mentorCommend.getRate(),
+              scrollDirection: Axis.horizontal,
+            ),
+          ),
+        ],
+      ),
+      subtitle: Text(_mentorCommend.getCommend()!),
     );
   }
 }

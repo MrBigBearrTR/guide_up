@@ -104,10 +104,7 @@ class _MenteeDashboardMainPageState extends State<MenteeDashboardMainPage> {
                       const SizedBox(height: 8),
                       Text(
                         "${UserHelper().auth.currentUser!.email}",
-                        style: Theme.of(context)
-                            .textTheme
-                            .bodyMedium
-                            ?.copyWith(
+                        style: Theme.of(context).textTheme.bodyMedium?.copyWith(
                               color: ColorConstants.appcolor4,
                             ),
                       ),
@@ -116,7 +113,7 @@ class _MenteeDashboardMainPageState extends State<MenteeDashboardMainPage> {
                 ],
               ),
             ),
-            const SizedBox(height: 40),
+            const SizedBox(height: 20),
             Container(
               padding: const EdgeInsets.fromLTRB(20, 8, 20, 8),
               width: 330,
@@ -135,16 +132,14 @@ class _MenteeDashboardMainPageState extends State<MenteeDashboardMainPage> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  const Text('İstatistikler',
-                      style: TextStyle(fontSize: 20)),
+                  const Text('İstatistikler', style: TextStyle(fontSize: 20)),
                   const SizedBox(height: 15),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     children: [
                       // Süre(Duration)
 
-                      ...createAnalysisCard(
-                          "Mentorlarım", EnCardType.mentor),
+                      ...createAnalysisCard("Mentorlarım", EnCardType.mentor),
 
                       // Favoriler
                       ...createAnalysisCard(
@@ -156,8 +151,7 @@ class _MenteeDashboardMainPageState extends State<MenteeDashboardMainPage> {
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     children: [
                       // Yorumlar
-                      ...createAnalysisCard(
-                          "Yorumlarım", EnCardType.comment),
+                      ...createAnalysisCard("Yorumlarım", EnCardType.comment),
 
                       // Ödemeler
                       ...createAnalysisCard("Ödemeler", EnCardType.payment),
@@ -166,7 +160,7 @@ class _MenteeDashboardMainPageState extends State<MenteeDashboardMainPage> {
                 ],
               ),
             ),
-            const SizedBox(height: 40),
+            const SizedBox(height: 10),
             const Text(
               'Yorumlarım',
               style: TextStyle(fontSize: 20),
@@ -174,8 +168,7 @@ class _MenteeDashboardMainPageState extends State<MenteeDashboardMainPage> {
             Expanded(
               child: FutureBuilder(
                 builder: (context, snapshot) {
-                  if (snapshot.connectionState ==
-                      ConnectionState.waiting) {
+                  if (snapshot.connectionState == ConnectionState.waiting) {
                     return const Center(
                       child: CircularProgressIndicator(),
                     );
@@ -239,9 +232,9 @@ class _MenteeDashboardMainPageState extends State<MenteeDashboardMainPage> {
                 return Text('Hata: ${snapshot.error}');
               } else {
                 // Veriler hazırsa, sayıyı göster
-                final dynamic menteeCount = snapshot.data ?? 0;
+                final dynamic count = snapshot.data ?? 0;
                 return Text(
-                  '  $menteeCount',
+                  '  $count',
                   style: GoogleFonts.nunito(
                     textStyle: const TextStyle(
                       fontSize: 17,

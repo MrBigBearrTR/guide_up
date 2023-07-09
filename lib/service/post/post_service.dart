@@ -160,6 +160,13 @@ class PostService {
     return postCardViewList;
   }
 
+  Future<List<PostCardView>> getList(int limit ) async{
+    return convertToPostCardViewModel(await _postRepository.getList(limit));
+
+  }
+
+
+
   Future<List<PostCardView>> convertToPostCardViewModel(List<Post> postList) async{
     List<PostCardView> postCardViewList = [];
 

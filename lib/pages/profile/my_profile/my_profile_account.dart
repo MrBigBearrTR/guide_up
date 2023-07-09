@@ -387,6 +387,7 @@ class _MyProfileAccountState extends State<MyProfileAccount> {
                   const SizedBox(height: 16.0),
                   TextFormField(
                     decoration: InputDecoration(
+                      enabled: false,
                       labelText: 'E-posta',
                       labelStyle: GoogleFonts.nunito(
                         color: (_emailController.value.text.isNotEmpty)
@@ -412,6 +413,7 @@ class _MyProfileAccountState extends State<MyProfileAccount> {
                     onEditingComplete: () {
                       FocusScope.of(context).nextFocus();
                     },
+                    controller: _emailController,
                   ),
                   const SizedBox(height: 16.0),
                   FutureBuilder(
@@ -531,8 +533,8 @@ class _MyProfileAccountState extends State<MyProfileAccount> {
                         IconButton(
                           icon: const Icon(Icons.add),
                           onPressed: () {
-                            Navigator.pushNamed(
-                                context, RouterConstants.userEducationInformationPage);
+                            Navigator.pushNamed(context,
+                                RouterConstants.userEducationInformationPage);
                           },
                         ),
                         IconButton(
@@ -624,8 +626,8 @@ class _MyProfileAccountState extends State<MyProfileAccount> {
                         ),
                         child: TextButton(
                           onPressed: () {
-                            Navigator.pushNamed(
-                                context, RouterConstants.licensesAndCertificatesPage);
+                            Navigator.pushNamed(context,
+                                RouterConstants.licensesAndCertificatesPage);
                           },
                           child: Text(
                             'Lisans ve sertifika ekle  ',
@@ -644,7 +646,14 @@ class _MyProfileAccountState extends State<MyProfileAccount> {
                 bottom: 0.0,
                 right: 0.0,
                 child: ElevatedButton(
-                  onPressed: () {},
+                  onPressed: () async {
+                    userDetail!.setAbout(_aboutController.value.text);
+                    userDetail!.setName(_nameController.value.text);
+                    userDetail!.setSurname(_lastnameController.value.text);
+                    userModel!.setUsername(_usernameController.value.text);
+                    userDetail!.setBirthday(selectedDate);
+                    userDetail = await UserDetailService().update(userDetail!);
+                  },
                   style: ElevatedButton.styleFrom(
                     foregroundColor: ColorConstants.theme2Orange,
                     backgroundColor: ColorConstants.theme2DarkBlue,

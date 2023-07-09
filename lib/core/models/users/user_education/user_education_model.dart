@@ -6,7 +6,7 @@ import 'package:guide_up/core/models/general/general_fields_model.dart';
 
 import '../../../utils/control_helper.dart';
 
-/// [@author MrBigBear] 
+/// [@author MrBigBear]
 class UserEducation extends GeneralFields {
   String? _id;
   String? _userId;
@@ -148,49 +148,48 @@ class UserEducation extends GeneralFields {
     return map;
   }
 
-  toClass(Map<String, dynamic> map) {
+  UserEducation toClass(Map<String, dynamic> map) {
     toGeneralClass(map);
 
     if (ControlHelper.checkMapValue(map, 'id')) {
       setId(map['id']);
     }
     if (ControlHelper.checkMapValue(map, 'userId')) {
-      setId(map['userId']);
+      setUserId(map['userId']);
     }
     if (ControlHelper.checkMapValue(map, 'schoolName')) {
-      setId(map['schoolName']);
+      setSchoolName(map['schoolName']);
     }
     if (ControlHelper.checkMapValue(map, 'department')) {
-      setId(map['department']);
+      setDepartment(map['department']);
     }
     if (ControlHelper.checkMapValue(map, 'enDegreeType')) {
       setEnDegreeType(ExDegreeType.getEnum(map['enDegreeType'])!);
     }
     if (ControlHelper.checkMapValue(map, 'startDate')) {
-      setId(map['startDate']);
+      setStartDate(map['startDate']);
     }
     if (ControlHelper.checkMapValue(map, 'endDate')) {
-      setId(map['endDate']);
+      setEndDate(map['endDate']);
     }
     if (ControlHelper.checkMapValue(map, 'grade')) {
-      setId(map['grade']);
+      setGrade(map['grade']);
     }
     if (ControlHelper.checkMapValue(map, 'description')) {
-      setId(map['description']);
+      setDescription(map['description']);
     }
     if (ControlHelper.checkMapValue(map, 'activitiesSocienties')) {
-      setId(map['activitiesSocienties']);
+      setActivitiesSocienties(map['activitiesSocienties']);
     }
     if (ControlHelper.checkMapValue(map, 'link')) {
-      setId(map['link']);
+      setLink(map['link']);
     }
     if (ControlHelper.checkMapValue(map, 'educationInformation')) {
-      setId(map['educationInformation']);
+      setEducationInformation(map['educationInformation']);
     }
     if (ControlHelper.checkMapValue(map, 'enLanguage')) {
-      String language = map['enLanguage'];
-      setEnLanguage(ExLanguage.getEnum(language));
+      setEnLanguage(ExLanguage.getEnum(map['enLanguage']));
     }
-
+    return this;
   }
 }

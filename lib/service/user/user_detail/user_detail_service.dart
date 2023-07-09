@@ -47,6 +47,16 @@ class UserDetailService {
     return detail;
   }
 
+  Future<UserDetail> update(UserDetail userDetail) async {
+    var detail = await _userDetailRepository.update(userDetail);
+    const FlutterSecureStorage().write(
+        key: SecureStrogeConstants.USER_DETAIL_KEY, value: detail.toJson());
+
+    return detail;
+  }
+
+
+
   Future<UserDetail?> getUserByUserId(String userId) async {
     return _userDetailRepository.getUserByUserId(userId);
   }

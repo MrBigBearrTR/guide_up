@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:guide_up/pages/conversation/messages/chat_main_page.dart';
+import 'package:guide_up/pages/guide/guide_add_page.dart';
 import 'package:guide_up/pages/profile/my_profile/my_profile_account.dart';
 import 'package:guide_up/pages/register_page/register_with_detail.dart';
 
@@ -94,6 +95,8 @@ class RouteGenerator {
         return _createRoute(const AboutUs(), settings);
       case RouterConstants.messagesPage:
         return _createRoute(const ChatMainPage(), settings);
+      case RouterConstants.guideAdd:
+        return _createRoute(const GuideAddPage(), settings);
       case RouterConstants.licensesAndCertificatesPage:
         return _createRoute(const LicensesAndCertificatesPage(), settings);
       default:

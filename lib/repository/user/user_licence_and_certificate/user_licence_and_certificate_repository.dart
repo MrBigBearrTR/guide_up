@@ -2,13 +2,13 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import '../../../core/constant/firestore_collectioon_constant.dart';
 import '../../../core/models/users/user_license_and_certificate/user_license_and_certificate_model.dart';
 
-class LicenseAndCertificateRepository {
+class UserLicenseAndCertificateRepository {
   late final CollectionReference<
       Map<String, dynamic>> _licensesAndCertificatesCollection;
 
-  LicenseAndCertificateRepository() {
+  UserLicenseAndCertificateRepository() {
     _licensesAndCertificatesCollection = FirebaseFirestore.instance.collection(
-        FirestoreCollectionConstant.userProject);
+        FirestoreCollectionConstant.userLicence);
   }
   Future<UserLicenseAndCertificate> add(UserLicenseAndCertificate userLicenseAndCertificate) async {
     userLicenseAndCertificate.dbCheck(userLicenseAndCertificate.getUserId()!);

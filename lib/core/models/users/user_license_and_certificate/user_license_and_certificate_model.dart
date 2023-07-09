@@ -1,8 +1,8 @@
 import 'package:guide_up/core/models/general/general_fields_model.dart';
+
 import '../../../utils/control_helper.dart';
 
 class UserLicenseAndCertificate extends GeneralFields {
-
   String? _id;
   String? _userId;
   String? _name;
@@ -76,7 +76,6 @@ class UserLicenseAndCertificate extends GeneralFields {
     _qualificationUrl = qualificationUrl;
   }
 
-
   Map<String, dynamic> toMap() {
     Map<String, dynamic> map = toGeneralMap();
     map['id'] = getId();
@@ -100,25 +99,23 @@ class UserLicenseAndCertificate extends GeneralFields {
     if (ControlHelper.checkMapValue(map, 'userId')) {
       setUserId(map['userId']);
     }
-      if (ControlHelper.checkMapValue(map, 'name')) {
-        setName(map['name']);
-      }
-      if (ControlHelper.checkMapValue(map, 'organization')) {
-        setOrganization(map['organization']);
-      }
-      if (ControlHelper.checkMapValue(map, 'issueDate')) {
-        setIssueDate(map['issueDate']);
-      }
-      if (ControlHelper.checkMapValue(map, 'expiryDate')) {
-        setExpiryDate(map['expiryDate']);
-      }
-      if (ControlHelper.checkMapValue(map, 'qualificationId')) {
-        setQualificationId(map['qualificationId']);
-      }
-      if (ControlHelper.checkMapValue(map, 'qualificationUrl')) {
-        setQualificationUrl(map['qualificationUrl']);
-      }
+    if (ControlHelper.checkMapValue(map, 'name')) {
+      setName(map['name']);
     }
-
+    if (ControlHelper.checkMapValue(map, 'organization')) {
+      setOrganization(map['organization']);
+    }
+    if (ControlHelper.checkMapValue(map, 'issueDate')) {
+      setIssueDate(map['issueDate']);
+    }
+    if (ControlHelper.checkMapValue(map, 'expiryDate')) {
+      setExpiryDate(map['expiryDate']);
+    }
+    if (ControlHelper.checkMapValue(map, 'qualificationId')) {
+      setQualificationId(map['qualificationId']);
+    }
+    if (ControlHelper.checkMapValue(map, 'qualificationUrl')) {
+      setQualificationUrl(map['qualificationUrl']);
+    }
   }
-
+}
