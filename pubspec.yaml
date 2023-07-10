@@ -47,6 +47,7 @@ dependencies:
   intl: ^0.18.1
   image_picker: ^0.8.9
   google_fonts: ^5.1.0
+  intl_phone_field: ^3.2.0
   cupertino_date_textbox: ^1.0.3
   url_launcher: ^6.1.11
   simple_animations: ^4.0.0

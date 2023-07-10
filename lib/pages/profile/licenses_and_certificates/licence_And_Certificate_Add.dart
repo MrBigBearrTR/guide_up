@@ -44,6 +44,7 @@ class _LicenseAndCertificateAddPageState extends State<LicenseAndCertificateAddP
           key: _formKey,
           child: ListView(
             children: [
+              const SizedBox(height: 8.0),
               TextFormField(
                 decoration: InputDecoration(
                   labelText: 'Lisans veya Sertifika Adı',

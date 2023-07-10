@@ -6,6 +6,7 @@ import 'package:guide_up/core/utils/user_info_helper.dart';
 import 'package:guide_up/service/user/user_detail/user_detail_service.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:intl/intl.dart';
+import 'package:intl_phone_field/intl_phone_field.dart';
 
 import '../../../core/constant/color_constants.dart';
 import '../../../core/constant/router_constants.dart';
@@ -43,6 +44,7 @@ class _MyProfileAccountState extends State<MyProfileAccount> {
   final _lastnameController = TextEditingController();
   final _usernameController = TextEditingController();
   final _emailController = TextEditingController();
+  final _phoneController = TextEditingController();
 
   // ignore: prefer_typing_uninitialized_variables
   late final _birthdayController;
@@ -385,6 +387,35 @@ class _MyProfileAccountState extends State<MyProfileAccount> {
                     controller: _birthdayController,
                   ),
                   const SizedBox(height: 16.0),
+                  IntlPhoneField(
+                    decoration: InputDecoration(
+                      labelText: 'Telefon Numarası',  // Telefon numarası alanının etiketi
+                      labelStyle: GoogleFonts.nunito(
+                        color: (_phoneController.value.text.isNotEmpty)
+                            ? ColorConstants.theme1DarkBlue
+                            : ColorConstants.warningDark,
+                      ),
+                      border: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(8.0),  // Kenarlık şeklini ayarla
+                      ),
+                      focusedBorder: OutlineInputBorder(
+                        borderSide: BorderSide(
+                          color: (_phoneController.value.text.isNotEmpty)
+                              ? ColorConstants.theme1DarkBlue
+                              : ColorConstants.warningDark,
+                        ),
+                        borderRadius: BorderRadius.circular(8.0),  // Fokuslanmış kenarlık şeklini ayarla
+                      ),
+                    ),
+                    controller: _phoneController,  // Telefon numarası değerini tutmak için bir controller atanır
+                    initialCountryCode: 'TR',  // İlk açıldığında görünecek ülke kodu (örn: 'TR' Türkiye)
+                    onChanged: (phone) {
+                      setState(() {
+                        _phoneController.text = phone.completeNumber;  // Telefon numarası değiştiğinde controller'ı güncelle
+                      });
+                    },
+                  ),
+                  const SizedBox(height: 16.0),
                   TextFormField(
                     decoration: InputDecoration(
                       enabled: false,
@@ -600,44 +631,32 @@ class _MyProfileAccountState extends State<MyProfileAccount> {
                       ],
                     ),
                   ),
-                  const SizedBox(height: 16.0),
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        "Lisanslar ve sertifikalar",
-                        style: GoogleFonts.nunito(
-                          fontSize: 15,
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ),
-                      const SizedBox(height: 8.0),
-                      Container(
-                        width: double.infinity,
-                        padding: const EdgeInsets.symmetric(vertical: 12.0),
-                        decoration: BoxDecoration(
-                          color: ColorConstants.theme1DarkBlue, // renk
-                          borderRadius: BorderRadius.circular(8.0),
-                          border: Border.all(
-                            color: ColorConstants.theme2Orange,
-                            // kenar çizgisi rengi
-                            width: 2.0, // kenar çizgisi kalınlığı
+                  const SizedBox(height: 0.0),
+                  Container(
+                    width: 430,
+                    height: 60,
+                    color: ColorConstants.theme1PowderSkinOpacity,
+                    alignment: Alignment.topLeft,
+                    padding: const EdgeInsets.all(10),
+                    margin: const EdgeInsets.all(10),
+                    child: Row(
+                      children: [
+                        Text(
+                          "Lisanslar ve sertifikalar",
+                          style: GoogleFonts.nunito(
+                            fontWeight: FontWeight.bold,
                           ),
                         ),
-                        child: TextButton(
+                        const Spacer(),
+                        IconButton(
+                          icon: const Icon(Icons.add),
                           onPressed: () {
-                            Navigator.pushNamed(context,
-                                RouterConstants.licensesAndCertificatesPage);
+                            Navigator.pushNamed(
+                                context, RouterConstants.licensesAndCertificatesPage);
                           },
-                          child: Text(
-                            'Lisans ve sertifika ekle  ',
-                            style: GoogleFonts.nunito(
-                              color: ColorConstants.itemWhite,
-                            ),
-                          ),
                         ),
-                      ),
-                    ],
+                      ],
+                    ),
                   ),
                   const SizedBox(height: 50.0),
                 ],
@@ -653,6 +672,8 @@ class _MyProfileAccountState extends State<MyProfileAccount> {
                     userModel!.setUsername(_usernameController.value.text);
                     userDetail!.setBirthday(selectedDate);
                     userDetail = await UserDetailService().update(userDetail!);
+                    userDetail!.setPhone(_phoneController.value.text);
+
                   },
                   style: ElevatedButton.styleFrom(
                     foregroundColor: ColorConstants.theme2Orange,
@@ -716,11 +737,14 @@ class _MyProfileAccountState extends State<MyProfileAccount> {
   void setValues() {
     _aboutController.text =
         ControlHelper.checkInputValue(userDetail!.getAbout());
-    _nameController.text = ControlHelper.checkInputValue(userDetail!.getName());
+    _nameController.text =
+        ControlHelper.checkInputValue(userDetail!.getName());
     _lastnameController.text =
         ControlHelper.checkInputValue(userDetail!.getSurname());
     _emailController.text =
         ControlHelper.checkInputValue(userModel!.getEmail());
+    _phoneController.text =
+        ControlHelper.checkInputValue(userDetail!.getPhone());
     _usernameController.text =
         ControlHelper.checkInputValue(userModel!.getUsername());
     if (userDetail!.getBirthday() != null) {
