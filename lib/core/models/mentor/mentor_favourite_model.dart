@@ -5,6 +5,7 @@ class MentorFavourite extends GeneralFields {
   String? _id;
   String? _userId;
   String? _mentorId;
+  int? _rate;
 
   String? getId() {
     return _id;
@@ -28,6 +29,14 @@ class MentorFavourite extends GeneralFields {
 
   void setMentorId(String postId) {
     _mentorId = postId;
+  }
+
+  int? getRate() {
+    return _rate;
+  }
+
+  void setRate(int rate) {
+    _rate = rate;
   }
 
   Map<String, dynamic> toMap() {
