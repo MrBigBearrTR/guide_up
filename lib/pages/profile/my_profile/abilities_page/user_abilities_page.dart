@@ -95,12 +95,16 @@ class _UserAbilitiesPageState extends State<UserAbilitiesPage> {
               ),
             ),
             ElevatedButton(
-              onPressed: addAbility,
+              onPressed: () {
+                addAbility();
+                Navigator.of(context).pop();
+              },
               child: Text(
                 'Ekle',
-                style: GoogleFonts.nunito(color: ColorConstants.info), // Yazı rengini mavi yapar
+                style: GoogleFonts.nunito(color: ColorConstants.info),
               ),
             ),
+
           ],
           backgroundColor: ColorConstants.theme1DarkBlue,
         );
