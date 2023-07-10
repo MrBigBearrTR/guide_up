@@ -3,22 +3,22 @@ import 'package:flutter/material.dart';
 import 'package:guide_up/pages/mentor/card_pages/mentor_card.dart';
 import 'package:guide_up/repository/mentor/mentor_favourite_repository.dart';
 
-import '../../../../core/constant/color_constants.dart';
-import '../../../../core/models/users/user_detail/user_detail_model.dart';
-import '../../../../core/utils/secure_storage_helper.dart';
-import '../../../../core/utils/user_helper.dart';
+import '../../../core/constant/color_constants.dart';
+import '../../../core/models/users/user_detail/user_detail_model.dart';
+import '../../../core/utils/secure_storage_helper.dart';
+import '../../../core/utils/user_helper.dart';
 import 'package:guide_up/core/utils/user_info_helper.dart';
 
-class _MenteeFavouriteMentorPageState extends StatefulWidget {
-  const _MenteeFavouriteMentorPageState({super.key});
+class MenteeFavouriteMentorPage extends StatefulWidget {
+  const MenteeFavouriteMentorPage({super.key});
 
   @override
-  State<_MenteeFavouriteMentorPageState> createState() =>
-      _MenteeFavouriteMentorPageStateState();
+  State<MenteeFavouriteMentorPage> createState() =>
+      _MenteeFavouriteMentorPageState();
 }
 
-class _MenteeFavouriteMentorPageStateState
-    extends State<_MenteeFavouriteMentorPageState> {
+class _MenteeFavouriteMentorPageState
+    extends State<MenteeFavouriteMentorPage> {
   UserDetail? userDetail;
 
   @override
@@ -133,7 +133,7 @@ class _MenteeFavouriteMentorPageStateState
                             return ListView.builder(
                               itemBuilder: (context, index) {
                                 final mentor = snapshot.data![index];
-                                return MentorCard(mentor: mentor);
+                                //return MentorCard(mentor: mentor);
                               },
                               itemCount: snapshot.data!.length,
                               scrollDirection: Axis.horizontal,
