@@ -1,6 +1,8 @@
 import 'package:guide_up/core/models/mentor/mentee_model.dart';
+import 'package:guide_up/core/models/mentor/mentor_favourite_model.dart';
 import 'package:guide_up/core/models/mentor/mentor_model.dart';
 import 'package:guide_up/core/models/users/user_detail/user_categories_model.dart';
+import 'package:guide_up/repository/mentor/mentor_favourite_repository.dart';
 import 'package:guide_up/repository/mentor/mentor_repository.dart';
 import 'package:guide_up/repository/user/user_detail/user_categories_repository.dart';
 
@@ -12,11 +14,13 @@ class MentorService {
   late MentorRepository _mentorRepository;
   late MenteeRepository _menteeRepository;
   late UserCategoriesRepository _userCategoriesRepository;
+  late MentorFavouriteRepository _mentorFavouriteRepository;
 
   MentorService() {
     _mentorRepository = MentorRepository();
     _menteeRepository = MenteeRepository();
     _userCategoriesRepository = UserCategoriesRepository();
+    _mentorFavouriteRepository = MentorFavouriteRepository();
   }
 
   Future<List<Mentor>> getTopMentorList(int limit) async {
@@ -134,5 +138,19 @@ class MentorService {
     }
 
     return mentorList;
+  }
+
+  Future<List<Mentor>> getMentorFavouriteListByUserId(String userId) async {
+    List<Mentor> mentorList = [];
+
+    List<MentorFavourite> mentorFavouriteList = await _mentorFavouriteRepository.getMentorFavouriteListByUserId(userId);
+
+    for (var mentorFavourite in mentorFavouriteList) {
+      Mentor? mentor = await _mentorRepository.get(mentorFavourite.getMentorId()!);
+      if (mentor != null) {
+        mentorList.add(mentor);
+      }
+    }
+      return mentorList;
   }
 }

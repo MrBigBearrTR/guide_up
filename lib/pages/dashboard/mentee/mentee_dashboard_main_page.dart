@@ -139,11 +139,11 @@ class _MenteeDashboardMainPageState extends State<MenteeDashboardMainPage> {
                     children: [
                       // Süre(Duration)
 
-                      ...createAnalysisCard("Mentorlarım", EnCardType.mentor),
+                      ...createAnalysisCard("Mentorlarım", EnCardType.mentor,context),
 
                       // Favoriler
                       ...createAnalysisCard(
-                          "Favorilerim", EnCardType.favourite),
+                          "Favorilerim", EnCardType.favourite,context),
                     ],
                   ),
                   const SizedBox(height: 20),
@@ -151,10 +151,10 @@ class _MenteeDashboardMainPageState extends State<MenteeDashboardMainPage> {
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     children: [
                       // Yorumlar
-                      ...createAnalysisCard("Yorumlarım", EnCardType.comment),
+                      ...createAnalysisCard("Yorumlarım", EnCardType.comment,context),
 
                       // Ödemeler
-                      ...createAnalysisCard("Ödemeler", EnCardType.payment),
+                      ...createAnalysisCard("Ödemeler", EnCardType.payment,context),
                     ],
                   ),
                 ],
@@ -215,9 +215,9 @@ class _MenteeDashboardMainPageState extends State<MenteeDashboardMainPage> {
     }
   }
 
-  List<Widget> createAnalysisCard(String title, EnCardType cardType) {
+  List<Widget> createAnalysisCard(String title, EnCardType cardType, BuildContext context) {
     return [
-      getAvatar(cardType),
+      getAvatar(cardType,context),
       Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -277,7 +277,7 @@ class _MenteeDashboardMainPageState extends State<MenteeDashboardMainPage> {
     return 0;
   }
 
-  Widget getAvatar(EnCardType cardType) {
+  Widget getAvatar(EnCardType cardType, BuildContext context) {
     switch (cardType) {
       case EnCardType.mentor:
         return CircleAvatar(
@@ -294,9 +294,10 @@ class _MenteeDashboardMainPageState extends State<MenteeDashboardMainPage> {
         );
       case EnCardType.favourite:
         return CircleAvatar(
-          backgroundColor: ColorConstants.theme2White,
+          backgroundColor: const Color.fromARGB(255, 25, 20, 20),
           child: InkWell(
             onTap: () {
+              //Fav mentor nesneleri
               Navigator.pushNamed(
                   context, RouterConstants.menteeFavouriteMentorPage);
             },
