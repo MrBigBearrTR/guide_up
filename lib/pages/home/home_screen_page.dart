@@ -52,15 +52,8 @@ class _HomeScreenState extends State<HomeScreen> {
     }
   }
 
-  void controlForSplashScreen(BuildContext context) async {
-    if (await SecureStorageHelper().isFirstEnter()) {
-      Navigator.pushReplacementNamed(context, RouterConstants.splashScreenPage);
-    }
-  }
-
   @override
   Widget build(BuildContext context) {
-    controlForSplashScreen(context);
     return Scaffold(
       appBar: AppBar(
         backgroundColor: ColorConstants.theme1White,

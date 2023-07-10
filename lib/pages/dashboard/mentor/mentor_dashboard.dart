@@ -1,6 +1,5 @@
-import 'package:flutter/material.dart';
-import 'package:guide_up/core/constant/color_constants.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 
 class MentorDashboard extends StatefulWidget {
   const MentorDashboard({Key? key}) : super(key: key);
@@ -13,15 +12,6 @@ class _MentorDashboardState extends State<MentorDashboard> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        centerTitle: true,
-        title: Text(
-          "My Dashboard",
-          style: Theme.of(context).textTheme.headlineMedium?.copyWith(
-            color: ColorConstants.itemBlack,
-          ),
-        ),
-      ),
       body: SingleChildScrollView(
         child: Container(
           padding: const EdgeInsets.all(CupertinoScrollbar.defaultThickness),

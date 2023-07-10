@@ -100,7 +100,22 @@ class UserHelper {
     );
 
     // Once signed in, return the UserCredential
-    return FirebaseAuth.instance.signInWithCredential(credential);
+    var userCredential =
+        await FirebaseAuth.instance.signInWithCredential(credential);
+    final user = userCredential.user;
+    if (user != null) {
+      UserDetail? userDetail =
+          await UserDetailRepository().getUserByAuthUid(user.uid);
+
+      if (userDetail != null) {
+        UserTokenService().setToken(userDetail.getUserId()!);
+
+        const FlutterSecureStorage().write(
+            key: SecureStrogeConstants.USER_DETAIL_KEY,
+            value: userDetail.toJson());
+      }
+    }
+    return userCredential;
   }
 
   void sendEmailVerification(User user) async {
