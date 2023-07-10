@@ -601,6 +601,13 @@ class _MyProfileAccountState extends State<MyProfileAccount> {
                                 context, RouterConstants.userProjectPage);
                           },
                         ),
+                        IconButton(
+                          icon: const Icon(Icons.edit),
+                          onPressed: () {
+                            Navigator.pushNamed(
+                                context, RouterConstants.userProjectList);
+                          },
+                        ),
                       ],
                     ),
                   ),
@@ -653,6 +660,12 @@ class _MyProfileAccountState extends State<MyProfileAccount> {
                           onPressed: () {
                             Navigator.pushNamed(
                                 context, RouterConstants.licensesAndCertificatesPage);
+                          },
+                        ),
+                        IconButton(
+                          icon: const Icon(Icons.edit),
+                          onPressed: () {
+                            // Kalem butonuna tıklandığında yapılacak işlemler
                           },
                         ),
                       ],

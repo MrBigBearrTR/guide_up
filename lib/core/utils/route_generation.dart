@@ -15,6 +15,7 @@ import '../../pages/profile/licenses_and_certificates/licences_And_Certificates.
 import '../../pages/profile/my_profile/abilities_page/user_abilities_page.dart';
 import '../../pages/profile/my_profile/education_information_page/user_education_information.dart';
 import '../../pages/profile/my_profile/projects_page/user_projects.dart';
+import '../../pages/profile/my_profile/projects_page/user_projects_list.dart';
 import '../../pages/profile/profile_main.dart';
 import '../../pages/profile/settings/general_settings.dart';
 import '../../pages/register_page/register_page.dart';
@@ -87,6 +88,8 @@ class RouteGenerator {
         return _createRoute(const UserAbilitiesPage(), settings);
       case RouterConstants.userProjectPage:
         return _createRoute(const UserProjectPage(), settings);
+      case RouterConstants.userProjectList:
+        return _createRoute(const UserProjectList(userId: 'userId'), settings);
       case RouterConstants.userEducationInformationPage:
         return _createRoute(const UserEducationInformationPage(), settings);
       case RouterConstants.helpAndSupport:

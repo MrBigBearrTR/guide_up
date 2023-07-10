@@ -29,9 +29,13 @@ class UserProjectRepository {
     return null;
   }
 
-  Future<List<UserProject>> getUserProjectListByUserId(String userId) async {
+  Future<List<UserProject>> getUserProjectListByUserId(
+      String userId) async {
     List<UserProject> projectList = [];
-    var query = await _userProjectCollections.where("userId", isEqualTo: userId).where("isActive", isEqualTo: true).get();
+    var query = await _userProjectCollections
+        .where("userId", isEqualTo: userId)
+        .where("isActive", isEqualTo: true)
+        .get();
 
     if (query.docs.isNotEmpty) {
       projectList = convertResponseObjectToList(query.docs.iterator);
