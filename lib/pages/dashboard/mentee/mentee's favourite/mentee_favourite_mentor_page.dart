@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:guide_up/pages/dashboard/mentee/card/mentee_favourite_card.dart';
+
+import 'package:guide_up/pages/mentor/card_pages/mentor_card.dart';
 import 'package:guide_up/repository/mentor/mentor_favourite_repository.dart';
 
 import '../../../../core/constant/color_constants.dart';
@@ -118,39 +119,32 @@ class _MenteeFavouriteMentorPageStateState
                 const SizedBox(height: 20),
                 Expanded(
                   child: FutureBuilder(
-                    builder: (context, snapshot) {
-                      if (snapshot.connectionState == ConnectionState.waiting) {
-                        return const Center(
-                          child: CircularProgressIndicator(),
-                        );
-                      } else if (snapshot.hasError) {
-                        return const Center(
-                          child: Text('Mentorları şu an listeyemiyoruz.'),
-                        );
-                      } else {
-                        if (snapshot.data!.isNotEmpty) {
-                          return ListView.builder(
-                            itemBuilder: (context, index) {
-                              final menteeFavourite = snapshot.data![index];
-                              return MenteeFavouriteCard(
-                                menteeFavourite: menteeFavourite,
-                              );
-                            },
-                            //itemCount: snapshot.data!.length,
-                            scrollDirection: Axis.horizontal,
-                            padding: const EdgeInsets.all(0),
-                            shrinkWrap: true,
-                          );
-                        } else {
-                          return const Center(
-                            child: Text('Hiç favori mentorunuz yoktur.'),
-                          );
-                        }
-                      }
-                    },
-                    future: MentorFavouriteRepository()
+                        builder: (context, snapshot) {
+                          if (snapshot.connectionState ==
+                              ConnectionState.waiting) {
+                            return const Center(
+                              child: CircularProgressIndicator(),
+                            );
+                          } else if (snapshot.hasError) {
+                            return const Center(
+                              child: Text('Favori mentorları şu an listeyemiyoruz.'),
+                            );
+                          } else {
+                            return ListView.builder(
+                              itemBuilder: (context, index) {
+                                final mentor = snapshot.data![index];
+                                return MentorCard(mentor: mentor);
+                              },
+                              itemCount: snapshot.data!.length,
+                              scrollDirection: Axis.horizontal,
+                              padding: const EdgeInsets.all(0),
+                              shrinkWrap: true,
+                            );
+                          }
+                        },
+                        future: MentorFavouriteRepository()
                         .getMentorFavouriteListByUserId(getUserId()),
-                  ),
+                      ),
                 ),
               ],
             ),
