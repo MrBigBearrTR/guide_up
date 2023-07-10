@@ -355,17 +355,20 @@ class _UserProjectPageState extends State<UserProjectPage> {
           context: context,
           builder: (BuildContext context) {
             return AlertDialog(
-              title: Text('Başarı',
-                style: GoogleFonts.nunito(),),
+              title: Text('Başarılı',
+                style: GoogleFonts.nunito(
+                    color: ColorConstants.itemWhite),),
               content: Text('Proje başarıyla eklendi.',
-                style: GoogleFonts.nunito(),),
+                style: GoogleFonts.nunito(
+                    color: ColorConstants.success),),
               actions: [
                 TextButton(
                   onPressed: () {
                     Navigator.of(context).pop();
                   },
                   child: Text('Tamam',
-                    style: GoogleFonts.nunito(),),
+                    style: GoogleFonts.nunito(
+            color: ColorConstants.itemWhite),),
                 ),
               ],
               backgroundColor: ColorConstants.theme1DarkBlue,

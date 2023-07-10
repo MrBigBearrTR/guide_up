@@ -74,12 +74,15 @@ class _UserAbilitiesPageState extends State<UserAbilitiesPage> {
                 controller: abilityController,
                 decoration: InputDecoration(
                   labelText: 'Yetenek',
-                  labelStyle: GoogleFonts.nunito(color: ColorConstants.itemWhite), // Yazı rengini beyaz yapar
+                  labelStyle: GoogleFonts.nunito(color: ColorConstants.itemWhite), // Yazı rengi
                   focusedBorder: const UnderlineInputBorder(
                     borderSide: BorderSide(color: ColorConstants.theme2Orange), // Yatay çizgi rengi
                   ),
+                  contentPadding: const EdgeInsets.symmetric(vertical: 2.0), // Alt çizgiye yakın boşluk
                 ),
                 cursorColor: ColorConstants.theme2Orange, // İmleç rengi
+            style: GoogleFonts.nunito(
+              color: ColorConstants.itemWhite,), // Girilen metnin rengi
               ),
 
             ],
