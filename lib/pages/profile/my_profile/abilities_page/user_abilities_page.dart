@@ -58,6 +58,57 @@ class _UserAbilitiesPageState extends State<UserAbilitiesPage> {
     }
   }
 
+  void showAddAbilityPopup() {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: Text(
+            'Yeni Yetenek Ekle',
+            style: GoogleFonts.nunito(color: ColorConstants.itemWhite), // Yazı rengini beyaz yapar
+          ),
+          content: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              TextField(
+                controller: abilityController,
+                decoration: InputDecoration(
+                  labelText: 'Yetenek',
+                  labelStyle: GoogleFonts.nunito(color: ColorConstants.itemWhite), // Yazı rengini beyaz yapar
+                  focusedBorder: const UnderlineInputBorder(
+                    borderSide: BorderSide(color: ColorConstants.theme2Orange), // Yatay çizgi rengi
+                  ),
+                ),
+                cursorColor: ColorConstants.theme2Orange, // İmleç rengi
+              ),
+
+            ],
+          ),
+          actions: [
+            TextButton(
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+              child: Text(
+                'İptal',
+                style: GoogleFonts.nunito(color: ColorConstants.itemWhite), // Yazı rengini beyaz yapar
+              ),
+            ),
+            ElevatedButton(
+              onPressed: addAbility,
+              child: Text(
+                'Ekle',
+                style: GoogleFonts.nunito(color: ColorConstants.info), // Yazı rengini mavi yapar
+              ),
+            ),
+          ],
+          backgroundColor: ColorConstants.theme1DarkBlue,
+        );
+      },
+    );
+  }
+
+
   void deleteAbility(UserAbilities ability) async {
     showDialog(
       context: context,
@@ -105,10 +156,10 @@ class _UserAbilitiesPageState extends State<UserAbilitiesPage> {
     return Scaffold(
       appBar: AppBar(
         title: Text('Yetenekler',
-        style: GoogleFonts.nunito( // Yetenekler yazısının yazı tipi
-          fontSize: 22,
-          fontWeight: FontWeight.bold,
-        ),
+          style: GoogleFonts.nunito( // Yetenekler yazısının yazı tipi
+            fontSize: 22,
+            fontWeight: FontWeight.bold,
+          ),
         ),
         backgroundColor: ColorConstants.theme2White, // AppBar arka plan rengi
         actions: [
@@ -123,106 +174,73 @@ class _UserAbilitiesPageState extends State<UserAbilitiesPage> {
         ],
       ),
       body: Container(
-    decoration: CustomMaterial.backgroundBoxDecoration,
-    padding: const EdgeInsets.all(16.0),
-    child:  Column(
-        children: [
-          Expanded(
-            child: FutureBuilder(
-              builder: (context, snapshot) {
-                if (snapshot.connectionState == ConnectionState.waiting) {
-                  return const Center(
-                    child: CircularProgressIndicator(),
-                  );
-                } else if (snapshot.hasError) {
-                  return Center(
-                    child: Text('Yeteneklerinizi şu an listeyemiyoruz.',
-                      style: GoogleFonts.nunito(),
-                    ),
-                  );
-                } else {
-                  if ((snapshot.data != null && snapshot.data!.isEmpty)) {
+        decoration: CustomMaterial.backgroundBoxDecoration,
+        padding: const EdgeInsets.all(16.0),
+        child:  Column(
+          children: [
+            Expanded(
+              child: FutureBuilder(
+                builder: (context, snapshot) {
+                  if (snapshot.connectionState == ConnectionState.waiting) {
+                    return const Center(
+                      child: CircularProgressIndicator(),
+                    );
+                  } else if (snapshot.hasError) {
                     return Center(
-                      child: Text('Yetenek kaydınız bulunamadı. Eklemeye ne dersiniz.',
+                      child: Text('Yeteneklerinizi şu an listeyemiyoruz.',
                         style: GoogleFonts.nunito(),
                       ),
                     );
                   } else {
-                    return ListView.builder(
-                      itemCount: snapshot.data!.length,
-                      itemBuilder: (context, index) {
-                        final ability = snapshot.data![index];
-                        return Card(
-                          color: ColorConstants.theme1DarkBlue, // Eklenen yetenekler tablo rengi
-                          elevation: 2, // Card'ın gölgelendirme seviyesi
-                          margin: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
-                          child: ListTile(
-                            title: Text(
-                              ability.getAbility() ?? '',
-                              style: GoogleFonts.nunito(
-                                fontWeight: FontWeight.bold,
-                                color: ColorConstants.theme2Orange, // Yetenek metni rengi
+                    if ((snapshot.data != null && snapshot.data!.isEmpty)) {
+                      return Center(
+                        child: Text('Yetenek kaydınız bulunamadı. Eklemeye ne dersiniz.',
+                          style: GoogleFonts.nunito(),
+                        ),
+                      );
+                    } else {
+                      return ListView.builder(
+                        itemCount: snapshot.data!.length,
+                        itemBuilder: (context, index) {
+                          final ability = snapshot.data![index];
+                          return Card(
+                            color: ColorConstants.theme1DarkBlue, // Eklenen yetenekler tablo rengi
+                            elevation: 2, // Card'ın gölgelendirme seviyesi
+                            margin: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+                            child: ListTile(
+                              title: Text(
+                                ability.getAbility() ?? '',
+                                style: GoogleFonts.nunito(
+                                  fontWeight: FontWeight.bold,
+                                  color: ColorConstants.theme2Orange, // Yetenek metni rengi
+                                ),
+                              ),
+                              trailing: IconButton(
+                                icon: const Icon(Icons.delete),
+                                onPressed: () => deleteAbility(ability),
+                                color: ColorConstants.theme2Orange, // Silme butonu rengi
                               ),
                             ),
-                            trailing: IconButton(
-                              icon: const Icon(Icons.delete),
-                              onPressed: () => deleteAbility(ability),
-                              color: ColorConstants.theme2Orange, // Silme butonu rengi
-                            ),
-                          ),
-                        );
-                      },
-                    );
+                          );
+                        },
+                      );
+                    }
                   }
-                }
-              },
-              future: UserAbilitiesRepository()
-                  .getUserAbilitiesListByUserId(userId != null ? userId! : ""),
+                },
+                future: UserAbilitiesRepository()
+                    .getUserAbilitiesListByUserId(userId != null ? userId! : ""),
+              ),
             ),
-          ),
-          Padding(
-            padding: const EdgeInsets.all(16.0),
-            child: Row(
-              children: [
-                Expanded(
-                  child: Container(
-                    decoration: BoxDecoration(
-                      color: ColorConstants.theme2White,
-                      borderRadius: BorderRadius.circular(8.0),
-                      border: Border.all(color: Colors.grey),
-                    ),
-                    child: Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 8.0),
-                      child: Row(
-                        children: [
-                          Expanded(
-                            child: TextField(
-                              controller: abilityController,
-                              decoration: const InputDecoration(
-                                hintText: 'Yetenek ekle',
-                                border: InputBorder.none,
-                              ),
-                              cursorColor: ColorConstants.theme2Orange, // İmleç rengi
-                            ),
-                          ),
-                          const SizedBox(width: 8.0),
-                          IconButton(
-                            onPressed: addAbility,
-                            icon: const Icon(
-                              Icons.add,
-                              color: ColorConstants.theme1DarkBlue,
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                  ),
-                ),
-              ],
-            ),
-          )
-        ],
+          ],
+        ),
       ),
+      floatingActionButton: FloatingActionButton(
+        backgroundColor: ColorConstants.theme1DarkBlue, // Buton kutusu arka plan rengi
+        onPressed: showAddAbilityPopup,
+        child: const Icon(
+          Icons.add,
+          color: ColorConstants.itemWhite,
+        ),
       ),
     );
   }
