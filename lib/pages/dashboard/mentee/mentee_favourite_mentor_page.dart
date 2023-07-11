@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:guide_up/pages/dashboard/mentee/card/mentee_favourite_card.dart';
 
 import 'package:guide_up/pages/mentor/card_pages/mentor_card.dart';
 import 'package:guide_up/repository/mentor/mentor_favourite_repository.dart';
@@ -131,7 +132,7 @@ class _MenteeFavouriteMentorPageState
                       return ListView.builder(
                         itemBuilder: (context, index) {
                           final mentor = snapshot.data![index];
-                          return MentorCard(mentor: mentor);
+                          return MenteeFavouriteCard(mentor: mentor);
                         },
                         itemCount: snapshot.data!.length,
                         padding: const EdgeInsets.all(0),
@@ -148,3 +149,6 @@ class _MenteeFavouriteMentorPageState
     );
   }
 }
+
+// final mentor = snapshot.data![index];
+//                           return MentorCard(mentor: mentor);
