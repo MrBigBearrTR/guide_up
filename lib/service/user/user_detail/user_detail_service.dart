@@ -40,6 +40,11 @@ class UserDetailService {
   }
 
   Future<UserDetail> add(UserDetail userDetail) async {
+    if(userDetail.getPhoto()!=null) {
+      var uploadUrl = await _uploadRepository.addProfilePictureByUserId(
+          userDetail.getPhoto()!, userDetail.getUserId()!);
+      userDetail.setPhoto(uploadUrl);
+    }
     var detail = await _userDetailRepository.add(userDetail);
     const FlutterSecureStorage().write(
         key: SecureStrogeConstants.USER_DETAIL_KEY, value: detail.toJson());
