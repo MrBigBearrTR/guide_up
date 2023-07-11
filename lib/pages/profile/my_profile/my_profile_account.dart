@@ -408,7 +408,7 @@ class _MyProfileAccountState extends State<MyProfileAccount> {
                       ),
                     ),
                     controller: _phoneController,  // Telefon numarası değerini tutmak için bir controller atanır
-                    initialCountryCode: 'TR',  // İlk açıldığında görünecek ülke kodu (örn: 'TR' Türkiye)
+                    initialCountryCode: 'TR',  // İlk açıldığında görünecek ülke kodu
                     onChanged: (phone) {
                       setState(() {
                         _phoneController.text = phone.completeNumber;  // Telefon numarası değiştiğinde controller'ı güncelle
@@ -545,129 +545,102 @@ class _MyProfileAccountState extends State<MyProfileAccount> {
                     ],
                   ),
                   const SizedBox(height: 0.0),
-                  Container(
-                    width: 430,
-                    height: 60,
-                    color: ColorConstants.theme1PowderSkinOpacity,
-                    alignment: Alignment.topLeft,
-                    padding: const EdgeInsets.all(10),
-                    margin: const EdgeInsets.all(10),
+                  TextButton(
+                    onPressed: () {Navigator.pushNamed(
+                        context, RouterConstants.userEducationInformationList);
+                    },
+                    style: TextButton.styleFrom(
+                      backgroundColor: ColorConstants.theme1PowderSkinOpacity, // Arkaplan rengi
+                      padding: const EdgeInsets.all(20),
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(4), // Kenar yarıçapı
+                      ),
+                    ),
                     child: Row(
                       children: [
                         Text(
                           "Eğitim Bilgileri",
                           style: GoogleFonts.nunito(
+                            color: ColorConstants.theme2DarkBlue,
                             fontWeight: FontWeight.bold,
                           ),
                         ),
                         const Spacer(),
-                        IconButton(
-                          icon: const Icon(Icons.add),
-                          onPressed: () {
-                            Navigator.pushNamed(context,
-                                RouterConstants.userEducationInformationPage);
-                          },
-                        ),
-                        IconButton(
-                          icon: const Icon(Icons.edit),
-                          onPressed: () {
-                            // Kalem butonuna tıklandığında yapılacak işlemler
-                          },
-                        ),
                       ],
                     ),
                   ),
-                  const SizedBox(height: 0.0),
-                  Container(
-                    width: 430,
-                    height: 60,
-                    color: ColorConstants.theme1PowderSkinOpacity,
-                    alignment: Alignment.topLeft,
-                    padding: const EdgeInsets.all(10),
-                    margin: const EdgeInsets.all(10),
+                  const SizedBox(height: 8.0),
+                  TextButton(
+                    onPressed: () {Navigator.pushNamed(
+                          context, RouterConstants.userProjectList);
+                    },
+                    style: TextButton.styleFrom(
+                      backgroundColor: ColorConstants.theme1PowderSkinOpacity, // Arkaplan rengi
+                      padding: const EdgeInsets.all(20),
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(4), // Kenar yarıçapı
+                      ),
+                    ),
                     child: Row(
                       children: [
                         Text(
                           "Projelerim",
                           style: GoogleFonts.nunito(
+                            color: ColorConstants.theme2DarkBlue,
                             fontWeight: FontWeight.bold,
                           ),
                         ),
                         const Spacer(),
-                        IconButton(
-                          icon: const Icon(Icons.add),
-                          onPressed: () {
-                            Navigator.pushNamed(
-                                context, RouterConstants.userProjectPage);
-                          },
-                        ),
-                        IconButton(
-                          icon: const Icon(Icons.edit),
-                          onPressed: () {
-                            Navigator.pushNamed(
-                                context, RouterConstants.userProjectList);
-                          },
-                        ),
                       ],
                     ),
                   ),
-                  const SizedBox(height: 0.0),
-                  Container(
-                    width: 430,
-                    height: 60,
-                    color: ColorConstants.theme1PowderSkinOpacity,
-                    alignment: Alignment.topLeft,
-                    padding: const EdgeInsets.all(10),
-                    margin: const EdgeInsets.all(10),
+                  const SizedBox(height: 8.0),
+                  TextButton(
+                    onPressed: () {Navigator.pushNamed(
+                        context, RouterConstants.userAbilities);
+                    },
+                    style: TextButton.styleFrom(
+                      backgroundColor: ColorConstants.theme1PowderSkinOpacity, // Arkaplan rengi
+                      padding: const EdgeInsets.all(20),
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(4), // Kenar yarıçapı
+                      ),
+                    ),
                     child: Row(
                       children: [
                         Text(
                           "Yetenekler",
                           style: GoogleFonts.nunito(
+                            color: ColorConstants.theme2DarkBlue,
                             fontWeight: FontWeight.bold,
                           ),
                         ),
                         const Spacer(),
-                        IconButton(
-                          icon: const Icon(Icons.add),
-                          onPressed: () {
-                            Navigator.pushNamed(
-                                context, RouterConstants.userAbilities);
-                          },
-                        ),
                       ],
                     ),
                   ),
-                  const SizedBox(height: 0.0),
-                  Container(
-                    width: 430,
-                    height: 60,
-                    color: ColorConstants.theme1PowderSkinOpacity,
-                    alignment: Alignment.topLeft,
-                    padding: const EdgeInsets.all(10),
-                    margin: const EdgeInsets.all(10),
+                  const SizedBox(height: 8.0),
+                  TextButton(
+                    onPressed: () {Navigator.pushNamed(
+                        context, RouterConstants.licensesAndCertificatesPage);
+                    },
+                    style: TextButton.styleFrom(
+                      backgroundColor: ColorConstants.theme1PowderSkinOpacity, // Arkaplan rengi
+                      padding: const EdgeInsets.all(20),
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(4), // Kenar yarıçapı
+                      ),
+                    ),
                     child: Row(
                       children: [
                         Text(
                           "Lisanslar ve sertifikalar",
                           style: GoogleFonts.nunito(
+                            color: ColorConstants.theme2DarkBlue,
                             fontWeight: FontWeight.bold,
                           ),
                         ),
                         const Spacer(),
-                        IconButton(
-                          icon: const Icon(Icons.add),
-                          onPressed: () {
-                            Navigator.pushNamed(
-                                context, RouterConstants.licensesAndCertificatesPage);
-                          },
-                        ),
-                        IconButton(
-                          icon: const Icon(Icons.edit),
-                          onPressed: () {
-                            // Kalem butonuna tıklandığında yapılacak işlemler
-                          },
-                        ),
                       ],
                     ),
                   ),

@@ -45,7 +45,9 @@ class UserProjectRepository {
 
   Future<int> getUserProjectListCountByUserId(String userId) async {
     int listCount = 0;
-    var query = await _userProjectCollections.where("userId", isEqualTo: userId).get();
+    var query = await _userProjectCollections
+        .where("userId", isEqualTo: userId)
+        .get();
 
     if (query.docs.isNotEmpty) {
       listCount = query.docs.length;

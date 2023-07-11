@@ -4,6 +4,7 @@ import 'package:guide_up/core/utils/secure_storage_helper.dart';
 import 'package:guide_up/repository/user/user_abilities/user_abilities_repository.dart';
 
 import '../../../../core/constant/color_constants.dart';
+import '../../../../core/constant/router_constants.dart';
 import '../../../../core/models/users/user_abilities/user_abilities_model.dart';
 import '../../../../ui/material/custom_material.dart';
 
@@ -40,6 +41,7 @@ class _UserAbilitiesPageState extends State<UserAbilitiesPage> {
 
   void addAbility() async {
     String ability = abilityController.text.trim();
+
     if (ability.isNotEmpty) {
       UserAbilities userAbilities = UserAbilities();
       userAbilities.setUserId(userId!);
@@ -168,6 +170,15 @@ class _UserAbilitiesPageState extends State<UserAbilitiesPage> {
             fontWeight: FontWeight.bold,
           ),
         ),
+        leading: IconButton(
+          icon: const Icon(
+            Icons.arrow_back,
+            color: ColorConstants.theme1DarkBlue, // Geri buton rengi
+          ),
+          onPressed: () {
+            Navigator.pushNamed(context, RouterConstants.myProfileAccountPage);
+          },
+        ),
         backgroundColor: ColorConstants.theme2White, // AppBar arka plan rengi
         actions: [
           Padding(
@@ -194,15 +205,55 @@ class _UserAbilitiesPageState extends State<UserAbilitiesPage> {
                     );
                   } else if (snapshot.hasError) {
                     return Center(
-                      child: Text('Yeteneklerinizi şu an listeyemiyoruz.',
-                        style: GoogleFonts.nunito(),
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Text('Yeteneklerinizi şu an listeyemiyoruz.',
+                            style: GoogleFonts.nunito(),),
+                          Padding(
+                            padding: const EdgeInsets.only(top: 8.0),
+                            child: Image.asset(
+                              'assets/logo/guideUpLogo.png',
+                              width: 62,
+                              height: 62,
+                            ),
+                          ),
+                        ],
                       ),
                     );
                   } else {
-                    if ((snapshot.data != null && snapshot.data!.isEmpty)) {
+                    if (snapshot.data != null && snapshot.data!.isEmpty) {
                       return Center(
-                        child: Text('Yetenek kaydınız bulunamadı. Eklemeye ne dersiniz.',
-                          style: GoogleFonts.nunito(),
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Padding(
+                              padding: const EdgeInsets.only(top: 0.0),
+                              child: Image.asset(
+                                'assets/logo/guideUpLogo.png',
+                                width: 200,
+                                height: 200,
+                              ),
+                            ),
+                            const SizedBox(height: 8.0),
+                            TextButton(
+                              onPressed: showAddAbilityPopup,
+                              style: ButtonStyle(
+                                foregroundColor: MaterialStateProperty.all<Color>(
+                                    ColorConstants.theme1DarkBlue),
+                                elevation: MaterialStateProperty.all<double>(8.0),
+                                // Gölge efekti
+                                overlayColor: MaterialStateProperty.all<Color>(
+                                    ColorConstants.theme2DarkOpacity20),
+
+                              ),
+                              child: Text(
+                                'Yetenek kaydınız bulunamadı. Eklemeye ne dersiniz?',
+                                style: GoogleFonts.nunito(),
+                                textAlign: TextAlign.center,
+                              ),
+                            ),
+                          ],
                         ),
                       );
                     } else {
@@ -211,7 +262,7 @@ class _UserAbilitiesPageState extends State<UserAbilitiesPage> {
                         itemBuilder: (context, index) {
                           final ability = snapshot.data![index];
                           return Card(
-                            color: ColorConstants.theme1DarkBlue, // Eklenen yetenekler tablo rengi
+                            color: ColorConstants.theme1DarkBlue, // Eklenen tablo rengi
                             elevation: 2, // Card'ın gölgelendirme seviyesi
                             margin: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
                             child: ListTile(
@@ -219,7 +270,7 @@ class _UserAbilitiesPageState extends State<UserAbilitiesPage> {
                                 ability.getAbility() ?? '',
                                 style: GoogleFonts.nunito(
                                   fontWeight: FontWeight.bold,
-                                  color: ColorConstants.theme2Orange, // Yetenek metni rengi
+                                  color: ColorConstants.theme2Orange, // metni rengi
                                 ),
                               ),
                               trailing: IconButton(

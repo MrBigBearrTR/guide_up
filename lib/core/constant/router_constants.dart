@@ -13,10 +13,13 @@ class RouterConstants{
   static const String userProjectPage="/userProjectPage";
   static const String userProjectList="/userProjectList";
   static const String userEducationInformationPage="/userEducationInformationPage";
+  static const String userEducationInformationList="/userEducationInformationList";
   static const String helpAndSupport="/helpAndSupport";
   static const String aboutUs="/aboutUs";
   static const String messagesPage="/messagesPage";
   static const String licensesAndCertificatesPage="/licensesAndCertificatesPage";
+  static const String licenseAndCertificateAddPage="/licenseAndCertificateAddPage";
+
 
   static const String guideAdd="/guideAdd";
 
