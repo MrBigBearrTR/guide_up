@@ -16,6 +16,7 @@ class RouterConstants{
   static const String aboutUs="/aboutUs";
   static const String messagesPage="/messagesPage";
   static const String licensesAndCertificatesPage="/licensesAndCertificatesPage";
+  static const String mentorPreview = '/mentorPreview';
 
   static const String guideAdd="/guideAdd";
 
@@ -23,4 +24,5 @@ class RouterConstants{
   static const String mentorFavourite = 'mentorFavourite';
   static const String myCommends = 'myCommends';
   static const String myPayments = 'myPayments';
+
 }

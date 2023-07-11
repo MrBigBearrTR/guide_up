@@ -175,7 +175,12 @@ class _HomeScreenState extends State<HomeScreen> {
                             return ListView.builder(
                               itemBuilder: (context, index) {
                                 final mentor = snapshot.data![index];
-                                return MentorCard(mentor: mentor);
+                                return GestureDetector(
+                                  onTap: () {
+                                    Navigator.pushNamed(context, RouterConstants.mentorPreview, arguments: mentor);
+                                  },
+                                  child: MentorCard(mentor: mentor),
+                                );
                               },
                               itemCount: snapshot.data!.length,
                               scrollDirection: Axis.horizontal,

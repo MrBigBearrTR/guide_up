@@ -217,7 +217,6 @@ class _MyProfileAccountState extends State<MyProfileAccount> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Container(
-        decoration: CustomMaterial.backgroundBoxDecoration,
         child: Padding(
           padding: const EdgeInsets.all(16.0),
           child: Stack(

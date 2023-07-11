@@ -6,6 +6,7 @@ import 'package:guide_up/pages/guide/guide_add_page.dart';
 import 'package:guide_up/pages/profile/my_profile/my_profile_account.dart';
 import 'package:guide_up/pages/register_page/register_with_detail.dart';
 
+import '../../pages/dashboard/mentor/mentor_preview.dart';
 import '../../pages/login/login_page.dart';
 import '../../pages/other/error_page.dart';
 import '../../pages/other/test_data_conrol_page.dart';
@@ -99,6 +100,8 @@ class RouteGenerator {
         return _createRoute(const GuideAddPage(), settings);
       case RouterConstants.licensesAndCertificatesPage:
         return _createRoute(const LicensesAndCertificatesPage(), settings);
+      case RouterConstants.mentorPreview:
+        return _createRoute(const MentorPreview(), settings);
       default:
         return _createRoute(const ErrorPage(), settings);
     }
