@@ -18,9 +18,11 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
         brightness: Brightness.light, // Varsayılan olarak açık tema
+        textTheme: GoogleFonts.nunitoTextTheme(),
       ),
       darkTheme: ThemeData(
         brightness: Brightness.dark, // Koyu tema ayarı
+        textTheme: GoogleFonts.nunitoTextTheme(),
       ),
       home: const GeneralSettings(),
     );

@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:guide_up/core/utils/secure_storage_helper.dart';
+import 'package:intl/intl.dart';
 import '../../../../core/constant/color_constants.dart';
 import '../../../../core/constant/router_constants.dart';
 import '../../../../core/models/users/user_project/user_project_model.dart';
+import '../../../../core/utils/control_helper.dart';
 import '../../../../repository/user/user_project/user_project_repository.dart';
 
 class UserProjectPage extends StatefulWidget {
@@ -14,6 +16,9 @@ class UserProjectPage extends StatefulWidget {
 }
 
 class _UserProjectPageState extends State<UserProjectPage> {
+  UserProject? userProject;
+  DateTime startDate = DateTime.now();
+  final dateFormat = DateFormat('dd.MM.yyyy');
   TextEditingController experienceIdController = TextEditingController();
   TextEditingController projectTitleController = TextEditingController();
   TextEditingController startDateController = TextEditingController();
@@ -27,6 +32,9 @@ class _UserProjectPageState extends State<UserProjectPage> {
   void initState() {
     super.initState();
     getUserId();
+    startDateController = TextEditingController(
+      text: dateFormat.format(startDate),
+    );
   }
 
   void getUserId() async {
@@ -42,6 +50,31 @@ class _UserProjectPageState extends State<UserProjectPage> {
       }
     }
   }
+  Future<void> showDatePickerDialog() async {
+    final DateTime? pickedDate = await showDatePicker(
+      context: context,
+      builder: (BuildContext context, Widget? child) {
+        return Theme(
+          data: ThemeData(
+            colorScheme: const ColorScheme.light(
+              primary: ColorConstants.theme1DarkBlue,
+            ),
+            dialogBackgroundColor: ColorConstants.itemWhite,
+          ),
+          child: child ?? const Text(""),
+        );
+      },
+      initialDate: startDate,
+      firstDate: DateTime(1900),
+      lastDate: DateTime.now(),
+    );
+    if (pickedDate != null && pickedDate != startDate) {
+      setState(() {
+        startDate = pickedDate;
+        startDateController.text = dateFormat.format(startDate);
+      });
+    }
+  }
 
   void addUserProject() async {
     String experienceId = experienceIdController.text.trim();
@@ -51,7 +84,7 @@ class _UserProjectPageState extends State<UserProjectPage> {
     String description = descriptionController.text.trim();
     String link = linkController.text.trim();
 
-    if (projectTitle.isEmpty || description.isEmpty || startDate.isEmpty || experienceId.isEmpty) {
+    if (projectTitle.isEmpty || description.isEmpty || startDate.isEmpty || endDate.isEmpty || experienceId.isEmpty) {
       showDialog(
         context: context,
         builder: (BuildContext context) {
@@ -92,8 +125,8 @@ class _UserProjectPageState extends State<UserProjectPage> {
     userProject.setUserId(userId!);
     userProject.setExperienceId(experienceId);
     userProject.setProjectTitle(projectTitle);
-    userProject.setStartDate(DateTime.parse(startDate));
-    userProject.setEndDate(DateTime.parse(endDate));
+    userProject.setStartDate(startDate as DateTime);
+    // userProject.setEndDate(selectedDate);
     userProject.setDescription(description);
     userProject.setLink(link);
 
@@ -340,6 +373,11 @@ class _UserProjectPageState extends State<UserProjectPage> {
                 border: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(8.0),
                 ),
+                suffixIcon: IconButton(
+                  icon: const Icon(Icons.calendar_today),
+                  onPressed: showDatePickerDialog,
+                  color: ColorConstants.theme1DarkBlue,
+                ),
                 focusedBorder: OutlineInputBorder(
                   borderSide: BorderSide(
                     color: (startDateController.value.text.isNotEmpty)
@@ -349,6 +387,7 @@ class _UserProjectPageState extends State<UserProjectPage> {
                   borderRadius: BorderRadius.circular(8.0),
                 ),
               ),
+              readOnly: true,
               controller: startDateController,
               cursorColor: ColorConstants.theme1DarkBlue,
               onChanged: (value) {
@@ -375,7 +414,13 @@ class _UserProjectPageState extends State<UserProjectPage> {
                   ),
                   borderRadius: BorderRadius.circular(8.0),
                 ),
+                suffixIcon: IconButton(
+                  icon: const Icon(Icons.calendar_today),
+                  onPressed: showDatePickerDialog,
+                  color: ColorConstants.theme1DarkBlue,
+                ),
               ),
+              readOnly: true,
               controller: endDateController,
               cursorColor: ColorConstants.theme1DarkBlue,
               onChanged: (value) {
@@ -426,5 +471,12 @@ class _UserProjectPageState extends State<UserProjectPage> {
         ),
       ),
     );
+  }
+  void setValues() {
+    if (userProject!.getStartDate() != null) {
+      startDate = userProject!.getStartDate()!;
+      startDateController.text = ControlHelper.checkInputValue(
+          dateFormat.format(userProject!.getStartDate()!));
+  }
   }
 }

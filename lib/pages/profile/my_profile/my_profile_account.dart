@@ -668,10 +668,12 @@ class _MyProfileAccountState extends State<MyProfileAccount> {
                       borderRadius: BorderRadius.circular(20.0),
                     ),
                   ),
-                  child: const Padding(
+                  child: Padding(
                     padding:
-                        EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
-                    child: Text("Kaydet"),
+                        const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
+                    child: Text("Kaydet",
+                      style: GoogleFonts.nunito(),
+                    ),
                   ),
                 ),
               ),
@@ -687,7 +689,8 @@ class _MyProfileAccountState extends State<MyProfileAccount> {
                   ),
                   child: InkWell(
                     onTap: () {
-                      Navigator.pop(context);
+                      Navigator.pushNamed(
+                          context, RouterConstants.profilePage);
                     },
                     child: const Icon(
                       Icons.arrow_back_rounded,

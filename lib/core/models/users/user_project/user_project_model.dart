@@ -120,7 +120,7 @@ class UserProject extends GeneralFields {
       setProjectTitle(map['projectTitle']);
     }
     if (ControlHelper.checkMapValue(map, 'startDate')) {
-      setStartDate(map['startDate']);
+      setStartDate(DateTime.parse(map['startDate']));
     }
     if (ControlHelper.checkMapValue(map, 'endDate')) {
       setEndDate(map['endDate']);
