@@ -10,7 +10,6 @@ import 'package:guide_up/repository/mentor/mentor_commend_repository.dart';
 import 'package:guide_up/repository/mentor/mentor_favourite_repository.dart';
 import 'package:guide_up/service/mentee/mentee_service.dart';
 
-import '../../../core/models/mentor/mentor_model.dart';
 import '../../../core/utils/user_helper.dart';
 import '../../../core/utils/user_info_helper.dart';
 import 'card/mentee_commend_card.dart';

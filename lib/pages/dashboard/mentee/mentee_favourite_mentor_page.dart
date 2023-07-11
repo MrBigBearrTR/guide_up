@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:guide_up/pages/dashboard/mentee/card/mentee_favourite_card.dart';
 
-import 'package:guide_up/pages/mentor/card_pages/mentor_card.dart';
-import 'package:guide_up/repository/mentor/mentor_favourite_repository.dart';
 import 'package:guide_up/service/mentor/mentor_service.dart';
 
 import '../../../core/constant/color_constants.dart';

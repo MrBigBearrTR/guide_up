@@ -1,9 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:guide_up/core/models/mentor/mentor_commend_model.dart';
-import 'package:guide_up/repository/mentor/mentor_favourite_repository.dart';
 
 import '../../../../core/constant/color_constants.dart';
-import '../../../../core/models/mentor/mentor_favourite_model.dart';
 import '../../../../core/models/mentor/mentor_model.dart';
 import '../../../../core/utils/user_info_helper.dart';
 
