@@ -633,6 +633,7 @@ class _MyProfileAccountState extends State<MyProfileAccount> {
                             style: GoogleFonts.nunito(
                               color: ColorConstants.itemWhite,
                             ),
+
                           ),
                         ),
                       ),
