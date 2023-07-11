@@ -29,7 +29,7 @@ class UserDetail extends GeneralFields {
     return _userId;
   }
 
-  void setUserId(String userId) {
+  void setUserId(String? userId) {
     _userId = userId;
   }
 

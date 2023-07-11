@@ -1,8 +1,14 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:guide_up/core/models/post/post_model.dart';
+import 'package:guide_up/core/models/users/user_detail/user_detail_model.dart';
+import 'package:guide_up/core/utils/secure_storage_helper.dart';
+import 'package:guide_up/repository/post/post_repository.dart';
+import 'package:image_picker/image_picker.dart';
 
 import '../../core/constant/color_constants.dart';
-import '../../ui/material/custom_material.dart';
 
 class GuideAddPage extends StatefulWidget {
   const GuideAddPage({Key? key}) : super(key: key);
@@ -12,21 +18,228 @@ class GuideAddPage extends StatefulWidget {
 }
 
 class _GuideAddPageState extends State<GuideAddPage> {
+  late TextEditingController _topicController;
+  late TextEditingController _contentController;
+  late TextEditingController _photoController;
+  final _formKey = GlobalKey<FormState>();
+  File? _guidePicture;
+  UserDetail? userDetail;
+  Post? post;
+
+  PostRepository? postRepository;
+
+  @override
+  void initState() {
+    super.initState();
+    _topicController = TextEditingController();
+    _contentController = TextEditingController();
+    _photoController = TextEditingController();
+  }
+
+  @override
+  void dispose() {
+    _topicController.dispose();
+    _contentController.dispose();
+    super.dispose();
+  }
+
+  void createPost(BuildContext context) async {
+    UserDetail? detail = await SecureStorageHelper().getUserDetail();
+    if (detail != null) {
+      String topic = _topicController.text;
+      String content = _contentController.text;
+      if (post == null) {
+        post = Post();
+      }
+      post!.setTopic(topic);
+      post!.setContent(content);
+      if (_guidePicture != null) {
+        post!.setPhoto(_guidePicture!.path);
+      }
+      post!.setUserId(detail.getUserId()!);
+
+      await PostRepository().add(post!);
+      Navigator.pop(context);
+    }
+  }
+
+  pickProfileImage() async {
+    final imagePicker = ImagePicker();
+    final pickedImage = await imagePicker.pickImage(
+      source: ImageSource.gallery,
+      maxWidth: 500,
+      maxHeight: 500,
+    );
+    if (pickedImage != null) {
+      setState(() {
+        _guidePicture = File(pickedImage.path);
+      });
+    }
+  }
+
+  void _showSnackBar(String message) {
+    final snackBar = SnackBar(content: Text(message));
+    ScaffoldMessenger.of(context).showSnackBar(snackBar);
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(
-          centerTitle: true,
-          title: Text(
-            "Guide 'in",
-            style: GoogleFonts.nunito(
-                textStyle: const TextStyle(
-                    color: ColorConstants.theme2Dark,
-                    fontWeight: FontWeight.bold)),
+      appBar: AppBar(
+        centerTitle: true,
+        title: Text(
+          "Guide 'in",
+          style: GoogleFonts.nunito(
+            textStyle: const TextStyle(
+              color: ColorConstants.theme2Dark,
+              fontWeight: FontWeight.bold,
+            ),
           ),
         ),
-        body: Container(
-          decoration: CustomMaterial.backgroundBoxDecoration,
-        ));
+      ),
+      body: SingleChildScrollView(
+        child: Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: Form(
+            key: _formKey,
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                const SizedBox(height: 16.0),
+                TextFormField(
+                  decoration: InputDecoration(
+                    labelText: 'Başlık Giriniz ',
+                    labelStyle: GoogleFonts.nunito(
+                      color: (_topicController.value.text.isNotEmpty)
+                          ? ColorConstants.theme1DarkBlue
+                          : ColorConstants.warningDark,
+                    ),
+                    border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(8.0),
+                    ),
+                    focusedBorder: OutlineInputBorder(
+                      borderSide: BorderSide(
+                        color: (_topicController.value.text.isNotEmpty)
+                            ? ColorConstants.theme1DarkBlue
+                            : ColorConstants.warningDark,
+                      ),
+                      borderRadius: BorderRadius.circular(8.0),
+                    ),
+                  ),
+                  controller: _topicController,
+                  cursorColor: ColorConstants.theme1DarkBlue,
+                  onChanged: (value) {
+                    setState(() {});
+                  },
+                ),
+                const SizedBox(height: 16.0),
+                TextFormField(
+                  decoration: InputDecoration(
+                    labelText: 'Metin Giriniz',
+                    labelStyle: GoogleFonts.nunito(
+                      color: (_contentController.value.text.isNotEmpty)
+                          ? ColorConstants.theme1DarkBlue
+                          : ColorConstants.warningDark,
+                    ),
+                    border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(8.0),
+                    ),
+                    focusedBorder: OutlineInputBorder(
+                      borderSide: BorderSide(
+                        color: (_contentController.value.text.isNotEmpty)
+                            ? ColorConstants.theme1DarkBlue
+                            : ColorConstants.warningDark,
+                      ),
+                      borderRadius: BorderRadius.circular(8.0),
+                    ),
+//contentPadding: EdgeInsets.symmetric(vertical: 120),
+                  ),
+                  maxLines: 8,
+                  minLines: 1,
+                  controller: _contentController,
+                  cursorColor: ColorConstants.theme1DarkBlue,
+                  onChanged: (value) {
+                    setState(() {});
+                  },
+                ),
+                const SizedBox(height: 16.0),
+                GestureDetector(
+                  onTap: pickProfileImage,
+                  child: Stack(
+                    alignment: Alignment.center,
+                    children: [
+                      Image(image: getImage(),
+                      width: MediaQuery.of(context).size.width,
+                      height: MediaQuery.of(context).size.width/2,)
+                    ],
+                  ),
+                ),
+                const SizedBox(height: 16.0),
+                if (_guidePicture != null)
+                  Image.file(
+                    _guidePicture!,
+                    width: 400,
+                    height: 400,
+                  ),
+                const SizedBox(
+                  height: 20,
+                ),
+                SizedBox(
+                  width: 450,
+                  child: ElevatedButton(
+                    onPressed: () {
+                      createPost(context);
+                    },
+                    style: ElevatedButton.styleFrom(
+                      shadowColor: Colors.deepOrange,
+                      elevation: 18,
+                      padding: EdgeInsets.zero,
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(20),
+                      ),
+                    ),
+                    child: Ink(
+                      decoration: BoxDecoration(
+                        gradient: const LinearGradient(
+                          colors: [
+                            Colors.deepOrange,
+                            Colors.orange,
+                          ],
+                        ),
+                        borderRadius: BorderRadius.circular(20),
+                      ),
+                      child: Container(
+                        width: 400,
+                        height: 40,
+                        alignment: Alignment.center,
+                        child: const Text(
+                          'Guide Ekle',
+                          style: TextStyle(
+                            fontSize: 25,
+                            color: Colors.white,
+                          ),
+                        ),
+                      ),
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+
+  ImageProvider<Object> getImage() {
+    if (post == null) {
+      if (_guidePicture != null) {
+        return FileImage(_guidePicture!);
+      } else {
+        return const AssetImage("assets/img/unknown_user.png");
+      }
+    } else {
+      return NetworkImage(post!.getPhoto()!);
+    }
   }
 }

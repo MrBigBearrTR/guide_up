@@ -25,7 +25,6 @@ class MenteeDashboardMainPage extends StatefulWidget {
 
 class _MenteeDashboardMainPageState extends State<MenteeDashboardMainPage> {
   UserDetail? userDetail;
-  Future<int>? menteeCountFuture;
 
   @override
   void initState() {
@@ -39,8 +38,6 @@ class _MenteeDashboardMainPageState extends State<MenteeDashboardMainPage> {
       detail = null;
     } else {
       userDetail = detail;
-      menteeCountFuture = MenteeRepository()
-          .getMenteeListCountByUserId(userDetail!.getUserId()!);
       setState(() {});
     }
   }

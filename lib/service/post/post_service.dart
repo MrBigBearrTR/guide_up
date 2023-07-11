@@ -167,28 +167,29 @@ class PostService {
 
 
 
-  Future<List<PostCardView>> convertToPostCardViewModel(List<Post> postList) async{
-    List<PostCardView> postCardViewList = [];
+    Future<List<PostCardView>> convertToPostCardViewModel(List<Post> postList) async {
+      List<PostCardView> postCardViewList = [];
 
-    for (var post in postList) {
-      PostCardView cardView = PostCardView();
-      UserDetail? userDetail =
-          await _userDetailRepository.getUserByUserId(post.getUserId()!);
+      for (var post in postList) {
+        PostCardView cardView = PostCardView();
+        UserDetail? userDetail =
+        await _userDetailRepository.getUserByUserId(post.getUserId()!);
 
-      if (userDetail != null) {
+        if (userDetail != null) {
+          cardView.userFullName =
+          "${userDetail.getName()!} ${userDetail.getSurname()!}";
+          cardView.userPhoto = userDetail.getPhoto();
+        }
 
-        cardView.userFullName =
-        "${userDetail.getName()!} ${userDetail.getSurname()!}";
-        cardView.userPhoto = userDetail.getPhoto();
+        cardView.isThereCategory = post.isThereCategory();
+        cardView.topic = post.getTopic();
+        cardView.content = post.getContent();
+        cardView.photo = post.getPhoto();
+
+        postCardViewList.add(cardView);
       }
 
-      cardView.isThereCategory = post.isThereCategory();
-      cardView.topic = post.getTopic();
-      cardView.content = post.getContent();
-      cardView.photo = post.getPhoto();
-
-      postCardViewList.add(cardView);
+      return postCardViewList;
     }
-    return postCardViewList;
-  }
+
 }

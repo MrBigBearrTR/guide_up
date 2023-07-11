@@ -523,7 +523,7 @@ class _RegisterWithDetailState extends State<RegisterWithDetail> {
                       SizedBox(
                         width: 320,
                         child: ElevatedButton(
-                          onPressed: () => _submitUserDetail(context),
+                          onPressed: () => _submitUserDetail(context), // düzenlenecek
                           style: ElevatedButton.styleFrom(
                             shadowColor: Colors.deepOrange,
                             elevation: 18,
