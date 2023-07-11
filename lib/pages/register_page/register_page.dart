@@ -1,15 +1,14 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:guide_up/core/constant/color_constants.dart';
 import 'package:guide_up/core/constant/router_constants.dart';
 import 'package:guide_up/core/models/users/user_model.dart';
-import 'package:guide_up/pages/register_page/register_with_detail.dart';
 import 'package:guide_up/service/user/user_service.dart';
 import 'package:guide_up/ui/material/custom_material.dart';
 
-import '../../core/constant/router_constants.dart';
+import '../../core/enumeration/enums/EnUserType.dart';
 import '../../core/utils/user_helper.dart';
+import '../../repository/user/user_repository.dart';
 
 class RegisterPage extends StatefulWidget {
   const RegisterPage({Key? key}) : super(key: key);
@@ -23,7 +22,6 @@ class _RegisterPageState extends State<RegisterPage> {
   late TextEditingController _emailController;
   late TextEditingController _passwordController;
   late TextEditingController _confirmPasswordController;
-  String selectedRole = 'Mentor';
 
   @override
   void initState() {
@@ -41,7 +39,6 @@ class _RegisterPageState extends State<RegisterPage> {
     super.dispose();
   }
 
-
   void _showSnackBar(String message) {
     final snackBar = SnackBar(content: Text(message));
     ScaffoldMessenger.of(context).showSnackBar(snackBar);
@@ -51,13 +48,11 @@ class _RegisterPageState extends State<RegisterPage> {
     String email = _emailController.text; // trim ekle
     String password = _passwordController.text;
     String confirmPassword = _confirmPasswordController.text;
-    bool isMentor = selectedRole == 'Mentor';
 
     if (password == confirmPassword) {
       UserModel userModel = UserModel();
       userModel.setEmail(email);
       userModel.setPassword(password);
-      userModel.setMentor(isMentor);
 
       List<String> unfilledFields = [];
 
@@ -83,21 +78,22 @@ class _RegisterPageState extends State<RegisterPage> {
 
       try {
         // Check if email is already registered
-        bool isEmailRegistered = await UserHelper().isEmailRegistered(userModel.getEmail()!);
+        bool isEmailRegistered =
+            await UserHelper().isEmailRegistered(userModel.getEmail()!);
         if (isEmailRegistered) {
           ScaffoldMessenger.of(context).showSnackBar(
             SnackBar(content: Text("Bu e-posta zaten kayıtlı")),
           );
           return;
         }
-        String registeredUserId =
-            await UserService().saveUserModel(userModel);
-            // Kayıt başarılı, işlemleri devam ettirebilirsiniz.
+        String registeredUserId = await UserService().saveUserModel(userModel);
+        // Kayıt başarılı, işlemleri devam ettirebilirsiniz.
         print('Kayıt başarılı: $registeredUserId');
-        if(registeredUserId.isEmpty) {
+        if (registeredUserId.isEmpty) {
           throw Exception('Kayıt bilgisi gelmedi  ');
         }
-       Navigator.pushNamed(context, RouterConstants.registerWithDetailPage,arguments: registeredUserId);
+        Navigator.pushNamed(context, RouterConstants.registerWithDetailPage,
+            arguments: registeredUserId);
       } catch (error) {
         // Kayıt başarısız, hata mesajını göster veya işlem yap.
         print('Kayıt başarısız: $error');
@@ -109,37 +105,74 @@ class _RegisterPageState extends State<RegisterPage> {
       );
     }
   }
+
   void signInWithGoogle(BuildContext context) async {
     try {
-      UserCredential? fireUser = await UserHelper().signInWithGoogle();
-      if (fireUser.user != null) {
-        // Giriş başarılı, kullanıcıyı kullanabilirsiniz
-        Navigator.pushReplacementNamed(context, RouterConstants.homePage);
-      } else {
-        // Giriş başarısız, hata mesajını ele alabilirsiniz
-        showDialog(
-          context: context,
-          builder: (context) {
-            return AlertDialog(
-              backgroundColor: ColorConstants.itemWhite,
-              title: const Text('Hata'),
-              content: const Text('Google ile giriş yaparken bir hata oluştu.'),
-              actions: [
-                TextButton(
-                  onPressed: () {
-                    Navigator.pop(context);
-                  },
-                  child: const Text(
-                    'Tamam',
-                    style: TextStyle(
-                      color: ColorConstants.itemBlack,
+      Map<EnUserType, UserCredential> userTypeMap =
+          await UserService().getUserStatusSignInWithGoogle();
+
+      if (userTypeMap.isNotEmpty) {
+        var entryMap = userTypeMap.entries.first;
+
+        EnUserType userType = entryMap.key;
+        UserCredential fireUser = entryMap.value;
+
+        if (fireUser.user == null) {
+          // Giriş başarısız, hata mesajını ele alabilirsiniz
+          showDialog(
+            context: context,
+            builder: (context) {
+              return AlertDialog(
+                backgroundColor: ColorConstants.itemWhite,
+                title: const Text('Hata'),
+                content:
+                    const Text('Google ile giriş yaparken bir hata oluştu.'),
+                actions: [
+                  TextButton(
+                    onPressed: () {
+                      Navigator.pop(context);
+                    },
+                    child: const Text(
+                      'Tamam',
+                      style: TextStyle(
+                        color: ColorConstants.itemBlack,
+                      ),
                     ),
                   ),
-                ),
-              ],
-            );
-          },
-        );
+                ],
+              );
+            },
+          );
+        } else {
+          switch (userType) {
+            case EnUserType.havenNotUserModel:
+              String userId = await UserService().saveUserModelOnlyUidAndEmail(
+                  fireUser.user!.uid, fireUser.user!.email!);
+              Navigator.pushNamed(
+                  context, RouterConstants.registerWithDetailPage,
+                  arguments: userId);
+
+              break;
+            case EnUserType.havenNotUserDetail:
+              UserRepository()
+                  .getUserIdByUid(fireUser.user!.uid)
+                  .then((value) => {
+                        if (value != null)
+                          {
+                            Navigator.pushNamed(
+                                context, RouterConstants.registerWithDetailPage,
+                                arguments: value)
+                          }
+                      });
+
+              break;
+            case EnUserType.haveUserDetail:
+              Navigator.pushReplacementNamed(context, RouterConstants.homePage);
+              break;
+            default:
+              break;
+          }
+        }
       }
     } catch (e) {
       // Hata oluştu, hata mesajını ele alabilirsiniz
@@ -201,7 +234,7 @@ class _RegisterPageState extends State<RegisterPage> {
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: <Widget>[
                           Image.asset(
-                            'assets/logo/guideUpLogo.png',
+                            'assets/logo/guideUpLogoWithBackground.png',
                             height: 150,
                             width: 150,
                             alignment: Alignment.center,
@@ -398,68 +431,6 @@ class _RegisterPageState extends State<RegisterPage> {
                               ),
                             ),
                           ],
-                        ),
-                      ),
-                      const SizedBox(
-                        height: 20,
-                      ),
-                      SizedBox(
-                        width: 320,
-                        height: 50,
-                        child: DecoratedBox(
-                          decoration: BoxDecoration(
-                              color: Colors.white,
-                              border: Border.all(
-                                  color: Colors.deepOrange, width: 1),
-                              borderRadius: BorderRadius.circular(20),
-                              boxShadow: const <BoxShadow>[
-                                BoxShadow(
-                                    color: Colors.deepOrange,
-                                    blurRadius: 10,
-                                    offset: Offset(1, 1)),
-                              ]),
-                          child: Padding(
-                              padding:
-                                  const EdgeInsets.only(left: 30, right: 30),
-                              child: DropdownButton<String>(
-                                value: selectedRole,
-                                hint: const Text(
-                                  'Kullanıcı Seçiniz?',
-                                  style: TextStyle(color: Colors.black),
-                                ),
-                                onChanged: (newValue) {
-                                  setState(() {
-                                    selectedRole = newValue!;
-                                  });
-                                },
-                                items: <String>[
-                                  'Mentor',
-                                  'Mentee',
-                                ].map((String value) {
-                                  return DropdownMenuItem<String>(
-                                    value: value,
-                                    child: Text(
-                                      value,
-                                      style: const TextStyle(
-                                        color: Colors.black,
-                                        fontSize: 16,
-                                      ),
-                                    ),
-                                  );
-                                }).toList(),
-                                icon: const Padding(
-                                    padding: EdgeInsets.only(left: 20),
-                                    child: Icon(Icons.arrow_circle_down_sharp)),
-                                iconEnabledColor: Colors.black,
-                                style: const TextStyle(
-                                    color: Colors.white, fontSize: 20),
-
-                                dropdownColor: Colors.white,
-                                //dropdown background color
-                                underline: Container(),
-                                //remove underline
-                                isExpanded: true, //make true to make width 100%
-                              )),
                         ),
                       ),
                       const SizedBox(

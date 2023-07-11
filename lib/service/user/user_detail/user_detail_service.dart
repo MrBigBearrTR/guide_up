@@ -24,7 +24,7 @@ class UserDetailService {
         filePath, userDetail.getUserId()!);
     if (uploadUrl.isNotEmpty) {
       userDetail.setPhoto(uploadUrl);
-      userDetail = await _userDetailRepository.update(userDetail);
+      userDetail = await update(userDetail);
 
       Mentor? mentor =
           await _mentorRepository.getMentorByUserId(userDetail.getUserId()!);

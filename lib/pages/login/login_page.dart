@@ -2,7 +2,10 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:guide_up/core/constant/color_constants.dart';
 import 'package:guide_up/core/constant/router_constants.dart';
+import 'package:guide_up/core/enumeration/enums/EnUserType.dart';
 import 'package:guide_up/pages/login/fade_animation.dart';
+import 'package:guide_up/repository/user/user_repository.dart';
+import 'package:guide_up/service/user/user_service.dart';
 import 'package:guide_up/ui/material/custom_material.dart';
 
 import '../../core/utils/user_helper.dart';
@@ -21,38 +24,73 @@ class _LoginPageState extends State<LoginPage> {
 
   void signInWithGoogle(BuildContext context) async {
     try {
-      UserCredential? fireUser = await UserHelper().signInWithGoogle();
-      if (fireUser.user != null) {
-        // Giriş başarılı, kullanıcıyı kullanabilirsiniz
-        Navigator.pushReplacementNamed(context, RouterConstants.homePage);
-      } else {
-        // Giriş başarısız, hata mesajını ele alabilirsiniz
-        showDialog(
-          context: context,
-          builder: (context) {
-            return AlertDialog(
-              backgroundColor: ColorConstants.itemWhite,
-              title: const Text('Hata'),
-              content: const Text('Google ile giriş yaparken bir hata oluştu.'),
-              actions: [
-                TextButton(
-                  onPressed: () {
-                    Navigator.pop(context);
-                  },
-                  child: const Text(
-                    'Tamam',
-                    style: TextStyle(
-                      color: ColorConstants.itemBlack,
+      Map<EnUserType, UserCredential> userTypeMap =
+          await UserService().getUserStatusSignInWithGoogle();
+
+      if (userTypeMap.isNotEmpty) {
+        var entryMap = userTypeMap.entries.first;
+
+        EnUserType userType = entryMap.key;
+        UserCredential fireUser = entryMap.value;
+
+        if (fireUser.user == null) {
+          // Giriş başarısız, hata mesajını ele alabilirsiniz
+          showDialog(
+            context: context,
+            builder: (context) {
+              return AlertDialog(
+                backgroundColor: ColorConstants.itemWhite,
+                title: const Text('Hata'),
+                content:
+                    const Text('Google ile giriş yaparken bir hata oluştu.'),
+                actions: [
+                  TextButton(
+                    onPressed: () {
+                      Navigator.pop(context);
+                    },
+                    child: const Text(
+                      'Tamam',
+                      style: TextStyle(
+                        color: ColorConstants.itemBlack,
+                      ),
                     ),
                   ),
-                ),
-              ],
-            );
-          },
-        );
+                ],
+              );
+            },
+          );
+        } else {
+          switch (userType) {
+            case EnUserType.havenNotUserModel:
+
+              String userId = await UserService().saveUserModelOnlyUidAndEmail(
+                  fireUser.user!.uid, fireUser.user!.email!);
+              Navigator.pushNamed(
+                  context, RouterConstants.registerWithDetailPage,
+                  arguments: userId);
+
+              break;
+            case EnUserType.havenNotUserDetail:
+              UserRepository()
+                  .getUserIdByUid(fireUser.user!.uid)
+                  .then((value) =>  {
+                        if (value != null) {
+                          Navigator.pushNamed(
+                              context, RouterConstants.registerWithDetailPage,
+                              arguments: value)
+                        }
+                      });
+
+              break;
+            case EnUserType.haveUserDetail:
+              Navigator.pushReplacementNamed(context, RouterConstants.homePage);
+              break;
+            default:
+              break;
+          }
+        }
       }
-    }
-    catch (e) {
+    } catch (e) {
       // Hata oluştu, hata mesajını ele alabilirsiniz
       showDialog(
         context: context,
@@ -147,7 +185,8 @@ class _LoginPageState extends State<LoginPage> {
           child: Center(
             child: SingleChildScrollView(
               child: Container(
-                decoration: CustomMaterial.backgroundRegisterWithLoginDecoration,
+                decoration:
+                    CustomMaterial.backgroundRegisterWithLoginDecoration,
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
@@ -398,93 +437,91 @@ class _LoginPageState extends State<LoginPage> {
                           ],
                         ),
                       ),
-                ),
-                      //Image.asset(
-                      // 'assets/img/Google.png',
-                      // height: 50,
-                      // ),
-                      const SizedBox(
-                        height: 20 , width: 350,
-                      ),
-                      SizedBox(
-                        height: 40 , width: 350,
-                        child: FadeAnimation(
-                          4.5,
-                          ElevatedButton(
-                            onPressed: () {
-                              signInWithGoogle(context);
-                            },
-                            style: ElevatedButton.styleFrom(
-                                shadowColor: Colors.deepOrange,
-                                elevation: 18,
-                                padding: EdgeInsets.zero,
-                                shape: RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(20))),
-                            child: Ink(
-                              decoration: BoxDecoration(
-                                  gradient: const LinearGradient(colors: [
-                                    Colors.deepOrange,
-                                    Colors.orange
-                                  ]),
-
-                                  borderRadius: BorderRadius.circular(20)),
-                              child:
-                              Row( mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
-                                  SizedBox(
-                                    width: 30,
-                                    height: 30,
-                                    child: Image.asset(
-                                      'assets/img/Google.png',
+                    ),
+                    //Image.asset(
+                    // 'assets/img/Google.png',
+                    // height: 50,
+                    // ),
+                    const SizedBox(
+                      height: 20,
+                      width: 350,
+                    ),
+                    SizedBox(
+                      height: 40,
+                      width: 350,
+                      child: FadeAnimation(
+                        4.5,
+                        ElevatedButton(
+                          onPressed: () {
+                            signInWithGoogle(context);
+                          },
+                          style: ElevatedButton.styleFrom(
+                              shadowColor: Colors.deepOrange,
+                              elevation: 18,
+                              padding: EdgeInsets.zero,
+                              shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(20))),
+                          child: Ink(
+                            decoration: BoxDecoration(
+                                gradient: const LinearGradient(
+                                    colors: [Colors.deepOrange, Colors.orange]),
+                                borderRadius: BorderRadius.circular(20)),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                SizedBox(
+                                  width: 30,
+                                  height: 30,
+                                  child: Image.asset(
+                                    'assets/img/Google.png',
+                                  ),
+                                ),
+                                Container(
+                                  width: 200,
+                                  height: 40,
+                                  alignment: Alignment.center,
+                                  child: const Text(
+                                    'Google İle Giriş Yap',
+                                    style: TextStyle(
+                                      fontSize: 20,
+                                      color: Colors.white,
                                     ),
                                   ),
-                                  Container(
-                                    width: 200,
-                                    height: 40,
-                                    alignment: Alignment.center,
-                                    child: const Text(
-                                      'Google İle Giriş Yap',
-                                      style: TextStyle(
-                                        fontSize: 20,
-                                        color: Colors.white,
-                                      ),
-                                    ),
-                                  ),
-                                ],
-                              ),
+                                ),
+                              ],
                             ),
                           ),
                         ),
                       ),
-                      const SizedBox(height: 25),
-                FadeAnimation(
-                    5,
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          const Text(
-                            'Üye değil misiniz ? ',
-                            style: TextStyle(
-                                color: ColorConstants.itemWhite,
-                                fontFamily: 'lato'),
-                          ),
-                          const SizedBox(height: 8),
-                          TextButton(
-                            onPressed: () {
-                              Navigator.pushReplacementNamed(
-                                  context, RouterConstants.registerPage);
-                            },
-                            child: const Text(
-                              'Hemen Üye Olun',
+                    ),
+                    const SizedBox(height: 25),
+                    FadeAnimation(
+                        5,
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            const Text(
+                              'Üye değil misiniz ? ',
                               style: TextStyle(
-                                color: Colors.blue,
-                                fontSize: 16,
+                                  color: ColorConstants.itemWhite,
+                                  fontFamily: 'lato'),
+                            ),
+                            const SizedBox(height: 8),
+                            TextButton(
+                              onPressed: () {
+                                Navigator.pushReplacementNamed(
+                                    context, RouterConstants.registerPage);
+                              },
+                              child: const Text(
+                                'Hemen Üye Olun',
+                                style: TextStyle(
+                                  color: Colors.blue,
+                                  fontSize: 16,
+                                ),
                               ),
                             ),
-                          ),
-                        ],
-                      )
-                ),
+                          ],
+                        )),
 
                     // GOOGLE SİGN BUTTON
                     //REGİSTER

@@ -7,10 +7,6 @@ class UserModel extends GeneralFields {
   String? _username;
   String? _password;
   String? _email;
-  bool _isMentor = false;
-
-  get profileImageUrl => null;
-
 
   String? getId() {
     return _id;
@@ -44,13 +40,6 @@ class UserModel extends GeneralFields {
     _email = email;
   }
 
-  bool isMentor() {
-    return _isMentor;
-  }
-
-  void setMentor(bool isMentor) {
-    _isMentor = isMentor;
-  }
 
   Map<String, dynamic> toMap() {
     Map<String, dynamic> map = toGeneralMap();
@@ -58,7 +47,6 @@ class UserModel extends GeneralFields {
     map['username'] = getUsername();
     map['password'] = getPassword();
     map['email'] = getEmail();
-    map['isMentor'] = isMentor();
     return map;
   }
 
@@ -76,9 +64,6 @@ class UserModel extends GeneralFields {
     }
     if (ControlHelper.checkMapValue(map, 'email')) {
       setEmail(map['email']);
-    }
-    if (ControlHelper.checkMapValue(map, 'isMentor')) {
-      setMentor(map['isMentor']);
     }
 
     return this;

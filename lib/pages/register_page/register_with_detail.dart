@@ -4,23 +4,13 @@ import 'package:flutter/material.dart';
 import 'package:guide_up/core/constant/color_constants.dart';
 import 'package:guide_up/core/constant/router_constants.dart';
 import 'package:guide_up/core/models/users/user_detail/user_detail_model.dart';
-import 'package:guide_up/core/models/users/user_model.dart';
-import 'package:guide_up/pages/home/home_screen_page.dart';
-import 'package:guide_up/pages/login/login_page.dart';
 import 'package:guide_up/service/user/user_detail/user_detail_service.dart';
-import 'package:guide_up/service/user/user_service.dart';
 import 'package:guide_up/ui/material/custom_material.dart';
-import 'package:intl/intl.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:intl/intl.dart';
 
-import '../../core/utils/user_helper.dart';
-
 class RegisterWithDetail extends StatefulWidget {
-
-
-  const RegisterWithDetail({Key? key })
-      : super(key: key);
+  const RegisterWithDetail({Key? key}) : super(key: key);
 
   @override
   State<RegisterWithDetail> createState() => _RegisterWithDetailState();
@@ -31,13 +21,13 @@ class _RegisterWithDetailState extends State<RegisterWithDetail> {
   late TextEditingController _surnameController;
   late TextEditingController _birthdayController;
   late TextEditingController _aboutController;
-  late TextEditingController _photoController;
+  //late TextEditingController _photoController;
   late TextEditingController _phoneController;
   DateTime selectedDate = DateTime.now();
   final _scaffoldKey = GlobalKey<ScaffoldState>();
-  File? _image;
+  File? _profilePicture;
   final ImagePicker _imagePicker = ImagePicker();
-  late String userId ;
+  late String userId;
 
   @override
   void initState() {
@@ -46,7 +36,7 @@ class _RegisterWithDetailState extends State<RegisterWithDetail> {
     _surnameController = TextEditingController();
     _birthdayController = TextEditingController();
     _aboutController = TextEditingController();
-    _photoController = TextEditingController();
+    //_photoController = TextEditingController();
     _phoneController = TextEditingController();
   }
 
@@ -56,7 +46,7 @@ class _RegisterWithDetailState extends State<RegisterWithDetail> {
     _surnameController.dispose();
     _birthdayController.dispose();
     _aboutController.dispose();
-    _photoController.dispose();
+    //_photoController.dispose();
     _phoneController.dispose();
     super.dispose();
   }
@@ -76,9 +66,9 @@ class _RegisterWithDetailState extends State<RegisterWithDetail> {
     if (_aboutController.text.isEmpty) {
       unfilledFields.add("Hakkımda");
     }
-    if (_photoController.text.isEmpty) {
+   /* if (_photoController.text.isEmpty) {
       unfilledFields.add("Resim Ekle");
-    }
+    }*/
     if (_phoneController.text.isEmpty) {
       unfilledFields.add("Telefon Numarası");
     }
@@ -94,7 +84,6 @@ class _RegisterWithDetailState extends State<RegisterWithDetail> {
     String name = _nameController.text;
     String surname = _surnameController.text;
     String about = _aboutController.text;
-    String? photo = await pickProfileImage();
     String phone = _phoneController.text;
 
     UserDetail userDetail = UserDetail();
@@ -103,38 +92,23 @@ class _RegisterWithDetailState extends State<RegisterWithDetail> {
     userDetail.setSurname(surname);
     userDetail.setBirthday(selectedDate);
     userDetail.setAbout(about);
-    userDetail.setPhoto(pickProfileImage() as String);
     userDetail.setPhone(phone);
+    if (_profilePicture != null) {
+      userDetail.setPhoto(_profilePicture!.path);
+    }
 
     try {
-      UserDetail registeredDetail =
-          await UserDetailService().add(userDetail);
-
-      // Simulated delay for 2 seconds
-      await Future.delayed(Duration(seconds: 2));
-
-      // Redirect to the home page when the save operation is successful
-      Navigator.pushReplacementNamed(
-        context,
-        RouterConstants.homePage,
-      );
+      UserDetailService().add(userDetail).then((value) => {
+            if (value.getId()!=null) {
+              Navigator.pushReplacementNamed(
+                context,
+                RouterConstants.homePage,
+              )
+            }
+          });
     } catch (e) {
       print('Error occurred while saving user detail: $e');
       _showSnackBar('An error occurred while saving user detail');
-    }
-  }
-  Future<String?> pickProfileImage() async {
-    final imagePicker = ImagePicker();
-    final pickedImage = await imagePicker.pickImage(
-      source: ImageSource.gallery,
-      maxWidth: 500,
-      maxHeight: 500,
-    );
-    if (pickedImage != null) {
-      setState(() {
-        _image = File(pickedImage.path);
-        _photoController.text = pickedImage.path;
-      });
     }
   }
 
@@ -148,7 +122,8 @@ class _RegisterWithDetailState extends State<RegisterWithDetail> {
     if (picked != null) {
       selectedDate = picked;
       setState(() {
-        _birthdayController.text = DateFormat('dd-MM-yyyy').format(selectedDate);
+        _birthdayController.text =
+            DateFormat('dd-MM-yyyy').format(selectedDate);
       });
     }
   }
@@ -164,15 +139,14 @@ class _RegisterWithDetailState extends State<RegisterWithDetail> {
 
     if (pickedFile != null) {
       setState(() {
-        _image = File(pickedFile.path);
-        _photoController.text = pickedFile.path;
+        _profilePicture = File(pickedFile.path);
       });
     }
   }
 
   @override
   Widget build(BuildContext context) {
-    userId = ModalRoute.of(context)!.settings.arguments as String ;
+    userId = ModalRoute.of(context)!.settings.arguments as String;
     return Scaffold(
       key: _scaffoldKey,
       body: Container(
@@ -204,7 +178,7 @@ class _RegisterWithDetailState extends State<RegisterWithDetail> {
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: <Widget>[
                           Image.asset(
-                            'assets/logo/guideUpLogo.png',
+                            'assets/logo/guideUpLogoWithBackground.png',
                             height: 100,
                             width: 100,
                             alignment: Alignment.center,
@@ -249,7 +223,7 @@ class _RegisterWithDetailState extends State<RegisterWithDetail> {
                           ),
                         ),
                       ),
-                      const SizedBox(height: 50),
+                      const SizedBox(height: 20),
                       Container(
                         width: double.infinity,
                         height: 50,
@@ -457,7 +431,6 @@ class _RegisterWithDetailState extends State<RegisterWithDetail> {
                                 onTap: () => _pickImage(),
                                 child: AbsorbPointer(
                                   child: TextFormField(
-                                    controller: _photoController,
                                     obscureText: false,
                                     maxLines: 1,
                                     decoration: const InputDecoration(
