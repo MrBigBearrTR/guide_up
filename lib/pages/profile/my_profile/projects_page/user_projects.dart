@@ -14,7 +14,10 @@ class UserProjectPage extends StatefulWidget {
 }
 
 class _UserProjectPageState extends State<UserProjectPage> {
+  TextEditingController experienceIdController = TextEditingController();
   TextEditingController projectTitleController = TextEditingController();
+  TextEditingController startDateController = TextEditingController();
+  TextEditingController endDateController = TextEditingController();
   TextEditingController descriptionController = TextEditingController();
   TextEditingController linkController = TextEditingController();
 
@@ -41,11 +44,14 @@ class _UserProjectPageState extends State<UserProjectPage> {
   }
 
   void addUserProject() async {
+    String experienceId = experienceIdController.text.trim();
     String projectTitle = projectTitleController.text.trim();
+    String startDate = startDateController.text.trim();
+    String endDate = endDateController.text.trim();
     String description = descriptionController.text.trim();
     String link = linkController.text.trim();
 
-    if (projectTitle.isEmpty || description.isEmpty) {
+    if (projectTitle.isEmpty || description.isEmpty || startDate.isEmpty || experienceId.isEmpty) {
       showDialog(
         context: context,
         builder: (BuildContext context) {
@@ -57,7 +63,7 @@ class _UserProjectPageState extends State<UserProjectPage> {
               ),
             ),
             content: Text(
-              'Proje adı ve açıklama alanları boş bırakılamaz.',
+              'deneyim kimliği, Proje adı, başlangıç tarihi  ve açıklama alanları boş bırakılamaz.',
               style: GoogleFonts.nunito(
                 color: ColorConstants.itemWhite,
               ),
@@ -84,7 +90,10 @@ class _UserProjectPageState extends State<UserProjectPage> {
 
     UserProject userProject = UserProject();
     userProject.setUserId(userId!);
+    userProject.setExperienceId(experienceId);
     userProject.setProjectTitle(projectTitle);
+    userProject.setStartDate(DateTime.parse(startDate));
+    userProject.setEndDate(DateTime.parse(endDate));
     userProject.setDescription(description);
     userProject.setLink(link);
 
@@ -92,7 +101,10 @@ class _UserProjectPageState extends State<UserProjectPage> {
       await UserProjectRepository().add(userProject);
 
       setState(() {
+        experienceIdController.clear();
         projectTitleController.clear();
+        startDateController.clear();
+        endDateController.clear();
         descriptionController.clear();
         linkController.clear();
       });
@@ -172,7 +184,7 @@ class _UserProjectPageState extends State<UserProjectPage> {
               decoration: InputDecoration(
                 labelText: 'Proje Adı',
                 labelStyle: GoogleFonts.nunito(
-                  color:(projectTitleController.value.text.isNotEmpty)
+                  color: (projectTitleController.value.text.isNotEmpty)
                       ? ColorConstants.theme1DarkBlue
                       : ColorConstants.warningDark,
                 ),
@@ -197,6 +209,101 @@ class _UserProjectPageState extends State<UserProjectPage> {
             const SizedBox(height: 16.0),
             TextFormField(
               decoration: InputDecoration(
+                labelText: 'Deneyim',
+                labelStyle: GoogleFonts.nunito(
+                  color: (experienceIdController.value.text.isNotEmpty)
+                      ? ColorConstants.theme1DarkBlue
+                      : ColorConstants.warningDark,
+                ),
+                border: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(8.0),
+                ),
+                focusedBorder: OutlineInputBorder(
+                  borderSide: BorderSide(
+                    color: (experienceIdController.value.text.isNotEmpty)
+                        ? ColorConstants.theme1DarkBlue
+                        : ColorConstants.warningDark,
+                  ),
+                  borderRadius: BorderRadius.circular(8.0),
+                ),
+              ),
+              controller: experienceIdController,
+              cursorColor: ColorConstants.theme1DarkBlue,
+              onTap: () {
+                showDialog(
+                  context: context,
+                  builder: (context) {
+                    return AlertDialog(
+                      title: Text('Deneyim seçin',
+                        style: GoogleFonts.nunito(
+                          color: ColorConstants.success,
+                        ),),
+                      content: Column(
+                        children: [
+                          ElevatedButton(
+                            onPressed: () {
+                              experienceIdController.text += 'Kelime 1 ';
+                              Navigator.pop(context);
+                            },
+                            child: Text('Kelime 1',
+                              style: GoogleFonts.nunito(
+                                color: ColorConstants.success,
+                              ),),
+                          ),
+                          ElevatedButton(
+                            onPressed: () {
+                              experienceIdController.text += 'Kelime 2 ';
+                              Navigator.pop(context);
+                            },
+                            child: Text('Kelime 2',
+                              style: GoogleFonts.nunito(
+                                color: ColorConstants.success,
+                              ),),
+                          ),
+                          ElevatedButton(
+                            onPressed: () {
+                              experienceIdController.text += 'Kelime 3 ';
+                              Navigator.pop(context);
+                            },
+                            child: Text('Kelime 3',
+                              style: GoogleFonts.nunito(
+                                color: ColorConstants.success,
+                              ),),
+                          ),
+                          ElevatedButton(
+                            onPressed: () {
+                              experienceIdController.text += 'Kelime 4 ';
+                              Navigator.pop(context);
+                            },
+                            child: Text('Kelime 4',
+                              style: GoogleFonts.nunito(
+                                color: ColorConstants.success,
+                              ),),
+                          ),
+                          ElevatedButton(
+                            onPressed: () {
+                              experienceIdController.text += 'Kelime 5 ';
+                              Navigator.pop(context);
+                            },
+                            child: Text('Kelime 5',
+                              style: GoogleFonts.nunito(
+                                color: ColorConstants.success,
+                              ),),
+                          ),
+                        ],
+                      ),
+                    );
+                  },
+                );
+              },
+              onChanged: (value) {
+                setState(() {});
+              },
+            ),
+
+            const SizedBox(height: 16.0),
+            TextFormField(
+              decoration: InputDecoration(
                 labelText: 'Açıklama',
                 labelStyle: GoogleFonts.nunito(
                   color: (descriptionController.value.text.isNotEmpty)
@@ -216,6 +323,60 @@ class _UserProjectPageState extends State<UserProjectPage> {
                 ),
               ),
               controller: descriptionController,
+              cursorColor: ColorConstants.theme1DarkBlue,
+              onChanged: (value) {
+                setState(() {});
+              },
+            ),
+            const SizedBox(height: 16.0),
+            TextFormField(
+              decoration: InputDecoration(
+                labelText: 'Başlangıç Tarihi',
+                labelStyle: GoogleFonts.nunito(
+                  color: (startDateController.value.text.isNotEmpty)
+                      ? ColorConstants.theme1DarkBlue
+                      : ColorConstants.warningDark,
+                ),
+                border: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(8.0),
+                ),
+                focusedBorder: OutlineInputBorder(
+                  borderSide: BorderSide(
+                    color: (startDateController.value.text.isNotEmpty)
+                        ? ColorConstants.theme1DarkBlue
+                        : ColorConstants.warningDark,
+                  ),
+                  borderRadius: BorderRadius.circular(8.0),
+                ),
+              ),
+              controller: startDateController,
+              cursorColor: ColorConstants.theme1DarkBlue,
+              onChanged: (value) {
+                setState(() {});
+              },
+            ),
+            const SizedBox(height: 16.0),
+            TextFormField(
+              decoration: InputDecoration(
+                labelText: 'Bitiş Tarihi (isteğe bağlı)',
+                labelStyle: GoogleFonts.nunito(
+                  color: (endDateController.value.text.isNotEmpty)
+                      ? ColorConstants.theme1DarkBlue
+                      : ColorConstants.warningDark,
+                ),
+                border: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(8.0),
+                ),
+                focusedBorder: OutlineInputBorder(
+                  borderSide: BorderSide(
+                    color: (endDateController.value.text.isNotEmpty)
+                        ? ColorConstants.theme1DarkBlue
+                        : ColorConstants.warningDark,
+                  ),
+                  borderRadius: BorderRadius.circular(8.0),
+                ),
+              ),
+              controller: endDateController,
               cursorColor: ColorConstants.theme1DarkBlue,
               onChanged: (value) {
                 setState(() {});

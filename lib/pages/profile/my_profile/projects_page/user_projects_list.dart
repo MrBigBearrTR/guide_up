@@ -129,16 +129,16 @@ class _UserProjectListState extends State<UserProjectList> {
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                Text('Projelerinizi şu an listeleyemiyoruz.',
-                style: GoogleFonts.nunito(),),
-                Padding(
-                  padding: const EdgeInsets.only(top: 8.0),
-                  child: Image.asset(
-                    'assets/logo/guideUpLogo.png',
-                    width: 62,
-                    height: 62,
+                  Text('Projelerinizi şu an listeleyemiyoruz.',
+                    style: GoogleFonts.nunito(),),
+                  Padding(
+                    padding: const EdgeInsets.only(top: 8.0),
+                    child: Image.asset(
+                      'assets/logo/guideUpLogo.png',
+                      width: 62,
+                      height: 62,
+                    ),
                   ),
-                ),
                 ],
               ),
             );
@@ -200,6 +200,11 @@ class _UserProjectListState extends State<UserProjectList> {
                               color: ColorConstants.itemWhite,
                             ),
                           ),
+                          Text(
+                            'Deneyim: ${project.getExperienceId() ?? ""}',
+                            style: GoogleFonts.nunito(
+                              color: ColorConstants.itemWhite,
+                            ),),
                           if (project.getDescription()?.isNotEmpty == true)
                             Text(
                               'Açıklama: ${project.getDescription()}',
@@ -207,6 +212,17 @@ class _UserProjectListState extends State<UserProjectList> {
                                 color: ColorConstants.itemWhite,
                               ),
                             ),
+                          Text(
+                            'Başlangıç Tarihi: ${project.getStartDate() ?? ""}',
+                            style: GoogleFonts.nunito(
+                              color: ColorConstants.itemWhite,
+                            ),),
+                          if (project.getEndDate() != null)
+                            Text(
+                              'Bitiş Tarihi: ${project.getEndDate() ?? ""}',
+                              style: GoogleFonts.nunito(
+                                color: ColorConstants.itemWhite,
+                              ),),
                           if (project.getLink()?.isNotEmpty == true)
                             Text('Bağlantı: ${project.getLink() ?? ""}',
                               style: GoogleFonts.nunito(
@@ -218,7 +234,7 @@ class _UserProjectListState extends State<UserProjectList> {
                       trailing: IconButton(
                         icon: const Icon(Icons.delete),
                         onPressed: () => _deleteProject(project), color: ColorConstants
-                            .theme2Orange, // Silme butonu rengi
+                          .theme2Orange, // Silme butonu rengi
                       ),
                     ),
                   );
