@@ -1,10 +1,11 @@
+import '../../../utils/control_helper.dart';
 import '../../general/general_fields_model.dart';
 
 /// [@author MrBigBear] 
-class CommendLike extends GeneralFields {
+class CommentLike extends GeneralFields {
   String? _id;
   String? _userId;
-  String? _commendId;
+  String? _commentId;
 
   String? getId() {
     return _id;
@@ -22,33 +23,34 @@ class CommendLike extends GeneralFields {
     _userId = userId;
   }
 
-  String? getCommendId() {
-    return _commendId;
+  String? getCommentId() {
+    return _commentId;
   }
 
-  void setCommendId(String commendId) {
-    _commendId = commendId;
+  void setCommentId(String commentId) {
+    _commentId = commentId;
   }
 
   Map<String, dynamic> toMap() {
     Map<String, dynamic> map = toGeneralMap();
     map['id'] = getId();
     map['userId'] = getUserId();
-    map['commendId'] = getCommendId();
+    map['commentId'] = getCommentId();
     return map;
   }
 
-  toClass(Map<String, dynamic> map) {
+  CommentLike toClass(Map<String, dynamic> map) {
     toGeneralClass(map);
 
-    if (map.containsKey('id')) {
+    if (ControlHelper.checkMapValue(map, 'id')) {
       setId(map['id']);
     }
-    if (map.containsKey('userId')) {
+    if (ControlHelper.checkMapValue(map, 'userId')) {
       setUserId(map['userId']);
     }
-    if (map.containsKey('commendId')) {
-      setCommendId(map['commendId']);
+    if (ControlHelper.checkMapValue(map, 'commentId')) {
+      setCommentId(map['commentId']);
     }
+    return this;
   }
 }

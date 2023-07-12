@@ -9,20 +9,20 @@ class PostLikeSaveService {
     _postLikeSaveRepository = PostLikeSaveRepository();
   }
 
-  deleteById(String id) {
-    _postLikeSaveRepository.get(id).then((likeSave) {
+  Future<void> deleteById(String id) async{
+    _postLikeSaveRepository.get(id).then((likeSave) async {
       if (likeSave != null) {
         likeSave.setActive(false);
-        _postLikeSaveRepository.update(likeSave);
+        await _postLikeSaveRepository.update(likeSave);
       }
     });
   }
 
-  add(String userId, String postId, EnLikeSaveType enLikeSaveType) {
+  Future<PostLikeSave> add(String userId, String postId, EnLikeSaveType enLikeSaveType) async{
     PostLikeSave postLikeSave = PostLikeSave();
     postLikeSave.setUserId(userId);
     postLikeSave.setPostId(postId);
     postLikeSave.setEnLikeSaveType(enLikeSaveType);
-    _postLikeSaveRepository.add(postLikeSave);
+    return _postLikeSaveRepository.add(postLikeSave);
   }
 }

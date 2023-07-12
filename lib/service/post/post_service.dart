@@ -11,21 +11,37 @@ import 'package:guide_up/repository/user/user_detail/user_detail_repository.dart
 import '../../core/models/category/category_model.dart';
 import '../../core/models/post/post_model.dart';
 import '../../core/utils/repository_helper.dart';
-import '../../repository/post/commend/commend_repository.dart';
+import '../../repository/post/comment/comment_repository.dart';
+import '../../repository/upload/upload_repository.dart';
 
 class PostService {
   late PostLikeSaveRepository _postLikeSaveRepository;
   late PostRepository _postRepository;
   late UserDetailRepository _userDetailRepository;
   late PostCategoriesRepository _postCategoriesRepository;
-  late CommendRepository _commendRepository;
+  late CommentRepository _commendRepository;
+  late UploadRepository _uploadRepository;
 
   PostService() {
     _postLikeSaveRepository = PostLikeSaveRepository();
     _postRepository = PostRepository();
     _userDetailRepository = UserDetailRepository();
     _postCategoriesRepository = PostCategoriesRepository();
-    _commendRepository = CommendRepository();
+    _commendRepository = CommentRepository();
+    _uploadRepository = UploadRepository();
+  }
+
+  Future<Post> add(Post post) async {
+
+    var postModel = await _postRepository.add(post);
+    if (post.getPhoto() != null && postModel.getId() != null) {
+      var uploadUrl = await _uploadRepository.addPostPictureByUserId(
+          post.getPhoto()!, postModel.getId()!);
+      postModel.setPhoto(uploadUrl);
+
+      _postRepository.update(postModel);
+    }
+    return postModel;
   }
 
   Future<List<Post>> getMostPopularPostList(int limit) async {
@@ -193,8 +209,9 @@ class PostService {
         cardView.content = post.getContent();
         cardView.photo = post.getPhoto();
 
-        int likeCount = await _postLikeSaveRepository
-            .getLikeSavePostListCountByUserId(post.getId()!,EnLikeSaveType.like);
+        int likeCount =
+            await _postLikeSaveRepository.getLikeSavePostListCountByUserId(
+                post.getId()!, EnLikeSaveType.like);
         int commendCount =
             await _commendRepository.getPostCommendCount(post.getId()!);
 
@@ -202,7 +219,6 @@ class PostService {
         cardView.commentCount = commendCount;
 
         if (userId != null && userId.isNotEmpty) {
-
           PostLikeSave? likeModel = await _postLikeSaveRepository
               .getByUserIdAndPostId(userId, post.getId()!, EnLikeSaveType.like);
           if (likeModel != null) {

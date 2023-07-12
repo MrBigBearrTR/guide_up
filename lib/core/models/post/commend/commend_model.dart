@@ -2,7 +2,7 @@ import '../../../utils/control_helper.dart';
 import '../../general/general_fields_model.dart';
 
 /// [@author MrBigBear] 
-class Commend extends GeneralFields {
+class Comment extends GeneralFields {
   String? _id;
   String? _userId;
   String? _postId;
@@ -59,7 +59,7 @@ class Commend extends GeneralFields {
     return map;
   }
 
-  Commend toClass(Map<String, dynamic> map) {
+  Comment toClass(Map<String, dynamic> map) {
     toGeneralClass(map);
 
     if (ControlHelper.checkMapValue(map, 'id')) {

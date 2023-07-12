@@ -1,7 +1,6 @@
 class RouterConstants{
 
   static const String homePage="/";
-  static const String testDateControllerPage="/testDataControl";
   static const String loginPage="/loginPage";
   static const String splashScreenPage="/splashScreen";
   static const String profilePage="/profile";
@@ -25,6 +24,8 @@ class RouterConstants{
 
   static const String guideAdd="/guideAdd";
   static const String guideHomePage="/guideHomePage";
+  static const String guideDetailPage="/guideDetailPage";
+  static const String guideCommentPage="/guideCommentPage";
 
   static const String myMentors = 'myMentors';
   static const String menteeFavouriteMentorPage  = 'MenteeFavouriteMentorPage ';

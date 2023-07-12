@@ -14,4 +14,14 @@ class UploadRepository {
     profileRef.putFile(File(filePath));
     return profileRef.getDownloadURL();
   }
+
+  Future<String> addPostPictureByUserId(
+      String filePath, String postId) async {
+
+    var profileRef = FirebaseStorage.instance
+        .ref(FirestoreCollectionConstant.uploadPostPicturesPath + postId);
+
+    profileRef.putFile(File(filePath));
+    return profileRef.getDownloadURL();
+  }
 }

@@ -6,6 +6,7 @@ import 'package:guide_up/core/models/post/post_model.dart';
 import 'package:guide_up/core/models/users/user_detail/user_detail_model.dart';
 import 'package:guide_up/core/utils/secure_storage_helper.dart';
 import 'package:guide_up/repository/post/post_repository.dart';
+import 'package:guide_up/service/post/post_service.dart';
 import 'package:image_picker/image_picker.dart';
 
 import '../../core/constant/color_constants.dart';
@@ -46,9 +47,7 @@ class _GuideAddPageState extends State<GuideAddPage> {
     if (detail != null) {
       String topic = _topicController.text;
       String content = _contentController.text;
-      if (post == null) {
-        post = Post();
-      }
+      post ??= Post();
       post!.setTopic(topic);
       post!.setContent(content);
       if (_guidePicture != null) {
@@ -56,7 +55,7 @@ class _GuideAddPageState extends State<GuideAddPage> {
       }
       post!.setUserId(detail.getUserId()!);
 
-      await PostRepository().add(post!);
+      await PostService().add(post!);
       Navigator.pop(context);
     }
   }
@@ -73,11 +72,6 @@ class _GuideAddPageState extends State<GuideAddPage> {
         _guidePicture = File(pickedImage.path);
       });
     }
-  }
-
-  void _showSnackBar(String message) {
-    final snackBar = SnackBar(content: Text(message));
-    ScaffoldMessenger.of(context).showSnackBar(snackBar);
   }
 
   @override

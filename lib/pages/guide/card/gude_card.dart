@@ -2,18 +2,25 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:guide_up/core/enumeration/enums/EnLikeSaveType.dart';
 import 'package:guide_up/core/utils/user_info_helper.dart';
+import 'package:guide_up/repository/post/comment/comment_repository.dart';
 import 'package:guide_up/service/post/post_like_save_service.dart';
 
 import '../../../core/constant/color_constants.dart';
+import '../../../core/constant/router_constants.dart';
 import '../../../core/dto/post/post_card_view.dart';
 
-class GuideCard extends StatelessWidget {
+class GuideCard extends StatefulWidget {
   final PostCardView postCardView;
   final String userId;
 
   const GuideCard({Key? key, required this.postCardView, required this.userId})
       : super(key: key);
 
+  @override
+  State<GuideCard> createState() => _GuideCardState();
+}
+
+class _GuideCardState extends State<GuideCard> {
   @override
   Widget build(BuildContext context) {
     return Card(
@@ -22,7 +29,7 @@ class GuideCard extends StatelessWidget {
         children: [
           ListTile(
             title: Text(
-              postCardView.topic ?? "",
+              widget.postCardView.topic ?? "",
               style: GoogleFonts.nunito(
                 textStyle: const TextStyle(
                   fontWeight: FontWeight.bold,
@@ -34,7 +41,7 @@ class GuideCard extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  "${postCardView.userFullName}",
+                  "${widget.postCardView.userFullName}",
                   maxLines: 1,
                   softWrap: true,
                   textAlign: TextAlign.start,
@@ -48,7 +55,7 @@ class GuideCard extends StatelessWidget {
                   ),
                 ),
                 Text(
-                  postCardView.content ?? "",
+                  widget.postCardView.content ?? "",
                   maxLines: 4,
                   softWrap: true,
                   style: GoogleFonts.nunito(
@@ -63,108 +70,188 @@ class GuideCard extends StatelessWidget {
             leading: CircleAvatar(
               radius: 30,
               backgroundImage: UserInfoHelper.getProfilePictureByPath(
-                  postCardView.userPhoto),
+                  widget.postCardView.userPhoto),
             ),
           ),
-          Visibility(
-            visible: userId.isNotEmpty,
-            child: Padding(
-              padding: const EdgeInsets.fromLTRB(8, 0, 8, 0),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceAround,
-                children: [
-                  Text(""),
-                  GestureDetector(
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      children: [
-                        const CircleAvatar(
-                          maxRadius: 20,
-                          backgroundColor: Colors.transparent,
-                          child: Icon(
-                            Icons.comment,
-                            color: ColorConstants.theme2Dark,
+          Padding(
+            padding: const EdgeInsets.fromLTRB(8, 0, 8, 0),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceAround,
+              children: [
+                //FOTOĞRAF İLE GENİŞLİK EŞİTLEMEK İÇİN WİDGET
+                Text(""),
+                //YORUM BUTONU
+                GestureDetector(
+                  onTap: () {
+                    Navigator.pushNamed(
+                            context, RouterConstants.guideDetailPage,
+                            arguments: widget.postCardView)
+                        .then((value) {
+                      CommentRepository()
+                          .getPostCommendCount(widget.postCardView.id!)
+                          .then((value) {
+                        widget.postCardView.commentCount = value;
+                      });
+                      setState(() {});
+                    });
+                  },
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    children: [
+                      const CircleAvatar(
+                        maxRadius: 20,
+                        backgroundColor: Colors.transparent,
+                        child: Icon(
+                          Icons.comment,
+                          color: ColorConstants.theme2Dark,
+                        ),
+                      ),
+                      Text(
+                        "${widget.postCardView.commentCount}",
+                        style: GoogleFonts.nunito(
+                          textStyle: const TextStyle(
+                            fontSize: 12,
+                            fontWeight: FontWeight.bold,
+                            color: ColorConstants.theme2DarkBlue,
                           ),
                         ),
-                        Text(
-                          "${postCardView.commentCount}",
-                          style: GoogleFonts.nunito(
-                            textStyle: const TextStyle(
-                              fontSize: 12,
-                              fontWeight: FontWeight.bold,
-                              color: ColorConstants.theme2DarkBlue,
+                      ),
+                    ],
+                  ),
+                ),
+                //BEĞEN BUTONU
+                GestureDetector(
+                  onTap: () {
+                    if (widget.userId.isNotEmpty) {
+                      if (!widget.postCardView.isLikeUser) {
+                        PostLikeSaveService()
+                            .add(widget.userId, widget.postCardView.id!,
+                                EnLikeSaveType.like)
+                            .then((value) {
+                          if (value.getId() != null) {
+                            widget.postCardView.isLikeUser = true;
+                            widget.postCardView.likeId = value.getId()!;
+                            widget.postCardView.likeCount += 1;
+                            setState(() {});
+                          }
+                        });
+                      } else {
+                        PostLikeSaveService()
+                            .deleteById(widget.postCardView.likeId!)
+                            .then((value) {
+                          widget.postCardView.isLikeUser = false;
+                          widget.postCardView.likeId = null;
+                          widget.postCardView.likeCount -= 1;
+                          setState(() {});
+                        });
+                      }
+                    } else {
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        SnackBar(
+                          backgroundColor: ColorConstants.theme2Orange,
+                          content: Text(
+                            'Üye olmayan kullanıcı beğenme yapamaz.Lütfen Giriş yapınız :)',
+                            style: GoogleFonts.nunito(
+                              textStyle: const TextStyle(
+                                fontSize: 12,
+                                fontWeight: FontWeight.bold,
+                                color: ColorConstants.theme2Dark,
+                              ),
                             ),
                           ),
                         ),
-                      ],
-                    ),
-                  ),
-                  GestureDetector(
-                    onTap: () {
-                      if (!postCardView.isSaveUser) {
-                        PostLikeSaveService()
-                            .add(userId, postCardView.id!, EnLikeSaveType.like);
-                      } else {
-                        PostLikeSaveService().deleteById(postCardView.likeId!);
-                      }
-                    },
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      children: [
-                        CircleAvatar(
-                          maxRadius: 20,
-                          backgroundColor: Colors.transparent,
-                          child: Icon(
-                            postCardView.isLikeUser
-                                ? Icons.favorite
-                                : Icons.favorite_border,
-                            color: postCardView.isLikeUser
-                                ? ColorConstants.theme2Orange
-                                : ColorConstants.theme2Dark,
+                      );
+                    }
+                  },
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    children: [
+                      CircleAvatar(
+                        maxRadius: 20,
+                        backgroundColor: Colors.transparent,
+                        child: Icon(
+                          widget.postCardView.isLikeUser
+                              ? Icons.favorite
+                              : Icons.favorite_border,
+                          color: widget.postCardView.isLikeUser
+                              ? ColorConstants.theme2Orange
+                              : ColorConstants.theme2Dark,
+                        ),
+                      ),
+                      Text(
+                        "${widget.postCardView.likeCount}",
+                        style: GoogleFonts.nunito(
+                          textStyle: const TextStyle(
+                            fontSize: 12,
+                            fontWeight: FontWeight.bold,
+                            color: ColorConstants.theme2DarkBlue,
                           ),
                         ),
-                        Text(
-                          "${postCardView.likeCount}",
-                          style: GoogleFonts.nunito(
-                            textStyle: const TextStyle(
-                              fontSize: 12,
-                              fontWeight: FontWeight.bold,
-                              color: ColorConstants.theme2DarkBlue,
+                      ),
+                    ],
+                  ),
+                ),
+                //KAYDET BUTONU
+                GestureDetector(
+                  onTap: () {
+                    if (widget.userId.isNotEmpty) {
+                      if (!widget.postCardView.isSaveUser) {
+                        PostLikeSaveService()
+                            .add(widget.userId, widget.postCardView.id!,
+                                EnLikeSaveType.save)
+                            .then((value) {
+                          if (value.getId() != null) {
+                            widget.postCardView.isSaveUser = true;
+                            widget.postCardView.saveId = value.getId()!;
+                            setState(() {});
+                          }
+                        });
+                      } else {
+                        PostLikeSaveService()
+                            .deleteById(widget.postCardView.saveId!)
+                            .then((value) {
+                          widget.postCardView.isSaveUser = false;
+                          widget.postCardView.saveId = null;
+                          setState(() {});
+                        });
+                      }
+                    } else {
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        SnackBar(
+                          backgroundColor: ColorConstants.theme2Orange,
+                          content: Text(
+                            'Üye olmayan kullanıcı kaydetme yapamaz.Lütfen Giriş yapınız :)',
+                            style: GoogleFonts.nunito(
+                              textStyle: const TextStyle(
+                                fontSize: 12,
+                                fontWeight: FontWeight.bold,
+                                color: ColorConstants.theme2Dark,
+                              ),
                             ),
                           ),
                         ),
-                      ],
-                    ),
-                  ),
-                  GestureDetector(
-                    onTap: () {
-                      if (!postCardView.isSaveUser) {
-                        PostLikeSaveService()
-                            .add(userId, postCardView.id!, EnLikeSaveType.save);
-                      } else {
-                        PostLikeSaveService().deleteById(postCardView.saveId!);
-                      }
-                    },
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      children: [
-                        CircleAvatar(
-                          maxRadius: 20,
-                          backgroundColor: Colors.transparent,
-                          child: Icon(
-                            postCardView.isSaveUser
-                                ? Icons.bookmark
-                                : Icons.bookmark_border,
-                            color: postCardView.isSaveUser
-                                ? ColorConstants.theme1Mustard
-                                : ColorConstants.theme2Dark,
-                          ),
+                      );
+                    }
+                  },
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    children: [
+                      CircleAvatar(
+                        maxRadius: 20,
+                        backgroundColor: Colors.transparent,
+                        child: Icon(
+                          widget.postCardView.isSaveUser
+                              ? Icons.bookmark
+                              : Icons.bookmark_border,
+                          color: widget.postCardView.isSaveUser
+                              ? ColorConstants.theme1Mustard
+                              : ColorConstants.theme2Dark,
                         ),
-                      ],
-                    ),
+                      ),
+                    ],
                   ),
-                ],
-              ),
+                ),
+              ],
             ),
           )
         ],
