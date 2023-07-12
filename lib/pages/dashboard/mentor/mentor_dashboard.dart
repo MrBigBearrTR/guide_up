@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:guide_up/core/constant/color_constants.dart';
+import 'package:guide_up/core/constant/router_constants.dart';
+import 'package:guide_up/core/models/mentor/mentor_favourite_model.dart';
 import 'package:guide_up/core/models/users/user_detail/user_detail_model.dart';
 import 'package:guide_up/core/utils/secure_storage_helper.dart';
 import 'package:guide_up/repository/mentee/mentee_repository.dart';
@@ -81,7 +83,7 @@ class _MentorDashboardState extends State<MentorDashboard> {
                     child: CircleAvatar(
                       radius: 40,
                       backgroundImage:
-                      UserInfoHelper.getProfilePicture(userDetail),
+                          UserInfoHelper.getProfilePicture(userDetail),
                     ),
                   ),
                   const SizedBox(width: 20),
@@ -95,15 +97,15 @@ class _MentorDashboardState extends State<MentorDashboard> {
                             .textTheme
                             .headlineMedium
                             ?.copyWith(
-                          color: ColorConstants.appcolor4,
-                        ),
+                              color: ColorConstants.appcolor4,
+                            ),
                       ),
                       const SizedBox(height: 8),
                       Text(
                         "${UserHelper().auth.currentUser!.email}",
                         style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                          color: ColorConstants.appcolor4,
-                        ),
+                              color: ColorConstants.appcolor4,
+                            ),
                       ),
                     ],
                   ),
@@ -161,6 +163,269 @@ class _MentorDashboardState extends State<MentorDashboard> {
               ),
             ),
             const SizedBox(height: 10),
+            // Kazançlar
+            Container(
+              padding: const EdgeInsets.fromLTRB(20, 8, 20, 8),
+              width: 330,
+              height: 75,
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(10),
+                color: ColorConstants.itemWhite,
+                boxShadow: [
+                  BoxShadow(
+                    color: Colors.black.withOpacity(0.3),
+                    blurRadius: 8,
+                    offset: const Offset(0, 2),
+                  ),
+                ],
+              ),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Column(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    children: [
+                      Text(
+                        'Toplam Kazanç',
+                        style: TextStyle(color: ColorConstants.success),
+                      ),
+                      //Bu kısma sonradan bak ve burayı tarih seçmeli bir widget haline getir.
+                      Text('Tarih seç'),
+                    ],
+                  ),
+                  Column(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    children: [
+                      Text('Kazanç'),
+                      // Veri eklenmeli
+                      Text('4055.56 TL'),
+                    ],
+                  ),
+                ],
+              ),
+            ),
+            // Görüntülenmeler
+            Container(
+              padding: const EdgeInsets.fromLTRB(20, 8, 20, 8),
+              width: 330,
+              height: 75,
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(10),
+                color: ColorConstants.itemWhite,
+                boxShadow: [
+                  BoxShadow(
+                    color: Colors.black.withOpacity(0.3),
+                    blurRadius: 8,
+                    offset: const Offset(0, 2),
+                  ),
+                ],
+              ),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Column(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    children: [
+                      Text(
+                        'Toplam Görüntülenme',
+                        style: TextStyle(color: ColorConstants.warning),
+                      ),
+                      //Bu kısma sonradan bak ve burayı tarih seçmeli bir widget haline getir.
+                      Text('Tarih seç'),
+                    ],
+                  ),
+                  Column(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    children: [
+                      Text('Görüntülenme'),
+                      // Veri eklenmeli
+                      Text('290K'),
+                    ],
+                  ),
+                ],
+              ),
+            ),
+            // Puanlamalar
+            Container(
+              padding: const EdgeInsets.fromLTRB(20, 8, 20, 8),
+              width: 330,
+              height: 75,
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(10),
+                color: ColorConstants.itemWhite,
+                boxShadow: [
+                  BoxShadow(
+                    color: Colors.black.withOpacity(0.3),
+                    blurRadius: 8,
+                    offset: const Offset(0, 2),
+                  ),
+                ],
+              ),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Column(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    children: [
+                      Text(
+                        'Toplam Puanlama',
+                        style: TextStyle(color: ColorConstants.info),
+                      ),
+                      //Bu kısma sonradan bak ve burayı tarih seçmeli bir widget haline getir.
+                      Text('Tarih seç'),
+                    ],
+                  ),
+                  Column(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    children: [
+                      Text('Puanlama'),
+                      // Veri eklenmeli
+                      Text('1125'),
+                    ],
+                  ),
+                ],
+              ),
+            ),
+            // Ödeme Detayları
+            Container(
+              padding: const EdgeInsets.fromLTRB(20, 8, 20, 8),
+              width: 330,
+              height: 200,
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(10),
+                color: Colors.white,
+                boxShadow: [
+                  BoxShadow(
+                    color: Colors.black.withOpacity(0.3),
+                    blurRadius: 8,
+                    offset: const Offset(0, 2),
+                  ),
+                ],
+              ),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: [
+                  //Cüzdan
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      //Cüzdan iconu
+                      Container(
+                        width: 20,
+                        height: 20,
+                        color: ColorConstants.theme1BrightCloudBlue,
+                        child: Icon(
+                          Icons.wallet,
+                          color: ColorConstants.theme2DarkBlue,
+                        ),
+                      ),
+                      Column(
+                        children: [
+                          Text('Cüzdan'),
+                          Text('Bir Aylık'),
+                        ],
+                      ),
+                      // Veri eklenmeli
+                      Text('+1050 TL'),
+                    ],
+                  ),
+                  // Banka Transferi
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      //Banka iconu
+                      Container(
+                        width: 20,
+                        height: 20,
+                        color: ColorConstants.theme1BrightCloudBlue,
+                        child: Icon(
+                          Icons.account_balance,
+                          color: ColorConstants.successDark,
+                        ),
+                      ),
+                      Column(
+                        children: [
+                          Text('Banka Transferi'),
+                          Text('Para Ekle'),
+                        ],
+                      ),
+                      // Veri eklenmeli
+                      Text('1050 TL'),
+                    ],
+                  ),
+                  // Banka Kesintisi
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      //Banka kesintisi iconu
+                      Container(
+                        width: 30,
+                        height: 30,
+                        color: ColorConstants.theme1BrightCloudBlue,
+                        child: Icon(
+                          Icons.attach_money,
+                          color: ColorConstants.dangerDark,
+                        ),
+                      ),
+                      Column(
+                        children: [
+                          Text('Banka Kesintisi'),
+                        ],
+                      ),
+                      // Veri eklenmeli
+                      Text('-5 TL'),
+                    ],
+                  ),
+                  // GuideUp Kesintisi
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      //GuideUp iconu gelmeli buraya
+                      Container(
+                        width: 20,
+                        height: 20,
+                        color: ColorConstants.theme1BrightCloudBlue,
+                        child: Icon(
+                          Icons.home,
+                          color: ColorConstants.warningDark,
+                        ),
+                      ),
+                      Column(
+                        children: [
+                          Text('GuideUp Kesintisi'),
+                        ],
+                      ),
+                      // Veri eklenmeli
+                      Text('-10 TL'),
+                    ],
+                  ),
+                  // Transfer
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      //Transfer iconu
+                      Container(
+                        width: 20,
+                        height: 20,
+                        color: ColorConstants.theme1BrightCloudBlue,
+                        child: Icon(
+                          Icons.send,
+                          color: ColorConstants.infoDark,
+                        ),
+                      ),
+                      Column(
+                        children: [
+                          Text('Transfer Edilen Para'),
+                          Text('Geçen Ay'),
+                        ],
+                      ),
+                      // Veri eklenmeli
+                      Text('850 TL'),
+                    ],
+                  ),
+                ],
+              ),
+            ),
           ],
         ),
       ),
