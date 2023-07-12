@@ -47,6 +47,15 @@ class _ProfileMainState extends State<ProfileMain> {
                 color: ColorConstants.itemBlack,
               ),
         ),
+        leading: IconButton(
+          icon: const Icon(
+            Icons.arrow_back,
+            color: ColorConstants.theme1DarkBlue, // Geri buton rengi
+          ),
+          onPressed: () {
+            Navigator.pushNamed(context, RouterConstants.homePage);
+          },
+        ),
       ),
       body: SizedBox(
         height: MediaQuery.of(context).size.height,

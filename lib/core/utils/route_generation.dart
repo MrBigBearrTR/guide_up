@@ -8,7 +8,10 @@ import 'package:guide_up/pages/guide/guide_home_page.dart';
 import 'package:guide_up/pages/profile/my_profile/my_profile_account.dart';
 import 'package:guide_up/pages/register_page/register_with_detail.dart';
 
+import '../../pages/dashboard/mentor/mentor_guideup_revenue/mentor_account_information.dart';
+import '../../pages/dashboard/mentor/mentor_guideup_revenue/mentor_balance_movements.dart';
 import '../../pages/dashboard/mentor/mentor_preview.dart';
+import '../../pages/dashboard/mentor/mentor_dashboard.dart';
 import '../../pages/dashboard/mentor/mentor_guideup_revenue/mentor_guideup_revenue.dart';
 import '../../pages/login/login_page.dart';
 import '../../pages/other/error_page.dart';
@@ -88,6 +91,12 @@ class RouteGenerator {
         return _createRoute(const RegisterWithDetail(), settings);
       case RouterConstants.mentorGuideUpRevenuePage:
         return _createRoute(const MentorGuideUpRevenuePage(), settings);
+      case RouterConstants.mentorBalanceMovements:
+        return _createRoute(const MentorBalanceMovements(), settings);
+      case RouterConstants.mentorAccountInformation:
+        return _createRoute(const MentorAccountInformation(), settings);
+      case RouterConstants.mentorDashboard:
+        return _createRoute(const MentorDashboard(), settings);
       case RouterConstants.myProfileAccountPage:
         return _createRoute(const MyProfileAccount(), settings);
       case RouterConstants.generalSettingsPage:
@@ -109,7 +118,7 @@ class RouteGenerator {
       case RouterConstants.messagesPage:
         return _createRoute(const ChatMainPage(), settings);
       case RouterConstants.guideAdd:
-        return _createRoute( GuideAddPage(), settings);
+        return _createRoute( const GuideAddPage(), settings);
       case RouterConstants.guideHomePage:
         return _createRoute( const GuideHomePage(), settings);
       case RouterConstants.licensesAndCertificatesPage:
@@ -118,10 +127,7 @@ class RouteGenerator {
         return _createRoute(const MentorPreview(), settings);
       case RouterConstants.menteeFavouriteMentorPage:
         return _createRoute(const MenteeFavouriteMentorPage(), settings);
-        return _createRoute(const GuideAddPage(), settings);
-       case RouterConstants.licensesAndCertificatesPage:
-         return _createRoute(const LicensesAndCertificatesPage(), settings);
-      case RouterConstants.licenseAndCertificateAddPage:
+       case RouterConstants.licenseAndCertificateAddPage:
         return _createRoute(const LicenseAndCertificateAddPage(), settings);
       default:
         return _createRoute(const ErrorPage(), settings);

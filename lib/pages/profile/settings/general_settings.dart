@@ -51,6 +51,15 @@ class _GeneralSettingsState extends State<GeneralSettings> {
               fontSize: 24.0,
               fontWeight: FontWeight.bold),
         ),
+        leading: IconButton(
+          icon: const Icon(
+            Icons.arrow_back,
+            color: ColorConstants.itemBlack, // Geri buton rengi
+          ),
+          onPressed: () {
+            Navigator.pushNamed(context, RouterConstants.profilePage);
+          },
+        ),
         actions: [
           Padding(
             padding: const EdgeInsets.only(right: 8.0),
