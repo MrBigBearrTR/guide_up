@@ -9,15 +9,19 @@ import 'package:guide_up/pages/profile/my_profile/my_profile_account.dart';
 import 'package:guide_up/pages/register_page/register_with_detail.dart';
 
 import '../../pages/dashboard/mentor/mentor_preview.dart';
+import '../../pages/dashboard/mentor/mentor_guideup_revenue/mentor_guideup_revenue.dart';
 import '../../pages/login/login_page.dart';
 import '../../pages/other/error_page.dart';
 import '../../pages/other/test_data_conrol_page.dart';
 import '../../pages/profile/about _us/about_us.dart';
 import '../../pages/profile/help_and_support/help_and_support.dart';
+import '../../pages/profile/licenses_and_certificates/licence_And_Certificate_Add.dart';
 import '../../pages/profile/licenses_and_certificates/licences_And_Certificates.dart';
 import '../../pages/profile/my_profile/abilities_page/user_abilities_page.dart';
 import '../../pages/profile/my_profile/education_information_page/user_education_information.dart';
+import '../../pages/profile/my_profile/education_information_page/user_education_information_list.dart';
 import '../../pages/profile/my_profile/projects_page/user_projects.dart';
+import '../../pages/profile/my_profile/projects_page/user_projects_list.dart';
 import '../../pages/profile/profile_main.dart';
 import '../../pages/profile/settings/general_settings.dart';
 import '../../pages/register_page/register_page.dart';
@@ -82,6 +86,8 @@ class RouteGenerator {
         return _createRoute(const RegisterPage(), settings);
       case RouterConstants.registerWithDetailPage:
         return _createRoute(const RegisterWithDetail(), settings);
+      case RouterConstants.mentorGuideUpRevenuePage:
+        return _createRoute(const MentorGuideUpRevenuePage(), settings);
       case RouterConstants.myProfileAccountPage:
         return _createRoute(const MyProfileAccount(), settings);
       case RouterConstants.generalSettingsPage:
@@ -90,8 +96,12 @@ class RouteGenerator {
         return _createRoute(const UserAbilitiesPage(), settings);
       case RouterConstants.userProjectPage:
         return _createRoute(const UserProjectPage(), settings);
+      case RouterConstants.userProjectList:
+        return _createRoute(const UserProjectList(), settings);
       case RouterConstants.userEducationInformationPage:
         return _createRoute(const UserEducationInformationPage(), settings);
+      case RouterConstants.userEducationInformationList:
+        return _createRoute(const UserEducationInformationList(), settings);
       case RouterConstants.helpAndSupport:
         return _createRoute(const HelpAndSupport(), settings);
       case RouterConstants.aboutUs:
@@ -108,6 +118,11 @@ class RouteGenerator {
         return _createRoute(const MentorPreview(), settings);
       case RouterConstants.menteeFavouriteMentorPage:
         return _createRoute(const MenteeFavouriteMentorPage(), settings);
+        return _createRoute(const GuideAddPage(), settings);
+       case RouterConstants.licensesAndCertificatesPage:
+         return _createRoute(const LicensesAndCertificatesPage(), settings);
+      case RouterConstants.licenseAndCertificateAddPage:
+        return _createRoute(const LicenseAndCertificateAddPage(), settings);
       default:
         return _createRoute(const ErrorPage(), settings);
     }

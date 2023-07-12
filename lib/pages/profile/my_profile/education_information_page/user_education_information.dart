@@ -2,10 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:guide_up/core/utils/secure_storage_helper.dart';
 import '../../../../core/constant/color_constants.dart';
+import '../../../../core/constant/router_constants.dart';
 import '../../../../core/enumeration/extensions/ExLanguage.dart';
 import '../../../../core/models/users/user_education/user_education_model.dart';
 import '../../../../repository/user/user_education/user_education_repository.dart';
-import 'user_education_information_list.dart';
 
 class UserEducationInformationPage extends StatefulWidget {
   const UserEducationInformationPage({Key? key}) : super(key: key);
@@ -58,10 +58,44 @@ class _UserEducationInformationPageState extends State<UserEducationInformationP
     String link = linkController.text.trim();
     String language = enlanguageController.text.trim();
 
-    if (school.isNotEmpty &&
-        startDate.isNotEmpty &&
-        grade.isNotEmpty &&
-        description.isNotEmpty) {
+
+    if (school.isEmpty || startDate.isEmpty || description.isEmpty) {
+      showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return AlertDialog(
+            title: Text(
+              'Uyarı',
+              style: GoogleFonts.nunito(
+                color: ColorConstants.dangerDark,
+              ),
+            ),
+            content: Text(
+              'Okul adı, başlangıç tarihi ve açıklama alanları boş bırakılamaz.',
+              style: GoogleFonts.nunito(
+                color: ColorConstants.itemWhite,
+              ),
+            ),
+            actions: [
+              TextButton(
+                onPressed: () {
+                  Navigator.of(context).pop();
+                },
+                child: Text(
+                  'Tamam',
+                  style: GoogleFonts.nunito(
+                    color: ColorConstants.itemWhite,
+                  ),
+                ),
+              ),
+            ],
+            backgroundColor: ColorConstants.theme1DarkBlue,
+          );
+        },
+      );
+      return;
+    }
+
       UserEducation userEducationInformation = UserEducation();
       userEducationInformation.setUserId(userId!);
       userEducationInformation.setSchoolName(school);
@@ -95,16 +129,19 @@ class _UserEducationInformationPageState extends State<UserEducationInformationP
           builder: (BuildContext context) {
             return AlertDialog(
               title: Text('Başarı',
-                style: GoogleFonts.nunito(),),
+                style: GoogleFonts.nunito(
+                  color: ColorConstants.itemWhite,),),
               content: Text('Eğitim bilgisi başarıyla eklendi.',
-                style: GoogleFonts.nunito(),),
+                style: GoogleFonts.nunito(
+                  color: ColorConstants.success,),),
               actions: [
                 TextButton(
                   onPressed: () {
                     Navigator.of(context).pop();
                   },
                   child: Text('Tamam',
-                    style: GoogleFonts.nunito(),),
+                    style: GoogleFonts.nunito(
+                      color: ColorConstants.itemWhite,),),
                 ),
               ],
               backgroundColor: ColorConstants.theme1DarkBlue,
@@ -116,7 +153,6 @@ class _UserEducationInformationPageState extends State<UserEducationInformationP
       } catch (error) {
         print('Failed to add educationInformation to Firebase: $error');
       }
-    }
   }
 
   @override
@@ -136,12 +172,7 @@ class _UserEducationInformationPageState extends State<UserEducationInformationP
               color: ColorConstants.theme1DarkBlue, // Kalem ikonu rengi
             ),
             onPressed: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (context) => UserEducationInformationList(userId: userId),
-                ),
-              );
+              Navigator.pushNamed(context,RouterConstants.userEducationInformationList);
             },
           ),
         ],
@@ -261,7 +292,7 @@ class _UserEducationInformationPageState extends State<UserEducationInformationP
               const SizedBox(height: 16.0),
               TextFormField(
                 decoration: InputDecoration(
-                  labelText: 'Sınıf',
+                  labelText: 'Sınıf (isteğe bağlı)',
                   labelStyle: GoogleFonts.nunito(
                     color: (gradeController.value.text.isNotEmpty)
                         ? ColorConstants.theme1DarkBlue
@@ -369,7 +400,7 @@ class _UserEducationInformationPageState extends State<UserEducationInformationP
               const SizedBox(height: 16.0),
               TextFormField(
                 decoration: InputDecoration(
-                  labelText: 'Dil Bilgisi',
+                  labelText: 'Dil Bilgisi (isteğe bağlı)',
                   labelStyle: GoogleFonts.nunito(
                     color: (enlanguageController.value.text.isNotEmpty)
                         ? ColorConstants.theme1DarkBlue
@@ -408,8 +439,6 @@ class _UserEducationInformationPageState extends State<UserEducationInformationP
                 ),
               ),
             ),
-
-
           ],
         ),
       ),
