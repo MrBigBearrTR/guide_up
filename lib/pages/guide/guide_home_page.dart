@@ -128,74 +128,141 @@ class _GuideHomePageState extends State<GuideHomePage> {
     }
   }
 }
-
-class PostDetailPage extends StatelessWidget {
+class PostDetailPage extends StatefulWidget {
   final PostCardView postCardView;
 
   const PostDetailPage({required this.postCardView});
 
   @override
+  _PostDetailPageState createState() => _PostDetailPageState();
+}
+
+class _PostDetailPageState extends State<PostDetailPage> {
+  List<String> comments = [];
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Guide'),
+        title: Text('Guide'),
       ),
       body: Container(
         decoration: CustomMaterial.backgroundBoxDecoration,
+        padding: EdgeInsets.all(16.0),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            ClipRRect(
-              borderRadius: const BorderRadius.only(
-                topLeft: Radius.circular(16.0),
-                topRight: Radius.circular(16.0),
-              ),
-              child: Container(
-                padding: const EdgeInsets.all(16.0),
-                color: Colors.blue, // Background color for the title section
-                child: Text(
-                  ('${postCardView.topic}'),
-                  style: const TextStyle(
-                    fontSize: 24,
-                    fontWeight: FontWeight.bold,
-                    color: Colors.white, // Text color for the title
-                  ),
-                ),
+            Text(
+              ('${widget.postCardView.topic}'),
+              style: TextStyle(
+                fontSize: 24,
+                fontWeight: FontWeight.bold,
               ),
             ),
-            const SizedBox(height: 8),
-            ClipRRect(
-              borderRadius: const BorderRadius.only(
-                bottomLeft: Radius.circular(16.0),
-                bottomRight: Radius.circular(16.0),
-              ),
-              child: Container(
-                padding: const EdgeInsets.all(16.0),
-                color: Colors.orange,
-                // Background color for the content section
-                child: Text(
-                  (' ${postCardView.content}'),
-                  style: const TextStyle(
-                    fontSize: 16,
-                    color: Colors.white, // Text color for the content
-                  ),
-                ),
+            SizedBox(height: 8),
+            Text(
+              ('${widget.postCardView.content}'),
+              style: TextStyle(
+                fontSize: 16,
               ),
             ),
-            const SizedBox(height: 16),
-            if (postCardView.photo != null)
-              ClipRRect(
-                borderRadius: BorderRadius.circular(8.0),
-                child: Image.network(
-                  postCardView.photo!,
-                  width: double.infinity,
-                  height: 200,
-                  fit: BoxFit.cover,
-                ),
+            SizedBox(height: 16),
+            if (widget.postCardView.photo != null)
+              Image.network(
+                widget.postCardView.photo!,
+                width: double.infinity,
+                height: 200,
+                fit: BoxFit.cover,
               ),
+            SizedBox(height: 16),
+            Text(
+              'Comments:',
+              style: TextStyle(
+                fontSize: 18,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+            SizedBox(height: 8),
+            ListView.builder(
+              shrinkWrap: true,
+              physics: NeverScrollableScrollPhysics(),
+              itemCount: comments.length,
+              itemBuilder: (context, index) {
+                return ListTile(
+                  title: Text(comments[index]),
+                );
+              },
+            ),
+            SizedBox(height: 16),
+            ElevatedButton(
+              onPressed: () {
+                _navigateToCommentPage(context);
+              },
+              child: Text('Add Comment'),
+            ),
           ],
         ),
       ),
     );
+  }
+
+  Future<void> _navigateToCommentPage(BuildContext context) async {
+    final comment = await Navigator.push<String>(
+      context,
+      MaterialPageRoute(builder: (context) => CommentPage()),
+    );
+
+    if (comment != null && comment.isNotEmpty) {
+      setState(() {
+        comments.add(comment);
+      });
+    }
+  }
+}
+
+class CommentPage extends StatefulWidget {
+  @override
+  _CommentPageState createState() => _CommentPageState();
+}
+
+class _CommentPageState extends State<CommentPage> {
+  TextEditingController commentController = TextEditingController();
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text('Add Comment'),
+      ),
+      body: Padding(
+        padding: EdgeInsets.all(16.0),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            TextField(
+              controller: commentController,
+              decoration: InputDecoration(
+                labelText: 'Enter your comment',
+                border: OutlineInputBorder(),
+              ),
+            ),
+            SizedBox(height: 8),
+            ElevatedButton(
+              onPressed: () {
+                _postComment(context);
+              },
+              child: Text('Post Comment'),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+
+  void _postComment(BuildContext context) {
+    String comment = commentController.text;
+    if (comment.isNotEmpty) {
+      Navigator.pop(context, comment);
+    }
   }
 }

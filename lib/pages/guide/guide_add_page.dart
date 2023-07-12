@@ -175,7 +175,7 @@ class _GuideAddPageState extends State<GuideAddPage> {
                   ),
                 ),
                 const SizedBox(
-                  height: 20,
+                  height: 1,
                 ),
                 SizedBox(
                   // width: 460,
