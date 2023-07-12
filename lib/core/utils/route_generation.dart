@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:guide_up/pages/conversation/messages/chat_main_page.dart';
+import 'package:guide_up/pages/dashboard/mentee/mentee_favourite_mentor_page.dart';
 import 'package:guide_up/pages/guide/guide_add_page.dart';
 import 'package:guide_up/pages/guide/guide_home_page.dart';
 import 'package:guide_up/pages/profile/my_profile/my_profile_account.dart';
@@ -105,6 +106,8 @@ class RouteGenerator {
         return _createRoute(const LicensesAndCertificatesPage(), settings);
       case RouterConstants.mentorPreview:
         return _createRoute(const MentorPreview(), settings);
+      case RouterConstants.menteeFavouriteMentorPage:
+        return _createRoute(const MenteeFavouriteMentorPage(), settings);
       default:
         return _createRoute(const ErrorPage(), settings);
     }
