@@ -31,6 +31,16 @@ class MenteeRepository {
     return null;
   }
 
+  Future<Mentee?> getMenteeByUserId(String userId) async {
+    var query =
+    await _menteeCollection.where("userId", isEqualTo: userId).get();
+
+    if (query.docs.isNotEmpty) {
+      return Mentee().toClass(query.docs.first.data());
+    }
+    return null;
+  }
+
   Future<List<Mentee>> getList(int limit) async {
     List<Mentee> mentorList = [];
 
