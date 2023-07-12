@@ -6,6 +6,7 @@ import 'package:guide_up/core/models/post/post_model.dart';
 import 'package:guide_up/core/models/users/user_detail/user_detail_model.dart';
 import 'package:guide_up/core/utils/secure_storage_helper.dart';
 import 'package:guide_up/repository/post/post_repository.dart';
+import 'package:guide_up/service/post/post_service.dart';
 import 'package:image_picker/image_picker.dart';
 
 import '../../core/constant/color_constants.dart';
@@ -20,7 +21,6 @@ class GuideAddPage extends StatefulWidget {
 class _GuideAddPageState extends State<GuideAddPage> {
   late TextEditingController _topicController;
   late TextEditingController _contentController;
-  late TextEditingController _photoController;
   final _formKey = GlobalKey<FormState>();
   File? _guidePicture;
   UserDetail? userDetail;
@@ -33,7 +33,6 @@ class _GuideAddPageState extends State<GuideAddPage> {
     super.initState();
     _topicController = TextEditingController();
     _contentController = TextEditingController();
-    _photoController = TextEditingController();
   }
 
   @override
@@ -48,9 +47,7 @@ class _GuideAddPageState extends State<GuideAddPage> {
     if (detail != null) {
       String topic = _topicController.text;
       String content = _contentController.text;
-      if (post == null) {
-        post = Post();
-      }
+      post ??= Post();
       post!.setTopic(topic);
       post!.setContent(content);
       if (_guidePicture != null) {
@@ -58,7 +55,7 @@ class _GuideAddPageState extends State<GuideAddPage> {
       }
       post!.setUserId(detail.getUserId()!);
 
-      await PostRepository().add(post!);
+      await PostService().add(post!);
       Navigator.pop(context);
     }
   }
@@ -77,11 +74,6 @@ class _GuideAddPageState extends State<GuideAddPage> {
     }
   }
 
-  void _showSnackBar(String message) {
-    final snackBar = SnackBar(content: Text(message));
-    ScaffoldMessenger.of(context).showSnackBar(snackBar);
-  }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -97,6 +89,7 @@ class _GuideAddPageState extends State<GuideAddPage> {
           ),
         ),
       ),
+      backgroundColor: ColorConstants.theme2White,
       body: SingleChildScrollView(
         child: Padding(
           padding: const EdgeInsets.all(8.0),
@@ -135,27 +128,26 @@ class _GuideAddPageState extends State<GuideAddPage> {
                 const SizedBox(height: 16.0),
                 TextFormField(
                   decoration: InputDecoration(
-                    labelText: 'Metin Giriniz',
-                    labelStyle: GoogleFonts.nunito(
-                      color: (_contentController.value.text.isNotEmpty)
-                          ? ColorConstants.theme1DarkBlue
-                          : ColorConstants.warningDark,
-                    ),
-                    border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(8.0),
-                    ),
-                    focusedBorder: OutlineInputBorder(
-                      borderSide: BorderSide(
+                      labelText: 'Metin Giriniz',
+                      labelStyle: GoogleFonts.nunito(
                         color: (_contentController.value.text.isNotEmpty)
                             ? ColorConstants.theme1DarkBlue
                             : ColorConstants.warningDark,
                       ),
-                      borderRadius: BorderRadius.circular(8.0),
-                    ),
-//contentPadding: EdgeInsets.symmetric(vertical: 120),
-                  ),
-                  maxLines: 8,
-                  minLines: 1,
+                      border: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(8.0),
+                      ),
+                      focusedBorder: OutlineInputBorder(
+                        borderSide: BorderSide(
+                          color: (_contentController.value.text.isNotEmpty)
+                              ? ColorConstants.theme1DarkBlue
+                              : ColorConstants.warningDark,
+                        ),
+                        borderRadius: BorderRadius.circular(8.0),
+                      ),
+                      contentPadding: EdgeInsets.symmetric(vertical: 20)),
+                  maxLines: 5,
+                  minLines: 2,
                   controller: _contentController,
                   cursorColor: ColorConstants.theme1DarkBlue,
                   onChanged: (value) {
@@ -168,24 +160,19 @@ class _GuideAddPageState extends State<GuideAddPage> {
                   child: Stack(
                     alignment: Alignment.center,
                     children: [
-                      Image(image: getImage(),
-                      width: MediaQuery.of(context).size.width,
-                      height: MediaQuery.of(context).size.width/2,)
+                      Image(
+                        image: getImage(),
+                        width: MediaQuery.of(context).size.width,
+                        height: MediaQuery.of(context).size.width / 2,
+                      ),
                     ],
                   ),
                 ),
-                const SizedBox(height: 16.0),
-                if (_guidePicture != null)
-                  Image.file(
-                    _guidePicture!,
-                    width: 400,
-                    height: 400,
-                  ),
                 const SizedBox(
-                  height: 20,
+                  height: 1,
                 ),
                 SizedBox(
-                  width: 450,
+                  // width: 460,
                   child: ElevatedButton(
                     onPressed: () {
                       createPost(context);
@@ -236,7 +223,7 @@ class _GuideAddPageState extends State<GuideAddPage> {
       if (_guidePicture != null) {
         return FileImage(_guidePicture!);
       } else {
-        return const AssetImage("assets/img/unknown_user.png");
+        return const AssetImage("assets/img/Guide_photo_add.png");
       }
     } else {
       return NetworkImage(post!.getPhoto()!);

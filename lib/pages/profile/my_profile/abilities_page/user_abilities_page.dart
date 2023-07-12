@@ -4,7 +4,6 @@ import 'package:guide_up/core/utils/secure_storage_helper.dart';
 import 'package:guide_up/repository/user/user_abilities/user_abilities_repository.dart';
 
 import '../../../../core/constant/color_constants.dart';
-import '../../../../core/constant/router_constants.dart';
 import '../../../../core/models/users/user_abilities/user_abilities_model.dart';
 import '../../../../ui/material/custom_material.dart';
 
@@ -67,7 +66,8 @@ class _UserAbilitiesPageState extends State<UserAbilitiesPage> {
         return AlertDialog(
           title: Text(
             'Yeni Yetenek Ekle',
-            style: GoogleFonts.nunito(color: ColorConstants.itemWhite), // Yazı rengini beyaz yapar
+            style: GoogleFonts.nunito(
+                color: ColorConstants.itemWhite), // Yazı rengini beyaz yapar
           ),
           content: Column(
             mainAxisSize: MainAxisSize.min,
@@ -76,17 +76,21 @@ class _UserAbilitiesPageState extends State<UserAbilitiesPage> {
                 controller: abilityController,
                 decoration: InputDecoration(
                   labelText: 'Yetenek',
-                  labelStyle: GoogleFonts.nunito(color: ColorConstants.itemWhite), // Yazı rengi
+                  labelStyle: GoogleFonts.nunito(
+                      color: ColorConstants.itemWhite), // Yazı rengi
                   focusedBorder: const UnderlineInputBorder(
-                    borderSide: BorderSide(color: ColorConstants.theme2Orange), // Yatay çizgi rengi
+                    borderSide: BorderSide(
+                        color:
+                            ColorConstants.theme2Orange), // Yatay çizgi rengi
                   ),
-                  contentPadding: const EdgeInsets.symmetric(vertical: 2.0), // Alt çizgiye yakın boşluk
+                  contentPadding: const EdgeInsets.symmetric(
+                      vertical: 2.0), // Alt çizgiye yakın boşluk
                 ),
                 cursorColor: ColorConstants.theme2Orange, // İmleç rengi
-            style: GoogleFonts.nunito(
-              color: ColorConstants.itemWhite,), // Girilen metnin rengi
+                style: GoogleFonts.nunito(
+                  color: ColorConstants.itemWhite,
+                ), // Girilen metnin rengi
               ),
-
             ],
           ),
           actions: [
@@ -96,7 +100,9 @@ class _UserAbilitiesPageState extends State<UserAbilitiesPage> {
               },
               child: Text(
                 'İptal',
-                style: GoogleFonts.nunito(color: ColorConstants.itemWhite), // Yazı rengini beyaz yapar
+                style: GoogleFonts.nunito(
+                    color:
+                        ColorConstants.itemWhite), // Yazı rengini beyaz yapar
               ),
             ),
             ElevatedButton(
@@ -109,14 +115,12 @@ class _UserAbilitiesPageState extends State<UserAbilitiesPage> {
                 style: GoogleFonts.nunito(color: ColorConstants.info),
               ),
             ),
-
           ],
           backgroundColor: ColorConstants.theme1DarkBlue,
         );
       },
     );
   }
-
 
   void deleteAbility(UserAbilities ability) async {
     showDialog(
@@ -142,7 +146,8 @@ class _UserAbilitiesPageState extends State<UserAbilitiesPage> {
 
                   setState(() {});
 
-                  print('Ability added to Firebase: ${ability.getAbility() ?? "Unknown ability"}');
+                  print(
+                      'Ability added to Firebase: ${ability.getAbility() ?? "Unknown ability"}');
                 } catch (error) {
                   print('Failed to delete ability from Firebase: $error');
                 }
@@ -155,7 +160,6 @@ class _UserAbilitiesPageState extends State<UserAbilitiesPage> {
           ],
           backgroundColor: ColorConstants.theme1DarkBlue,
         );
-
       },
     );
   }
@@ -164,8 +168,10 @@ class _UserAbilitiesPageState extends State<UserAbilitiesPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Yetenekler',
-          style: GoogleFonts.nunito( // Yetenekler yazısının yazı tipi
+        title: Text(
+          'Yetenekler',
+          style: GoogleFonts.nunito(
+            // Yetenekler yazısının yazı tipi
             fontSize: 22,
             fontWeight: FontWeight.bold,
           ),
@@ -176,7 +182,7 @@ class _UserAbilitiesPageState extends State<UserAbilitiesPage> {
             color: ColorConstants.theme1DarkBlue, // Geri buton rengi
           ),
           onPressed: () {
-            Navigator.pushNamed(context, RouterConstants.myProfileAccountPage);
+            Navigator.pop(context);
           },
         ),
         backgroundColor: ColorConstants.theme2White, // AppBar arka plan rengi
@@ -184,7 +190,8 @@ class _UserAbilitiesPageState extends State<UserAbilitiesPage> {
           Padding(
             padding: const EdgeInsets.only(right: 8.0),
             child: Image.asset(
-              'assets/logo/guideUpLogo.png', // Logo resminin yolunu buraya ekleyin
+              'assets/logo/guideUpLogo.png',
+              // Logo resminin yolunu buraya ekleyin
               width: 62,
               height: 62,
             ),
@@ -194,7 +201,7 @@ class _UserAbilitiesPageState extends State<UserAbilitiesPage> {
       body: Container(
         decoration: CustomMaterial.backgroundBoxDecoration,
         padding: const EdgeInsets.all(16.0),
-        child:  Column(
+        child: Column(
           children: [
             Expanded(
               child: FutureBuilder(
@@ -208,8 +215,10 @@ class _UserAbilitiesPageState extends State<UserAbilitiesPage> {
                       child: Column(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
-                          Text('Yeteneklerinizi şu an listeyemiyoruz.',
-                            style: GoogleFonts.nunito(),),
+                          Text(
+                            'Yeteneklerinizi şu an listeyemiyoruz.',
+                            style: GoogleFonts.nunito(),
+                          ),
                           Padding(
                             padding: const EdgeInsets.only(top: 8.0),
                             child: Image.asset(
@@ -239,13 +248,14 @@ class _UserAbilitiesPageState extends State<UserAbilitiesPage> {
                             TextButton(
                               onPressed: showAddAbilityPopup,
                               style: ButtonStyle(
-                                foregroundColor: MaterialStateProperty.all<Color>(
-                                    ColorConstants.theme1DarkBlue),
-                                elevation: MaterialStateProperty.all<double>(8.0),
+                                foregroundColor:
+                                    MaterialStateProperty.all<Color>(
+                                        ColorConstants.theme1DarkBlue),
+                                elevation:
+                                    MaterialStateProperty.all<double>(8.0),
                                 // Gölge efekti
                                 overlayColor: MaterialStateProperty.all<Color>(
                                     ColorConstants.theme2DarkOpacity20),
-
                               ),
                               child: Text(
                                 'Yetenek kaydınız bulunamadı. Eklemeye ne dersiniz?',
@@ -262,21 +272,26 @@ class _UserAbilitiesPageState extends State<UserAbilitiesPage> {
                         itemBuilder: (context, index) {
                           final ability = snapshot.data![index];
                           return Card(
-                            color: ColorConstants.theme1DarkBlue, // Eklenen tablo rengi
-                            elevation: 2, // Card'ın gölgelendirme seviyesi
-                            margin: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+                            color: ColorConstants.theme1DarkBlue,
+                            // Eklenen tablo rengi
+                            elevation: 2,
+                            // Card'ın gölgelendirme seviyesi
+                            margin: const EdgeInsets.symmetric(
+                                horizontal: 8, vertical: 4),
                             child: ListTile(
                               title: Text(
                                 ability.getAbility() ?? '',
                                 style: GoogleFonts.nunito(
                                   fontWeight: FontWeight.bold,
-                                  color: ColorConstants.theme2Orange, // metni rengi
+                                  color: ColorConstants
+                                      .theme2Orange, // metni rengi
                                 ),
                               ),
                               trailing: IconButton(
                                 icon: const Icon(Icons.delete),
                                 onPressed: () => deleteAbility(ability),
-                                color: ColorConstants.theme2Orange, // Silme butonu rengi
+                                color: ColorConstants
+                                    .theme2Orange, // Silme butonu rengi
                               ),
                             ),
                           );
@@ -285,15 +300,16 @@ class _UserAbilitiesPageState extends State<UserAbilitiesPage> {
                     }
                   }
                 },
-                future: UserAbilitiesRepository()
-                    .getUserAbilitiesListByUserId(userId != null ? userId! : ""),
+                future: UserAbilitiesRepository().getUserAbilitiesListByUserId(
+                    userId != null ? userId! : ""),
               ),
             ),
           ],
         ),
       ),
       floatingActionButton: FloatingActionButton(
-        backgroundColor: ColorConstants.theme1DarkBlue, // Buton kutusu arka plan rengi
+        backgroundColor: ColorConstants.theme1DarkBlue,
+        // Buton kutusu arka plan rengi
         onPressed: showAddAbilityPopup,
         child: const Icon(
           Icons.add,

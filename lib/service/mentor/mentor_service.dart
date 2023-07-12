@@ -63,7 +63,19 @@ class MentorService {
     }
 
     if (limit > 0 && mentorList.length < limit) {
-      mentorList.addAll(await _mentorRepository.getList(limit));
+      var tempMentorList = await _mentorRepository.getList(limit);
+      for (var tempMentor in tempMentorList) {
+        bool isContain=false;
+        for (var mentor in mentorList) {
+          if (tempMentor.getId()! == mentor.getId()!) {
+            isContain=true;
+            break;
+          }
+        }
+        if(!isContain) {
+          mentorList.add(tempMentor);
+        }
+      }
     }
 
     return mentorList;
@@ -143,14 +155,16 @@ class MentorService {
   Future<List<Mentor>> getMentorFavouriteListByUserId(String userId) async {
     List<Mentor> mentorList = [];
 
-    List<MentorFavourite> mentorFavouriteList = await _mentorFavouriteRepository.getMentorFavouriteListByUserId(userId);
+    List<MentorFavourite> mentorFavouriteList =
+        await _mentorFavouriteRepository.getMentorFavouriteListByUserId(userId);
 
     for (var mentorFavourite in mentorFavouriteList) {
-      Mentor? mentor = await _mentorRepository.get(mentorFavourite.getMentorId()!);
+      Mentor? mentor =
+          await _mentorRepository.get(mentorFavourite.getMentorId()!);
       if (mentor != null) {
         mentorList.add(mentor);
       }
     }
-      return mentorList;
+    return mentorList;
   }
 }

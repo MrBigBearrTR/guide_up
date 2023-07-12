@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:guide_up/core/constant/router_constants.dart';
 import 'package:guide_up/core/models/users/user_detail/user_detail_model.dart';
-import 'package:guide_up/pages/post/post_card.dart';
+import 'package:guide_up/pages/guide/card/gude_card.dart';
 import 'package:guide_up/service/post/post_service.dart';
 import 'package:guide_up/ui/material/custom_material.dart';
 
@@ -18,12 +18,22 @@ class GuideHomePage extends StatefulWidget {
 
 class _GuideHomePageState extends State<GuideHomePage> {
   bool _isLogIn = false;
-  UserDetail? userDetail;
+  String _userId = "";
+  final ScrollController _scrollController = ScrollController();
 
   @override
   void initState() {
     super.initState();
     getUserDetail();
+    _scrollController.addListener(_scrollListener);
+  }
+
+  void _scrollListener() {
+    if (_scrollController.offset ==
+            _scrollController.position.minScrollExtent &&
+        !_scrollController.position.outOfRange) {
+      setState(() {});
+    }
   }
 
   @override
@@ -43,7 +53,7 @@ class _GuideHomePageState extends State<GuideHomePage> {
       body: Container(
         decoration: CustomMaterial.backgroundBoxDecoration,
         child: FutureBuilder(
-          builder: (context, snapshot) {
+          builder: (context2, snapshot) {
             if (snapshot.connectionState == ConnectionState.waiting) {
               return const Center(
                 child: CircularProgressIndicator(),
@@ -55,11 +65,27 @@ class _GuideHomePageState extends State<GuideHomePage> {
             } else {
               if (snapshot.data!.isNotEmpty) {
                 return ListView.builder(
-                  itemBuilder: (context, index) {
+                  itemBuilder: (context3, index) {
                     final postCardView = snapshot.data![index];
-                    return PostCard(postCardView: postCardView);
+                    return GestureDetector(
+                      onTap: () {
+                        // Navigate to the detailed view when the post is clicked
+                        Navigator.pushNamed(
+                            context, RouterConstants.guideDetailPage,
+                            arguments: postCardView).then((value) {
+                           setState(() {
+
+                           });
+                        });
+                      },
+                      child: GuideCard(
+                        postCardView: postCardView,
+                        userId: _userId,
+                      ),
+                    );
                   },
                   itemCount: snapshot.data!.length,
+                  controller: _scrollController,
                 );
               } else {
                 return const Center(
@@ -68,7 +94,7 @@ class _GuideHomePageState extends State<GuideHomePage> {
               }
             }
           },
-          future: PostService().getList(0),
+          future: PostService().getList(_userId, 0),
         ),
       ),
       floatingActionButton: Visibility(
@@ -79,7 +105,10 @@ class _GuideHomePageState extends State<GuideHomePage> {
           tooltip: "Guide Ekle",
           shape: const CircleBorder(),
           onPressed: () {
-            Navigator.pushNamed(context, RouterConstants.guideAdd);
+            Navigator.pushNamed(context, RouterConstants.guideAdd)
+                .then((value) {
+              setState(() {});
+            });
           },
           child: const Icon(
             Icons.add,
@@ -95,7 +124,7 @@ class _GuideHomePageState extends State<GuideHomePage> {
     if (detail == null) {
       detail = null;
     } else {
-      userDetail = detail;
+      _userId = detail.getUserId()!;
       _isLogIn = true;
       setState(() {});
     }

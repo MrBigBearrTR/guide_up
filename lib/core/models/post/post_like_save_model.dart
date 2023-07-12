@@ -53,7 +53,7 @@ class PostLikeSave extends GeneralFields {
     return map;
   }
 
-  toClass(Map<String, dynamic> map) {
+  PostLikeSave toClass(Map<String, dynamic> map) {
     toGeneralClass(map);
 
     if (ControlHelper.checkMapValue(map, 'id')) {
@@ -68,5 +68,6 @@ class PostLikeSave extends GeneralFields {
     if (ControlHelper.checkMapValue(map, 'enLikeSaveType')) {
       setEnLikeSaveType(ExPostLikeSaveType.getEnum(map['enLikeSaveType'])!);
     }
+    return this;
   }
 }

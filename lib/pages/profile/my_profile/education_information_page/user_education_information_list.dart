@@ -97,10 +97,10 @@ class _UserEducationInformationListState
         leading: IconButton(
           icon: const Icon(
             Icons.arrow_back,
-            color: ColorConstants.theme1DarkBlue, // Geri buton rengi
+            color: ColorConstants.itemBlack, // Geri buton rengi
           ),
           onPressed: () {
-            Navigator.pushNamed(context, RouterConstants.myProfileAccountPage);
+            Navigator.pop(context);
           },
         ),
         actions: [
