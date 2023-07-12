@@ -68,7 +68,7 @@ class _GuideAddPageState extends State<GuideAddPage> {
     final pickedImage = await imagePicker.pickImage(
       source: ImageSource.gallery,
       maxWidth: 500,
-      maxHeight: 500,
+      maxHeight:500,
     );
     if (pickedImage != null) {
       setState(() {
@@ -84,6 +84,7 @@ class _GuideAddPageState extends State<GuideAddPage> {
 
   @override
   Widget build(BuildContext context) {
+
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,
@@ -97,6 +98,8 @@ class _GuideAddPageState extends State<GuideAddPage> {
           ),
         ),
       ),
+      backgroundColor: ColorConstants.theme2White,
+
       body: SingleChildScrollView(
         child: Padding(
           padding: const EdgeInsets.all(8.0),
@@ -152,10 +155,9 @@ class _GuideAddPageState extends State<GuideAddPage> {
                       ),
                       borderRadius: BorderRadius.circular(8.0),
                     ),
-//contentPadding: EdgeInsets.symmetric(vertical: 120),
-                  ),
-                  maxLines: 8,
-                  minLines: 1,
+                      contentPadding: EdgeInsets.symmetric(vertical: 20)                  ),
+                  maxLines: 5,
+                  minLines: 5,
                   controller: _contentController,
                   cursorColor: ColorConstants.theme1DarkBlue,
                   onChanged: (value) {
@@ -170,7 +172,8 @@ class _GuideAddPageState extends State<GuideAddPage> {
                     children: [
                       Image(image: getImage(),
                       width: MediaQuery.of(context).size.width,
-                      height: MediaQuery.of(context).size.width/2,)
+                      height: MediaQuery.of(context).size.height,
+                      ),
                     ],
                   ),
                 ),
@@ -185,7 +188,7 @@ class _GuideAddPageState extends State<GuideAddPage> {
                   height: 20,
                 ),
                 SizedBox(
-                  width: 450,
+                 // width: 460,
                   child: ElevatedButton(
                     onPressed: () {
                       createPost(context);
@@ -236,7 +239,7 @@ class _GuideAddPageState extends State<GuideAddPage> {
       if (_guidePicture != null) {
         return FileImage(_guidePicture!);
       } else {
-        return const AssetImage("assets/img/unknown_user.png");
+        return const AssetImage( "asset/img/Guide_photo_add" );
       }
     } else {
       return NetworkImage(post!.getPhoto()!);
