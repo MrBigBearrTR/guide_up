@@ -94,8 +94,16 @@ class UserProject extends GeneralFields {
     map['userId'] = getUserId();
     map['experienceId'] = getExperienceId();
     map['projectTitle'] = getProjectTitle();
-    map['startDate'] = getStartDate();
-    map['endDate'] = getEndDate();
+    if (getStartDate() != null) {
+      map['startDate'] = getStartDate().toString();
+    } else {
+      map['startDate'] = getStartDate();
+    }
+    if (getEndDate() != null) {
+      map['endDate'] = getEndDate().toString();
+    } else {
+      map['endDate'] = getEndDate();
+    }
     map['description'] = getDescription();
     map['link'] = getLink();
     if (getEnLanguage() != null) {
@@ -104,7 +112,7 @@ class UserProject extends GeneralFields {
     return map;
   }
 
-  toClass(Map<String, dynamic> map) {
+  UserProject toClass(Map<String, dynamic> map) {
     toGeneralClass(map);
 
     if (ControlHelper.checkMapValue(map, 'id')) {
@@ -123,7 +131,7 @@ class UserProject extends GeneralFields {
       setStartDate(DateTime.parse(map['startDate']));
     }
     if (ControlHelper.checkMapValue(map, 'endDate')) {
-      setEndDate(map['endDate']);
+      setEndDate(DateTime.parse(map['endDate']));
     }
     if (ControlHelper.checkMapValue(map, 'description')) {
       setDescription(map['description']);
@@ -134,5 +142,6 @@ class UserProject extends GeneralFields {
     if (ControlHelper.checkMapValue(map, 'enLanguage')) {
       setEnLanguage(ExLanguage.getEnum(map['enLanguage'])!);
     }
+    return this;
   }
 }

@@ -135,8 +135,16 @@ class UserEducation extends GeneralFields {
     if (getEnDegreeType() != null) {
       map['enDegreeType'] = getEnDegreeType()!.name;
     }
-    map['startDate'] = getStartDate();
-    map['endDate'] = getEndDate();
+    if (getStartDate() != null) {
+      map['startDate'] = getStartDate().toString();
+    } else {
+      map['startDate'] = getStartDate();
+    }
+    if (getEndDate() != null) {
+      map['endDate'] = getEndDate().toString();
+    } else {
+      map['endDate'] = getEndDate();
+    }
     map['grade'] = getGrade();
     map['description'] = getDescription();
     map['activitiesSocienties'] = getActivitiesSocienties();
@@ -167,10 +175,10 @@ class UserEducation extends GeneralFields {
       setEnDegreeType(ExDegreeType.getEnum(map['enDegreeType'])!);
     }
     if (ControlHelper.checkMapValue(map, 'startDate')) {
-      setStartDate(map['startDate']);
+      setStartDate(DateTime.parse(map['startDate']));
     }
     if (ControlHelper.checkMapValue(map, 'endDate')) {
-      setEndDate(map['endDate']);
+      setEndDate(DateTime.parse(map['endDate']));
     }
     if (ControlHelper.checkMapValue(map, 'grade')) {
       setGrade(map['grade']);

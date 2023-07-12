@@ -31,9 +31,22 @@ class MenteeRepository {
     return null;
   }
 
+  Future<Mentee?> getMenteeBuUserIdAndMentorId(
+      String userId, String mentorId) async {
+    var query = await _menteeCollection
+        .where("userId", isEqualTo: userId)
+        .where("mentorId", isEqualTo: mentorId)
+        .get();
+
+    if (query.docs.isNotEmpty) {
+      return Mentee().toClass(query.docs.first.data());
+    }
+    return null;
+  }
+
   Future<Mentee?> getMenteeByUserId(String userId) async {
     var query =
-    await _menteeCollection.where("userId", isEqualTo: userId).get();
+        await _menteeCollection.where("userId", isEqualTo: userId).get();
 
     if (query.docs.isNotEmpty) {
       return Mentee().toClass(query.docs.first.data());
