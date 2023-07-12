@@ -689,8 +689,7 @@ class _MyProfileAccountState extends State<MyProfileAccount> {
                   ),
                   child: InkWell(
                     onTap: () {
-                      Navigator.pushNamed(
-                          context, RouterConstants.profilePage);
+                      Navigator.pop(context);
                     },
                     child: const Icon(
                       Icons.arrow_back_rounded,
