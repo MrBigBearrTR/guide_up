@@ -14,8 +14,7 @@ class UserDetail extends GeneralFields {
   String? _about;
   String? _photo;
   String? _phone;
-
-  get profileImage => null;
+  bool _isMentor = false;
 
   String? getId() {
     return _id;
@@ -29,7 +28,7 @@ class UserDetail extends GeneralFields {
     return _userId;
   }
 
-  void setUserId(String userId) {
+  void setUserId(String? userId) {
     _userId = userId;
   }
 
@@ -81,6 +80,14 @@ class UserDetail extends GeneralFields {
     _phone = phone;
   }
 
+  bool isMentor() {
+    return _isMentor;
+  }
+
+  void setMentor(bool isMentor) {
+    _isMentor = isMentor;
+  }
+
   Map<String, dynamic> toMap() {
     Map<String, dynamic> map = toGeneralMap();
     map['id'] = getId();
@@ -91,6 +98,7 @@ class UserDetail extends GeneralFields {
     map['about'] = getAbout();
     map['photo'] = getPhoto();
     map['phone'] = getPhone();
+    map['isMentor'] = isMentor();
     return map;
   }
 
@@ -120,6 +128,9 @@ class UserDetail extends GeneralFields {
     }
     if (ControlHelper.checkMapValue(map, 'phone')) {
       setPhone(map['phone']);
+    }
+    if (ControlHelper.checkMapValue(map, 'isMentor')) {
+      setMentor(map['isMentor']);
     }
     return this;
   }

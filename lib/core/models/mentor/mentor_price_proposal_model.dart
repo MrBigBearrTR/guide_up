@@ -78,7 +78,7 @@ class MentorPriceProposal extends GeneralFields {
   Map<String, dynamic> toMap() {
     Map<String, dynamic> map = toGeneralMap();
     map['id'] = getId();
-    map['userid'] = getUserId();
+    map['userId'] = getUserId();
     map['mentorId'] = getMentorId();
     map['priceProposal'] = getPriceProposal();
     map['categoryId'] = getCategoryId();
@@ -94,8 +94,8 @@ class MentorPriceProposal extends GeneralFields {
     if (map.containsKey('id')) {
       setId(map['id']);
     }
-    if (map.containsKey('userid')) {
-      setUserId(map['userid']);
+    if (map.containsKey('userId')) {
+      setUserId(map['userId']);
     }
     if (map.containsKey('mentorId')) {
       setMentorId(map['mentorId']);

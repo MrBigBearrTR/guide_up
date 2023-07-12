@@ -3,7 +3,6 @@ import '../../../core/constant/firestore_collectioon_constant.dart';
 import '../../../core/models/users/user_education/user_education_model.dart';
 
 class UserEducationInformationRepository {
-
   late final CollectionReference<Map<String, dynamic>>
   _userEducationInformationCollections;
 

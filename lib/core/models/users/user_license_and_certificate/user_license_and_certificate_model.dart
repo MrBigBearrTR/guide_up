@@ -5,12 +5,12 @@ import '../../../utils/control_helper.dart';
 class UserLicenseAndCertificate extends GeneralFields {
   String? _id;
   String? _userId;
-  String? _name;
+  String? _licenseName;
   String? _organization;
   String? _issueDate;
   String? _expiryDate;
-  String? _qualificationId;
-  String? _qualificationUrl;
+  String? _authorizationId;
+  String? _authorizationUrl;
 
   String? getId() {
     return _id;
@@ -28,12 +28,12 @@ class UserLicenseAndCertificate extends GeneralFields {
     _userId = userId;
   }
 
-  String? getName() {
-    return _name;
+  String? getLicenseName() {
+    return _licenseName;
   }
 
-  void setName(String name) {
-    _name = name;
+  void setLicenseName(String licenseName) {
+    _licenseName = licenseName;
   }
 
   String? getOrganization() {
@@ -60,32 +60,32 @@ class UserLicenseAndCertificate extends GeneralFields {
     _expiryDate = expiryDate;
   }
 
-  String? getQualificationId() {
-    return _qualificationId;
+  String? getAuthorizationId() {
+    return _authorizationId;
   }
 
-  void setQualificationId(String qualificationId) {
-    _qualificationId = qualificationId;
+  void setAuthorizationId(String authorizationId) {
+    _authorizationId = authorizationId;
   }
 
-  String? getQualificationUrl() {
-    return _qualificationUrl;
+  String? getAuthorizationUrl() {
+    return _authorizationUrl;
   }
 
-  void setQualificationUrl(String qualificationUrl) {
-    _qualificationUrl = qualificationUrl;
+  void setAuthorizationUrl(String authorizationUrl) {
+    _authorizationUrl = authorizationUrl;
   }
 
   Map<String, dynamic> toMap() {
     Map<String, dynamic> map = toGeneralMap();
     map['id'] = getId();
     map['userId'] = getUserId();
-    map['name'] = getName();
+    map['licenseName'] = getLicenseName();
     map['organization'] = getOrganization();
     map['issueDate'] = getIssueDate();
     map['expiryDate'] = getExpiryDate();
-    map['qualificationId'] = getQualificationId();
-    map['qualificationUrl'] = getQualificationUrl();
+    map['authorizationId'] = getAuthorizationId();
+    map['authorizationUrl'] = getAuthorizationUrl();
 
     return map;
   }
@@ -99,8 +99,8 @@ class UserLicenseAndCertificate extends GeneralFields {
     if (ControlHelper.checkMapValue(map, 'userId')) {
       setUserId(map['userId']);
     }
-    if (ControlHelper.checkMapValue(map, 'name')) {
-      setName(map['name']);
+    if (ControlHelper.checkMapValue(map, 'licenseName')) {
+      setLicenseName(map['licenseName']);
     }
     if (ControlHelper.checkMapValue(map, 'organization')) {
       setOrganization(map['organization']);
@@ -111,11 +111,11 @@ class UserLicenseAndCertificate extends GeneralFields {
     if (ControlHelper.checkMapValue(map, 'expiryDate')) {
       setExpiryDate(map['expiryDate']);
     }
-    if (ControlHelper.checkMapValue(map, 'qualificationId')) {
-      setQualificationId(map['qualificationId']);
+    if (ControlHelper.checkMapValue(map, 'authorizationId')) {
+      setAuthorizationId(map['authorizationId']);
     }
-    if (ControlHelper.checkMapValue(map, 'qualificationUrl')) {
-      setQualificationUrl(map['qualificationUrl']);
+    if (ControlHelper.checkMapValue(map, 'authorizationUrl')) {
+      setAuthorizationUrl(map['authorizationUrl']);
     }
   }
 }

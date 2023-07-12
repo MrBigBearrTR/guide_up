@@ -24,7 +24,7 @@ class UserDetailService {
         filePath, userDetail.getUserId()!);
     if (uploadUrl.isNotEmpty) {
       userDetail.setPhoto(uploadUrl);
-      userDetail = await _userDetailRepository.update(userDetail);
+      userDetail = await update(userDetail);
 
       Mentor? mentor =
           await _mentorRepository.getMentorByUserId(userDetail.getUserId()!);
@@ -40,6 +40,11 @@ class UserDetailService {
   }
 
   Future<UserDetail> add(UserDetail userDetail) async {
+    if(userDetail.getPhoto()!=null) {
+      var uploadUrl = await _uploadRepository.addProfilePictureByUserId(
+          userDetail.getPhoto()!, userDetail.getUserId()!);
+      userDetail.setPhoto(uploadUrl);
+    }
     var detail = await _userDetailRepository.add(userDetail);
     const FlutterSecureStorage().write(
         key: SecureStrogeConstants.USER_DETAIL_KEY, value: detail.toJson());

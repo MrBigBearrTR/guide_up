@@ -6,10 +6,10 @@ import 'package:guide_up/core/constant/router_constants.dart';
 import 'package:guide_up/core/models/users/user_detail/user_detail_model.dart';
 import 'package:guide_up/core/utils/secure_storage_helper.dart';
 import 'package:guide_up/pages/mentor/card_pages/mentor_card.dart';
+import 'package:guide_up/service/user/user_service.dart';
 import 'package:guide_up/service/user/user_token_service.dart';
 
 import '../../core/constant/navigation_constants.dart';
-import '../../core/utils/user_helper.dart';
 import '../../core/utils/user_info_helper.dart';
 import '../../service/mentor/mentor_service.dart';
 
@@ -52,15 +52,8 @@ class _HomeScreenState extends State<HomeScreen> {
     }
   }
 
-  void controlForSplashScreen(BuildContext context) async {
-    if (await SecureStorageHelper().isFirstEnter()) {
-      Navigator.pushReplacementNamed(context, RouterConstants.splashScreenPage);
-    }
-  }
-
   @override
   Widget build(BuildContext context) {
-    controlForSplashScreen(context);
     return Scaffold(
       appBar: AppBar(
         backgroundColor: ColorConstants.theme1White,
@@ -80,15 +73,13 @@ class _HomeScreenState extends State<HomeScreen> {
             color: ColorConstants.appcolor1,
           ),
           IconButton(
-            onPressed: () {
-              Navigator.pushNamed(context, "/profile");
-            },
+            onPressed: () {},
             icon: const Icon(Icons.notifications),
             color: ColorConstants.appcolor1,
           ),
           GestureDetector(
             onTap: () async {
-              if (await UserHelper().checkUser()) {
+              if (await UserService().checkUser()) {
                 Navigator.pushNamed(context, RouterConstants.profilePage);
               } else {
                 Navigator.pushNamed(context, RouterConstants.loginPage);

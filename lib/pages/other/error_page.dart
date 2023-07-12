@@ -15,7 +15,7 @@ class _ErrorPageState extends State<ErrorPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Container(
-        height: MediaQuery.of(context).size.height,
+        height: MediaQuery.of(context).size.width,
         decoration: const BoxDecoration(
           gradient: LinearGradient(
             colors: [

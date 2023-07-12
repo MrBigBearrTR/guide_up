@@ -16,12 +16,12 @@ class FadeAnimation extends StatelessWidget {
       ..add(
         AnimationType.opacity,
         Tween(begin: 0.0, end: 1.0),
-        const Duration(milliseconds: 500),
+        const Duration(milliseconds: 50),
       )
       ..add(
         AnimationType.translateY,
         Tween(begin: -30.0, end: 1.0),
-        const Duration(milliseconds: 1000),
+        const Duration(milliseconds: 300),
       );
 
     return PlayAnimation<MultiTweenValues<AnimationType>>(

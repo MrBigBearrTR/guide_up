@@ -6,6 +6,7 @@ import 'package:guide_up/core/utils/user_info_helper.dart';
 import 'package:guide_up/service/user/user_detail/user_detail_service.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:intl/intl.dart';
+import 'package:intl_phone_field/intl_phone_field.dart';
 
 import '../../../core/constant/color_constants.dart';
 import '../../../core/constant/router_constants.dart';
@@ -43,6 +44,7 @@ class _MyProfileAccountState extends State<MyProfileAccount> {
   final _lastnameController = TextEditingController();
   final _usernameController = TextEditingController();
   final _emailController = TextEditingController();
+  final _phoneController = TextEditingController();
 
   // ignore: prefer_typing_uninitialized_variables
   late final _birthdayController;
@@ -217,6 +219,7 @@ class _MyProfileAccountState extends State<MyProfileAccount> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Container(
+        decoration: CustomMaterial.backgroundBoxDecoration,
         child: Padding(
           padding: const EdgeInsets.all(16.0),
           child: Stack(
@@ -384,6 +387,35 @@ class _MyProfileAccountState extends State<MyProfileAccount> {
                     controller: _birthdayController,
                   ),
                   const SizedBox(height: 16.0),
+                  IntlPhoneField(
+                    decoration: InputDecoration(
+                      labelText: 'Telefon Numarası',  // Telefon numarası alanının etiketi
+                      labelStyle: GoogleFonts.nunito(
+                        color: (_phoneController.value.text.isNotEmpty)
+                            ? ColorConstants.theme1DarkBlue
+                            : ColorConstants.warningDark,
+                      ),
+                      border: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(8.0),  // Kenarlık şeklini ayarla
+                      ),
+                      focusedBorder: OutlineInputBorder(
+                        borderSide: BorderSide(
+                          color: (_phoneController.value.text.isNotEmpty)
+                              ? ColorConstants.theme1DarkBlue
+                              : ColorConstants.warningDark,
+                        ),
+                        borderRadius: BorderRadius.circular(8.0),  // Fokuslanmış kenarlık şeklini ayarla
+                      ),
+                    ),
+                    controller: _phoneController,  // Telefon numarası değerini tutmak için bir controller atanır
+                    initialCountryCode: 'TR',  // İlk açıldığında görünecek ülke kodu
+                    onChanged: (phone) {
+                      setState(() {
+                        _phoneController.text = phone.completeNumber;  // Telefon numarası değiştiğinde controller'ı güncelle
+                      });
+                    },
+                  ),
+                  const SizedBox(height: 16.0),
                   TextFormField(
                     decoration: InputDecoration(
                       enabled: false,
@@ -513,131 +545,104 @@ class _MyProfileAccountState extends State<MyProfileAccount> {
                     ],
                   ),
                   const SizedBox(height: 0.0),
-                  Container(
-                    width: 430,
-                    height: 60,
-                    color: ColorConstants.theme1PowderSkinOpacity,
-                    alignment: Alignment.topLeft,
-                    padding: const EdgeInsets.all(10),
-                    margin: const EdgeInsets.all(10),
+                  TextButton(
+                    onPressed: () {Navigator.pushNamed(
+                        context, RouterConstants.userEducationInformationList);
+                    },
+                    style: TextButton.styleFrom(
+                      backgroundColor: ColorConstants.theme1PowderSkinOpacity, // Arkaplan rengi
+                      padding: const EdgeInsets.all(20),
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(4), // Kenar yarıçapı
+                      ),
+                    ),
                     child: Row(
                       children: [
                         Text(
                           "Eğitim Bilgileri",
                           style: GoogleFonts.nunito(
+                            color: ColorConstants.theme2DarkBlue,
                             fontWeight: FontWeight.bold,
                           ),
                         ),
                         const Spacer(),
-                        IconButton(
-                          icon: const Icon(Icons.add),
-                          onPressed: () {
-                            Navigator.pushNamed(context,
-                                RouterConstants.userEducationInformationPage);
-                          },
-                        ),
-                        IconButton(
-                          icon: const Icon(Icons.edit),
-                          onPressed: () {
-                            // Kalem butonuna tıklandığında yapılacak işlemler
-                          },
-                        ),
                       ],
                     ),
                   ),
-                  const SizedBox(height: 0.0),
-                  Container(
-                    width: 430,
-                    height: 60,
-                    color: ColorConstants.theme1PowderSkinOpacity,
-                    alignment: Alignment.topLeft,
-                    padding: const EdgeInsets.all(10),
-                    margin: const EdgeInsets.all(10),
+                  const SizedBox(height: 8.0),
+                  TextButton(
+                    onPressed: () {Navigator.pushNamed(
+                          context, RouterConstants.userProjectList);
+                    },
+                    style: TextButton.styleFrom(
+                      backgroundColor: ColorConstants.theme1PowderSkinOpacity, // Arkaplan rengi
+                      padding: const EdgeInsets.all(20),
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(4), // Kenar yarıçapı
+                      ),
+                    ),
                     child: Row(
                       children: [
                         Text(
                           "Projelerim",
                           style: GoogleFonts.nunito(
+                            color: ColorConstants.theme2DarkBlue,
                             fontWeight: FontWeight.bold,
                           ),
                         ),
                         const Spacer(),
-                        IconButton(
-                          icon: const Icon(Icons.add),
-                          onPressed: () {
-                            Navigator.pushNamed(
-                                context, RouterConstants.userProjectPage);
-                          },
-                        ),
                       ],
                     ),
                   ),
-                  const SizedBox(height: 0.0),
-                  Container(
-                    width: 430,
-                    height: 60,
-                    color: ColorConstants.theme1PowderSkinOpacity,
-                    alignment: Alignment.topLeft,
-                    padding: const EdgeInsets.all(10),
-                    margin: const EdgeInsets.all(10),
+                  const SizedBox(height: 8.0),
+                  TextButton(
+                    onPressed: () {Navigator.pushNamed(
+                        context, RouterConstants.userAbilities);
+                    },
+                    style: TextButton.styleFrom(
+                      backgroundColor: ColorConstants.theme1PowderSkinOpacity, // Arkaplan rengi
+                      padding: const EdgeInsets.all(20),
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(4), // Kenar yarıçapı
+                      ),
+                    ),
                     child: Row(
                       children: [
                         Text(
                           "Yetenekler",
                           style: GoogleFonts.nunito(
+                            color: ColorConstants.theme2DarkBlue,
                             fontWeight: FontWeight.bold,
                           ),
                         ),
                         const Spacer(),
-                        IconButton(
-                          icon: const Icon(Icons.add),
-                          onPressed: () {
-                            Navigator.pushNamed(
-                                context, RouterConstants.userAbilities);
-                          },
-                        ),
                       ],
                     ),
                   ),
-                  const SizedBox(height: 16.0),
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        "Lisanslar ve sertifikalar",
-                        style: GoogleFonts.nunito(
-                          fontSize: 15,
-                          fontWeight: FontWeight.bold,
-                        ),
+                  const SizedBox(height: 8.0),
+                  TextButton(
+                    onPressed: () {Navigator.pushNamed(
+                        context, RouterConstants.licensesAndCertificatesPage);
+                    },
+                    style: TextButton.styleFrom(
+                      backgroundColor: ColorConstants.theme1PowderSkinOpacity, // Arkaplan rengi
+                      padding: const EdgeInsets.all(20),
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(4), // Kenar yarıçapı
                       ),
-                      const SizedBox(height: 8.0),
-                      Container(
-                        width: double.infinity,
-                        padding: const EdgeInsets.symmetric(vertical: 12.0),
-                        decoration: BoxDecoration(
-                          color: ColorConstants.theme1DarkBlue, // renk
-                          borderRadius: BorderRadius.circular(8.0),
-                          border: Border.all(
-                            color: ColorConstants.theme2Orange,
-                            // kenar çizgisi rengi
-                            width: 2.0, // kenar çizgisi kalınlığı
+                    ),
+                    child: Row(
+                      children: [
+                        Text(
+                          "Lisanslar ve sertifikalar",
+                          style: GoogleFonts.nunito(
+                            color: ColorConstants.theme2DarkBlue,
+                            fontWeight: FontWeight.bold,
                           ),
                         ),
-                        child: TextButton(
-                          onPressed: () {
-                            Navigator.pushNamed(context,
-                                RouterConstants.licensesAndCertificatesPage);
-                          },
-                          child: Text(
-                            'Lisans ve sertifika ekle  ',
-                            style: GoogleFonts.nunito(
-                              color: ColorConstants.itemWhite,
-                            ),
-
-                          ),
-                        ),
-                      ),
-                    ],
+                        const Spacer(),
+                      ],
+                    ),
                   ),
                   const SizedBox(height: 50.0),
                 ],
@@ -653,6 +658,8 @@ class _MyProfileAccountState extends State<MyProfileAccount> {
                     userModel!.setUsername(_usernameController.value.text);
                     userDetail!.setBirthday(selectedDate);
                     userDetail = await UserDetailService().update(userDetail!);
+                    userDetail!.setPhone(_phoneController.value.text);
+
                   },
                   style: ElevatedButton.styleFrom(
                     foregroundColor: ColorConstants.theme2Orange,
@@ -661,10 +668,12 @@ class _MyProfileAccountState extends State<MyProfileAccount> {
                       borderRadius: BorderRadius.circular(20.0),
                     ),
                   ),
-                  child: const Padding(
+                  child: Padding(
                     padding:
-                        EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
-                    child: Text("Kaydet"),
+                        const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
+                    child: Text("Kaydet",
+                      style: GoogleFonts.nunito(),
+                    ),
                   ),
                 ),
               ),
@@ -680,7 +689,8 @@ class _MyProfileAccountState extends State<MyProfileAccount> {
                   ),
                   child: InkWell(
                     onTap: () {
-                      Navigator.pop(context);
+                      Navigator.pushNamed(
+                          context, RouterConstants.profilePage);
                     },
                     child: const Icon(
                       Icons.arrow_back_rounded,
@@ -716,11 +726,14 @@ class _MyProfileAccountState extends State<MyProfileAccount> {
   void setValues() {
     _aboutController.text =
         ControlHelper.checkInputValue(userDetail!.getAbout());
-    _nameController.text = ControlHelper.checkInputValue(userDetail!.getName());
+    _nameController.text =
+        ControlHelper.checkInputValue(userDetail!.getName());
     _lastnameController.text =
         ControlHelper.checkInputValue(userDetail!.getSurname());
     _emailController.text =
         ControlHelper.checkInputValue(userModel!.getEmail());
+    _phoneController.text =
+        ControlHelper.checkInputValue(userDetail!.getPhone());
     _usernameController.text =
         ControlHelper.checkInputValue(userModel!.getUsername());
     if (userDetail!.getBirthday() != null) {

@@ -73,7 +73,7 @@ class Card extends GeneralFields {
   Map<String, dynamic> toMap() {
     Map<String, dynamic> map = toGeneralMap();
     map['id'] = getId();
-    map['userid'] = getUserId();
+    map['userId'] = getUserId();
     if (getEnPaymentCardType() != null) {
       map['enPaymentCardType'] = getEnPaymentCardType()!.name;
     }
@@ -90,8 +90,8 @@ class Card extends GeneralFields {
     if (map.containsKey('id')) {
       setId(map['id']);
     }
-    if (map.containsKey('userid')) {
-      setUserId(map['userid']);
+    if (map.containsKey('userId')) {
+      setUserId(map['userId']);
     }
     if (map.containsKey('enPaymentCardType')) {
       setEnPaymentCardType(

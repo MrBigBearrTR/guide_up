@@ -1,6 +1,8 @@
 import 'package:guide_up/core/models/general/general_fields_model.dart';
 
-/// [@author MrBigBear] 
+import '../../utils/control_helper.dart';
+
+/// [@author MrBigBear]
 class Mentee extends GeneralFields {
   String? _id;
   String? _userId;
@@ -78,10 +80,18 @@ class Mentee extends GeneralFields {
   Map<String, dynamic> toMap() {
     Map<String, dynamic> map = toGeneralMap();
     map['id'] = getId();
-    map['userid'] = getUserId();
+    map['userId'] = getUserId();
     map['mentorId'] = getMentorId();
-    map['startDate'] = getStartDate();
-    map['endDate'] = getEndDate();
+    if (getStartDate() != null) {
+      map['startDate'] = getStartDate().toString();
+    } else {
+      map['startDate'] = getStartDate();
+    }
+    if (getEndDate() != null) {
+      map['endDate'] = getEndDate().toString();
+    } else {
+      map['endDate'] =  getEndDate();
+    }
     map['price'] = getPrice();
     map['categoryId'] = getCategoryId();
     map['isApproval'] = isApproval();
@@ -91,28 +101,28 @@ class Mentee extends GeneralFields {
   toClass(Map<String, dynamic> map) {
     toGeneralClass(map);
 
-    if (map.containsKey('id')) {
+    if (ControlHelper.checkMapValue(map, 'id')) {
       setId(map['id']);
     }
-    if (map.containsKey('userid')) {
-      setUserId(map['userid']);
+    if (ControlHelper.checkMapValue(map, 'userId')) {
+      setUserId(map['userId']);
     }
-    if (map.containsKey('mentorId')) {
+    if (ControlHelper.checkMapValue(map, 'mentorId')) {
       setMentorId(map['mentorId']);
     }
-    if (map.containsKey('startDate')) {
-      setStartDate(map['startDate']);
+    if (ControlHelper.checkMapValue(map, 'startDate')) {
+      setStartDate(DateTime.parse(map['startDate']));
     }
-    if (map.containsKey('endDate')) {
-      setEndDate(map['endDate']);
+    if (ControlHelper.checkMapValue(map, 'endDate')) {
+      setEndDate(DateTime.parse(map['endDate']));
     }
-    if (map.containsKey('price')) {
+    if (ControlHelper.checkMapValue(map, 'price')) {
       setPrice(map['price']);
     }
-    if (map.containsKey('categoryId')) {
+    if (ControlHelper.checkMapValue(map, 'categoryId')) {
       setCategoryId(map['categoryId']);
     }
-    if (map.containsKey('isApproval')) {
+    if (ControlHelper.checkMapValue(map, 'isApproval')) {
       setApproval(map['isApproval']);
     }
   }

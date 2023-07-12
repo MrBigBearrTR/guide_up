@@ -7,21 +7,27 @@ class RouterConstants{
   static const String profilePage="/profile";
   static const String registerPage="/registerPage";
   static const String registerWithDetailPage="/registerWithDetailPage";
+  static const String mentorGuideUpRevenuePage="/mentorGuideUpRevenuePage";
   static const String myProfileAccountPage="/myProfileAccountState";
   static const String generalSettingsPage="/generalSettingsPage";
   static const String userAbilities="/userAbilities";
   static const String userProjectPage="/userProjectPage";
+  static const String userProjectList="/userProjectList";
   static const String userEducationInformationPage="/userEducationInformationPage";
+  static const String userEducationInformationList="/userEducationInformationList";
   static const String helpAndSupport="/helpAndSupport";
   static const String aboutUs="/aboutUs";
   static const String messagesPage="/messagesPage";
   static const String licensesAndCertificatesPage="/licensesAndCertificatesPage";
   static const String mentorPreview = '/mentorPreview';
+  static const String licenseAndCertificateAddPage="/licenseAndCertificateAddPage";
+
 
   static const String guideAdd="/guideAdd";
+  static const String guideHomePage="/guideHomePage";
 
   static const String myMentors = 'myMentors';
-  static const String mentorFavourite = 'mentorFavourite';
+  static const String menteeFavouriteMentorPage  = 'MenteeFavouriteMentorPage ';
   static const String myCommends = 'myCommends';
   static const String myPayments = 'myPayments';
 

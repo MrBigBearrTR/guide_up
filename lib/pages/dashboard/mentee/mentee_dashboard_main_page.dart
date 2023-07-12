@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:guide_up/core/constant/color_constants.dart';
 import 'package:guide_up/core/constant/router_constants.dart';
+import 'package:guide_up/core/models/mentor/mentor_favourite_model.dart';
 import 'package:guide_up/core/models/users/user_detail/user_detail_model.dart';
 import 'package:guide_up/core/utils/secure_storage_helper.dart';
 import 'package:guide_up/repository/mentee/mentee_repository.dart';
@@ -11,7 +12,6 @@ import 'package:guide_up/service/mentee/mentee_service.dart';
 
 import '../../../core/utils/user_helper.dart';
 import '../../../core/utils/user_info_helper.dart';
-import 'card/mentee_commend_card.dart';
 
 enum EnCardType { mentor, favourite, comment, payment }
 
@@ -25,7 +25,6 @@ class MenteeDashboardMainPage extends StatefulWidget {
 
 class _MenteeDashboardMainPageState extends State<MenteeDashboardMainPage> {
   UserDetail? userDetail;
-  Future<int>? menteeCountFuture;
 
   @override
   void initState() {
@@ -39,8 +38,6 @@ class _MenteeDashboardMainPageState extends State<MenteeDashboardMainPage> {
       detail = null;
     } else {
       userDetail = detail;
-      menteeCountFuture = MenteeRepository()
-          .getMenteeListCountByUserId(userDetail!.getUserId()!);
       setState(() {});
     }
   }
@@ -48,17 +45,6 @@ class _MenteeDashboardMainPageState extends State<MenteeDashboardMainPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        centerTitle: true,
-        title: const Text(
-          'Dashboard',
-          style: TextStyle(
-            color: ColorConstants.appcolor1,
-            fontSize: 25,
-          ),
-        ),
-        backgroundColor: ColorConstants.theme1White,
-      ),
       backgroundColor: ColorConstants.theme1White,
       body: SafeArea(
         child: Column(
@@ -139,11 +125,12 @@ class _MenteeDashboardMainPageState extends State<MenteeDashboardMainPage> {
                     children: [
                       // Süre(Duration)
 
-                      ...createAnalysisCard("Mentorlarım", EnCardType.mentor),
+                      ...createAnalysisCard(
+                          "Mentorlarım", EnCardType.mentor, context),
 
                       // Favoriler
                       ...createAnalysisCard(
-                          "Favorilerim", EnCardType.favourite),
+                          "Favorilerim", EnCardType.favourite, context),
                     ],
                   ),
                   const SizedBox(height: 20),
@@ -151,10 +138,12 @@ class _MenteeDashboardMainPageState extends State<MenteeDashboardMainPage> {
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     children: [
                       // Yorumlar
-                      ...createAnalysisCard("Yorumlarım", EnCardType.comment),
+                      ...createAnalysisCard(
+                          "Yorumlarım", EnCardType.comment, context),
 
                       // Ödemeler
-                      ...createAnalysisCard("Ödemeler", EnCardType.payment),
+                      ...createAnalysisCard(
+                          "Ödemeler", EnCardType.payment, context),
                     ],
                   ),
                 ],
@@ -165,7 +154,7 @@ class _MenteeDashboardMainPageState extends State<MenteeDashboardMainPage> {
               'Yorumlarım',
               style: TextStyle(fontSize: 20),
             ),
-            Expanded(
+            /* Expanded(
               child: FutureBuilder(
                 builder: (context, snapshot) {
                   if (snapshot.connectionState == ConnectionState.waiting) {
@@ -200,7 +189,7 @@ class _MenteeDashboardMainPageState extends State<MenteeDashboardMainPage> {
                 future: MentorCommendRepository()
                     .getMentorCommendListByUserId(getUserId()),
               ),
-            ),
+            ),*/
           ],
         ),
       ),
@@ -215,9 +204,10 @@ class _MenteeDashboardMainPageState extends State<MenteeDashboardMainPage> {
     }
   }
 
-  List<Widget> createAnalysisCard(String title, EnCardType cardType) {
+  List<Widget> createAnalysisCard(
+      String title, EnCardType cardType, BuildContext context) {
     return [
-      getAvatar(cardType),
+      getAvatar(cardType, context),
       Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -277,7 +267,7 @@ class _MenteeDashboardMainPageState extends State<MenteeDashboardMainPage> {
     return 0;
   }
 
-  Widget getAvatar(EnCardType cardType) {
+  Widget getAvatar(EnCardType cardType, BuildContext context) {
     switch (cardType) {
       case EnCardType.mentor:
         return CircleAvatar(
@@ -294,10 +284,33 @@ class _MenteeDashboardMainPageState extends State<MenteeDashboardMainPage> {
         );
       case EnCardType.favourite:
         return CircleAvatar(
-          backgroundColor: ColorConstants.theme2White,
+          backgroundColor: const Color.fromARGB(255, 25, 20, 20),
           child: InkWell(
             onTap: () {
-              Navigator.pushNamed(context, RouterConstants.mentorFavourite);
+              //Fav mentor nesneleri
+              MentorFavourite mentor1 = MentorFavourite();
+              //Helin Güler
+              mentor1.setId('KvlPcnqNXhrkFlZWgILD');
+              mentor1.setUserId('rtTYc0vV0d7tGIfRh9lW');
+              mentor1.setMentorId('E0WHTDbpa3q7mwnzITZh');
+              mentor1.setRate(5);
+
+              //Kerem Uzuner
+              mentor1.setId('rU6GRGvovQsblsQuXaeR');
+              mentor1.setUserId('1O7SHUlYl7J39FyI3Kch');
+              mentor1.setMentorId('ZeyMyRkhDr2tXo5jEzww');
+              mentor1.setRate(5);
+
+              //Ali Yalçın
+              mentor1.setId('Jw25Si89JWMvMosPi5Ll');
+              mentor1.setUserId('hWWvrRWX8if981bEJZGw');
+              mentor1.setMentorId('rzBmc8UuMlDSUTpyA3PJ');
+              mentor1.setRate(5);
+              
+              MentorFavouriteRepository().add(mentor1);
+
+              Navigator.pushNamed(
+                  context, RouterConstants.menteeFavouriteMentorPage);
             },
             child: const Icon(
               Icons.person,
