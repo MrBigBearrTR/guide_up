@@ -6,6 +6,9 @@ import '../../utils/control_helper.dart';
 class Mentee extends GeneralFields {
   String? _id;
   String? _userId;
+  String? _name;
+  String? _surname;
+  String? _photo;
   String? _mentorId;
   DateTime? _startDate;
   DateTime? _endDate;
@@ -27,6 +30,30 @@ class Mentee extends GeneralFields {
 
   void setUserId(String userId) {
     _userId = userId;
+  }
+
+  String? getName() {
+    return _name;
+  }
+
+  void setName(String name) {
+    _name = name;
+  }
+
+  String? getSurname() {
+    return _surname;
+  }
+
+  void setSurname(String surname) {
+    _surname = surname;
+  }
+
+  String? getPhoto() {
+    return _photo;
+  }
+
+  void setPhoto(String photo) {
+    _photo = photo;
   }
 
   String? getMentorId() {
@@ -81,6 +108,9 @@ class Mentee extends GeneralFields {
     Map<String, dynamic> map = toGeneralMap();
     map['id'] = getId();
     map['userId'] = getUserId();
+    map['name'] = getName();
+    map['surname'] = getSurname();
+    map['photo'] = getPhoto();
     map['mentorId'] = getMentorId();
     if (getStartDate() != null) {
       map['startDate'] = getStartDate().toString();
@@ -90,7 +120,7 @@ class Mentee extends GeneralFields {
     if (getEndDate() != null) {
       map['endDate'] = getEndDate().toString();
     } else {
-      map['endDate'] =  getEndDate();
+      map['endDate'] = getEndDate();
     }
     map['price'] = getPrice();
     map['categoryId'] = getCategoryId();
@@ -106,6 +136,15 @@ class Mentee extends GeneralFields {
     }
     if (ControlHelper.checkMapValue(map, 'userId')) {
       setUserId(map['userId']);
+    }
+    if (ControlHelper.checkMapValue(map, 'name')) {
+      setName(map['name']);
+    }
+    if (ControlHelper.checkMapValue(map, 'surname')) {
+      setSurname(map['surname']);
+    }
+    if (ControlHelper.checkMapValue(map, 'photo')) {
+      setPhoto(map['photo']);
     }
     if (ControlHelper.checkMapValue(map, 'mentorId')) {
       setMentorId(map['mentorId']);
