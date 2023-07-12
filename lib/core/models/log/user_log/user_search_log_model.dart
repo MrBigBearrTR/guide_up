@@ -42,7 +42,7 @@ class UserSearchLog extends GeneralFields {
   Map<String, dynamic> toMap() {
     Map<String, dynamic> map = toGeneralMap();
     map['id'] = getId();
-    map['userid'] = getUserId();
+    map['userId'] = getUserId();
     map['searchText'] = getSearchText();
     map['categoriesIds'] = getCategoriesIds();
     return map;
@@ -54,8 +54,8 @@ class UserSearchLog extends GeneralFields {
     if (map.containsKey('id')) {
       setId(map['id']);
     }
-    if (map.containsKey('userid')) {
-      setUserId(map['userid']);
+    if (map.containsKey('userId')) {
+      setUserId(map['userId']);
     }
     if (map.containsKey('searchText')) {
       setSearchText(map['searchText']);
