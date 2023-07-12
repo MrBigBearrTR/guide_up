@@ -29,8 +29,8 @@ class _GuideHomePageState extends State<GuideHomePage> {
   }
 
   void _scrollListener() {
-    if (_scrollController.offset ==
-            _scrollController.position.minScrollExtent &&
+    if (_scrollController.offset >=
+        _scrollController.position.maxScrollExtent &&
         !_scrollController.position.outOfRange) {
       setState(() {});
     }

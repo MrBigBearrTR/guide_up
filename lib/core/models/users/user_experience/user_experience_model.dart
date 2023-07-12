@@ -6,6 +6,7 @@ import 'package:guide_up/core/enumeration/extensions/ExLocationType.dart';
 import 'package:guide_up/core/models/general/general_fields_model.dart';
 
 import '../../../enumeration/extensions/ExLanguage.dart';
+import '../../../utils/control_helper.dart';
 
 /// [@author MrBigBear] 
 class UserExperience extends GeneralFields {
@@ -140,8 +141,16 @@ class UserExperience extends GeneralFields {
     if (getEnLocationType() != null) {
       map['enLocationType'] = getEnLocationType()!.name;
     }
-    map['startDate'] = getStartDate();
-    map['endDate'] = getEndDate();
+    if (getStartDate() != null) {
+      map['startDate'] = getStartDate().toString();
+    } else {
+      map['startDate'] = getStartDate();
+    }
+    if (getEndDate() != null) {
+      map['endDate'] = getEndDate().toString();
+    } else {
+      map['endDate'] = getEndDate();
+    }
     map['industry'] = getIndustry();
     map['description'] = getDescription();
     map['link'] = getLink();
@@ -154,44 +163,45 @@ class UserExperience extends GeneralFields {
   toClass(Map<String, dynamic> map) {
     toGeneralClass(map);
 
-    if (map.containsKey('id')) {
+    if (ControlHelper.checkMapValue(map, 'id')) {
       setId(map['id']);
     }
-    if (map.containsKey('userId')) {
+    if (ControlHelper.checkMapValue(map, 'userId')) {
       setUserId(map['userId']);
     }
-    if (map.containsKey('companyName')) {
+    if (ControlHelper.checkMapValue(map, 'companyName')) {
       setCompanyName(map['companyName']);
     }
-    if (map.containsKey('jobTitle')) {
+    if (ControlHelper.checkMapValue(map, 'jobTitle')) {
       setJobTitle(map['jobTitle']);
     }
-    if (map.containsKey('enEmploymentType')) {
+    if (ControlHelper.checkMapValue(map, 'enEmploymentType')) {
       setEnEmploymentType(ExEmploymentType.getEnum(map['enEmploymentType'])!);
     }
-    if (map.containsKey('location')) {
+    if (ControlHelper.checkMapValue(map, 'location')) {
       setLocation(map['location']);
     }
-    if (map.containsKey('enLocationType(')) {
+    if (ControlHelper.checkMapValue(map, 'enLocationType')) {
       setEnLocationType(ExLocationType.getEnum(map['enLocationType'])!);
     }
-    if (map.containsKey('startDate')) {
-      setStartDate(map['startDate']);
+    if (ControlHelper.checkMapValue(map, 'startDate')) {
+      setStartDate(DateTime.parse(map['startDate']));
     }
-    if (map.containsKey('endDate')) {
-      setEndDate(map['endDate']);
+    if (ControlHelper.checkMapValue(map, 'endDate')) {
+      setEndDate(DateTime.parse(map['endDate']));
     }
-    if (map.containsKey('industry')) {
+    if (ControlHelper.checkMapValue(map, 'industry')) {
       setIndustry(map['industry']);
     }
-    if (map.containsKey('description')) {
+    if (ControlHelper.checkMapValue(map, 'description')) {
       setDescription(map['description']);
     }
-    if (map.containsKey('link')) {
+    if (ControlHelper.checkMapValue(map, 'link')) {
       setLink(map['link']);
     }
-    if (map.containsKey('enLanguage')) {
+    if (ControlHelper.checkMapValue(map, 'enLanguage')) {
       setEnLanguage(ExLanguage.getEnum(map['enLanguage'])!);
     }
+    return this;
   }
 }
