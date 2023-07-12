@@ -7,6 +7,7 @@ class RouterConstants{
   static const String profilePage="/profile";
   static const String registerPage="/registerPage";
   static const String registerWithDetailPage="/registerWithDetailPage";
+  static const String mentorGuideUpRevenuePage="/mentorGuideUpRevenuePage";
   static const String myProfileAccountPage="/myProfileAccountState";
   static const String generalSettingsPage="/generalSettingsPage";
   static const String userAbilities="/userAbilities";

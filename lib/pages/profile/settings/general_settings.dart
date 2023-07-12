@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 import '../../../core/constant/color_constants.dart';
+import '../../../core/constant/router_constants.dart';
 import '../../../ui/material/custom_material.dart';
 
 void main() {
@@ -188,7 +189,8 @@ class _GeneralSettingsState extends State<GeneralSettings> {
             ),
             ElevatedButton(
               onPressed: () {
-                // Şifreyi değiştirmeyi onayla butonuna basıldığında yapılacak işlemler
+                Navigator.pushNamed(
+                    context, RouterConstants.mentorGuideUpRevenuePage);
                 setState(() {
                   _isPasswordChanged = true;
                 });
