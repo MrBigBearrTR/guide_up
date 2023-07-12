@@ -3,7 +3,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:guide_up/core/constant/router_constants.dart';
 import 'package:guide_up/core/dto/post/post_card_view.dart';
 import 'package:guide_up/core/models/users/user_detail/user_detail_model.dart';
-import 'package:guide_up/pages/post/post_card.dart';
+import 'package:guide_up/pages/guide/card/gude_card.dart';
 import 'package:guide_up/service/post/post_service.dart';
 import 'package:guide_up/ui/material/custom_material.dart';
 
@@ -19,12 +19,22 @@ class GuideHomePage extends StatefulWidget {
 
 class _GuideHomePageState extends State<GuideHomePage> {
   bool _isLogIn = false;
-  UserDetail? userDetail;
+  String _userId = "";
+  final ScrollController _scrollController = ScrollController();
 
   @override
   void initState() {
     super.initState();
     getUserDetail();
+    _scrollController.addListener(_scrollListener);
+  }
+
+  void _scrollListener() {
+    if (_scrollController.offset ==
+            _scrollController.position.minScrollExtent &&
+        !_scrollController.position.outOfRange) {
+      setState(() {});
+    }
   }
 
   @override
@@ -64,14 +74,19 @@ class _GuideHomePageState extends State<GuideHomePage> {
                         Navigator.push(
                           context,
                           MaterialPageRoute(
-                            builder: (context) => PostDetailPage(postCardView: postCardView),
+                            builder: (context) =>
+                                PostDetailPage(postCardView: postCardView),
                           ),
                         );
                       },
-                      child: PostCard(postCardView: postCardView),
+                      child: GuideCard(
+                        postCardView: postCardView,
+                        userId: _userId,
+                      ),
                     );
                   },
                   itemCount: snapshot.data!.length,
+                  controller: _scrollController,
                 );
               } else {
                 return const Center(
@@ -80,7 +95,7 @@ class _GuideHomePageState extends State<GuideHomePage> {
               }
             }
           },
-          future: PostService().getList(0),
+          future: PostService().getList(_userId, 0),
         ),
       ),
       floatingActionButton: Visibility(
@@ -107,12 +122,13 @@ class _GuideHomePageState extends State<GuideHomePage> {
     if (detail == null) {
       detail = null;
     } else {
-      userDetail = detail;
+      _userId = detail.getUserId()!;
       _isLogIn = true;
       setState(() {});
     }
   }
 }
+
 class PostDetailPage extends StatelessWidget {
   final PostCardView postCardView;
 
@@ -122,23 +138,24 @@ class PostDetailPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Guide'),
+        title: const Text('Guide'),
       ),
       body: Container(
+        decoration: CustomMaterial.backgroundBoxDecoration,
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             ClipRRect(
-              borderRadius: BorderRadius.only(
+              borderRadius: const BorderRadius.only(
                 topLeft: Radius.circular(16.0),
                 topRight: Radius.circular(16.0),
               ),
               child: Container(
-                padding: EdgeInsets.all(16.0),
+                padding: const EdgeInsets.all(16.0),
                 color: Colors.blue, // Background color for the title section
                 child: Text(
                   ('${postCardView.topic}'),
-                  style: TextStyle(
+                  style: const TextStyle(
                     fontSize: 24,
                     fontWeight: FontWeight.bold,
                     color: Colors.white, // Text color for the title
@@ -146,25 +163,26 @@ class PostDetailPage extends StatelessWidget {
                 ),
               ),
             ),
-            SizedBox(height: 8),
+            const SizedBox(height: 8),
             ClipRRect(
-              borderRadius: BorderRadius.only(
+              borderRadius: const BorderRadius.only(
                 bottomLeft: Radius.circular(16.0),
                 bottomRight: Radius.circular(16.0),
               ),
               child: Container(
-                padding: EdgeInsets.all(16.0),
-                color: Colors.orange, // Background color for the content section
+                padding: const EdgeInsets.all(16.0),
+                color: Colors.orange,
+                // Background color for the content section
                 child: Text(
                   (' ${postCardView.content}'),
-                  style: TextStyle(
+                  style: const TextStyle(
                     fontSize: 16,
                     color: Colors.white, // Text color for the content
                   ),
                 ),
               ),
             ),
-            SizedBox(height: 16),
+            const SizedBox(height: 16),
             if (postCardView.photo != null)
               ClipRRect(
                 borderRadius: BorderRadius.circular(8.0),

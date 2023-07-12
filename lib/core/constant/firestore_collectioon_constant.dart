@@ -23,6 +23,7 @@ class FirestoreCollectionConstant {
   static const String post = "post";
   static const String postCategories = "postCategories";
   static const String postLikeSave = "postLikeSave";
+  static const String postCommend = "postCommend";
 
   static const String conversation = "conversation";
   static const String messages = "messages";

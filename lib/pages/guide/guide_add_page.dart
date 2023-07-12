@@ -20,7 +20,6 @@ class GuideAddPage extends StatefulWidget {
 class _GuideAddPageState extends State<GuideAddPage> {
   late TextEditingController _topicController;
   late TextEditingController _contentController;
-  late TextEditingController _photoController;
   final _formKey = GlobalKey<FormState>();
   File? _guidePicture;
   UserDetail? userDetail;
@@ -33,7 +32,6 @@ class _GuideAddPageState extends State<GuideAddPage> {
     super.initState();
     _topicController = TextEditingController();
     _contentController = TextEditingController();
-    _photoController = TextEditingController();
   }
 
   @override
@@ -68,7 +66,7 @@ class _GuideAddPageState extends State<GuideAddPage> {
     final pickedImage = await imagePicker.pickImage(
       source: ImageSource.gallery,
       maxWidth: 500,
-      maxHeight:500,
+      maxHeight: 500,
     );
     if (pickedImage != null) {
       setState(() {
@@ -84,7 +82,6 @@ class _GuideAddPageState extends State<GuideAddPage> {
 
   @override
   Widget build(BuildContext context) {
-
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,
@@ -99,7 +96,6 @@ class _GuideAddPageState extends State<GuideAddPage> {
         ),
       ),
       backgroundColor: ColorConstants.theme2White,
-
       body: SingleChildScrollView(
         child: Padding(
           padding: const EdgeInsets.all(8.0),
@@ -138,26 +134,26 @@ class _GuideAddPageState extends State<GuideAddPage> {
                 const SizedBox(height: 16.0),
                 TextFormField(
                   decoration: InputDecoration(
-                    labelText: 'Metin Giriniz',
-                    labelStyle: GoogleFonts.nunito(
-                      color: (_contentController.value.text.isNotEmpty)
-                          ? ColorConstants.theme1DarkBlue
-                          : ColorConstants.warningDark,
-                    ),
-                    border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(8.0),
-                    ),
-                    focusedBorder: OutlineInputBorder(
-                      borderSide: BorderSide(
+                      labelText: 'Metin Giriniz',
+                      labelStyle: GoogleFonts.nunito(
                         color: (_contentController.value.text.isNotEmpty)
                             ? ColorConstants.theme1DarkBlue
                             : ColorConstants.warningDark,
                       ),
-                      borderRadius: BorderRadius.circular(8.0),
-                    ),
-                      contentPadding: EdgeInsets.symmetric(vertical: 20)                  ),
+                      border: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(8.0),
+                      ),
+                      focusedBorder: OutlineInputBorder(
+                        borderSide: BorderSide(
+                          color: (_contentController.value.text.isNotEmpty)
+                              ? ColorConstants.theme1DarkBlue
+                              : ColorConstants.warningDark,
+                        ),
+                        borderRadius: BorderRadius.circular(8.0),
+                      ),
+                      contentPadding: EdgeInsets.symmetric(vertical: 20)),
                   maxLines: 5,
-                  minLines: 5,
+                  minLines: 2,
                   controller: _contentController,
                   cursorColor: ColorConstants.theme1DarkBlue,
                   onChanged: (value) {
@@ -170,25 +166,19 @@ class _GuideAddPageState extends State<GuideAddPage> {
                   child: Stack(
                     alignment: Alignment.center,
                     children: [
-                      Image(image: getImage(),
-                      width: MediaQuery.of(context).size.width,
-                      height: MediaQuery.of(context).size.height,
+                      Image(
+                        image: getImage(),
+                        width: MediaQuery.of(context).size.width,
+                        height: MediaQuery.of(context).size.width / 2,
                       ),
                     ],
                   ),
                 ),
-                const SizedBox(height: 16.0),
-                if (_guidePicture != null)
-                  Image.file(
-                    _guidePicture!,
-                    width: 400,
-                    height: 400,
-                  ),
                 const SizedBox(
                   height: 20,
                 ),
                 SizedBox(
-                 // width: 460,
+                  // width: 460,
                   child: ElevatedButton(
                     onPressed: () {
                       createPost(context);
@@ -239,7 +229,7 @@ class _GuideAddPageState extends State<GuideAddPage> {
       if (_guidePicture != null) {
         return FileImage(_guidePicture!);
       } else {
-        return const AssetImage( "asset/img/Guide_photo_add" );
+        return const AssetImage("assets/img/Guide_photo_add.png");
       }
     } else {
       return NetworkImage(post!.getPhoto()!);

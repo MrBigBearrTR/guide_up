@@ -56,7 +56,18 @@ class _HomeScreenState extends State<HomeScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: ColorConstants.theme1White,
+        backgroundColor: ColorConstants.theme1BrightCloudBlue,
+        flexibleSpace: Container(
+          decoration:  BoxDecoration(
+            color: ColorConstants.theme1BrightCloudBlue, // Sabit arkaplan rengi
+            boxShadow: [BoxShadow(
+              color: Colors.grey.withOpacity(0.2), // Gölge rengi
+              spreadRadius: 5, // Gölge yayılma yarıçapı
+              blurRadius: 4, // Gölge bulanıklık yarıçapı
+              offset: Offset(0, 2), // Gölge konumu (x,y)
+            ),],
+          ),
+        ),
         automaticallyImplyLeading: false,
         title: const Text(
           'G u i d e  U p',
@@ -168,7 +179,9 @@ class _HomeScreenState extends State<HomeScreen> {
                                 final mentor = snapshot.data![index];
                                 return GestureDetector(
                                   onTap: () {
-                                    Navigator.pushNamed(context, RouterConstants.mentorPreview, arguments: mentor);
+                                    Navigator.pushNamed(
+                                        context, RouterConstants.mentorPreview,
+                                        arguments: mentor);
                                   },
                                   child: MentorCard(mentor: mentor),
                                 );

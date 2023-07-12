@@ -11,18 +11,21 @@ import 'package:guide_up/repository/user/user_detail/user_detail_repository.dart
 import '../../core/models/category/category_model.dart';
 import '../../core/models/post/post_model.dart';
 import '../../core/utils/repository_helper.dart';
+import '../../repository/post/commend/commend_repository.dart';
 
 class PostService {
   late PostLikeSaveRepository _postLikeSaveRepository;
   late PostRepository _postRepository;
   late UserDetailRepository _userDetailRepository;
   late PostCategoriesRepository _postCategoriesRepository;
+  late CommendRepository _commendRepository;
 
   PostService() {
     _postLikeSaveRepository = PostLikeSaveRepository();
     _postRepository = PostRepository();
     _userDetailRepository = UserDetailRepository();
     _postCategoriesRepository = PostCategoriesRepository();
+    _commendRepository = CommendRepository();
   }
 
   Future<List<Post>> getMostPopularPostList(int limit) async {
@@ -71,8 +74,9 @@ class PostService {
 
     return postList;
   }
-  
-  Future<List<Post>> searchPostList(String text,List<Category> categoryList,int limit)async{
+
+  Future<List<Post>> searchPostList(
+      String text, List<Category> categoryList, int limit) async {
     List<Post> postList = [];
     List<Post> tempUniquePostList = [];
     List<Post> tempUniqueCategoryPostList = [];
@@ -84,7 +88,7 @@ class PostService {
       List<Post> tempPostList = [];
       for (var searchText in searchTextList) {
         String useSerchText =
-        RepositoryHelper.capitalizeFirstLetter(searchText);
+            RepositoryHelper.capitalizeFirstLetter(searchText);
 
         if (searchText.isNotEmpty) {
           tempPostList.addAll(await _postRepository.searchBySearchColumn(
@@ -142,54 +146,82 @@ class PostService {
     return postList;
   }
 
-  Future<List<PostCardView>> searchPostCardViewList(String text,List<Category> categoryList,int limit)async {
+  Future<List<PostCardView>> searchPostCardViewList(String text,
+      List<Category> categoryList, String? userId, int limit) async {
     List<PostCardView> postCardViewList = [];
 
     List<Post> postList = await searchPostList(text, categoryList, limit);
-    postCardViewList.addAll(await convertToPostCardViewModel(postList));
+    postCardViewList.addAll(await convertToPostCardViewModel(postList, userId));
 
     return postCardViewList;
   }
 
-  Future<List<PostCardView>> getMostPopularPostCardViewList(int limit) async {
+  Future<List<PostCardView>> getMostPopularPostCardViewList(
+      String? userId, int limit) async {
     List<PostCardView> postCardViewList = [];
 
     List<Post> postList = await getMostPopularPostList(limit);
-    postCardViewList.addAll(await convertToPostCardViewModel(postList));
+    postCardViewList.addAll(await convertToPostCardViewModel(postList, userId));
 
     return postCardViewList;
   }
 
-  Future<List<PostCardView>> getList(int limit ) async{
-    return convertToPostCardViewModel(await _postRepository.getList(limit));
-
+  Future<List<PostCardView>> getList(String? userId, int limit) async {
+    return convertToPostCardViewModel(
+        await _postRepository.getList(limit), userId);
   }
 
+  Future<List<PostCardView>> convertToPostCardViewModel(
+      List<Post> postList, String? userId) async {
+    List<PostCardView> postCardViewList = [];
 
-
-    Future<List<PostCardView>> convertToPostCardViewModel(List<Post> postList) async {
-      List<PostCardView> postCardViewList = [];
-
-      for (var post in postList) {
+    for (var post in postList) {
+      if (post.getUserId() != null && post.getId() != null) {
         PostCardView cardView = PostCardView();
         UserDetail? userDetail =
-        await _userDetailRepository.getUserByUserId(post.getUserId()!);
+            await _userDetailRepository.getUserByUserId(post.getUserId()!);
 
         if (userDetail != null) {
           cardView.userFullName =
-          "${userDetail.getName()!} ${userDetail.getSurname()!}";
+              "${userDetail.getName()!} ${userDetail.getSurname()!}";
           cardView.userPhoto = userDetail.getPhoto();
         }
 
+        cardView.id = post.getId()!;
         cardView.isThereCategory = post.isThereCategory();
         cardView.topic = post.getTopic();
         cardView.content = post.getContent();
         cardView.photo = post.getPhoto();
 
+        int likeCount = await _postLikeSaveRepository
+            .getLikeSavePostListCountByUserId(post.getId()!,EnLikeSaveType.like);
+        int commendCount =
+            await _commendRepository.getPostCommendCount(post.getId()!);
+
+        cardView.likeCount = likeCount;
+        cardView.commentCount = commendCount;
+
+        if (userId != null && userId.isNotEmpty) {
+
+          PostLikeSave? likeModel = await _postLikeSaveRepository
+              .getByUserIdAndPostId(userId, post.getId()!, EnLikeSaveType.like);
+          if (likeModel != null) {
+            cardView.isLikeUser = true;
+            cardView.likeId = likeModel.getId()!;
+          }
+
+          PostLikeSave? saveModel = await _postLikeSaveRepository
+              .getByUserIdAndPostId(userId, post.getId()!, EnLikeSaveType.save);
+          if (saveModel != null) {
+            cardView.isSaveUser = true;
+            cardView.saveId = saveModel.getId()!;
+          }
+        }
+
         postCardViewList.add(cardView);
       }
-
-      return postCardViewList;
     }
 
+    return postCardViewList;
+  }
 }

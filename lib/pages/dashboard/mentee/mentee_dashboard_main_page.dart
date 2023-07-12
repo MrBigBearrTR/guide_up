@@ -12,6 +12,7 @@ import 'package:guide_up/service/mentee/mentee_service.dart';
 
 import '../../../core/utils/user_helper.dart';
 import '../../../core/utils/user_info_helper.dart';
+import 'card/mentee_commend_card.dart';
 
 enum EnCardType { mentor, favourite, comment, payment }
 
@@ -154,7 +155,7 @@ class _MenteeDashboardMainPageState extends State<MenteeDashboardMainPage> {
               'Yorumlarım',
               style: TextStyle(fontSize: 20),
             ),
-            /* Expanded(
+             Expanded(
               child: FutureBuilder(
                 builder: (context, snapshot) {
                   if (snapshot.connectionState == ConnectionState.waiting) {
@@ -174,8 +175,7 @@ class _MenteeDashboardMainPageState extends State<MenteeDashboardMainPage> {
                             mentorCommend: mentorCommend,
                           );
                         },
-                        //itemCount: snapshot.data!.length,
-                        scrollDirection: Axis.horizontal,
+                        itemCount: snapshot.data!.length,
                         padding: const EdgeInsets.all(0),
                         shrinkWrap: true,
                       );
@@ -189,7 +189,7 @@ class _MenteeDashboardMainPageState extends State<MenteeDashboardMainPage> {
                 future: MentorCommendRepository()
                     .getMentorCommendListByUserId(getUserId()),
               ),
-            ),*/
+            ),
           ],
         ),
       ),

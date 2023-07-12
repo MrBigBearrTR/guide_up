@@ -36,6 +36,7 @@ class _ConversationHomePageState extends State<ConversationHomePage> {
 
     return Scaffold(
       appBar: AppBar(
+        backgroundColor: ColorConstants.theme2White,
         centerTitle: true,
         automaticallyImplyLeading: false,
         title: Text(
@@ -58,6 +59,7 @@ class _ConversationHomePageState extends State<ConversationHomePage> {
         ],
       ),
       body: Container(
+        height: MediaQuery.of(context).size.height,
         decoration: CustomMaterial.backgroundBoxDecoration,
         child: userDetail != null
             ? FutureBuilder(

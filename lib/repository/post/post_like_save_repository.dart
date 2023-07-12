@@ -32,11 +32,28 @@ class PostLikeSaveRepository {
     return null;
   }
 
+  Future<PostLikeSave?> getByUserIdAndPostId(
+      String userId, String postId,EnLikeSaveType enLikeSaveType) async {
+    var query = await _postSaveLinkCollections
+        .where("userId", isEqualTo: userId)
+        .where("postId", isEqualTo: postId)
+        .where("enLikeSaveType", isEqualTo: enLikeSaveType.name)
+        .where("isActive", isEqualTo: true)
+        .get();
+
+    if (query.docs.isNotEmpty) {
+      return PostLikeSave().toClass(query.docs.first.data());
+    }
+    return null;
+  }
+
   Future<List<PostLikeSave>> getCategoriesPostListByPostId(
       String postId) async {
     List<PostLikeSave> postLikeSaveList = [];
-    var query =
-        await _postSaveLinkCollections.where("postId", isEqualTo: postId).get();
+    var query = await _postSaveLinkCollections
+        .where("postId", isEqualTo: postId)
+        .where("isActive", isEqualTo: true)
+        .get();
 
     if (query.docs.isNotEmpty) {
       postLikeSaveList = convertResponseObjectToList(query.docs.iterator);
@@ -44,10 +61,13 @@ class PostLikeSaveRepository {
     return postLikeSaveList;
   }
 
-  Future<int> getLikeSavePostListCountByUserId(String userId) async {
+  Future<int> getLikeSavePostListCountByUserId(String postId,EnLikeSaveType enLikeSaveType) async {
     int listCount = 0;
-    var query =
-        await _postSaveLinkCollections.where("postId", isEqualTo: userId).get();
+    var query = await _postSaveLinkCollections
+        .where("postId", isEqualTo: postId)
+        .where("enLikeSaveType", isEqualTo: enLikeSaveType.name)
+        .where("isActive", isEqualTo: true)
+        .get();
 
     if (query.docs.isNotEmpty) {
       listCount = query.docs.length;
@@ -55,10 +75,14 @@ class PostLikeSaveRepository {
     return listCount;
   }
 
-  Future<List<PostLikeSave>> getListByType(EnLikeSaveType enLikeSaveType) async {
+  Future<List<PostLikeSave>> getListByType(
+      EnLikeSaveType enLikeSaveType) async {
     List<PostLikeSave> postLikeSaveList = [];
 
-    var query = await _postSaveLinkCollections.where("enLikeSaveType",isEqualTo: enLikeSaveType.name).get();
+    var query = await _postSaveLinkCollections
+        .where("enLikeSaveType", isEqualTo: enLikeSaveType.name)
+        .where("isActive", isEqualTo: true)
+        .get();
 
     if (query.docs.isNotEmpty) {
       postLikeSaveList = convertResponseObjectToList(query.docs.iterator);
@@ -67,7 +91,18 @@ class PostLikeSaveRepository {
     return postLikeSaveList;
   }
 
-  Future update(PostLikeSave postLikeSave) async {
+  Future<bool> update(PostLikeSave postLikeSave) async {
+    _postSaveLinkCollections
+        .doc(postLikeSave.getId()!)
+        .update(postLikeSave.toMap())
+        .then((value) {
+      return true;
+    });
+    return false;
+  }
+
+  Future delete(PostLikeSave postLikeSave) async {
+    postLikeSave.setActive(false);
     await _postSaveLinkCollections
         .doc(postLikeSave.getId()!)
         .update(postLikeSave.toMap());

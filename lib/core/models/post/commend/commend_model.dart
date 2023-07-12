@@ -1,3 +1,4 @@
+import '../../../utils/control_helper.dart';
 import '../../general/general_fields_model.dart';
 
 /// [@author MrBigBear] 
@@ -58,23 +59,24 @@ class Commend extends GeneralFields {
     return map;
   }
 
-  toClass(Map<String, dynamic> map) {
+  Commend toClass(Map<String, dynamic> map) {
     toGeneralClass(map);
 
-    if (map.containsKey('id')) {
+    if (ControlHelper.checkMapValue(map, 'id')) {
       setId(map['id']);
     }
-    if (map.containsKey('userId')) {
+    if (ControlHelper.checkMapValue(map, 'userId')) {
       setUserId(map['userId']);
     }
-    if (map.containsKey('postId')) {
+    if (ControlHelper.checkMapValue(map, 'postId')) {
       setPostId(map['postId']);
     }
-    if (map.containsKey('content')) {
+    if (ControlHelper.checkMapValue(map, 'content')) {
       setContent(map['content']);
     }
-    if (map.containsKey('photo')) {
+    if (ControlHelper.checkMapValue(map, 'photo')) {
       setPhoto(map['photo']);
     }
+    return this;
   }
 }

@@ -4,7 +4,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:guide_up/core/constant/navigation_constants.dart';
 import 'package:guide_up/core/models/users/user_detail/user_detail_model.dart';
 import 'package:guide_up/core/utils/secure_storage_helper.dart';
-import 'package:guide_up/pages/post/post_card.dart';
+import 'package:guide_up/pages/guide/card/gude_card.dart';
 import 'package:guide_up/pages/search/category/category_select_helper.dart';
 import 'package:guide_up/pages/search/search_side_page.dart';
 import 'package:guide_up/service/mentor/mentor_service.dart';
@@ -34,6 +34,7 @@ class _SearchMainPageState extends State<SearchMainPage> {
 
   final TextEditingController _searchController = TextEditingController();
   late UserDetail? detail;
+  String _userId="";
   final CategorySelectHelper _categorySelectHelper = CategorySelectHelper();
   List<Category> categoryList = [];
   bool _isSearch = true;
@@ -314,7 +315,7 @@ class _SearchMainPageState extends State<SearchMainPage> {
                         return ListView.builder(
                           itemBuilder: (context, index) {
                             final postCardView = snapshot.data![index];
-                            return PostCard(postCardView: postCardView);
+                            return GuideCard(postCardView: postCardView,userId: _userId,);
                           },
                           itemCount: snapshot.data!.length,
                           padding: const EdgeInsets.all(0),
@@ -323,7 +324,7 @@ class _SearchMainPageState extends State<SearchMainPage> {
                     }
                   },
                   future: PostService().searchPostCardViewList(
-                      _searchController.value.text, categoryList, 0),
+                      _searchController.value.text, categoryList,_userId, 0),
                 ),
               ),
             ),
@@ -434,14 +435,14 @@ class _SearchMainPageState extends State<SearchMainPage> {
                       return ListView.builder(
                         itemBuilder: (context, index) {
                           final postCardView = snapShot.data![index];
-                          return PostCard(postCardView: postCardView);
+                          return GuideCard(postCardView: postCardView,userId: _userId,);
                         },
                         itemCount: snapShot.data!.length,
                         padding: const EdgeInsets.all(0),
                       );
                     }
                   },
-                  future: PostService().getMostPopularPostCardViewList(5),
+                  future: PostService().getMostPopularPostCardViewList(_userId,5),
                 ),
               ),
             ),
@@ -453,6 +454,12 @@ class _SearchMainPageState extends State<SearchMainPage> {
 
   void getDetail() async {
     detail = await SecureStorageHelper().getUserDetail();
+    if(detail!=null){
+      _userId=detail!.getUserId()!;
+      setState(() {
+
+      });
+    }
   }
 
   searchByText() {
