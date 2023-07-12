@@ -10,7 +10,7 @@ import '../../../core/utils/user_helper.dart';
 import 'package:guide_up/core/utils/user_info_helper.dart';
 
 class MenteeFavouriteMentorPage extends StatefulWidget {
-  const MenteeFavouriteMentorPage({super.key});
+  const MenteeFavouriteMentorPage({Key? key}) : super(key: key);
 
   @override
   State<MenteeFavouriteMentorPage> createState() =>

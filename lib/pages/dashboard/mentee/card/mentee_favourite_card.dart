@@ -20,13 +20,9 @@ class MenteeFavouriteCard extends StatefulWidget {
 }
 
 class _MenteeFavouriteCardState extends State<MenteeFavouriteCard> {
-  _MenteeFavouriteCardState(Mentor mentor);
+  _MenteeFavouriteCardState(this._mentor);
 
-  _MentorCardState(Mentor mentor) {
-    _mentor = mentor;
-  }
-
-  late Mentor _mentor;
+  final Mentor _mentor;
   // final MentorFavourite _mentorFavourite;
 
   // _MenteeFavouriteCardState(this._mentorFavourite);
