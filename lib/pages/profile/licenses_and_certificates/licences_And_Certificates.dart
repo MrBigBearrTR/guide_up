@@ -101,7 +101,7 @@ class _LicensesAndCertificatesPageState extends State<LicensesAndCertificatesPag
             color: ColorConstants.theme1DarkBlue, // Geri buton rengi
           ),
           onPressed: () {
-            Navigator.pushNamed(context, RouterConstants.myProfileAccountPage);
+            Navigator.pop(context);
           },
         ),
         actions: [

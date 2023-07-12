@@ -100,7 +100,7 @@ class _UserEducationInformationListState
             color: ColorConstants.itemBlack, // Geri buton rengi
           ),
           onPressed: () {
-            Navigator.pushNamed(context, RouterConstants.myProfileAccountPage);
+            Navigator.pop(context);
           },
         ),
         actions: [
