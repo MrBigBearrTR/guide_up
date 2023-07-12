@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 import '../../../core/constant/color_constants.dart';
 import '../../../ui/material/custom_material.dart';
@@ -12,7 +13,11 @@ class MentorComments extends StatelessWidget {
       appBar: AppBar(
         title: Text(
           'Yorumlar',
-          style: TextStyle(color: ColorConstants.itemBlack),
+          style: GoogleFonts.nunito(
+            fontSize: 20,
+            fontWeight: FontWeight.bold,
+            color: ColorConstants.itemBlack,
+          ),
         ),
         centerTitle: true,
       ),
@@ -27,6 +32,7 @@ class MentorComments extends StatelessWidget {
                   Container(
                     height: 100.0,
                     child: Card(
+                      color: ColorConstants.itemWhite,
                       child: Padding(
                         padding: const EdgeInsets.all(16.0),
                         child: Row(
@@ -52,45 +58,11 @@ class MentorComments extends StatelessWidget {
                                 SizedBox(height: 8.0),
                                 Text(
                                   'Merhaba GuideUp',
-                                  style: TextStyle(fontSize: 16.0),
-                                ),
-                              ],
-                            ),
-                          ],
-                        ),
-                      ),
-                    ),
-                  ),
-                  SizedBox(height: 4.0),
-                  Container(
-                    height: 100.0,
-                    child: Card(color: ColorConstants.appcolor1,
-                      child: Padding(
-                        padding: const EdgeInsets.all(16.0),
-                        child: Row(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            CircleAvatar(
-                              radius: 25,
-                              backgroundImage: AssetImage('assets/logo/guideUpLogo.png'),
-                            ),
-                            SizedBox(width: 16.0),
-                            Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Row(
-                                  children: [
-                                    Icon(Icons.star, color: ColorConstants.warning),
-                                    Icon(Icons.star, color: ColorConstants.warning),
-                                    Icon(Icons.star, color: ColorConstants.warning),
-                                    Icon(Icons.star, color: ColorConstants.warning),
-                                    Icon(Icons.star, color: ColorConstants.warning),
-                                  ],
-                                ),
-                                SizedBox(height: 8.0),
-                                Text(
-                                  'Merhaba GuideUp',
-                                  style: TextStyle(fontSize: 16.0),
+                                  style: GoogleFonts.nunito(
+                                    fontSize: 16,
+                                    fontWeight: FontWeight.bold,
+                                    color: ColorConstants.itemBlack,
+                                  ),
                                 ),
                               ],
                             ),
@@ -103,6 +75,7 @@ class MentorComments extends StatelessWidget {
                   Container(
                     height: 100.0,
                     child: Card(
+                      color: ColorConstants.itemWhite,
                       child: Padding(
                         padding: const EdgeInsets.all(16.0),
                         child: Row(
@@ -128,7 +101,11 @@ class MentorComments extends StatelessWidget {
                                 SizedBox(height: 8.0),
                                 Text(
                                   'Merhaba GuideUp',
-                                  style: TextStyle(fontSize: 16.0),
+                                  style: GoogleFonts.nunito(
+                                    fontSize: 16,
+                                    fontWeight: FontWeight.bold,
+                                    color: ColorConstants.itemBlack,
+                                  ),
                                 ),
                               ],
                             ),
@@ -141,6 +118,7 @@ class MentorComments extends StatelessWidget {
                   Container(
                     height: 100.0,
                     child: Card(
+                      color: ColorConstants.itemWhite,
                       child: Padding(
                         padding: const EdgeInsets.all(16.0),
                         child: Row(
@@ -166,7 +144,54 @@ class MentorComments extends StatelessWidget {
                                 SizedBox(height: 8.0),
                                 Text(
                                   'Merhaba GuideUp',
-                                  style: TextStyle(fontSize: 16.0),
+                                  style: GoogleFonts.nunito(
+                                    fontSize: 16,
+                                    fontWeight: FontWeight.bold,
+                                    color: ColorConstants.itemBlack,
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
+                  ),
+                  SizedBox(height: 4.0),
+                  Container(
+                    height: 100.0,
+                    child: Card(
+                      color: ColorConstants.itemWhite,
+                      child: Padding(
+                        padding: const EdgeInsets.all(16.0),
+                        child: Row(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            CircleAvatar(
+                              radius: 25,
+                              backgroundImage: AssetImage('assets/logo/guideUpLogo.png'),
+                            ),
+                            SizedBox(width: 16.0),
+                            Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Row(
+                                  children: [
+                                    Icon(Icons.star, color: ColorConstants.warning),
+                                    Icon(Icons.star, color: ColorConstants.warning),
+                                    Icon(Icons.star, color: ColorConstants.warning),
+                                    Icon(Icons.star, color: ColorConstants.warning),
+                                    Icon(Icons.star, color: ColorConstants.warning),
+                                  ],
+                                ),
+                                SizedBox(height: 8.0),
+                                Text(
+                                  'Merhaba GuideUp',
+                                  style: GoogleFonts.nunito(
+                                    fontSize: 16,
+                                    fontWeight: FontWeight.bold,
+                                    color: ColorConstants.itemBlack,
+                                  ),
                                 ),
                               ],
                             ),
