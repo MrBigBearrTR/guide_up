@@ -51,6 +51,7 @@ dependencies:
   url_launcher: ^6.1.11
   simple_animations: ^4.0.0
   flutter_launcher_icons: ^0.13.1
+  flutter_vector_icons: ^2.0.0
   firebase_storage: ^11.2.4
   firebase_messaging: ^14.6.4
   flutter_local_notifications: ^9.2.0
