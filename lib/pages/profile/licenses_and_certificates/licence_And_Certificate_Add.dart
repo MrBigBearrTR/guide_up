@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+
 import '../../../core/constant/color_constants.dart';
 import '../../../core/constant/router_constants.dart';
 import '../../../core/models/users/user_license_and_certificate/user_license_and_certificate_model.dart';
@@ -10,11 +11,12 @@ class LicenseAndCertificateAddPage extends StatefulWidget {
   const LicenseAndCertificateAddPage({Key? key}) : super(key: key);
 
   @override
-  // ignore: library_private_types_in_public_api
-  _LicenseAndCertificateAddPageState createState() => _LicenseAndCertificateAddPageState();
+  State<LicenseAndCertificateAddPage> createState() =>
+      _LicenseAndCertificateAddPageState();
 }
 
-class _LicenseAndCertificateAddPageState extends State<LicenseAndCertificateAddPage> {
+class _LicenseAndCertificateAddPageState
+    extends State<LicenseAndCertificateAddPage> {
   TextEditingController licenseNameController = TextEditingController();
   TextEditingController organizationController = TextEditingController();
   TextEditingController issueDateController = TextEditingController();
@@ -43,11 +45,12 @@ class _LicenseAndCertificateAddPageState extends State<LicenseAndCertificateAddP
       }
     }
   }
+
   void addLicenseAndCertificate() async {
     String licenseName = licenseNameController.text.trim();
     String organization = organizationController.text.trim();
     String issueDate = issueDateController.text.trim();
-    String expiryDate = expiryDateController.text.trim();
+    //String expiryDate = expiryDateController.text.trim();
     String authorizationId = authorizationIdController.text.trim();
     String authorizationUrl = authorizationUrlController.text.trim();
 
@@ -87,57 +90,71 @@ class _LicenseAndCertificateAddPageState extends State<LicenseAndCertificateAddP
       );
       return;
     }
-      UserLicenseAndCertificate userLicenseAndCertificate = UserLicenseAndCertificate();
-      userLicenseAndCertificate.setUserId(userId!);
-      userLicenseAndCertificate.setLicenseName(licenseName);
-      userLicenseAndCertificate.setOrganization(organization);
-      userLicenseAndCertificate.setIssueDate(issueDate);
-      userLicenseAndCertificate.setExpiryDate(expiryDate);
-      userLicenseAndCertificate.setAuthorizationId(authorizationId);
-      userLicenseAndCertificate.setAuthorizationUrl(authorizationUrl);
+    UserLicenseAndCertificate userLicenseAndCertificate =
+        UserLicenseAndCertificate();
+    userLicenseAndCertificate.setUserId(userId!);
+    userLicenseAndCertificate.setLicenseName(licenseName);
+    userLicenseAndCertificate.setOrganization(organization);
+    //TODO KEREMİO BAKACAK
+    // userLicenseAndCertificate.setIssueDate(issueDate);
+    // userLicenseAndCertificate.setExpiryDate(expiryDate);
+    userLicenseAndCertificate.setAuthorizationId(authorizationId);
+    userLicenseAndCertificate.setAuthorizationUrl(authorizationUrl);
 
-      try {
-        await UserLicenseAndCertificateRepository().add(userLicenseAndCertificate);
+    try {
+      await UserLicenseAndCertificateRepository()
+          .add(userLicenseAndCertificate);
 
-        setState(() {
-          licenseNameController.clear();
-          organizationController.clear();
-          issueDateController.clear();
-          expiryDateController.clear();
-          authorizationIdController.clear();
-          authorizationUrlController.clear();
-        });
+      setState(() {
+        licenseNameController.clear();
+        organizationController.clear();
+        //TODO KEREMİO BAKACAK
+        //issueDateController.clear();
+        //expiryDateController.clear();
+        authorizationIdController.clear();
+        authorizationUrlController.clear();
+      });
 
-        // ignore: use_build_context_synchronously
-        showDialog(
-          context: context,
-          builder: (BuildContext context) {
-            return AlertDialog(
-              title: Text('Başarılı',
-                style: GoogleFonts.nunito(
-                  color: ColorConstants.itemWhite,),),
-              content: Text('Eğitim bilgisi başarıyla eklendi.',
-                style: GoogleFonts.nunito(
-                  color: ColorConstants.success,),),
-              actions: [
-                TextButton(
-                  onPressed: () {
-                    Navigator.of(context).pop();
-                  },
-                  child: Text('Tamam',
-                    style: GoogleFonts.nunito(
-                      color: ColorConstants.itemWhite,),),
+      // ignore: use_build_context_synchronously
+      showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return AlertDialog(
+            title: Text(
+              'Başarılı',
+              style: GoogleFonts.nunito(
+                color: ColorConstants.itemWhite,
+              ),
+            ),
+            content: Text(
+              'Eğitim bilgisi başarıyla eklendi.',
+              style: GoogleFonts.nunito(
+                color: ColorConstants.success,
+              ),
+            ),
+            actions: [
+              TextButton(
+                onPressed: () {
+                  Navigator.of(context).pop();
+                },
+                child: Text(
+                  'Tamam',
+                  style: GoogleFonts.nunito(
+                    color: ColorConstants.itemWhite,
+                  ),
                 ),
-              ],
-              backgroundColor: ColorConstants.theme1DarkBlue,
-            );
-          },
-        );
+              ),
+            ],
+            backgroundColor: ColorConstants.theme1DarkBlue,
+          );
+        },
+      );
 
-        print('LicenseAndCertificate added to Firebase: $userLicenseAndCertificate');
-      } catch (error) {
-        print('Failed to add licenseAndCertificate to Firebase: $error');
-      }
+      print(
+          'LicenseAndCertificate added to Firebase: $userLicenseAndCertificate');
+    } catch (error) {
+      print('Failed to add licenseAndCertificate to Firebase: $error');
+    }
   }
 
   @override
@@ -145,11 +162,14 @@ class _LicenseAndCertificateAddPageState extends State<LicenseAndCertificateAddP
     return Scaffold(
       appBar: AppBar(
         backgroundColor: ColorConstants.itemWhite, // AppBar arka plan rengi
-        title: Text('Lisans ve sertifika',
-          style: GoogleFonts.nunito( // Yetenekler yazısının yazı tipi
+        title: Text(
+          'Lisans ve sertifika',
+          style: GoogleFonts.nunito(
+            // Yetenekler yazısının yazı tipi
             fontSize: 22,
             fontWeight: FontWeight.bold,
-          ),),
+          ),
+        ),
         actions: [
           IconButton(
             icon: const Icon(
@@ -157,7 +177,9 @@ class _LicenseAndCertificateAddPageState extends State<LicenseAndCertificateAddP
               color: ColorConstants.theme1DarkBlue, // Kalem ikonu rengi
             ),
             onPressed: () {
-              Navigator.pushNamed(context, RouterConstants.licensesAndCertificatesPage,
+              Navigator.pushNamed(
+                context,
+                RouterConstants.licensesAndCertificatesPage,
               );
             },
           ),
@@ -335,7 +357,8 @@ class _LicenseAndCertificateAddPageState extends State<LicenseAndCertificateAddP
                 addLicenseAndCertificate();
               },
               style: ElevatedButton.styleFrom(
-                backgroundColor: ColorConstants.theme1DarkBlue, // Arka plan rengi
+                backgroundColor:
+                    ColorConstants.theme1DarkBlue, // Arka plan rengi
               ),
               child: Text(
                 'Ekle',
@@ -344,13 +367,9 @@ class _LicenseAndCertificateAddPageState extends State<LicenseAndCertificateAddP
                 ),
               ),
             ),
-
-
           ],
         ),
       ),
     );
   }
 }
-
-

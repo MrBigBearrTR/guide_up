@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:guide_up/core/utils/secure_storage_helper.dart';
 import 'package:intl/intl.dart';
+
 import '../../../../core/constant/color_constants.dart';
 import '../../../../core/constant/router_constants.dart';
 import '../../../../core/models/users/user_project/user_project_model.dart';
@@ -18,6 +19,7 @@ class UserProjectPage extends StatefulWidget {
 class _UserProjectPageState extends State<UserProjectPage> {
   UserProject? userProject;
   DateTime startDate = DateTime.now();
+  DateTime endDate = DateTime.now();
   final dateFormat = DateFormat('dd.MM.yyyy');
   TextEditingController experienceIdController = TextEditingController();
   TextEditingController projectTitleController = TextEditingController();
@@ -50,6 +52,7 @@ class _UserProjectPageState extends State<UserProjectPage> {
       }
     }
   }
+
   Future<void> showDatePickerDialog() async {
     final DateTime? pickedDate = await showDatePicker(
       context: context,
@@ -76,15 +79,44 @@ class _UserProjectPageState extends State<UserProjectPage> {
     }
   }
 
+  Future<void> showDatePickerDialog2() async {
+    final DateTime? pickedDate = await showDatePicker(
+      context: context,
+      builder: (BuildContext context, Widget? child) {
+        return Theme(
+          data: ThemeData(
+            colorScheme: const ColorScheme.light(
+              primary: ColorConstants.theme1DarkBlue,
+            ),
+            dialogBackgroundColor: ColorConstants.itemWhite,
+          ),
+          child: child ?? const Text(""),
+        );
+      },
+      initialDate: endDate,
+      firstDate: DateTime(1900),
+      lastDate: DateTime.now(),
+    );
+    if (pickedDate != null && pickedDate != endDate) {
+      setState(() {
+        endDate = pickedDate;
+        endDateController.text = dateFormat.format(endDate);
+      });
+    }
+  }
+
   void addUserProject() async {
     String experienceId = experienceIdController.text.trim();
     String projectTitle = projectTitleController.text.trim();
-    String startDate = startDateController.text.trim();
-    String endDate = endDateController.text.trim();
+    String startDateText = startDateController.text.trim();
+    String endDateText = endDateController.text.trim();
     String description = descriptionController.text.trim();
-    String link = linkController.text.trim();
+    String link=linkController.text.trim();
 
-    if (projectTitle.isEmpty || description.isEmpty || startDate.isEmpty || endDate.isEmpty || experienceId.isEmpty) {
+    if (projectTitle.isEmpty ||
+        description.isEmpty ||
+        startDateText.isEmpty ||
+        experienceId.isEmpty) {
       showDialog(
         context: context,
         builder: (BuildContext context) {
@@ -125,8 +157,10 @@ class _UserProjectPageState extends State<UserProjectPage> {
     userProject.setUserId(userId!);
     userProject.setExperienceId(experienceId);
     userProject.setProjectTitle(projectTitle);
-    userProject.setStartDate(startDate as DateTime);
-    // userProject.setEndDate(selectedDate);
+    userProject.setStartDate(startDate);
+    if(endDateText.isNotEmpty) {
+      userProject.setEndDate(endDate);
+    }
     userProject.setDescription(description);
     userProject.setLink(link);
 
@@ -190,7 +224,8 @@ class _UserProjectPageState extends State<UserProjectPage> {
         backgroundColor: ColorConstants.itemWhite, // AppBar arka plan rengi
         title: Text(
           'Proje',
-          style: GoogleFonts.nunito( // Yetenekler yazısının yazı tipi
+          style: GoogleFonts.nunito(
+            // Yetenekler yazısının yazı tipi
             fontSize: 22,
             fontWeight: FontWeight.bold,
           ),
@@ -199,10 +234,12 @@ class _UserProjectPageState extends State<UserProjectPage> {
           IconButton(
             icon: const Icon(
               Icons.edit,
-              color: ColorConstants.theme1DarkBlue,  // Kalem ikonu rengi
+              color: ColorConstants.theme1DarkBlue, // Kalem ikonu rengi
             ),
             onPressed: () {
-              Navigator.pushNamed(context, RouterConstants.userProjectList,
+              Navigator.pushNamed(
+                context,
+                RouterConstants.userProjectList,
               );
             },
           ),
@@ -267,10 +304,12 @@ class _UserProjectPageState extends State<UserProjectPage> {
                   context: context,
                   builder: (context) {
                     return AlertDialog(
-                      title: Text('Deneyim seçin',
+                      title: Text(
+                        'Deneyim seçin',
                         style: GoogleFonts.nunito(
                           color: ColorConstants.success,
-                        ),),
+                        ),
+                      ),
                       content: Column(
                         children: [
                           ElevatedButton(
@@ -278,50 +317,60 @@ class _UserProjectPageState extends State<UserProjectPage> {
                               experienceIdController.text += 'Kelime 1 ';
                               Navigator.pop(context);
                             },
-                            child: Text('Kelime 1',
+                            child: Text(
+                              'Kelime 1',
                               style: GoogleFonts.nunito(
                                 color: ColorConstants.success,
-                              ),),
+                              ),
+                            ),
                           ),
                           ElevatedButton(
                             onPressed: () {
                               experienceIdController.text += 'Kelime 2 ';
                               Navigator.pop(context);
                             },
-                            child: Text('Kelime 2',
+                            child: Text(
+                              'Kelime 2',
                               style: GoogleFonts.nunito(
                                 color: ColorConstants.success,
-                              ),),
+                              ),
+                            ),
                           ),
                           ElevatedButton(
                             onPressed: () {
                               experienceIdController.text += 'Kelime 3 ';
                               Navigator.pop(context);
                             },
-                            child: Text('Kelime 3',
+                            child: Text(
+                              'Kelime 3',
                               style: GoogleFonts.nunito(
                                 color: ColorConstants.success,
-                              ),),
+                              ),
+                            ),
                           ),
                           ElevatedButton(
                             onPressed: () {
                               experienceIdController.text += 'Kelime 4 ';
                               Navigator.pop(context);
                             },
-                            child: Text('Kelime 4',
+                            child: Text(
+                              'Kelime 4',
                               style: GoogleFonts.nunito(
                                 color: ColorConstants.success,
-                              ),),
+                              ),
+                            ),
                           ),
                           ElevatedButton(
                             onPressed: () {
                               experienceIdController.text += 'Kelime 5 ';
                               Navigator.pop(context);
                             },
-                            child: Text('Kelime 5',
+                            child: Text(
+                              'Kelime 5',
                               style: GoogleFonts.nunito(
                                 color: ColorConstants.success,
-                              ),),
+                              ),
+                            ),
                           ),
                         ],
                       ),
@@ -333,7 +382,6 @@ class _UserProjectPageState extends State<UserProjectPage> {
                 setState(() {});
               },
             ),
-
             const SizedBox(height: 16.0),
             TextFormField(
               decoration: InputDecoration(
@@ -416,7 +464,7 @@ class _UserProjectPageState extends State<UserProjectPage> {
                 ),
                 suffixIcon: IconButton(
                   icon: const Icon(Icons.calendar_today),
-                  onPressed: showDatePickerDialog,
+                  onPressed: showDatePickerDialog2,
                   color: ColorConstants.theme1DarkBlue,
                 ),
               ),
@@ -458,7 +506,8 @@ class _UserProjectPageState extends State<UserProjectPage> {
                 addUserProject();
               },
               style: ElevatedButton.styleFrom(
-                backgroundColor: ColorConstants.theme1DarkBlue, // Arka plan rengi
+                backgroundColor:
+                    ColorConstants.theme1DarkBlue, // Arka plan rengi
               ),
               child: Text(
                 'Kaydet',
@@ -472,11 +521,12 @@ class _UserProjectPageState extends State<UserProjectPage> {
       ),
     );
   }
+
   void setValues() {
     if (userProject!.getStartDate() != null) {
       startDate = userProject!.getStartDate()!;
       startDateController.text = ControlHelper.checkInputValue(
           dateFormat.format(userProject!.getStartDate()!));
-  }
+    }
   }
 }

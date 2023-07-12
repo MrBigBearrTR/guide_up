@@ -7,8 +7,8 @@ class UserLicenseAndCertificate extends GeneralFields {
   String? _userId;
   String? _licenseName;
   String? _organization;
-  String? _issueDate;
-  String? _expiryDate;
+  DateTime? _issueDate;
+  DateTime? _expiryDate;
   String? _authorizationId;
   String? _authorizationUrl;
 
@@ -44,19 +44,19 @@ class UserLicenseAndCertificate extends GeneralFields {
     _organization = organization;
   }
 
-  String? getIssueDate() {
+  DateTime? getIssueDate() {
     return _issueDate;
   }
 
-  void setIssueDate(String issueDate) {
+  void setIssueDate(DateTime issueDate) {
     _issueDate = issueDate;
   }
 
-  String? getExpiryDate() {
+  DateTime? getExpiryDate() {
     return _expiryDate;
   }
 
-  void setExpiryDate(String expiryDate) {
+  void setExpiryDate(DateTime expiryDate) {
     _expiryDate = expiryDate;
   }
 
@@ -82,8 +82,16 @@ class UserLicenseAndCertificate extends GeneralFields {
     map['userId'] = getUserId();
     map['licenseName'] = getLicenseName();
     map['organization'] = getOrganization();
-    map['issueDate'] = getIssueDate();
-    map['expiryDate'] = getExpiryDate();
+    if (getIssueDate() != null) {
+      map['issueDate'] = getIssueDate().toString();
+    } else {
+      map['issueDate'] = getIssueDate();
+    }
+    if (getExpiryDate() != null) {
+      map['expiryDate'] = getExpiryDate().toString();
+    } else {
+      map['expiryDate'] = getExpiryDate();
+    }
     map['authorizationId'] = getAuthorizationId();
     map['authorizationUrl'] = getAuthorizationUrl();
 
@@ -106,10 +114,10 @@ class UserLicenseAndCertificate extends GeneralFields {
       setOrganization(map['organization']);
     }
     if (ControlHelper.checkMapValue(map, 'issueDate')) {
-      setIssueDate(map['issueDate']);
+      setIssueDate(DateTime.parse(map['issueDate']));
     }
     if (ControlHelper.checkMapValue(map, 'expiryDate')) {
-      setExpiryDate(map['expiryDate']);
+      setExpiryDate(DateTime.parse(map['expiryDate']));
     }
     if (ControlHelper.checkMapValue(map, 'authorizationId')) {
       setAuthorizationId(map['authorizationId']);
@@ -117,5 +125,6 @@ class UserLicenseAndCertificate extends GeneralFields {
     if (ControlHelper.checkMapValue(map, 'authorizationUrl')) {
       setAuthorizationUrl(map['authorizationUrl']);
     }
+    return this;
   }
 }
