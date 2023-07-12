@@ -19,6 +19,7 @@ class RouterConstants{
   static const String mentorPreview = '/mentorPreview';
 
   static const String guideAdd="/guideAdd";
+  static const String guideHomePage="/guideHomePage";
 
   static const String myMentors = 'myMentors';
   static const String mentorFavourite = 'mentorFavourite';
