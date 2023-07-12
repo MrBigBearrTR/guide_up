@@ -177,7 +177,7 @@ class _GuideAddPageState extends State<GuideAddPage> {
                     ],
                   ),
                 ),
-                const SizedBox(height: 16.0),
+                const SizedBox(height:1),
                 if (_guidePicture != null)
                   Image.file(
                     _guidePicture!,
@@ -185,7 +185,7 @@ class _GuideAddPageState extends State<GuideAddPage> {
                     height: 400,
                   ),
                 const SizedBox(
-                  height: 20,
+                  height: 1,
                 ),
                 SizedBox(
                  // width: 460,
@@ -239,7 +239,7 @@ class _GuideAddPageState extends State<GuideAddPage> {
       if (_guidePicture != null) {
         return FileImage(_guidePicture!);
       } else {
-        return const AssetImage( "asset/img/Guide_photo_add" );
+        return const AssetImage( "assets/img/Guide_photo_add.png" );
       }
     } else {
       return NetworkImage(post!.getPhoto()!);
