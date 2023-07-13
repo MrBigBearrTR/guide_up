@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:guide_up/core/constant/color_constants.dart';
+import 'package:guide_up/core/constant/router_constants.dart';
+import 'package:guide_up/core/models/mentor/mentor_favourite_model.dart';
 import 'package:guide_up/core/models/users/user_detail/user_detail_model.dart';
 import 'package:guide_up/core/utils/secure_storage_helper.dart';
 import 'package:guide_up/repository/mentee/mentee_repository.dart';
@@ -59,110 +61,208 @@ class _MentorDashboardState extends State<MentorDashboard> {
       ),
       backgroundColor: ColorConstants.theme1White,
       body: SafeArea(
-        child: Column(
-          children: [
-            // Mentee'nin profil fotoğrafı
-            Container(
-              margin: const EdgeInsets.all(8),
-              decoration: BoxDecoration(
-                color: ColorConstants.theme2DarkBlue,
-                borderRadius: BorderRadius.circular(10),
-                boxShadow: [
-                  BoxShadow(
-                    color: Colors.black.withOpacity(0.3),
-                    blurRadius: 8,
-                    offset: const Offset(0, 2),
-                  ),
-                ],
-              ),
-              child: Row(
-                children: [
-                  Padding(
-                    padding: const EdgeInsets.all(10),
-                    child: CircleAvatar(
-                      radius: 40,
-                      backgroundImage:
-                          UserInfoHelper.getProfilePicture(userDetail),
+        child: SingleChildScrollView(
+          child: Column(
+            children: [
+              // Mentee'nin profil fotoğrafı
+              Container(
+                margin: const EdgeInsets.all(8),
+                decoration: BoxDecoration(
+                  color: ColorConstants.theme2DarkBlue,
+                  borderRadius: BorderRadius.circular(10),
+                  boxShadow: [
+                    BoxShadow(
+                      color: Colors.black.withOpacity(0.3),
+                      blurRadius: 8,
+                      offset: const Offset(0, 2),
                     ),
-                  ),
-                  const SizedBox(width: 20),
-                  Column(
-                    children: [
-                      Text(
-                        userDetail != null
-                            ? (" ${userDetail!.getName() ?? ""} ${userDetail!.getSurname() ?? ""}")
-                            : "",
-                        style: Theme.of(context)
-                            .textTheme
-                            .headlineMedium
-                            ?.copyWith(
-                              color: ColorConstants.appcolor4,
-                            ),
+                  ],
+                ),
+                child: Row(
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.all(10),
+                      child: CircleAvatar(
+                        radius: 40,
+                        backgroundImage:
+                            UserInfoHelper.getProfilePicture(userDetail),
                       ),
-                      const SizedBox(height: 8),
-                      Text(
-                        "${UserHelper().auth.currentUser!.email}",
-                        style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                              color: ColorConstants.appcolor4,
-                            ),
-                      ),
-                    ],
-                  ),
-                ],
+                    ),
+                    const SizedBox(width: 20),
+                    Column(
+                      children: [
+                        Text(
+                          userDetail != null
+                              ? (" ${userDetail!.getName() ?? ""} ${userDetail!.getSurname() ?? ""}")
+                              : "",
+                          style: Theme.of(context)
+                              .textTheme
+                              .headlineMedium
+                              ?.copyWith(
+                                color: ColorConstants.appcolor4,
+                              ),
+                        ),
+                        const SizedBox(height: 8),
+                        Text(
+                          "${UserHelper().auth.currentUser!.email}",
+                          style:
+                              Theme.of(context).textTheme.bodyMedium?.copyWith(
+                                    color: ColorConstants.appcolor4,
+                                  ),
+                        ),
+                      ],
+                    ),
+                  ],
+                ),
               ),
-            ),
-            const SizedBox(height: 20),
-            Container(
-              padding: const EdgeInsets.fromLTRB(20, 8, 20, 8),
-              width: 330,
-              height: 200,
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(10),
-                color: ColorConstants.itemWhite,
-                boxShadow: [
-                  BoxShadow(
-                    color: Colors.black.withOpacity(0.3),
-                    blurRadius: 8,
-                    offset: const Offset(0, 2),
-                  ),
-                ],
+              const SizedBox(height: 20),
+              Container(
+                padding: const EdgeInsets.fromLTRB(20, 8, 20, 8),
+                width: 330,
+                height: 200,
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(10),
+                  color: ColorConstants.itemWhite,
+                  boxShadow: [
+                    BoxShadow(
+                      color: Colors.black.withOpacity(0.3),
+                      blurRadius: 8,
+                      offset: const Offset(0, 2),
+                    ),
+                  ],
+                ),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    const Text('İstatistikler', style: TextStyle(fontSize: 20)),
+                    const SizedBox(height: 15),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      children: [
+                        // Süre(Duration)
+
+                        ...createAnalysisCard(
+                            "Görüntülenme", EnCardType.view, context),
+
+                        // Favoriler
+                        ...createAnalysisCard(
+                            "Menteelerim", EnCardType.mentee, context),
+                      ],
+                    ),
+                    const SizedBox(height: 20),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      children: [
+                        // Yorumlar
+                        ...createAnalysisCard(
+                            "Yorumlar", EnCardType.comment, context),
+
+                        // Ödemeler
+                        ...createAnalysisCard(
+                            "Ödemeler", EnCardType.payment, context),
+                      ],
+                    ),
+                  ],
+                ),
               ),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  const Text('İstatistikler', style: TextStyle(fontSize: 20)),
-                  const SizedBox(height: 15),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                    children: [
-                      // Süre(Duration)
-
-                      ...createAnalysisCard(
-                          "Görüntülenmelerim", EnCardType.view, context),
-
-                      // Favoriler
-                      ...createAnalysisCard(
-                          "Menteelerim", EnCardType.mentee, context),
-                    ],
-                  ),
-                  const SizedBox(height: 20),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                    children: [
-                      // Yorumlar
-                      ...createAnalysisCard(
-                          "Yorumlarım", EnCardType.comment, context),
-
-                      // Ödemeler
-                      ...createAnalysisCard(
-                          "Ödemeler", EnCardType.payment, context),
-                    ],
-                  ),
-                ],
+              const SizedBox(height: 20),
+              // Kazançlar
+              Container(
+                padding: const EdgeInsets.fromLTRB(20, 8, 20, 8),
+                width: 330,
+                height: 75,
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(10),
+                  color: ColorConstants.itemWhite,
+                  boxShadow: [
+                    BoxShadow(
+                      color: Colors.black.withOpacity(0.3),
+                      blurRadius: 8,
+                      offset: const Offset(0, 2),
+                    ),
+                  ],
+                ),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Text(
+                      'Toplam Kazanç',
+                      style: TextStyle(
+                          color: ColorConstants.success,
+                          fontWeight: FontWeight.bold,
+                          fontSize: 17),
+                    ),
+                    // Veri eklenmeli
+                    Text('4055.56 TL', style: TextStyle(fontSize: 17),),
+                  ],
+                ),
               ),
-            ),
-            const SizedBox(height: 10),
-          ],
+              SizedBox(height: 20),
+              // Görüntülenmeler
+              Container(
+                padding: const EdgeInsets.fromLTRB(20, 8, 20, 8),
+                width: 330,
+                height: 75,
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(10),
+                  color: ColorConstants.itemWhite,
+                  boxShadow: [
+                    BoxShadow(
+                      color: Colors.black.withOpacity(0.3),
+                      blurRadius: 8,
+                      offset: const Offset(0, 2),
+                    ),
+                  ],
+                ),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Text(
+                      'Toplam Görüntülenme',
+                      style: TextStyle(
+                          color: ColorConstants.warningDark,
+                          fontWeight: FontWeight.bold,
+                          fontSize: 17),
+                    ),
+                    // Veri eklenmeli
+                    Text('290K', style: TextStyle(fontSize: 17),),
+                  ],
+                ),
+              ),
+              SizedBox(height: 20),
+              // Puanlamalar
+              Container(
+                padding: const EdgeInsets.fromLTRB(20, 8, 20, 8),
+                width: 330,
+                height: 75,
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(10),
+                  color: ColorConstants.itemWhite,
+                  boxShadow: [
+                    BoxShadow(
+                      color: Colors.black.withOpacity(0.3),
+                      blurRadius: 8,
+                      offset: const Offset(0, 2),
+                    ),
+                  ],
+                ),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Text(
+                      'Toplam Puanlama',
+                      style: TextStyle(
+                          color: ColorConstants.info,
+                          fontWeight: FontWeight.bold,
+                          fontSize: 17),
+                    ),
+                    // Veri eklenmeli
+                    Text('1125', style: TextStyle(fontSize: 17),),
+                  ],
+                ),
+              ),
+            ],
+          ),
         ),
       ),
     );
@@ -263,8 +363,8 @@ class _MentorDashboardState extends State<MentorDashboard> {
           ),
         );
       case EnCardType.mentee:
-        return const CircleAvatar(
-          backgroundColor: Color.fromARGB(255, 25, 20, 20),
+        return CircleAvatar(
+          backgroundColor: ColorConstants.theme2White,
           child: InkWell(
             // onTap: () {
             //   Navigator.pushNamed(
