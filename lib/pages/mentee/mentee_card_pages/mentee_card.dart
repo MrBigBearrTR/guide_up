@@ -8,21 +8,15 @@ import '../../../core/models/mentor/mentee_model.dart';
 
 class MenteeCard extends StatefulWidget {
   final Mentee mentee;
-  final DateFormat dateFormat;
-  const MenteeCard({Key? key,required this.mentee, required this.dateFormat}) : super(key: key);
+  const MenteeCard({Key? key,required this.mentee}) : super(key: key);
 
   @override
-  State<MenteeCard> createState() => _MenteeCardState(mentee);
+  State<MenteeCard> createState() => _MenteeCardState();
 }
 
 class _MenteeCardState extends State<MenteeCard> {
-  _MenteeCardState(Mentee mentee) {
-    _mentee = mentee;
-  }
 
-  late Mentee _mentee;
-  late DateFormat dateFormat;
-  late DateTime selectedDate;
+  final dateFormat = DateFormat('dd.MM.yyyy');
 
   @override
   Widget build(BuildContext context) {
@@ -35,7 +29,7 @@ class _MenteeCardState extends State<MenteeCard> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  '${_mentee.getName()!} ${_mentee.getSurname()}',
+                  '${widget.mentee.getName()} ${widget.mentee.getSurname()}',
                   maxLines: 1,
                   softWrap: true,
                   textAlign: TextAlign.start,
@@ -49,7 +43,7 @@ class _MenteeCardState extends State<MenteeCard> {
                   ),
                 ),
                 Text(
-                  widget.dateFormat.format(selectedDate) ??"",
+                  widget.mentee.getStartDate() !=null ? dateFormat.format(widget.mentee.getStartDate()!) :"",
                   maxLines: 1,
                   softWrap: true,
                   style: GoogleFonts.nunito(
@@ -64,7 +58,7 @@ class _MenteeCardState extends State<MenteeCard> {
             ),
             leading: CircleAvatar(
               radius: 30,
-              backgroundImage: UserInfoHelper.getProfilePictureByPath(_mentee.getPhoto()),
+              backgroundImage: UserInfoHelper.getProfilePictureByPath(widget.mentee.getPhoto()),
             ),
           ),
         ],
