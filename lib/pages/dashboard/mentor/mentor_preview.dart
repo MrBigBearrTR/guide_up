@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:guide_up/core/constant/router_constants.dart';
 import 'package:guide_up/core/models/mentor/mentor_model.dart';
 import 'package:guide_up/core/utils/user_info_helper.dart';
+import 'package:guide_up/pages/dashboard/mentor/mentor_feedback_page.dart';
 import '../../../core/constant/color_constants.dart';
 import '../../../core/utils/secure_storage_helper.dart';
 import '../../../ui/material/custom_material.dart';
@@ -162,7 +164,7 @@ class _MentorPreviewState extends State<MentorPreview> {
                       const SizedBox(width: 8),
                       TextButton(
                         onPressed: () {
-                          // Yorum butonuna tıklanınca yapılacak işlemler
+                          Navigator.pushNamed(context, RouterConstants.mentorFeedbackPage);
                         },
                         child: Text(
                           'Yorumlar',

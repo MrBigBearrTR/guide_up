@@ -24,7 +24,7 @@ class RouterConstants{
   static const String licensesAndCertificatesPage="/licensesAndCertificatesPage";
   static const String mentorPreview = '/mentorPreview';
   static const String licenseAndCertificateAddPage="/licenseAndCertificateAddPage";
-
+  static const String mentorFeedbackPage ="/mentorFeedbackPage";
 
   static const String guideAdd="/guideAdd";
   static const String guideHomePage="/guideHomePage";

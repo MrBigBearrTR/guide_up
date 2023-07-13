@@ -3,6 +3,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:guide_up/pages/conversation/messages/chat_main_page.dart';
 import 'package:guide_up/pages/dashboard/mentee/mentee_favourite_mentor_page.dart';
+import 'package:guide_up/pages/dashboard/mentor/mentor_feedback_page.dart';
 import 'package:guide_up/pages/guide/guide_add_page.dart';
 import 'package:guide_up/pages/guide/guide_detail_page.dart';
 import 'package:guide_up/pages/guide/guide_home_page.dart';
@@ -117,7 +118,8 @@ class RouteGenerator {
         return _createRoute(const LicensesAndCertificatesPage(), settings);
       case RouterConstants.licenseAndCertificateAddPage:
         return _createRoute(const LicenseAndCertificateAddPage(), settings);
-
+      case RouterConstants.mentorFeedbackPage:
+        return _createRoute( const MenteeFeedbackPage(), settings);
       case RouterConstants.mentorPreview:
         return _createRoute(const MentorPreview(), settings);
       case RouterConstants.mentorGuideUpRevenuePage:
