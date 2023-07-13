@@ -1,9 +1,9 @@
 import 'package:guide_up/core/models/general/general_fields_model.dart';
 
 /// [@author MrBigBear] 
-class MentorCommend extends GeneralFields {
+class MentorComment extends GeneralFields {
   String? _id;
-  String? _userId;
+  String? _menteeId;
   String? _mentorId;
   int? _rate;
   String? _commend;
@@ -17,12 +17,12 @@ class MentorCommend extends GeneralFields {
     _id = id;
   }
 
-  String? getUserId() {
-    return _userId;
+  String? getMenteeId() {
+    return _menteeId;
   }
 
-  void setUserId(String userId) {
-    _userId = userId;
+  void setMenteeId(String menteeId) {
+    _menteeId = menteeId;
   }
 
   String? getMentorId() {
@@ -41,11 +41,11 @@ class MentorCommend extends GeneralFields {
     _rate = rate;
   }
 
-  String? getCommend() {
+  String? getComment() {
     return _commend;
   }
 
-  void setCommend(String commend) {
+  void setComment(String commend) {
     _commend = commend;
   }
 
@@ -60,22 +60,22 @@ class MentorCommend extends GeneralFields {
   Map<String, dynamic> toMap() {
     Map<String, dynamic> map = toGeneralMap();
     map['id'] = getId();
-    map['userId'] = getUserId();
+    map['menteeId'] = getMenteeId();
     map['mentorId'] = getMentorId();
     map['rate'] = getRate();
-    map['commend'] = getCommend();
+    map['comment'] = getComment();
     map['isAnonymous'] = isAnonymous();
     return map;
   }
 
-  toClass(Map<String, dynamic> map) {
+  MentorComment toClass(Map<String, dynamic> map) {
     toGeneralClass(map);
 
     if (map.containsKey('id')) {
       setId(map['id']);
     }
-    if (map.containsKey('userId')) {
-      setUserId(map['userId']);
+    if (map.containsKey('menteeId')) {
+      setMenteeId(map['menteeId']);
     }
     if (map.containsKey('mentorId')) {
       setMentorId(map['mentorId']);
@@ -83,11 +83,12 @@ class MentorCommend extends GeneralFields {
     if (map.containsKey('rate')) {
       setRate(map['rate']);
     }
-    if (map.containsKey('commend')) {
-      setCommend(map['commend']);
+    if (map.containsKey('comment')) {
+      setComment(map['comment']);
     }
     if (map.containsKey('isAnonymous')) {
       setAnonymous(map['isAnonymous']);
     }
+    return this;
   }
 }

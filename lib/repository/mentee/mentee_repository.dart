@@ -31,7 +31,7 @@ class MenteeRepository {
     return null;
   }
 
-  Future<Mentee?> getMenteeBuUserIdAndMentorId(
+  Future<Mentee?> getMenteeByUserIdAndMentorId(
       String userId, String mentorId) async {
     var query = await _menteeCollection
         .where("userId", isEqualTo: userId)
@@ -86,6 +86,28 @@ class MenteeRepository {
     int listCount = 0;
     var query =
         await _menteeCollection.where("userId", isEqualTo: userId).get();
+
+    if (query.docs.isNotEmpty) {
+      listCount = query.docs.length;
+    }
+    return listCount;
+  }
+
+  Future<List<Mentee>> getMenteeListByMentorId(String mentorId) async {
+    List<Mentee> menteeList = [];
+    var query =
+    await _menteeCollection.where("mentorId", isEqualTo: mentorId).get();
+
+    if (query.docs.isNotEmpty) {
+      menteeList = convertResponseObjectToList(query.docs.iterator);
+    }
+    return menteeList;
+  }
+
+  Future<int> getMenteeListCountByMentorId(String mentorId) async {
+    int listCount = 0;
+    var query =
+    await _menteeCollection.where("mentorId", isEqualTo: mentorId).get();
 
     if (query.docs.isNotEmpty) {
       listCount = query.docs.length;

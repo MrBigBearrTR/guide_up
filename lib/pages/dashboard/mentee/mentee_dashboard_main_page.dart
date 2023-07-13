@@ -2,11 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:guide_up/core/constant/color_constants.dart';
 import 'package:guide_up/core/constant/router_constants.dart';
+import 'package:guide_up/core/models/mentor/mentee_model.dart';
 import 'package:guide_up/core/models/mentor/mentor_favourite_model.dart';
 import 'package:guide_up/core/models/users/user_detail/user_detail_model.dart';
 import 'package:guide_up/core/utils/secure_storage_helper.dart';
 import 'package:guide_up/repository/mentee/mentee_repository.dart';
-import 'package:guide_up/repository/mentor/mentor_commend_repository.dart';
+import 'package:guide_up/repository/mentor/mentor_comment_repository.dart';
 import 'package:guide_up/repository/mentor/mentor_favourite_repository.dart';
 import 'package:guide_up/service/mentee/mentee_service.dart';
 
@@ -26,6 +27,7 @@ class MenteeDashboardMainPage extends StatefulWidget {
 
 class _MenteeDashboardMainPageState extends State<MenteeDashboardMainPage> {
   UserDetail? userDetail;
+  Mentee? mentee;
 
   @override
   void initState() {
@@ -39,6 +41,7 @@ class _MenteeDashboardMainPageState extends State<MenteeDashboardMainPage> {
       detail = null;
     } else {
       userDetail = detail;
+      mentee = await MenteeRepository().getMenteeByUserId(detail.getUserId()!);
       setState(() {});
     }
   }
@@ -170,9 +173,9 @@ class _MenteeDashboardMainPageState extends State<MenteeDashboardMainPage> {
                     if (snapshot.data!.isNotEmpty) {
                       return ListView.builder(
                         itemBuilder: (context, index) {
-                          final mentorCommend = snapshot.data![index];
-                          return MenteeCommendCard(
-                            mentorCommend: mentorCommend,
+                          final mentorComment = snapshot.data![index];
+                          return MenteeCommentCard(
+                            mentorComment: mentorComment,
                           );
                         },
                         itemCount: snapshot.data!.length,
@@ -186,8 +189,8 @@ class _MenteeDashboardMainPageState extends State<MenteeDashboardMainPage> {
                     }
                   }
                 },
-                future: MentorCommendRepository()
-                    .getMentorCommendListByUserId(getUserId()),
+                future: MentorCommentRepository()
+                    .getMentorCommentListByMenteeId(getMenteeId()),
               ),
             ),
           ],
@@ -255,8 +258,8 @@ class _MenteeDashboardMainPageState extends State<MenteeDashboardMainPage> {
     if (cardType == EnCardType.mentor) {
       return MenteeRepository().getMenteeListCountByUserId(getUserId());
     } else if (cardType == EnCardType.comment) {
-      return MentorCommendRepository()
-          .getMentorCommendListCountByUserId(getUserId());
+      return MentorCommentRepository()
+          .getMentorCommentListCountByMenteeId(getMenteeId());
     } else if (cardType == EnCardType.favourite) {
       return MentorFavouriteRepository()
           .getMentorFavouriteListCountByUserId(getUserId());
@@ -323,7 +326,7 @@ class _MenteeDashboardMainPageState extends State<MenteeDashboardMainPage> {
           backgroundColor: ColorConstants.theme2White,
           child: InkWell(
             onTap: () {
-              Navigator.pushNamed(context, RouterConstants.myCommends);
+              Navigator.pushNamed(context, RouterConstants.myComments);
             },
             child: const Icon(
               Icons.chat,
@@ -344,6 +347,13 @@ class _MenteeDashboardMainPageState extends State<MenteeDashboardMainPage> {
             ),
           ),
         );
+    }
+  }
+  String getMenteeId() {
+    if (mentee != null) {
+      return mentee!.getId()!;
+    } else {
+      return "";
     }
   }
 }

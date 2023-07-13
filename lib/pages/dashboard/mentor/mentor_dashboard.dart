@@ -4,10 +4,12 @@ import 'package:guide_up/core/constant/color_constants.dart';
 import 'package:guide_up/core/models/users/user_detail/user_detail_model.dart';
 import 'package:guide_up/core/utils/secure_storage_helper.dart';
 import 'package:guide_up/repository/mentee/mentee_repository.dart';
-import 'package:guide_up/repository/mentor/mentor_commend_repository.dart';
+import 'package:guide_up/repository/mentor/mentor_comment_repository.dart';
 import 'package:guide_up/repository/mentor/mentor_favourite_repository.dart';
+import 'package:guide_up/repository/mentor/mentor_repository.dart';
 import 'package:guide_up/service/mentee/mentee_service.dart';
 
+import '../../../core/models/mentor/mentor_model.dart';
 import '../../../core/utils/user_helper.dart';
 import '../../../core/utils/user_info_helper.dart';
 
@@ -22,7 +24,7 @@ class MentorDashboard extends StatefulWidget {
 
 class _MentorDashboardState extends State<MentorDashboard> {
   UserDetail? userDetail;
-  Future<int>? mentorCountFuture;
+  Mentor? _mentor;
 
   @override
   void initState() {
@@ -36,8 +38,7 @@ class _MentorDashboardState extends State<MentorDashboard> {
       detail = null;
     } else {
       userDetail = detail;
-      mentorCountFuture = MenteeRepository()
-          .getMenteeListCountByUserId(userDetail!.getUserId()!);
+      _mentor = await MentorRepository().getMentorByUserId(detail.getUserId()!);
       setState(() {});
     }
   }
@@ -81,7 +82,7 @@ class _MentorDashboardState extends State<MentorDashboard> {
                     child: CircleAvatar(
                       radius: 40,
                       backgroundImage:
-                      UserInfoHelper.getProfilePicture(userDetail),
+                          UserInfoHelper.getProfilePicture(userDetail),
                     ),
                   ),
                   const SizedBox(width: 20),
@@ -95,15 +96,15 @@ class _MentorDashboardState extends State<MentorDashboard> {
                             .textTheme
                             .headlineMedium
                             ?.copyWith(
-                          color: ColorConstants.appcolor4,
-                        ),
+                              color: ColorConstants.appcolor4,
+                            ),
                       ),
                       const SizedBox(height: 8),
                       Text(
                         "${UserHelper().auth.currentUser!.email}",
                         style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                          color: ColorConstants.appcolor4,
-                        ),
+                              color: ColorConstants.appcolor4,
+                            ),
                       ),
                     ],
                   ),
@@ -175,6 +176,14 @@ class _MentorDashboardState extends State<MentorDashboard> {
     }
   }
 
+  String getMentorId() {
+    if (_mentor != null) {
+      return _mentor!.getId()!;
+    } else {
+      return "";
+    }
+  }
+
   List<Widget> createAnalysisCard(
       String title, EnCardType cardType, BuildContext context) {
     return [
@@ -224,15 +233,15 @@ class _MentorDashboardState extends State<MentorDashboard> {
 
   Future<dynamic> getFutureCount(EnCardType cardType) async {
     if (cardType == EnCardType.view) {
-      return MenteeRepository().getMenteeListCountByUserId(getUserId());
+      return MenteeRepository().getMenteeListCountByMentorId(getMentorId());
     } else if (cardType == EnCardType.comment) {
-      return MentorCommendRepository()
-          .getMentorCommendListCountByUserId(getUserId());
+      return MentorCommentRepository()
+          .getMentorCommentListCountByMentorId(getMentorId());
     } else if (cardType == EnCardType.mentee) {
       return MentorFavouriteRepository()
-          .getMentorFavouriteListCountByUserId(getUserId());
+          .getMentorFavouriteListCountByMentorId(getMentorId());
     } else if (cardType == EnCardType.payment) {
-      return MenteeService().getTotalPriceByUserId(getUserId());
+      return MenteeService().getTotalPriceByMentorId(getMentorId());
     }
 
     return 0;
@@ -241,53 +250,53 @@ class _MentorDashboardState extends State<MentorDashboard> {
   Widget getAvatar(EnCardType cardType, BuildContext context) {
     switch (cardType) {
       case EnCardType.view:
-        return CircleAvatar(
+        return const CircleAvatar(
           backgroundColor: ColorConstants.theme2White,
           child: InkWell(
             // onTap: () {
             //   Navigator.pushNamed(context, RouterConstants.myMentors);
             // },
-            child: const Icon(
+            child: Icon(
               Icons.timeline,
               color: ColorConstants.success,
             ),
           ),
         );
       case EnCardType.mentee:
-        return CircleAvatar(
-          backgroundColor: const Color.fromARGB(255, 25, 20, 20),
+        return const CircleAvatar(
+          backgroundColor: Color.fromARGB(255, 25, 20, 20),
           child: InkWell(
             // onTap: () {
             //   Navigator.pushNamed(
             //       context, RouterConstants.menteeFavouriteMentorPage);
             // },
-            child: const Icon(
+            child: Icon(
               Icons.person,
               color: ColorConstants.warningDark,
             ),
           ),
         );
       case EnCardType.comment:
-        return CircleAvatar(
+        return const CircleAvatar(
           backgroundColor: ColorConstants.theme2White,
           child: InkWell(
             // onTap: () {
-            //   Navigator.pushNamed(context, RouterConstants.myCommends);
+            //   Navigator.pushNamed(context, RouterConstants.myComments);
             // },
-            child: const Icon(
+            child: Icon(
               Icons.chat,
               color: ColorConstants.theme1Mustard,
             ),
           ),
         );
       case EnCardType.payment:
-        return CircleAvatar(
+        return const CircleAvatar(
           backgroundColor: ColorConstants.theme2White,
           child: InkWell(
             // onTap: () {
             //   Navigator.pushNamed(context, RouterConstants.myPayments);
             // },
-            child: const Icon(
+            child: Icon(
               Icons.currency_lira,
               color: ColorConstants.infoDark,
             ),

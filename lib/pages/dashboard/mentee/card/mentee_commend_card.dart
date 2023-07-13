@@ -1,21 +1,21 @@
 import 'package:flutter/material.dart';
 import 'package:guide_up/core/models/mentor/mentor_commend_model.dart';
 
-class MenteeCommendCard extends StatefulWidget {
-  final MentorCommend mentorCommend;
+class MenteeCommentCard extends StatefulWidget {
+  final MentorComment mentorComment;
 
-  const MenteeCommendCard({Key? key, required this.mentorCommend})
+  const MenteeCommentCard({Key? key, required this.mentorComment})
       : super(key: key);
 
   @override
-  State<MenteeCommendCard> createState() =>
-      _MenteeCommendCardState(mentorCommend);
+  State<MenteeCommentCard> createState() =>
+      _MenteeCommentCardState(mentorComment);
 }
 
-class _MenteeCommendCardState extends State<MenteeCommendCard> {
-  final MentorCommend _mentorCommend;
+class _MenteeCommentCardState extends State<MenteeCommentCard> {
+  final MentorComment _mentorComment;
 
-  _MenteeCommendCardState(this._mentorCommend);
+  _MenteeCommentCardState(this._mentorComment);
 
   @override
   Widget build(BuildContext context) {
@@ -24,7 +24,7 @@ class _MenteeCommendCardState extends State<MenteeCommendCard> {
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           SizedBox(
-            width: _mentorCommend.getRate()! * 25,
+            width: _mentorComment.getRate()! * 25,
             height: 10,
             child: ListView.builder(
               itemBuilder: (context, index) {
@@ -34,13 +34,13 @@ class _MenteeCommendCardState extends State<MenteeCommendCard> {
                   size: 25,
                 );
               },
-              itemCount: _mentorCommend.getRate(),
+              itemCount: _mentorComment.getRate(),
               scrollDirection: Axis.horizontal,
             ),
           ),
         ],
       ),
-      subtitle: Text(_mentorCommend.getCommend()!),
+      subtitle: Text(_mentorComment.getComment()!),
     );
   }
 }

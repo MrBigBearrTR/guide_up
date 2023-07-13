@@ -88,7 +88,7 @@ class _GuideCardState extends State<GuideCard> {
                             arguments: widget.postCardView)
                         .then((value) {
                       CommentRepository()
-                          .getPostCommendCount(widget.postCardView.id!)
+                          .getPostCommentCount(widget.postCardView.id!)
                           .then((value) {
                         widget.postCardView.commentCount = value;
                       });

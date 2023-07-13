@@ -43,11 +43,21 @@ class MentorFavouriteRepository {
     return mentorFavouriteList;
   }
 
-  // Mentor Favorileri için Card Yapısında Kullanılan Fonskiyon
   Future<int> getMentorFavouriteListCountByUserId(String userId) async {
     int listCount = 0;
     var query =
         await _mentorFavouriteCollection.where("userId", isEqualTo: userId).get();
+
+    if (query.docs.isNotEmpty) {
+      listCount = query.docs.length;
+    }
+    return listCount;
+  }
+
+  Future<int> getMentorFavouriteListCountByMentorId(String mentorId) async {
+    int listCount = 0;
+    var query =
+    await _mentorFavouriteCollection.where("mentorId", isEqualTo: mentorId).get();
 
     if (query.docs.isNotEmpty) {
       listCount = query.docs.length;

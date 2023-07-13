@@ -213,7 +213,7 @@ class PostService {
             await _postLikeSaveRepository.getLikeSavePostListCountByUserId(
                 post.getId()!, EnLikeSaveType.like);
         int commendCount =
-            await _commendRepository.getPostCommendCount(post.getId()!);
+            await _commendRepository.getPostCommentCount(post.getId()!);
 
         cardView.likeCount = likeCount;
         cardView.commentCount = commendCount;

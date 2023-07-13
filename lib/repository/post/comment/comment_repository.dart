@@ -68,7 +68,7 @@ class CommentRepository extends GeneralRepository<Comment> {
     return commendList;
   }
 
-  Future<int> getPostCommendCount(String postId) async {
+  Future<int> getPostCommentCount(String postId) async {
     int count = 0;
 
     QuerySnapshot<Map<String, dynamic>> query;

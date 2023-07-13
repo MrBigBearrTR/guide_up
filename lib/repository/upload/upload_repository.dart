@@ -22,6 +22,7 @@ class UploadRepository {
         .ref(FirestoreCollectionConstant.uploadPostPicturesPath + postId);
 
     profileRef.putFile(File(filePath));
-    return profileRef.getDownloadURL();
+    String url=await profileRef.getDownloadURL();
+    return url;
   }
 }

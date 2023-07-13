@@ -19,6 +19,7 @@ class GuideHomePage extends StatefulWidget {
 class _GuideHomePageState extends State<GuideHomePage> {
   bool _isLogIn = false;
   String _userId = "";
+  bool _refresh = false;
   final ScrollController _scrollController = ScrollController();
 
   @override
@@ -29,10 +30,15 @@ class _GuideHomePageState extends State<GuideHomePage> {
   }
 
   void _scrollListener() {
-    if (_scrollController.offset >=
-        _scrollController.position.maxScrollExtent &&
-        !_scrollController.position.outOfRange) {
-      setState(() {});
+    if (_refresh) {
+      if (_scrollController.offset ==
+              _scrollController.position.minScrollExtent &&
+          !_scrollController.position.outOfRange) {
+        setState(() {});
+      }
+      _refresh = !_refresh;
+    } else {
+      _refresh = !_refresh;
     }
   }
 
@@ -49,6 +55,15 @@ class _GuideHomePageState extends State<GuideHomePage> {
                   color: ColorConstants.theme2Dark,
                   fontWeight: FontWeight.bold)),
         ),
+        actions: [
+          Padding(
+              padding: const EdgeInsets.fromLTRB(5, 0, 15, 0),
+              child: IconButton(
+                  onPressed: () {
+                    setState(() {});
+                  },
+                  icon: const Icon(Icons.refresh))),
+        ],
       ),
       body: Container(
         decoration: CustomMaterial.backgroundBoxDecoration,
@@ -72,11 +87,7 @@ class _GuideHomePageState extends State<GuideHomePage> {
                         // Navigate to the detailed view when the post is clicked
                         Navigator.pushNamed(
                             context, RouterConstants.guideDetailPage,
-                            arguments: postCardView).then((value) {
-                           setState(() {
-
-                           });
-                        });
+                            arguments: postCardView);
                       },
                       child: GuideCard(
                         postCardView: postCardView,
