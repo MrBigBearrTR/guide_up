@@ -184,7 +184,8 @@ class _GeneralSettingsState extends State<GeneralSettings> {
           children: [
             TextButton(
               onPressed: () {
-                // Şifremi Unuttum butonuna basıldığında yapılacak işlemler
+                Navigator.pushNamed(
+                    context, RouterConstants.mentorFollowerPages);
               },
               style: ButtonStyle(
                 foregroundColor: MaterialStateProperty.all<Color>(ColorConstants.theme1DarkBlue), // Buton metin rengi
@@ -291,8 +292,6 @@ class _GeneralSettingsState extends State<GeneralSettings> {
           ),
           cursorColor: ColorConstants.theme2White, // İmleç rengi
         ),
-
-
       ],
     );
   }

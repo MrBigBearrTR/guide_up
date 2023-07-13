@@ -66,7 +66,7 @@ class _MentorBalanceMovementsState
             Container(
               width: double.infinity,
               height: 1.0,
-              color: Colors.black,
+              color: ColorConstants.itemBlack,
             ),
             SizedBox(height: 16.0),
             Container(
@@ -77,27 +77,27 @@ class _MentorBalanceMovementsState
                     padding: EdgeInsets.only(bottom: 8.0),
                     child: Text(
                       '21, Ara 2022, 2101',
-                      style: TextStyle(fontSize: 16.0),
+                      style: GoogleFonts.nunito(fontSize: 16.0),
                     ),
                   ),
                   Container(
                     padding: EdgeInsets.only(bottom: 8.0),
                     child: Text(
                       'TR39 00001 0090 1024 6113 0050 01',
-                      style: TextStyle(fontSize: 16.0),
+                      style: GoogleFonts.nunito(fontSize: 16.0),
                     ),
                   ),
                   Container(
                     padding: EdgeInsets.only(bottom: 8.0),
                     child: Text(
                       'Ali Yalçın',
-                      style: TextStyle(fontSize: 16.0),
+                      style: GoogleFonts.nunito(fontSize: 16.0),
                     ),
                   ),
                   Container(
                     child: Text(
                       '4505 \$',
-                      style: TextStyle(fontSize: 16.0),
+                      style: GoogleFonts.nunito(fontSize: 16.0),
                     ),
                   ),
                 ],

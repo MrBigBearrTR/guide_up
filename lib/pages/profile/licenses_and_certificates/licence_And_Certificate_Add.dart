@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:intl/intl.dart';
 
 import '../../../core/constant/color_constants.dart';
 import '../../../core/constant/router_constants.dart';
@@ -15,12 +16,14 @@ class LicenseAndCertificateAddPage extends StatefulWidget {
       _LicenseAndCertificateAddPageState();
 }
 
-class _LicenseAndCertificateAddPageState
-    extends State<LicenseAndCertificateAddPage> {
+class _LicenseAndCertificateAddPageState extends State<LicenseAndCertificateAddPage> {
+  DateTime startDate = DateTime.now();
+  DateTime endDate = DateTime.now();
+  final dateFormat = DateFormat('dd.MM.yyyy');
   TextEditingController licenseNameController = TextEditingController();
   TextEditingController organizationController = TextEditingController();
-  TextEditingController issueDateController = TextEditingController();
-  TextEditingController expiryDateController = TextEditingController();
+  TextEditingController startDateController = TextEditingController();
+  TextEditingController endDateController = TextEditingController();
   TextEditingController authorizationIdController = TextEditingController();
   TextEditingController authorizationUrlController = TextEditingController();
 
@@ -46,15 +49,67 @@ class _LicenseAndCertificateAddPageState
     }
   }
 
+  Future<void> showDatePickerDialog() async {
+    final DateTime? pickedDate = await showDatePicker(
+      context: context,
+      builder: (BuildContext context, Widget? child) {
+        return Theme(
+          data: ThemeData(
+            colorScheme: const ColorScheme.light(
+              primary: ColorConstants.theme1DarkBlue,
+            ),
+            dialogBackgroundColor: ColorConstants.itemWhite,
+          ),
+          child: child ?? const Text(""),
+        );
+      },
+      initialDate: startDate,
+      firstDate: DateTime(1900),
+      lastDate: DateTime.now(),
+    );
+    if (pickedDate != null && pickedDate != startDate) {
+      setState(() {
+        startDate = pickedDate;
+        startDateController.text = dateFormat.format(startDate);
+      });
+    }
+  }
+
+  Future<void> showDatePickerDialog2() async {
+    final DateTime? pickedDate = await showDatePicker(
+      context: context,
+      builder: (BuildContext context, Widget? child) {
+        return Theme(
+          data: ThemeData(
+            colorScheme: const ColorScheme.light(
+              primary: ColorConstants.theme1DarkBlue,
+            ),
+            dialogBackgroundColor: ColorConstants.itemWhite,
+          ),
+          child: child ?? const Text(""),
+        );
+      },
+      initialDate: endDate,
+      firstDate: DateTime(1900),
+      lastDate: DateTime.now(),
+    );
+    if (pickedDate != null && pickedDate != endDate) {
+      setState(() {
+        endDate = pickedDate;
+        endDateController.text = dateFormat.format(endDate);
+      });
+    }
+  }
+
   void addLicenseAndCertificate() async {
     String licenseName = licenseNameController.text.trim();
     String organization = organizationController.text.trim();
-    String issueDate = issueDateController.text.trim();
-    //String expiryDate = expiryDateController.text.trim();
+    String startDateText = startDateController.text.trim();
+    String endDateText = endDateController.text.trim();
     String authorizationId = authorizationIdController.text.trim();
     String authorizationUrl = authorizationUrlController.text.trim();
 
-    if (licenseName.isEmpty || organization.isEmpty || issueDate.isEmpty) {
+    if (licenseName.isEmpty || organization.isEmpty || startDateText.isEmpty) {
       showDialog(
         context: context,
         builder: (BuildContext context) {
@@ -95,9 +150,9 @@ class _LicenseAndCertificateAddPageState
     userLicenseAndCertificate.setUserId(userId!);
     userLicenseAndCertificate.setLicenseName(licenseName);
     userLicenseAndCertificate.setOrganization(organization);
-    //TODO KEREMİO BAKACAK
-    // userLicenseAndCertificate.setIssueDate(issueDate);
-    // userLicenseAndCertificate.setExpiryDate(expiryDate);
+    userLicenseAndCertificate.setStartDate(startDate);
+    if(endDateText.isNotEmpty) {
+      userLicenseAndCertificate.setEndDate(endDate); }
     userLicenseAndCertificate.setAuthorizationId(authorizationId);
     userLicenseAndCertificate.setAuthorizationUrl(authorizationUrl);
 
@@ -108,9 +163,8 @@ class _LicenseAndCertificateAddPageState
       setState(() {
         licenseNameController.clear();
         organizationController.clear();
-        //TODO KEREMİO BAKACAK
-        //issueDateController.clear();
-        //expiryDateController.clear();
+        startDateController.clear();
+        endDateController.clear();
         authorizationIdController.clear();
         authorizationUrlController.clear();
       });
@@ -248,23 +302,29 @@ class _LicenseAndCertificateAddPageState
               decoration: InputDecoration(
                 labelText: 'Başlangıç Tarihi',
                 labelStyle: GoogleFonts.nunito(
-                  color: (issueDateController.value.text.isNotEmpty)
+                  color: (startDateController.value.text.isNotEmpty)
                       ? ColorConstants.theme1DarkBlue
                       : ColorConstants.warningDark,
                 ),
                 border: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(8.0),
                 ),
+                suffixIcon: IconButton(
+                  icon: const Icon(Icons.calendar_today),
+                  onPressed: showDatePickerDialog,
+                  color: ColorConstants.theme1DarkBlue,
+                ),
                 focusedBorder: OutlineInputBorder(
                   borderSide: BorderSide(
-                    color: (issueDateController.value.text.isNotEmpty)
+                    color: (startDateController.value.text.isNotEmpty)
                         ? ColorConstants.theme1DarkBlue
                         : ColorConstants.warningDark,
                   ),
                   borderRadius: BorderRadius.circular(8.0),
                 ),
               ),
-              controller: issueDateController,
+              readOnly: true,
+              controller: startDateController,
               cursorColor: ColorConstants.theme1DarkBlue,
               onChanged: (value) {
                 setState(() {});
@@ -275,7 +335,7 @@ class _LicenseAndCertificateAddPageState
               decoration: InputDecoration(
                 labelText: 'Bitiş Tarihi (isteğe bağlı)',
                 labelStyle: GoogleFonts.nunito(
-                  color: (expiryDateController.value.text.isNotEmpty)
+                  color: (endDateController.value.text.isNotEmpty)
                       ? ColorConstants.theme1DarkBlue
                       : ColorConstants.warningDark,
                 ),
@@ -284,14 +344,20 @@ class _LicenseAndCertificateAddPageState
                 ),
                 focusedBorder: OutlineInputBorder(
                   borderSide: BorderSide(
-                    color: (expiryDateController.value.text.isNotEmpty)
+                    color: (endDateController.value.text.isNotEmpty)
                         ? ColorConstants.theme1DarkBlue
                         : ColorConstants.warningDark,
                   ),
                   borderRadius: BorderRadius.circular(8.0),
                 ),
+                suffixIcon: IconButton(
+                  icon: const Icon(Icons.calendar_today),
+                  onPressed: showDatePickerDialog2,
+                  color: ColorConstants.theme1DarkBlue,
+                ),
               ),
-              controller: expiryDateController,
+              readOnly: true,
+              controller: endDateController,
               cursorColor: ColorConstants.theme1DarkBlue,
               onChanged: (value) {
                 setState(() {});

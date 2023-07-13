@@ -113,10 +113,7 @@ class _UserProjectPageState extends State<UserProjectPage> {
     String description = descriptionController.text.trim();
     String link=linkController.text.trim();
 
-    if (projectTitle.isEmpty ||
-        description.isEmpty ||
-        startDateText.isEmpty ||
-        experienceId.isEmpty) {
+    if (projectTitle.isEmpty || description.isEmpty || startDateText.isEmpty || experienceId.isEmpty) {
       showDialog(
         context: context,
         builder: (BuildContext context) {
@@ -453,7 +450,11 @@ class _UserProjectPageState extends State<UserProjectPage> {
                 ),
                 border: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(8.0),
-                ),
+                ), suffixIcon: IconButton(
+                icon: const Icon(Icons.calendar_today),
+                onPressed: showDatePickerDialog2,
+                color: ColorConstants.theme1DarkBlue,
+              ),
                 focusedBorder: OutlineInputBorder(
                   borderSide: BorderSide(
                     color: (endDateController.value.text.isNotEmpty)
@@ -461,11 +462,6 @@ class _UserProjectPageState extends State<UserProjectPage> {
                         : ColorConstants.warningDark,
                   ),
                   borderRadius: BorderRadius.circular(8.0),
-                ),
-                suffixIcon: IconButton(
-                  icon: const Icon(Icons.calendar_today),
-                  onPressed: showDatePickerDialog2,
-                  color: ColorConstants.theme1DarkBlue,
                 ),
               ),
               readOnly: true,
@@ -528,5 +524,11 @@ class _UserProjectPageState extends State<UserProjectPage> {
       startDateController.text = ControlHelper.checkInputValue(
           dateFormat.format(userProject!.getStartDate()!));
     }
+    if (userProject!.getEndDate() != null) {
+      endDate = userProject!.getEndDate()!;
+      endDateController.text = ControlHelper.checkInputValue(
+          dateFormat.format(userProject!.getEndDate()!));
+    }
   }
+
 }

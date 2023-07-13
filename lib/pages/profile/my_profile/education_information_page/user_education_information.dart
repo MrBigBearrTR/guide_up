@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:guide_up/core/utils/secure_storage_helper.dart';
+import 'package:intl/intl.dart';
 import '../../../../core/constant/color_constants.dart';
 import '../../../../core/constant/router_constants.dart';
 import '../../../../core/enumeration/extensions/ExLanguage.dart';
@@ -15,6 +16,9 @@ class UserEducationInformationPage extends StatefulWidget {
 }
 
 class _UserEducationInformationPageState extends State<UserEducationInformationPage> {
+  DateTime startDate = DateTime.now();
+  DateTime endDate = DateTime.now();
+  final dateFormat = DateFormat('dd.MM.yyyy');
   TextEditingController schoolController = TextEditingController();
   TextEditingController departmentController = TextEditingController();
   TextEditingController startDateController = TextEditingController();
@@ -47,19 +51,71 @@ class _UserEducationInformationPageState extends State<UserEducationInformationP
     }
   }
 
+  Future<void> showDatePickerDialog() async {
+    final DateTime? pickedDate = await showDatePicker(
+      context: context,
+      builder: (BuildContext context, Widget? child) {
+        return Theme(
+          data: ThemeData(
+            colorScheme: const ColorScheme.light(
+              primary: ColorConstants.theme1DarkBlue,
+            ),
+            dialogBackgroundColor: ColorConstants.itemWhite,
+          ),
+          child: child ?? const Text(""),
+        );
+      },
+      initialDate: startDate,
+      firstDate: DateTime(1900),
+      lastDate: DateTime.now(),
+    );
+    if (pickedDate != null && pickedDate != startDate) {
+      setState(() {
+        startDate = pickedDate;
+        startDateController.text = dateFormat.format(startDate);
+      });
+    }
+  }
+
+  Future<void> showDatePickerDialog2() async {
+    final DateTime? pickedDate = await showDatePicker(
+      context: context,
+      builder: (BuildContext context, Widget? child) {
+        return Theme(
+          data: ThemeData(
+            colorScheme: const ColorScheme.light(
+              primary: ColorConstants.theme1DarkBlue,
+            ),
+            dialogBackgroundColor: ColorConstants.itemWhite,
+          ),
+          child: child ?? const Text(""),
+        );
+      },
+      initialDate: endDate,
+      firstDate: DateTime(1900),
+      lastDate: DateTime.now(),
+    );
+    if (pickedDate != null && pickedDate != endDate) {
+      setState(() {
+        endDate = pickedDate;
+        endDateController.text = dateFormat.format(endDate);
+      });
+    }
+  }
+
   void addEducationInformation() async {
     String school = schoolController.text.trim();
     String department = departmentController.text.trim();
-    String startDate = startDateController.text.trim();
-    String endDate = endDateController.text.trim();
+    String startDateText = startDateController.text.trim();
+    String endDateText = endDateController.text.trim();
     String grade = gradeController.text.trim();
     String activitiesSocieties = activitiesSocietiesController.text.trim();
     String description = descriptionController.text.trim();
-    String link = linkController.text.trim();
+    String link=linkController.text.trim();
     String language = enlanguageController.text.trim();
 
 
-    if (school.isEmpty || startDate.isEmpty || description.isEmpty) {
+    if (school.isEmpty || startDateText.isEmpty || description.isEmpty) {
       showDialog(
         context: context,
         builder: (BuildContext context) {
@@ -100,8 +156,9 @@ class _UserEducationInformationPageState extends State<UserEducationInformationP
       userEducationInformation.setUserId(userId!);
       userEducationInformation.setSchoolName(school);
       userEducationInformation.setDepartment(department);
-      userEducationInformation.setStartDate(DateTime.parse(startDate));
-      userEducationInformation.setEndDate(DateTime.parse(endDate));
+      userEducationInformation.setStartDate(startDate);
+      if(endDateText.isNotEmpty) {
+          userEducationInformation.setEndDate(endDate); }
       userEducationInformation.setGrade(grade);
       userEducationInformation.setActivitiesSocienties(activitiesSocieties);
       userEducationInformation.setDescription(description);
@@ -236,59 +293,71 @@ class _UserEducationInformationPageState extends State<UserEducationInformationP
                 },
               ),
               const SizedBox(height: 16.0),
-              TextFormField(
-                decoration: InputDecoration(
-                  labelText: 'Başlangıç Tarihi',
-                  labelStyle: GoogleFonts.nunito(
+            TextFormField(
+              decoration: InputDecoration(
+                labelText: 'Başlangıç Tarihi',
+                labelStyle: GoogleFonts.nunito(
+                  color: (startDateController.value.text.isNotEmpty)
+                      ? ColorConstants.theme1DarkBlue
+                      : ColorConstants.warningDark,
+                ),
+                border: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(8.0),
+                ),
+                suffixIcon: IconButton(
+                  icon: const Icon(Icons.calendar_today),
+                  onPressed: showDatePickerDialog,
+                  color: ColorConstants.theme1DarkBlue,
+                ),
+                focusedBorder: OutlineInputBorder(
+                  borderSide: BorderSide(
                     color: (startDateController.value.text.isNotEmpty)
                         ? ColorConstants.theme1DarkBlue
                         : ColorConstants.warningDark,
                   ),
-                  border: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(8.0),
-                  ),
-                  focusedBorder: OutlineInputBorder(
-                    borderSide: BorderSide(
-                      color: (startDateController.value.text.isNotEmpty)
-                          ? ColorConstants.theme1DarkBlue
-                          : ColorConstants.warningDark,
-                    ),
-                    borderRadius: BorderRadius.circular(8.0),
-                  ),
+                  borderRadius: BorderRadius.circular(8.0),
                 ),
-                controller: startDateController,
-                cursorColor: ColorConstants.theme1DarkBlue,
-                onChanged: (value) {
-                  setState(() {});
-                },
               ),
+              readOnly: true,
+              controller: startDateController,
+              cursorColor: ColorConstants.theme1DarkBlue,
+              onChanged: (value) {
+                setState(() {});
+              },
+            ),
               const SizedBox(height: 16.0),
-              TextFormField(
-                decoration: InputDecoration(
-                  labelText: 'Bitiş Tarihi (isteğe bağlı)',
-                  labelStyle: GoogleFonts.nunito(
+            TextFormField(
+              decoration: InputDecoration(
+                labelText: 'Bitiş Tarihi (isteğe bağlı)',
+                labelStyle: GoogleFonts.nunito(
+                  color: (endDateController.value.text.isNotEmpty)
+                      ? ColorConstants.theme1DarkBlue
+                      : ColorConstants.warningDark,
+                ),
+                border: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(8.0),
+                ),
+                focusedBorder: OutlineInputBorder(
+                  borderSide: BorderSide(
                     color: (endDateController.value.text.isNotEmpty)
                         ? ColorConstants.theme1DarkBlue
                         : ColorConstants.warningDark,
                   ),
-                  border: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(8.0),
-                  ),
-                  focusedBorder: OutlineInputBorder(
-                    borderSide: BorderSide(
-                      color: (endDateController.value.text.isNotEmpty)
-                          ? ColorConstants.theme1DarkBlue
-                          : ColorConstants.warningDark,
-                    ),
-                    borderRadius: BorderRadius.circular(8.0),
-                  ),
+                  borderRadius: BorderRadius.circular(8.0),
                 ),
-                controller: endDateController,
-                cursorColor: ColorConstants.theme1DarkBlue,
-                onChanged: (value) {
-                  setState(() {});
-                },
+                suffixIcon: IconButton(
+                  icon: const Icon(Icons.calendar_today),
+                  onPressed: showDatePickerDialog2,
+                  color: ColorConstants.theme1DarkBlue,
+                ),
               ),
+              readOnly: true,
+              controller: endDateController,
+              cursorColor: ColorConstants.theme1DarkBlue,
+              onChanged: (value) {
+                setState(() {});
+              },
+            ),
               const SizedBox(height: 16.0),
               TextFormField(
                 decoration: InputDecoration(

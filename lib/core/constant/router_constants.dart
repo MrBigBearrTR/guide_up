@@ -9,6 +9,7 @@ class RouterConstants{
   static const String mentorGuideUpRevenuePage="/mentorGuideUpRevenuePage";
   static const String mentorBalanceMovements="/mentorBalanceMovements";
   static const String mentorAccountInformation="/mentorAccountInformation";
+  static const String mentorFollowerPages="/mentorFollowerPages";
   static const String mentorDashboard="/mentorDashboard";
   static const String myProfileAccountPage="/myProfileAccountState";
   static const String generalSettingsPage="/generalSettingsPage";
