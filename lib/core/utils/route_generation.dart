@@ -9,6 +9,7 @@ import 'package:guide_up/pages/guide/guide_home_page.dart';
 import 'package:guide_up/pages/profile/my_profile/my_profile_account.dart';
 import 'package:guide_up/pages/register_page/register_with_detail.dart';
 
+import '../../pages/dashboard/mentor/mentor_follower_pages/mentor_follower_pages.dart';
 import '../../pages/dashboard/mentor/mentor_guideup_revenue/mentor_guideup_revenue.dart';
 import '../../pages/dashboard/mentor/mentor_preview.dart';
 import '../../pages/guide/comment/guide_comment_page.dart';
@@ -121,6 +122,8 @@ class RouteGenerator {
         return _createRoute(const MentorGuideUpRevenuePage(), settings);
       case RouterConstants.menteeFavouriteMentorPage:
         return _createRoute(const MenteeFavouriteMentorPage(), settings);
+      case RouterConstants.mentorFollowerPages:
+        return _createRoute(const MentorFollowerPages(), settings);
 
       case RouterConstants.guideAdd:
         return _createRoute(const GuideAddPage(), settings);
