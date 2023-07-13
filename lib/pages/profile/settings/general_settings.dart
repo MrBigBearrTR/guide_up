@@ -291,8 +291,6 @@ class _GeneralSettingsState extends State<GeneralSettings> {
           ),
           cursorColor: ColorConstants.theme2White, // İmleç rengi
         ),
-
-
       ],
     );
   }

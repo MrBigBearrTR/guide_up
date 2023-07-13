@@ -209,13 +209,13 @@ class _LicensesAndCertificatesPageState extends State<LicensesAndCertificatesPag
                               color: ColorConstants.itemWhite,
                             ),),
                         Text(
-                            'Veriliş tarihi: ${licenseAndCertificate.getIssueDate() ?? ""}',
+                            'Veriliş tarihi: ${licenseAndCertificate.getStartDate() ?? ""}',
                           style: GoogleFonts.nunito(
                             color: ColorConstants.itemWhite,
                           ),),
-                        if (licenseAndCertificate.getExpiryDate() != null)
+                        if (licenseAndCertificate.getEndDate() != null)
                           Text(
-                              'Sona erme tarihi: ${licenseAndCertificate.getExpiryDate() ?? ""}',
+                              'Sona erme tarihi: ${licenseAndCertificate.getEndDate() ?? ""}',
                             style: GoogleFonts.nunito(
                               color: ColorConstants.itemWhite,
                             ),),

@@ -7,8 +7,8 @@ class UserLicenseAndCertificate extends GeneralFields {
   String? _userId;
   String? _licenseName;
   String? _organization;
-  DateTime? _issueDate;
-  DateTime? _expiryDate;
+  DateTime? _startDate;
+  DateTime? _endDate;
   String? _authorizationId;
   String? _authorizationUrl;
 
@@ -44,20 +44,20 @@ class UserLicenseAndCertificate extends GeneralFields {
     _organization = organization;
   }
 
-  DateTime? getIssueDate() {
-    return _issueDate;
+  DateTime? getStartDate() {
+    return _startDate;
   }
 
-  void setIssueDate(DateTime issueDate) {
-    _issueDate = issueDate;
+  void setStartDate(DateTime startDate) {
+    _startDate = startDate;
   }
 
-  DateTime? getExpiryDate() {
-    return _expiryDate;
+  DateTime? getEndDate() {
+    return _endDate;
   }
 
-  void setExpiryDate(DateTime expiryDate) {
-    _expiryDate = expiryDate;
+  void setEndDate(DateTime endDate) {
+    _endDate = endDate;
   }
 
   String? getAuthorizationId() {
@@ -82,15 +82,15 @@ class UserLicenseAndCertificate extends GeneralFields {
     map['userId'] = getUserId();
     map['licenseName'] = getLicenseName();
     map['organization'] = getOrganization();
-    if (getIssueDate() != null) {
-      map['issueDate'] = getIssueDate().toString();
+    if (getStartDate() != null) {
+      map['startDate'] = getStartDate().toString();
     } else {
-      map['issueDate'] = getIssueDate();
+      map['startDate'] = getStartDate();
     }
-    if (getExpiryDate() != null) {
-      map['expiryDate'] = getExpiryDate().toString();
+    if (getEndDate() != null) {
+      map['endDate'] = getEndDate().toString();
     } else {
-      map['expiryDate'] = getExpiryDate();
+      map['endDate'] = getEndDate();
     }
     map['authorizationId'] = getAuthorizationId();
     map['authorizationUrl'] = getAuthorizationUrl();
@@ -113,11 +113,11 @@ class UserLicenseAndCertificate extends GeneralFields {
     if (ControlHelper.checkMapValue(map, 'organization')) {
       setOrganization(map['organization']);
     }
-    if (ControlHelper.checkMapValue(map, 'issueDate')) {
-      setIssueDate(DateTime.parse(map['issueDate']));
+    if (ControlHelper.checkMapValue(map, 'startDate')) {
+      setStartDate(DateTime.parse(map['startDate']));
     }
-    if (ControlHelper.checkMapValue(map, 'expiryDate')) {
-      setExpiryDate(DateTime.parse(map['expiryDate']));
+    if (ControlHelper.checkMapValue(map, 'endDate')) {
+      setEndDate(DateTime.parse(map['endDate']));
     }
     if (ControlHelper.checkMapValue(map, 'authorizationId')) {
       setAuthorizationId(map['authorizationId']);
