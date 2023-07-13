@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:guide_up/core/constant/color_constants.dart';
 import 'package:guide_up/core/constant/router_constants.dart';
 import 'package:guide_up/core/models/users/user_detail/user_detail_model.dart';
@@ -69,7 +70,7 @@ class _MentorFollowerPagesState extends State<MentorFollowerPages> {
             SizedBox(height: 16.0),
             Text(
               userDetail != null ? (" ${userDetail!.getName() ?? ""} ${userDetail!.getSurname() ?? ""}") : "",
-              style: TextStyle(
+              style: GoogleFonts.nunito(
                 fontSize: 24.0,
                 fontWeight: FontWeight.bold,
                 color: ColorConstants.itemBlack,

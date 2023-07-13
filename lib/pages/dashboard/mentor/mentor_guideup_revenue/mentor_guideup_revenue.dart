@@ -67,7 +67,7 @@ class _MentorGuideUpRevenuePageState extends State<MentorGuideUpRevenuePage> {
               top: 130.0,
               child: Text(
                 userDetail != null ? (" ${userDetail!.getName() ?? ""} ${userDetail!.getSurname() ?? ""}") : "",
-                style: TextStyle(
+                style: GoogleFonts.nunito(
                   fontSize: 24.0,
                   fontWeight: FontWeight.bold,
                   color: ColorConstants.itemBlack,
@@ -89,7 +89,7 @@ class _MentorGuideUpRevenuePageState extends State<MentorGuideUpRevenuePage> {
                 Expanded(
                   child: Text(
                     '\$974',
-                    style: TextStyle(fontSize: 16.0),
+                    style: GoogleFonts.nunito(fontSize: 16.0),
                   ),
                 ),
               ],
@@ -107,7 +107,7 @@ class _MentorGuideUpRevenuePageState extends State<MentorGuideUpRevenuePage> {
                       children: [
                         Text(
                           'Toplam Bakiye',
-                          style: TextStyle(
+                          style: GoogleFonts.nunito(
                             fontSize: 20.0,
                             fontWeight: FontWeight.bold,
                             color: ColorConstants.itemWhite,
@@ -126,7 +126,7 @@ class _MentorGuideUpRevenuePageState extends State<MentorGuideUpRevenuePage> {
                     SizedBox(height: 8.0),
                     Text(
                       '1035 \$',
-                      style: TextStyle(
+                      style: GoogleFonts.nunito(
                         fontSize: 24.0,
                         fontWeight: FontWeight.bold,
                         color: ColorConstants.itemWhite,
@@ -135,21 +135,21 @@ class _MentorGuideUpRevenuePageState extends State<MentorGuideUpRevenuePage> {
                     SizedBox(height: 16.0),
                     Text(
                       'Beklenen Ödeme: 0 \$',
-                      style: TextStyle(
+                      style: GoogleFonts.nunito(
                         fontSize: 16.0,
                         color: ColorConstants.itemWhite,
                       ),
                     ),
                     Text(
                       'Yapılan Ödeme: 0 \$',
-                      style: TextStyle(
+                      style: GoogleFonts.nunito(
                         fontSize: 16.0,
                         color: ColorConstants.itemWhite,
                       ),
                     ),
                     SizedBox(height: 16.0),
                     Text('Ali Yalçın',
-                        style: TextStyle(
+                        style: GoogleFonts.nunito(
                           fontSize: 18.0,
                           fontWeight: FontWeight.bold,
                           color: ColorConstants.itemWhite,
@@ -159,7 +159,7 @@ class _MentorGuideUpRevenuePageState extends State<MentorGuideUpRevenuePage> {
                       children: [
                         Text(
                           'TR39 00001 0090 1024 6113 0050 01',
-                          style: TextStyle(
+                          style: GoogleFonts.nunito(
                             fontSize: 14.0,
                             color: ColorConstants.itemWhite,
                           ),
@@ -190,7 +190,7 @@ class _MentorGuideUpRevenuePageState extends State<MentorGuideUpRevenuePage> {
                 SizedBox(width: 8.0),
                 Text(
                   'Toplam ',
-                  style: TextStyle(
+                  style: GoogleFonts.nunito(
                     fontSize: 14.0,
                     color: Colors.black,
                     fontWeight: FontWeight.bold,
@@ -198,7 +198,7 @@ class _MentorGuideUpRevenuePageState extends State<MentorGuideUpRevenuePage> {
                 ),
                 Text(
                   '9745 \$ ',
-                  style: TextStyle(
+                  style: GoogleFonts.nunito(
                     fontSize: 14.0,
                     color: Colors.green,
                     fontWeight: FontWeight.bold,
@@ -206,7 +206,7 @@ class _MentorGuideUpRevenuePageState extends State<MentorGuideUpRevenuePage> {
                 ),
                 Text(
                   'kazandın',
-                  style: TextStyle(
+                  style: GoogleFonts.nunito(
                     fontSize: 14.0,
                     color: Colors.black,
                     fontWeight: FontWeight.bold,
@@ -232,7 +232,7 @@ class _MentorGuideUpRevenuePageState extends State<MentorGuideUpRevenuePage> {
                         SizedBox(width: 8.0),
                         Text(
                           'Banka Hesabına Aktar',
-                          style: TextStyle(
+                          style: GoogleFonts.nunito(
                             fontSize: 16.0,
                             fontWeight: FontWeight.bold,
                             color: ColorConstants.itemBlack,
@@ -400,7 +400,7 @@ class _MentorGuideUpRevenuePageState extends State<MentorGuideUpRevenuePage> {
                           ),
                           child: Text(
                             'Bakiyede para yoksa',
-                            style: TextStyle(
+                            style: GoogleFonts.nunito(
                               fontSize: 3.0,
                               fontWeight: FontWeight.bold,
                             ),
@@ -411,7 +411,7 @@ class _MentorGuideUpRevenuePageState extends State<MentorGuideUpRevenuePage> {
                     SizedBox(height: 3.0),
                     Text(
                       'Bakiyen, 5 iş günü içinde otomatik hesabına aktarılacak',
-                      style: TextStyle(
+                      style: GoogleFonts.nunito(
                         fontSize: 10.0,
                         color: ColorConstants.itemBlack,
                       ),
