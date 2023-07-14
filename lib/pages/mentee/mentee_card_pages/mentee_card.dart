@@ -44,7 +44,7 @@ class _MenteeCardState extends State<MenteeCard> {
                       fontSize: 11,
                       fontStyle: FontStyle.italic,
                       decoration: TextDecoration.underline,
-                      color: ColorConstants.theme2DarkBlue,
+                      color: ColorConstants.background,
                     ),
                   ),
                 ),
@@ -55,7 +55,7 @@ class _MenteeCardState extends State<MenteeCard> {
                   style: GoogleFonts.nunito(
                     textStyle: const TextStyle(
                       fontSize: 11,
-                      color: ColorConstants.theme2DarkBlue,
+                      color: ColorConstants.background,
                     ),
                   ),
 

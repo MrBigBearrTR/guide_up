@@ -64,12 +64,14 @@ class _GuideAddPageState extends State<GuideAddPage> {
     final imagePicker = ImagePicker();
     final pickedImage = await imagePicker.pickImage(
       source: ImageSource.gallery,
-      maxWidth: 500,
-      maxHeight: 500,
+      maxWidth: 1000,
+      maxHeight: 1000,
+
     );
     if (pickedImage != null) {
       setState(() {
         _guidePicture = File(pickedImage.path);
+
       });
     }
   }
@@ -83,13 +85,13 @@ class _GuideAddPageState extends State<GuideAddPage> {
           "Guide 'in",
           style: GoogleFonts.nunito(
             textStyle: const TextStyle(
-              color: ColorConstants.theme2Dark,
+              color: ColorConstants.darkBack,
               fontWeight: FontWeight.bold,
             ),
           ),
         ),
       ),
-      backgroundColor: ColorConstants.theme2White,
+      backgroundColor: ColorConstants.textwhite,
       body: SingleChildScrollView(
         child: Padding(
           padding: const EdgeInsets.all(8.0),

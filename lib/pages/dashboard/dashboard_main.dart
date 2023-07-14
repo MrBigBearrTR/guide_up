@@ -41,7 +41,7 @@ class _DashboardMainState extends State<DashboardMain> {
                   title: Text('Dashboard',
                       style: GoogleFonts.nunito(
                         textStyle: const TextStyle(
-                          color: ColorConstants.theme2Orange,
+                          color: ColorConstants.buttonPurple,
                           fontWeight: FontWeight.bold,
                           fontSize: 25,
                         ),

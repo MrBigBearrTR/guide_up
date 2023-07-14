@@ -29,6 +29,8 @@ class _GuideHomePageState extends State<GuideHomePage> {
     _scrollController.addListener(_scrollListener);
   }
 
+
+
   void _scrollListener() {
     if (_refresh) {
       if (_scrollController.offset ==
@@ -42,6 +44,7 @@ class _GuideHomePageState extends State<GuideHomePage> {
     }
   }
 
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -52,7 +55,7 @@ class _GuideHomePageState extends State<GuideHomePage> {
           "Guide",
           style: GoogleFonts.nunito(
               textStyle: const TextStyle(
-                  color: ColorConstants.theme2Dark,
+                  color: ColorConstants.darkBack,
                   fontWeight: FontWeight.bold)),
         ),
         actions: [

@@ -36,14 +36,14 @@ class _ConversationHomePageState extends State<ConversationHomePage> {
 
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: ColorConstants.theme2White,
+        backgroundColor: ColorConstants.textwhite,
         centerTitle: true,
         automaticallyImplyLeading: false,
         title: Text(
           "Konuşmalarım",
           style: GoogleFonts.nunito(
             textStyle: const TextStyle(
-              color: ColorConstants.theme2Dark,
+              color: ColorConstants.darkBack,
               fontWeight: FontWeight.bold,
             ),
           ),
@@ -75,7 +75,7 @@ class _ConversationHomePageState extends State<ConversationHomePage> {
                         style: GoogleFonts.nunito(
                           textStyle: const TextStyle(
                             fontWeight: FontWeight.bold,
-                            color: ColorConstants.theme2Dark,
+                            color: ColorConstants.darkBack,
                           ),
                         ),
                       ),
@@ -88,7 +88,7 @@ class _ConversationHomePageState extends State<ConversationHomePage> {
                           style: GoogleFonts.nunito(
                             textStyle: const TextStyle(
                               fontWeight: FontWeight.bold,
-                              color: ColorConstants.theme2Dark,
+                              color: ColorConstants.darkBack,
                             ),
                           ),
                         ),
@@ -117,7 +117,7 @@ class _ConversationHomePageState extends State<ConversationHomePage> {
                   style: GoogleFonts.nunito(
                     textStyle: const TextStyle(
                       fontWeight: FontWeight.bold,
-                      color: ColorConstants.theme2Dark,
+                      color: ColorConstants.darkBack,
                     ),
                   ),
                 ),

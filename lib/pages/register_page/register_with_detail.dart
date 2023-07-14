@@ -207,7 +207,7 @@ class _RegisterWithDetailState extends State<RegisterWithDetail> {
                             children: [
                               CircleAvatar(
                                 radius: 60.0,
-                                backgroundColor: ColorConstants.theme2Orange,
+                                backgroundColor: ColorConstants.buttonPurple,
                                 // Arka plan rengi
                                 backgroundImage: _profilePicture != null
                                     ? FileImage(_profilePicture!)

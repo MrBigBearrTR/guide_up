@@ -64,7 +64,7 @@ class _SearchMainPageState extends State<SearchMainPage> {
           'Araştırma Zamanı',
           style: GoogleFonts.nunito(
             textStyle: const TextStyle(
-                color: ColorConstants.theme2Dark, fontWeight: FontWeight.bold),
+                color: ColorConstants.darkBack, fontWeight: FontWeight.bold),
           ),
         ),
       ),
@@ -97,7 +97,7 @@ class _SearchMainPageState extends State<SearchMainPage> {
                     },
                     style: GoogleFonts.nunito(
                       textStyle: const TextStyle(
-                        color: ColorConstants.theme2Dark,
+                        color: ColorConstants.darkBack,
                       ),
                     ),
                     controller: _searchController,
@@ -143,7 +143,7 @@ class _SearchMainPageState extends State<SearchMainPage> {
                     _searchSwitchTitle,
                     style: GoogleFonts.nunito(
                       textStyle: const TextStyle(
-                        color: ColorConstants.theme2Dark,
+                        color: ColorConstants.darkBack,
                       ),
                     ),
                   ),
@@ -162,18 +162,18 @@ class _SearchMainPageState extends State<SearchMainPage> {
                         color: ColorConstants.theme1DarkBlue),
                     child: IconTheme(
                       data: const IconThemeData(
-                        color: ColorConstants.theme2Orange, // Icon rengi
+                        color: ColorConstants.buttonPurple, // Icon rengi
                       ),
                       child: Icon(
                         _isOnlyMentor ? Icons.diversity_1 : Icons.comment,
                       ),
                     ),
                   ),
-                  activeColor: ColorConstants.theme2Orange,
+                  activeColor: ColorConstants.buttonPurple,
                   // Koyu tema etkinleştirildiğindeki renk
                   activeTrackColor: ColorConstants.theme1DarkBlue,
                   // Koyu tema etkinleştirildiğindeki renk
-                  inactiveThumbColor: ColorConstants.theme2Orange,
+                  inactiveThumbColor: ColorConstants.buttonPurple,
                   // Koyu tema devre dışı bırakıldığında başlığın rengi
                   inactiveTrackColor: ColorConstants
                       .theme1CloudBlue, // Koyu tema devre dışı bırakıldığında iz sürücü rengi
@@ -249,7 +249,7 @@ class _SearchMainPageState extends State<SearchMainPage> {
                         textStyle: const TextStyle(
                           fontSize: 20,
                           fontWeight: FontWeight.bold,
-                          color: ColorConstants.theme2Dark,
+                          color: ColorConstants.darkBack,
                         ),
                       ),
                     ),
@@ -341,7 +341,7 @@ class _SearchMainPageState extends State<SearchMainPage> {
                         textStyle: const TextStyle(
                           fontSize: 20,
                           fontWeight: FontWeight.bold,
-                          color: ColorConstants.theme2Dark,
+                          color: ColorConstants.darkBack,
                         ),
                       ),
                     ),
@@ -397,7 +397,7 @@ class _SearchMainPageState extends State<SearchMainPage> {
                         textStyle: const TextStyle(
                           fontSize: 20,
                           fontWeight: FontWeight.bold,
-                          color: ColorConstants.theme2Dark,
+                          color: ColorConstants.darkBack,
                         ),
                       ),
                     ),

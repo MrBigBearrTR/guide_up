@@ -71,7 +71,7 @@ class _MentorPreviewState extends State<MentorPreview> {
               height: 45,
               decoration: const BoxDecoration(
                 shape: BoxShape.circle,
-                color: ColorConstants.theme2DarkBlue,
+                color: ColorConstants.background,
               ),
               child: InkWell(
                 onTap: () {
@@ -79,7 +79,7 @@ class _MentorPreviewState extends State<MentorPreview> {
                 },
                 child: const Icon(
                   Icons.arrow_back_rounded,
-                  color: ColorConstants.theme2Orange,
+                  color: ColorConstants.buttonPurple,
                 ),
               ),
             ),
@@ -92,7 +92,7 @@ class _MentorPreviewState extends State<MentorPreview> {
               height: 45,
               decoration: const BoxDecoration(
                 shape: BoxShape.circle,
-                color: ColorConstants.theme2DarkBlue,
+                color: ColorConstants.background,
               ),
               child: InkWell(
                 onTap: () {
@@ -100,7 +100,7 @@ class _MentorPreviewState extends State<MentorPreview> {
                 },
                 child: const Icon(
                   Icons.favorite_border,
-                  color: ColorConstants.theme2Orange,
+                  color: ColorConstants.buttonPurple,
                 ),
               ),
             ),

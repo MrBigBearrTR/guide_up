@@ -20,6 +20,7 @@ class GuideCard extends StatefulWidget {
   State<GuideCard> createState() => _GuideCardState();
 }
 
+
 class _GuideCardState extends State<GuideCard> {
   @override
   Widget build(BuildContext context) {
@@ -33,7 +34,7 @@ class _GuideCardState extends State<GuideCard> {
               style: GoogleFonts.nunito(
                 textStyle: const TextStyle(
                   fontWeight: FontWeight.bold,
-                  color: ColorConstants.theme2Dark,
+                  color: ColorConstants.darkBack,
                 ),
               ),
             ),
@@ -50,7 +51,7 @@ class _GuideCardState extends State<GuideCard> {
                       fontSize: 11,
                       fontStyle: FontStyle.italic,
                       decoration: TextDecoration.underline,
-                      color: ColorConstants.theme2DarkBlue,
+                      color: ColorConstants.background,
                     ),
                   ),
                 ),
@@ -61,7 +62,7 @@ class _GuideCardState extends State<GuideCard> {
                   style: GoogleFonts.nunito(
                     textStyle: const TextStyle(
                       fontSize: 11,
-                      color: ColorConstants.theme2DarkBlue,
+                      color: ColorConstants.background,
                     ),
                   ),
                 ),
@@ -84,8 +85,8 @@ class _GuideCardState extends State<GuideCard> {
                 GestureDetector(
                   onTap: () {
                     Navigator.pushNamed(
-                            context, RouterConstants.guideDetailPage,
-                            arguments: widget.postCardView)
+                        context, RouterConstants.guideDetailPage,
+                        arguments: widget.postCardView)
                         .then((value) {
                       CommentRepository()
                           .getPostCommentCount(widget.postCardView.id!)
@@ -103,7 +104,7 @@ class _GuideCardState extends State<GuideCard> {
                         backgroundColor: Colors.transparent,
                         child: Icon(
                           Icons.comment,
-                          color: ColorConstants.theme2Dark,
+                          color: ColorConstants.darkBack,
                         ),
                       ),
                       Text(
@@ -112,7 +113,7 @@ class _GuideCardState extends State<GuideCard> {
                           textStyle: const TextStyle(
                             fontSize: 12,
                             fontWeight: FontWeight.bold,
-                            color: ColorConstants.theme2DarkBlue,
+                            color: ColorConstants.background,
                           ),
                         ),
                       ),
@@ -126,7 +127,7 @@ class _GuideCardState extends State<GuideCard> {
                       if (!widget.postCardView.isLikeUser) {
                         PostLikeSaveService()
                             .add(widget.userId, widget.postCardView.id!,
-                                EnLikeSaveType.like)
+                            EnLikeSaveType.like)
                             .then((value) {
                           if (value.getId() != null) {
                             widget.postCardView.isLikeUser = true;
@@ -148,14 +149,14 @@ class _GuideCardState extends State<GuideCard> {
                     } else {
                       ScaffoldMessenger.of(context).showSnackBar(
                         SnackBar(
-                          backgroundColor: ColorConstants.theme2Orange,
+                          backgroundColor: ColorConstants.buttonPurple,
                           content: Text(
                             'Üye olmayan kullanıcı beğenme yapamaz.Lütfen Giriş yapınız :)',
                             style: GoogleFonts.nunito(
                               textStyle: const TextStyle(
                                 fontSize: 12,
                                 fontWeight: FontWeight.bold,
-                                color: ColorConstants.theme2Dark,
+                                color: ColorConstants.darkBack,
                               ),
                             ),
                           ),
@@ -163,6 +164,7 @@ class _GuideCardState extends State<GuideCard> {
                       );
                     }
                   },
+
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.start,
                     children: [
@@ -174,8 +176,8 @@ class _GuideCardState extends State<GuideCard> {
                               ? Icons.favorite
                               : Icons.favorite_border,
                           color: widget.postCardView.isLikeUser
-                              ? ColorConstants.theme2Orange
-                              : ColorConstants.theme2Dark,
+                              ? ColorConstants.buttonPurple
+                              : ColorConstants.darkBack,
                         ),
                       ),
                       Text(
@@ -184,7 +186,7 @@ class _GuideCardState extends State<GuideCard> {
                           textStyle: const TextStyle(
                             fontSize: 12,
                             fontWeight: FontWeight.bold,
-                            color: ColorConstants.theme2DarkBlue,
+                            color: ColorConstants.background,
                           ),
                         ),
                       ),
@@ -198,7 +200,7 @@ class _GuideCardState extends State<GuideCard> {
                       if (!widget.postCardView.isSaveUser) {
                         PostLikeSaveService()
                             .add(widget.userId, widget.postCardView.id!,
-                                EnLikeSaveType.save)
+                            EnLikeSaveType.save)
                             .then((value) {
                           if (value.getId() != null) {
                             widget.postCardView.isSaveUser = true;
@@ -218,14 +220,14 @@ class _GuideCardState extends State<GuideCard> {
                     } else {
                       ScaffoldMessenger.of(context).showSnackBar(
                         SnackBar(
-                          backgroundColor: ColorConstants.theme2Orange,
+                          backgroundColor: ColorConstants.buttonPurple,
                           content: Text(
                             'Üye olmayan kullanıcı kaydetme yapamaz.Lütfen Giriş yapınız :)',
                             style: GoogleFonts.nunito(
                               textStyle: const TextStyle(
                                 fontSize: 12,
                                 fontWeight: FontWeight.bold,
-                                color: ColorConstants.theme2Dark,
+                                color: ColorConstants.darkBack,
                               ),
                             ),
                           ),
@@ -245,7 +247,7 @@ class _GuideCardState extends State<GuideCard> {
                               : Icons.bookmark_border,
                           color: widget.postCardView.isSaveUser
                               ? ColorConstants.theme1Mustard
-                              : ColorConstants.theme2Dark,
+                              : ColorConstants.darkBack,
                         ),
                       ),
                     ],

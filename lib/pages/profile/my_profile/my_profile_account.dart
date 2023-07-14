@@ -131,7 +131,7 @@ class _MyProfileAccountState extends State<MyProfileAccount> {
           title: Text(
             "+ Link Ekle",
             style: GoogleFonts.nunito(
-              color: ColorConstants.theme2Orange,
+              color: ColorConstants.buttonPurple,
             ),
           ),
           content: Column(
@@ -140,14 +140,14 @@ class _MyProfileAccountState extends State<MyProfileAccount> {
               TextFormField(
                 decoration: InputDecoration(
                   enabledBorder: const OutlineInputBorder(
-                    borderSide: BorderSide(color: ColorConstants.theme2Orange),
+                    borderSide: BorderSide(color: ColorConstants.buttonPurple),
                   ),
                   focusedBorder: const OutlineInputBorder(
-                    borderSide: BorderSide(color: ColorConstants.theme2Orange),
+                    borderSide: BorderSide(color: ColorConstants.buttonPurple),
                   ),
                   labelText: "Başlık",
                   labelStyle:
-                      GoogleFonts.nunito(color: ColorConstants.theme2Orange),
+                      GoogleFonts.nunito(color: ColorConstants.buttonPurple),
                   border: const OutlineInputBorder(),
                 ),
                 onChanged: (value) {
@@ -160,14 +160,14 @@ class _MyProfileAccountState extends State<MyProfileAccount> {
               TextFormField(
                 decoration: InputDecoration(
                   enabledBorder: const OutlineInputBorder(
-                    borderSide: BorderSide(color: ColorConstants.theme2Orange),
+                    borderSide: BorderSide(color: ColorConstants.buttonPurple),
                   ),
                   focusedBorder: const OutlineInputBorder(
-                    borderSide: BorderSide(color: ColorConstants.theme2Orange),
+                    borderSide: BorderSide(color: ColorConstants.buttonPurple),
                   ),
                   labelText: "Link",
                   labelStyle:
-                      GoogleFonts.nunito(color: ColorConstants.theme2Orange),
+                      GoogleFonts.nunito(color: ColorConstants.buttonPurple),
                   border: const OutlineInputBorder(),
                 ),
                 onChanged: (value) {
@@ -176,7 +176,7 @@ class _MyProfileAccountState extends State<MyProfileAccount> {
               ),
             ],
           ),
-          backgroundColor: ColorConstants.theme2DarkBlue,
+          backgroundColor: ColorConstants.background,
           // Arka plan rengi olarak kullanıldı
 
           actions: [
@@ -195,11 +195,11 @@ class _MyProfileAccountState extends State<MyProfileAccount> {
                 }
               },
               style: ElevatedButton.styleFrom(
-                  backgroundColor: ColorConstants.theme2DarkBlue),
+                  backgroundColor: ColorConstants.background),
               child: Text(
                 "Tamam",
                 style: GoogleFonts.nunito(
-                    color: ColorConstants.theme2Orange // Metin rengi
+                    color: ColorConstants.buttonPurple // Metin rengi
                     ),
               ),
             ),
@@ -244,7 +244,7 @@ class _MyProfileAccountState extends State<MyProfileAccount> {
                       children: [
                         CircleAvatar(
                           radius: 60.0,
-                          backgroundColor: ColorConstants.theme2Orange,
+                          backgroundColor: ColorConstants.buttonPurple,
                           // Arka plan rengi
                           backgroundImage:
                               UserInfoHelper.getProfilePicture(userDetail),
@@ -491,7 +491,7 @@ class _MyProfileAccountState extends State<MyProfileAccount> {
                         child: Text(
                           "+ Link Ekle",
                           style: GoogleFonts.nunito(
-                            color: ColorConstants.theme2Orange,
+                            color: ColorConstants.buttonPurple,
                           ),
                         ),
                       ),
@@ -504,7 +504,7 @@ class _MyProfileAccountState extends State<MyProfileAccount> {
                           return Container(
                             decoration: BoxDecoration(
                               border: Border.all(
-                                color: ColorConstants.theme2DarkBlue,
+                                color: ColorConstants.background,
                                 width: 1.0,
                               ),
                               borderRadius: BorderRadius.circular(4.0),
@@ -532,7 +532,7 @@ class _MyProfileAccountState extends State<MyProfileAccount> {
                                       },
                                       child: const Icon(
                                         Icons.delete,
-                                        color: ColorConstants.theme2DarkBlue,
+                                        color: ColorConstants.background,
                                       ),
                                     ),
                                   ],
@@ -561,7 +561,7 @@ class _MyProfileAccountState extends State<MyProfileAccount> {
                         Text(
                           "Eğitim Bilgileri",
                           style: GoogleFonts.nunito(
-                            color: ColorConstants.theme2DarkBlue,
+                            color: ColorConstants.background,
                             fontWeight: FontWeight.bold,
                           ),
                         ),
@@ -586,7 +586,7 @@ class _MyProfileAccountState extends State<MyProfileAccount> {
                         Text(
                           "Projelerim",
                           style: GoogleFonts.nunito(
-                            color: ColorConstants.theme2DarkBlue,
+                            color: ColorConstants.background,
                             fontWeight: FontWeight.bold,
                           ),
                         ),
@@ -611,7 +611,7 @@ class _MyProfileAccountState extends State<MyProfileAccount> {
                         Text(
                           "Yetenekler",
                           style: GoogleFonts.nunito(
-                            color: ColorConstants.theme2DarkBlue,
+                            color: ColorConstants.background,
                             fontWeight: FontWeight.bold,
                           ),
                         ),
@@ -636,7 +636,7 @@ class _MyProfileAccountState extends State<MyProfileAccount> {
                         Text(
                           "Lisanslar ve sertifikalar",
                           style: GoogleFonts.nunito(
-                            color: ColorConstants.theme2DarkBlue,
+                            color: ColorConstants.background,
                             fontWeight: FontWeight.bold,
                           ),
                         ),
@@ -662,8 +662,8 @@ class _MyProfileAccountState extends State<MyProfileAccount> {
 
                   },
                   style: ElevatedButton.styleFrom(
-                    foregroundColor: ColorConstants.theme2Orange,
-                    backgroundColor: ColorConstants.theme2DarkBlue,
+                    foregroundColor: ColorConstants.buttonPurple,
+                    backgroundColor: ColorConstants.background,
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(20.0),
                     ),
@@ -685,7 +685,7 @@ class _MyProfileAccountState extends State<MyProfileAccount> {
                   height: 55,
                   decoration: const BoxDecoration(
                     shape: BoxShape.circle,
-                    color: ColorConstants.theme2DarkBlue,
+                    color: ColorConstants.background,
                   ),
                   child: InkWell(
                     onTap: () {
@@ -693,7 +693,7 @@ class _MyProfileAccountState extends State<MyProfileAccount> {
                     },
                     child: const Icon(
                       Icons.arrow_back_rounded,
-                      color: ColorConstants.theme2Orange,
+                      color: ColorConstants.buttonPurple,
                     ),
                   ),
                 ),

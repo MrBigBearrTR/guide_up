@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:guide_up/core/constant/color_constants.dart';
 
 class IntroPage2 extends StatefulWidget {
   @override
@@ -39,7 +40,7 @@ class _IntroPage2State extends State<IntroPage2>
   @override
   Widget build(BuildContext context) {
     return Container(
-      color: Colors.white,
+      color: ColorConstants.darkBack,
       child: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
@@ -74,6 +75,7 @@ class _IntroPage2State extends State<IntroPage2>
                     'MENTOR MÜ BULMAK İSTİYORSUN ?',
                     textAlign: TextAlign.center,
                     style: TextStyle(
+                      color: ColorConstants.textwhite,
                       fontSize: 21,
                       height: -2,
                       fontWeight: FontWeight.bold,
@@ -92,7 +94,7 @@ class _IntroPage2State extends State<IntroPage2>
                     'Alanında uzman mentorlerimiz ile görüş, kendinin en iyisi ol.',
                     textAlign: TextAlign.center,
                     style: TextStyle(
-                      color: Colors.black,
+                      color: ColorConstants.textwhite,
                       height: 0,
                       fontSize: 17,
                       fontWeight: FontWeight.normal,

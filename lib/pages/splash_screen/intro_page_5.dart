@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:guide_up/core/constant/color_constants.dart';
 
 class IntroPage5 extends StatefulWidget {
   @override
@@ -39,7 +40,7 @@ class _IntroPage5State extends State<IntroPage5>
   @override
   Widget build(BuildContext context) {
     return Container(
-      color: Colors.white,
+      color: ColorConstants.darkBack,
       child: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
@@ -58,9 +59,11 @@ class _IntroPage5State extends State<IntroPage5>
             SizedBox(height: 16),
             FadeTransition(
               opacity: _opacityAnimation,
-              child: Text(
+              child: const Text(
                 'GuideUp Hoşgeldiniz',
                 style: TextStyle(
+                  color: ColorConstants.textwhite,
+
                   fontSize: 24,
                   fontWeight: FontWeight.bold,
                 ),

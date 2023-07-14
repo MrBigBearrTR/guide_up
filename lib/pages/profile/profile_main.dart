@@ -69,7 +69,7 @@ class _ProfileMainState extends State<ProfileMain> {
                 children: [
                   Container(
                     decoration: BoxDecoration(
-                      color: ColorConstants.theme2DarkBlue,
+                      color: ColorConstants.background,
                       borderRadius: BorderRadius.circular(10),
                       boxShadow: [
                         BoxShadow(
@@ -163,7 +163,7 @@ class _ProfileMainState extends State<ProfileMain> {
                               height: 40,
                               decoration: BoxDecoration(
                                 borderRadius: BorderRadius.circular(100),
-                                color: ColorConstants.theme2Orange,
+                                color: ColorConstants.buttonPurple,
                               ),
                               child: const Icon(LineAwesomeIcons.angle_right,
                                   size: 18.0, color: ColorConstants.appcolor4),
@@ -207,7 +207,7 @@ class _ProfileMainState extends State<ProfileMain> {
                             height: 40,
                             decoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(100),
-                              color: ColorConstants.theme2Orange,
+                              color: ColorConstants.buttonPurple,
                             ),
                             child: const Icon(
                               LineAwesomeIcons.angle_right,
@@ -249,7 +249,7 @@ class _ProfileMainState extends State<ProfileMain> {
                             height: 40,
                             decoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(100),
-                              color: ColorConstants.theme2Orange,
+                              color: ColorConstants.buttonPurple,
                             ),
                             child: const Icon(
                               LineAwesomeIcons.angle_right,
@@ -298,7 +298,7 @@ class _ProfileMainState extends State<ProfileMain> {
                               height: 40,
                               decoration: BoxDecoration(
                                 borderRadius: BorderRadius.circular(100),
-                                color: ColorConstants.theme2Orange,
+                                color: ColorConstants.buttonPurple,
                               ),
                               child: const Icon(
                                 LineAwesomeIcons.angle_right,
@@ -359,7 +359,7 @@ class _ProfileMainState extends State<ProfileMain> {
                             height: 40,
                             decoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(100),
-                              color: ColorConstants.theme2Orange,
+                              color: ColorConstants.buttonPurple,
                             ),
                             child: const Icon(
                               LineAwesomeIcons.angle_right,
@@ -405,7 +405,7 @@ class _ProfileMainState extends State<ProfileMain> {
                             height: 40,
                             decoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(100),
-                              color: ColorConstants.theme2Orange,
+                              color: ColorConstants.buttonPurple,
                             ),
                             child: const Icon(
                               LineAwesomeIcons.angle_right,

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
+import 'package:guide_up/core/constant/color_constants.dart';
 import 'package:guide_up/core/constant/secure_strorage_constant.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 import 'intro_page_1.dart';
@@ -49,29 +50,39 @@ class _SplashScreenState extends State<SplashScreen> {
               children: [
                 Visibility(
                   visible: currentPage < 4,
-                  child: ElevatedButton(
+                  child:ElevatedButton(
                     onPressed: () {
                       _controller.nextPage(
                         duration: Duration(milliseconds: 800),
                         curve: Curves.easeIn,
                       );
                     },
-                    style: ElevatedButton.styleFrom(
-                      backgroundColor: Color(0xFFFAA828),
-                      padding: EdgeInsets.symmetric(horizontal: 120),
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(20),
-                      ),
-                    ),
-                    child: Text('Devam Et' ,
-                      style: TextStyle(
-                        fontSize: 16,
-                        fontWeight: FontWeight.normal,
-                        color: Color(0xFF2E393F),
-                        fontStyle: FontStyle.normal,
-                      ),),
-
+                  style: ElevatedButton.styleFrom(
+                shadowColor: ColorConstants.buttonPurple,
+                elevation: 18,
+                padding: EdgeInsets.zero,
+                shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(20))),
+            child: Ink(
+              decoration: BoxDecoration(
+                  gradient: const LinearGradient(
+                      colors: [ColorConstants.buttonPurple, ColorConstants.buttonPink]),
+                  borderRadius: BorderRadius.circular(20)),
+              child: Container(
+                width: 300,
+                height: 40,
+                alignment: Alignment.center,
+                child: const Text(
+                  'Devam Et ',
+                  style: TextStyle(
+                    fontSize: 25,
+                    color: ColorConstants.textwhite,
                   ),
+                ),
+
+              ),
+            ),
+    ),
                 ),
                 SizedBox(height: 16),
                 ElevatedButton(
@@ -85,12 +96,19 @@ class _SplashScreenState extends State<SplashScreen> {
                     }
                   },
                   style: ElevatedButton.styleFrom(
-                    backgroundColor: Colors.white,
-                    padding: EdgeInsets.symmetric(horizontal: 130),
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(20),
-                    ),
-                  ),
+                      shadowColor: ColorConstants.buttonPurple,
+                      elevation: 18,
+                      padding: EdgeInsets.zero,
+                      shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(20))),
+                  child: Ink(
+                    decoration: BoxDecoration(
+                        color: Colors.transparent,
+                        borderRadius: BorderRadius.circular(20)),
+                    child: Container(
+                      width: 300,
+                      height: 40,
+                      alignment: Alignment.center,
                   child: Text(
                     currentPage == 4 ? 'Ana Sayfa' : 'Atla',
                     style: TextStyle(
@@ -101,7 +119,7 @@ class _SplashScreenState extends State<SplashScreen> {
                     ),
                   ),
                 ),
-              ],
+
             ),
           ),
           Container(
@@ -115,6 +133,9 @@ class _SplashScreenState extends State<SplashScreen> {
           )
         ],
       ),
+          )
+    ],
+    )
     );
   }
 }

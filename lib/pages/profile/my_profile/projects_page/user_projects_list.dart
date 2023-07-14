@@ -234,7 +234,7 @@ class _UserProjectListState extends State<UserProjectList> {
                       trailing: IconButton(
                         icon: const Icon(Icons.delete),
                         onPressed: () => _deleteProject(project), color: ColorConstants
-                          .theme2Orange, // Silme butonu rengi
+                          .buttonPurple, // Silme butonu rengi
                       ),
                     ),
                   );

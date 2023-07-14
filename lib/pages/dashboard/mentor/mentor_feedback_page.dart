@@ -34,6 +34,7 @@ class _MenteeFeedbackPageState extends State<MenteeFeedbackPage> {
     String comment = _commentController.text.trim();
 
     // MentorComment örneği oluştur
+
     MentorComment mentorComment = MentorComment()
       ..setId(FirebaseFirestore.instance.collection('mentorCommend').doc().id ) // Özel bir ID belirtin veya `.doc().id` kullanarak otomatik bir ID ataması yapabilirsiniz.
       ..setMenteeId(userId)
@@ -113,7 +114,7 @@ class _MenteeFeedbackPageState extends State<MenteeFeedbackPage> {
     style: GoogleFonts.nunito(
     textStyle: const TextStyle(
       fontSize: 20,
-      color: ColorConstants.theme2DarkBlue,
+      color: ColorConstants.background,
               ),
     ),
               ),

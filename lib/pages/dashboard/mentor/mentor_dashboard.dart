@@ -68,7 +68,7 @@ class _MentorDashboardState extends State<MentorDashboard> {
               Container(
                 margin: const EdgeInsets.all(8),
                 decoration: BoxDecoration(
-                  color: ColorConstants.theme2DarkBlue,
+                  color: ColorConstants.background,
                   borderRadius: BorderRadius.circular(10),
                   boxShadow: [
                     BoxShadow(
@@ -351,7 +351,7 @@ class _MentorDashboardState extends State<MentorDashboard> {
     switch (cardType) {
       case EnCardType.view:
         return const CircleAvatar(
-          backgroundColor: ColorConstants.theme2White,
+          backgroundColor: ColorConstants.textwhite,
           child: InkWell(
             // onTap: () {
             //   Navigator.pushNamed(context, RouterConstants.myMentors);
@@ -364,7 +364,7 @@ class _MentorDashboardState extends State<MentorDashboard> {
         );
       case EnCardType.mentee:
         return CircleAvatar(
-          backgroundColor: ColorConstants.theme2White,
+          backgroundColor: ColorConstants.textwhite,
           child: InkWell(
             // onTap: () {
             //   Navigator.pushNamed(
@@ -378,7 +378,7 @@ class _MentorDashboardState extends State<MentorDashboard> {
         );
       case EnCardType.comment:
         return const CircleAvatar(
-          backgroundColor: ColorConstants.theme2White,
+          backgroundColor: ColorConstants.textwhite,
           child: InkWell(
             // onTap: () {
             //   Navigator.pushNamed(context, RouterConstants.myComments);
@@ -391,7 +391,7 @@ class _MentorDashboardState extends State<MentorDashboard> {
         );
       case EnCardType.payment:
         return const CircleAvatar(
-          backgroundColor: ColorConstants.theme2White,
+          backgroundColor: ColorConstants.textwhite,
           child: InkWell(
             // onTap: () {
             //   Navigator.pushNamed(context, RouterConstants.myPayments);

@@ -127,7 +127,7 @@ class RouteGenerator {
       case RouterConstants.mentorGuideUpRevenuePage:
         return _createRoute(const MentorGuideUpRevenuePage(), settings);
       case RouterConstants.mentorComments:
-        return _createRoute(const MentorComments(), settings);
+        return _createRoute( MentorComments(), settings);
       case RouterConstants.menteeFavouriteMentorPage:
         return _createRoute(const MenteeFavouriteMentorPage(), settings);
       case RouterConstants.mentorFollowerPages:

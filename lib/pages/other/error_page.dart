@@ -71,7 +71,7 @@ class _ErrorPageState extends State<ErrorPage> {
                         },
                         style: ButtonStyle(
                             backgroundColor: MaterialStateProperty.all<Color>(
-                                ColorConstants.theme2Orange),
+                                ColorConstants.buttonPurple),
                             shape: MaterialStateProperty.all<
                                 RoundedRectangleBorder>(RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(18.0),

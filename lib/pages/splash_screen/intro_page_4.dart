@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:guide_up/core/constant/color_constants.dart';
 
 class IntroPage4 extends StatefulWidget {
   @override
@@ -39,7 +40,7 @@ class _IntroPage4State extends State<IntroPage4>
   @override
   Widget build(BuildContext context) {
     return Container(
-      color: Colors.white,
+      color: ColorConstants.darkBack,
       child: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
@@ -69,10 +70,11 @@ class _IntroPage4State extends State<IntroPage4>
               child: Center(
                 child: FadeTransition(
                   opacity: _opacityAnimation,
-                  child: Text(
+                  child: const Text(
                     'İHTİYACIN OLAN HER ŞEY İÇİN',
                     textAlign: TextAlign.center,
                     style: TextStyle(
+                      color: ColorConstants.textwhite,
                       height: -1,
                       fontSize: 29,
                       fontWeight: FontWeight.bold,
@@ -87,10 +89,11 @@ class _IntroPage4State extends State<IntroPage4>
               child: Center(
                 child: FadeTransition(
                   opacity: _opacityAnimation,
-                  child: Text(
+                  child: const Text(
                     'GUIDE UP',
                     textAlign: TextAlign.center,
                     style: TextStyle(
+                      color: ColorConstants.textwhite,
                       fontSize: 29,
                       fontWeight: FontWeight.bold,
                     ),

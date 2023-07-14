@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:guide_up/core/constant/color_constants.dart';
 
 class IntroPage3 extends StatefulWidget {
   @override
@@ -39,7 +40,7 @@ class _IntroPage3State extends State<IntroPage3>
   @override
   Widget build(BuildContext context) {
     return Container(
-      color: Colors.white,
+      color: ColorConstants.darkBack,
       child: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
@@ -69,10 +70,11 @@ class _IntroPage3State extends State<IntroPage3>
               child: Center(
                 child: FadeTransition(
                   opacity: _opacityAnimation,
-                  child: Text(
+                  child: const Text(
                     'MENTOR MU OLMAK İSTİYORSUN? ',
                     textAlign: TextAlign.center,
                     style: TextStyle(
+                      color: ColorConstants.textwhite,
                       height: -2,
                       fontSize: 21,
                       fontWeight: FontWeight.bold,
@@ -87,10 +89,11 @@ class _IntroPage3State extends State<IntroPage3>
               child: Center(
                 child: FadeTransition(
                   opacity: _opacityAnimation,
-                  child: Text(
+                  child: const Text(
                     'Danışanlarınla görüş, bilgilerini aktar, kendinin en iyisi ol.',
                     textAlign: TextAlign.center,
                     style: TextStyle(
+                      color: ColorConstants.textwhite,
                       fontSize: 17,
                       fontWeight: FontWeight.normal,
                     ),

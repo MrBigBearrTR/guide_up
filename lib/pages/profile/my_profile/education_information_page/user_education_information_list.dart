@@ -246,7 +246,7 @@ class _UserEducationInformationListState
                       icon: const Icon(Icons.delete),
                       onPressed: () =>
                           _deleteEducationInformation(educationInformation),color: ColorConstants
-                        .theme2Orange, // Silme butonu rengi
+                        .buttonPurple, // Silme butonu rengi
                     ),
                   ),
                   );

@@ -243,7 +243,7 @@ class _LicensesAndCertificatesPageState extends State<LicensesAndCertificatesPag
                       icon: const Icon(Icons.delete),
                       onPressed: () =>
                           _deleteLicensesAndCertificates(licenseAndCertificate),color: ColorConstants
-                        .theme2Orange, // Silme butonu rengi
+                        .buttonPurple, // Silme butonu rengi
                     ),
                   ),
                   );

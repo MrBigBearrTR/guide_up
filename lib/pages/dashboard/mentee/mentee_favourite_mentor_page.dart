@@ -65,7 +65,7 @@ class _MenteeFavouriteMentorPageState
             Container(
               margin: const EdgeInsets.all(8),
               decoration: BoxDecoration(
-                color: ColorConstants.theme2DarkBlue,
+                color: ColorConstants.background,
                 borderRadius: BorderRadius.circular(10),
                 boxShadow: [
                   BoxShadow(
