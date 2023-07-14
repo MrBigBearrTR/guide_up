@@ -48,17 +48,7 @@ class _MentorDashboardState extends State<MentorDashboard> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        centerTitle: true,
-        title: const Text(
-          'Dashboard',
-          style: TextStyle(
-            color: ColorConstants.appcolor1,
-            fontSize: 25,
-          ),
-        ),
-        backgroundColor: ColorConstants.theme1White,
-      ),
+      
       backgroundColor: ColorConstants.theme1White,
       body: SafeArea(
         child: SingleChildScrollView(

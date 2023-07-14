@@ -48,12 +48,15 @@ class _MenteeFavouriteCardState extends State<MenteeFavouriteCard> {
         width: 300,
         margin: const EdgeInsets.fromLTRB(10, 10, 10, 0),
         child: Row(
+          //mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
+            SizedBox(width: 10,),
             CircleAvatar(
               backgroundImage:
                   UserInfoHelper.getProfilePictureByPath(_mentor.getPhoto()),
               radius: 35,
             ),
+            SizedBox(width: 10),
             Column(
               children: [
                 Text(
@@ -85,7 +88,7 @@ class _MenteeFavouriteCardState extends State<MenteeFavouriteCard> {
                   child: Text(
                     'Mobil Uygulama',
                     style: TextStyle(
-                      fontSize: 8,
+                      fontSize: 12,
                       color: ColorConstants.theme1Mustard,
                     ),
                   ),
@@ -95,13 +98,14 @@ class _MenteeFavouriteCardState extends State<MenteeFavouriteCard> {
                   child: Text(
                     'Bilişim Teknolojileri',
                     style: TextStyle(
-                      fontSize: 8,
+                      fontSize: 12,
                       color: ColorConstants.theme2Orange,
                     ),
                   ),
                 ),
               ],
             ),
+            SizedBox(width: 20),
             IconButton(
                 onPressed: () {},
                 icon: Icon(
