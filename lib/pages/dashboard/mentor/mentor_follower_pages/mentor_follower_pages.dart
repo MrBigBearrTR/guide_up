@@ -5,9 +5,12 @@ import 'package:guide_up/core/constant/router_constants.dart';
 import 'package:guide_up/core/models/users/user_detail/user_detail_model.dart';
 import 'package:guide_up/core/utils/secure_storage_helper.dart';
 import 'package:guide_up/core/utils/user_info_helper.dart';
-import 'package:guide_up/service/mentor/mentor_service.dart';
+import 'package:guide_up/repository/mentee/mentee_repository.dart';
 import 'package:guide_up/ui/material/custom_material.dart';
-import '../../../mentor/card_pages/mentor_card.dart';
+
+import '../../../../core/models/mentor/mentor_model.dart';
+import '../../../../repository/mentor/mentor_repository.dart';
+import '../../../mentee/mentee_card_pages/mentee_card.dart';
 
 class MentorFollowerPages extends StatefulWidget {
   const MentorFollowerPages({Key? key}) : super(key: key);
@@ -18,6 +21,7 @@ class MentorFollowerPages extends StatefulWidget {
 
 class _MentorFollowerPagesState extends State<MentorFollowerPages> {
   UserDetail? userDetail;
+  Mentor? mentor;
 
   @override
   void initState() {
@@ -31,7 +35,19 @@ class _MentorFollowerPagesState extends State<MentorFollowerPages> {
       detail = null;
     } else {
       userDetail = detail;
+      mentor = await MentorRepository().getMentorByUserId(detail.getUserId()!);
       setState(() {});
+    }
+  }
+
+  String getMentorId() {
+
+    if (mentor != null && mentor!.getId() != null) {
+
+      return mentor!.getId()!;
+    } else {
+
+      return "";
     }
   }
 
@@ -63,13 +79,16 @@ class _MentorFollowerPagesState extends State<MentorFollowerPages> {
               alignment: Alignment.center,
               child: CircleAvatar(
                 radius: 60.0,
-                backgroundColor: ColorConstants.itemBlack, // Varsayılan arka plan rengi
+                backgroundColor: ColorConstants.itemBlack,
+                // Varsayılan arka plan rengi
                 backgroundImage: UserInfoHelper.getProfilePicture(userDetail),
               ),
             ),
             SizedBox(height: 16.0),
             Text(
-              userDetail != null ? (" ${userDetail!.getName() ?? ""} ${userDetail!.getSurname() ?? ""}") : "",
+              userDetail != null
+                  ? (" ${userDetail!.getName() ?? ""} ${userDetail!.getSurname() ?? ""}")
+                  : "",
               style: GoogleFonts.nunito(
                 fontSize: 24.0,
                 fontWeight: FontWeight.bold,
@@ -83,8 +102,7 @@ class _MentorFollowerPagesState extends State<MentorFollowerPages> {
                 decoration: CustomMaterial.backgroundBoxDecoration,
                 child: FutureBuilder(
                   builder: (context, snapshot) {
-                    if (snapshot.connectionState ==
-                        ConnectionState.waiting) {
+                    if (snapshot.connectionState == ConnectionState.waiting) {
                       return const Center(
                         child: CircularProgressIndicator(),
                       );
@@ -93,15 +111,17 @@ class _MentorFollowerPagesState extends State<MentorFollowerPages> {
                         child: Text('Mentorları şu an listeyemiyoruz.'),
                       );
                     } else {
-                      return ListView(
-                        scrollDirection: Axis.vertical,
-                        children: snapshot.data!.map<Widget>((mentor) {
-                          return MentorCard(mentor: mentor);
-                        }).toList(),
+                      return ListView.builder(
+                        itemBuilder: (context, index) {
+                          var mentee = snapshot.data![index];
+                          return MenteeCard(mentee: mentee);
+                        },
+                        itemCount: snapshot.data!.length,
                       );
                     }
                   },
-                  future: MentorService().getTopMentorList(5),
+                  future:
+                      MenteeRepository().getMenteeListByMentorId(getMentorId()),
                 ),
               ),
             ),

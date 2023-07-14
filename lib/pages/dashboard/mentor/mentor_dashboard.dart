@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:guide_up/core/constant/color_constants.dart';
 import 'package:guide_up/core/constant/router_constants.dart';
-import 'package:guide_up/core/models/mentor/mentor_favourite_model.dart';
 import 'package:guide_up/core/models/users/user_detail/user_detail_model.dart';
 import 'package:guide_up/core/utils/secure_storage_helper.dart';
 import 'package:guide_up/repository/mentee/mentee_repository.dart';
@@ -356,10 +355,10 @@ class _MentorDashboardState extends State<MentorDashboard> {
         return CircleAvatar(
           backgroundColor: ColorConstants.theme2White,
           child: InkWell(
-            // onTap: () {
-            //   Navigator.pushNamed(
-            //       context, RouterConstants.menteeFavouriteMentorPage);
-            // },
+             onTap: () {
+               Navigator.pushNamed(
+                   context, RouterConstants.mentorFollowerPages);
+             },
             child: Icon(
               Icons.person,
               color: ColorConstants.warningDark,
