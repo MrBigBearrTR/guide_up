@@ -4,7 +4,6 @@ import 'package:guide_up/core/constant/color_constants.dart';
 import 'package:guide_up/core/constant/router_constants.dart';
 import 'package:guide_up/core/models/users/user_detail/user_detail_model.dart';
 import 'package:guide_up/core/utils/secure_storage_helper.dart';
-import 'package:guide_up/core/utils/user_info_helper.dart';
 import 'package:guide_up/repository/mentee/mentee_repository.dart';
 
 import '../../../../core/models/mentor/mentor_model.dart';
@@ -52,7 +51,10 @@ class _MentorFollowerPagesState extends State<MentorFollowerPages> {
     return Scaffold(
       appBar: AppBar(
         title: Text(
-          'My Dashboard',
+          'Menteelerim',
+          style: GoogleFonts.nunito(
+              fontSize: 24.0,
+              fontWeight: FontWeight.bold),
           textAlign: TextAlign.center,
         ),
         leading: IconButton(
@@ -65,33 +67,22 @@ class _MentorFollowerPagesState extends State<MentorFollowerPages> {
           },
         ),
         centerTitle: true,
+        actions: [
+          Padding(
+            padding: const EdgeInsets.only(right: 8.0),
+            child: Image.asset(
+              'assets/logo/guideUpLogo.png', // Logo
+              width: 62,
+              height: 62,
+            ),
+          ),
+        ],
       ),
       body: Padding(
         padding: EdgeInsets.all(16.0),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
-            Align(
-              alignment: Alignment.center,
-              child: CircleAvatar(
-                radius: 60.0,
-                backgroundColor: ColorConstants.itemBlack,
-                // Varsayılan arka plan rengi
-                backgroundImage: UserInfoHelper.getProfilePicture(userDetail),
-              ),
-            ),
-            SizedBox(height: 16.0),
-            Text(
-              userDetail != null
-                  ? (" ${userDetail!.getName() ?? ""} ${userDetail!.getSurname() ?? ""}")
-                  : "",
-              style: GoogleFonts.nunito(
-                fontSize: 24.0,
-                fontWeight: FontWeight.bold,
-                color: ColorConstants.itemBlack,
-              ),
-              textAlign: TextAlign.center,
-            ),
             SizedBox(height: 16.0),
             Expanded(
               child: Container(
