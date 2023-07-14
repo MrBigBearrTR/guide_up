@@ -5,10 +5,6 @@ import '../../../../core/models/mentor/mentor_model.dart';
 import '../../../../core/utils/user_info_helper.dart';
 
 class MenteeFavouriteCard extends StatefulWidget {
-  // final MentorFavourite mentorFavourite;
-
-  // const MenteeFavouriteCard({Key? key, required this.mentorFavourite})
-  //     : super(key: key);
 
   final Mentor mentor;
 
@@ -16,18 +12,12 @@ class MenteeFavouriteCard extends StatefulWidget {
 
   @override
   State<MenteeFavouriteCard> createState() => _MenteeFavouriteCardState(mentor);
-  //_MenteeFavouriteCardState(mentorFavourite);
 }
 
 class _MenteeFavouriteCardState extends State<MenteeFavouriteCard> {
   _MenteeFavouriteCardState(this._mentor);
 
   final Mentor _mentor;
-  // final MentorFavourite _mentorFavourite;
-
-  // _MenteeFavouriteCardState(this._mentorFavourite);
-
-  // late Mentor _mentor;
 
   @override
   Widget build(BuildContext context) {
@@ -50,13 +40,13 @@ class _MenteeFavouriteCardState extends State<MenteeFavouriteCard> {
         child: Row(
           //mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
-            SizedBox(width: 10,),
+            const SizedBox(width: 10,),
             CircleAvatar(
               backgroundImage:
                   UserInfoHelper.getProfilePictureByPath(_mentor.getPhoto()),
               radius: 35,
             ),
-            SizedBox(width: 10),
+            const SizedBox(width: 10),
             Column(
               children: [
                 Text(
@@ -105,10 +95,10 @@ class _MenteeFavouriteCardState extends State<MenteeFavouriteCard> {
                 ),
               ],
             ),
-            SizedBox(width: 20),
+            const SizedBox(width: 20),
             IconButton(
                 onPressed: () {},
-                icon: Icon(
+                icon: const Icon(
                   Icons.favorite,
                   color: Colors.pink,
                 )),

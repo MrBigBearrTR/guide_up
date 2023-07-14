@@ -32,7 +32,7 @@ class RouterConstants{
   static const String guideDetailPage="/guideDetailPage";
   static const String guideCommentPage="/guideCommentPage";
 
-  static const String myMentors = 'myMentors';
+  static const String MenteeMyMentorPage= 'MenteeMyMentorPage';
   static const String menteeFavouriteMentorPage  = 'MenteeFavouriteMentorPage ';
   static const String myComments = 'myComments';
   static const String myPayments = 'myPayments';
