@@ -31,7 +31,7 @@ class MentorCommentService {
       commentCardView.id = comment.getId()!;
       commentCardView.menteeId = comment.getMenteeId();
       commentCardView.mentorId = comment.getMentorId()!;
-      commentCardView.commend = comment.getComment()!;
+      commentCardView.comment = comment.getComment()!;
       commentCardView.rate = comment.getRate()!;
       commentCardView.isAnonymous = comment.isAnonymous()!;
 

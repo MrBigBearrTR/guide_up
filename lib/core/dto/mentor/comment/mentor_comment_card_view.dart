@@ -7,6 +7,6 @@ class MentorCommentCardView {
 
   String? mentorId;
   int? rate;
-  String? commend;
+  String? comment;
   bool isAnonymous = false;
 }

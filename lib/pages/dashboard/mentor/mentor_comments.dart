@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-
-import '../../../core/constant/color_constants.dart';
-import '../../../ui/material/custom_material.dart';
+import 'package:guide_up/core/constant/color_constants.dart';
+import 'package:guide_up/core/dto/mentor/comment/mentor_comment_card_view.dart';
+import 'package:guide_up/ui/material/custom_material.dart';
+import 'package:guide_up/core/models/mentor/mentor_commend_model.dart';
+import 'package:guide_up/service/mentor/mentor_comment_service.dart';
 
 class MentorComments extends StatelessWidget {
-  const MentorComments({Key? key}) : super(key: key);
+  final mentorCommentService = MentorCommentService();
 
   @override
   Widget build(BuildContext context) {
@@ -25,230 +27,44 @@ class MentorComments extends StatelessWidget {
         decoration: CustomMaterial.backgroundBoxDecoration,
         child: Padding(
           padding: const EdgeInsets.all(16.0),
-          child: Stack(
+          child: Column(
             children: [
-              Column(
-                children: [
-                  Container(
-                    height: 100.0,
-                    child: Card(
-                      color: ColorConstants.itemWhite,
-                      child: Padding(
-                        padding: const EdgeInsets.all(16.0),
-                        child: Row(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            CircleAvatar(
-                              radius: 25,
-                              backgroundImage: AssetImage('assets/logo/guideUpLogo.png'),
-                            ),
-                            SizedBox(width: 16.0),
-                            Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Row(
-                                  children: [
-                                    Icon(Icons.star, color: ColorConstants.warning),
-                                    Icon(Icons.star, color: ColorConstants.warning),
-                                    Icon(Icons.star, color: ColorConstants.warning),
-                                    Icon(Icons.star, color: ColorConstants.warning),
-                                    Icon(Icons.star, color: ColorConstants.warning),
-                                  ],
-                                ),
-                                SizedBox(height: 8.0),
-                                Text(
-                                  'Merhaba GuideUp',
-                                  style: GoogleFonts.nunito(
-                                    fontSize: 16,
-                                    fontWeight: FontWeight.bold,
-                                    color: ColorConstants.itemBlack,
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ],
-                        ),
-                      ),
-                    ),
+              Expanded(
+                child: Container(
+                  decoration: CustomMaterial.backgroundBoxDecoration,
+                  child: FutureBuilder<List<MentorCommentCardView>>(
+                    future: mentorCommentService.getListByMentorId('your_mentor_id'),
+                    builder: (context, snapshot) {
+                      if (snapshot.connectionState == ConnectionState.waiting) {
+                        return const Center(
+                          child: CircularProgressIndicator(),
+                        );
+                      } else if (snapshot.hasError) {
+                        return const Center(
+                          child: Text('Yorumları şu an listeleyemiyoruz.'),
+                        );
+                      } else if (snapshot.hasData) {
+                        final mentorCommentCardViews = snapshot.data!;
+                        return ListView.builder(
+                          itemCount: mentorCommentCardViews.length,
+                          itemBuilder: (context, index) {
+                          },
+                        );
+                      } else {
+                        return const Center(
+                          child: Text("Hiç yorum bulunamadı"),
+                        );
+                      }
+                    },
                   ),
-                  SizedBox(height: 4.0),
-                  Container(
-                    height: 100.0,
-                    child: Card(
-                      color: ColorConstants.itemWhite,
-                      child: Padding(
-                        padding: const EdgeInsets.all(16.0),
-                        child: Row(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            CircleAvatar(
-                              radius: 25,
-                              backgroundImage: AssetImage('assets/logo/guideUpLogo.png'),
-                            ),
-                            SizedBox(width: 16.0),
-                            Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Row(
-                                  children: [
-                                    Icon(Icons.star, color: ColorConstants.warning),
-                                    Icon(Icons.star, color: ColorConstants.warning),
-                                    Icon(Icons.star, color: ColorConstants.warning),
-                                    Icon(Icons.star, color: ColorConstants.warning),
-                                    Icon(Icons.star, color: ColorConstants.warning),
-                                  ],
-                                ),
-                                SizedBox(height: 8.0),
-                                Text(
-                                  'Merhaba GuideUp',
-                                  style: GoogleFonts.nunito(
-                                    fontSize: 16,
-                                    fontWeight: FontWeight.bold,
-                                    color: ColorConstants.itemBlack,
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ],
-                        ),
-                      ),
-                    ),
-                  ),
-                  SizedBox(height: 4.0),
-                  Container(
-                    height: 100.0,
-                    child: Card(
-                      color: ColorConstants.itemWhite,
-                      child: Padding(
-                        padding: const EdgeInsets.all(16.0),
-                        child: Row(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            CircleAvatar(
-                              radius: 25,
-                              backgroundImage: AssetImage('assets/logo/guideUpLogo.png'),
-                            ),
-                            SizedBox(width: 16.0),
-                            Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Row(
-                                  children: [
-                                    Icon(Icons.star, color: ColorConstants.warning),
-                                    Icon(Icons.star, color: ColorConstants.warning),
-                                    Icon(Icons.star, color: ColorConstants.warning),
-                                    Icon(Icons.star, color: ColorConstants.warning),
-                                    Icon(Icons.star, color: ColorConstants.warning),
-                                  ],
-                                ),
-                                SizedBox(height: 8.0),
-                                Text(
-                                  'Merhaba GuideUp',
-                                  style: GoogleFonts.nunito(
-                                    fontSize: 16,
-                                    fontWeight: FontWeight.bold,
-                                    color: ColorConstants.itemBlack,
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ],
-                        ),
-                      ),
-                    ),
-                  ),
-                  SizedBox(height: 4.0),
-                  Container(
-                    height: 100.0,
-                    child: Card(
-                      color: ColorConstants.itemWhite,
-                      child: Padding(
-                        padding: const EdgeInsets.all(16.0),
-                        child: Row(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            CircleAvatar(
-                              radius: 25,
-                              backgroundImage: AssetImage('assets/logo/guideUpLogo.png'),
-                            ),
-                            SizedBox(width: 16.0),
-                            Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Row(
-                                  children: [
-                                    Icon(Icons.star, color: ColorConstants.warning),
-                                    Icon(Icons.star, color: ColorConstants.warning),
-                                    Icon(Icons.star, color: ColorConstants.warning),
-                                    Icon(Icons.star, color: ColorConstants.warning),
-                                    Icon(Icons.star, color: ColorConstants.warning),
-                                  ],
-                                ),
-                                SizedBox(height: 8.0),
-                                Text(
-                                  'Merhaba GuideUp',
-                                  style: GoogleFonts.nunito(
-                                    fontSize: 16,
-                                    fontWeight: FontWeight.bold,
-                                    color: ColorConstants.itemBlack,
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ],
-                        ),
-                      ),
-                    ),
-                  ),
-                  SizedBox(height: 4.0),
-                  Container(
-                    height: 100.0,
-                    child: Card(
-                      child: Padding(
-                        padding: const EdgeInsets.all(16.0),
-                        child: Row(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            CircleAvatar(
-                              radius: 25,
-                              backgroundImage: AssetImage('assets/logo/guideUpLogo.png'),
-                            ),
-                            SizedBox(width: 16.0),
-                            Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Row(
-                                  children: [
-                                    Icon(Icons.star, color: ColorConstants.warning),
-                                    Icon(Icons.star, color: ColorConstants.warning),
-                                    Icon(Icons.star, color: ColorConstants.warning),
-                                    Icon(Icons.star, color: ColorConstants.warning),
-                                    Icon(Icons.star, color: ColorConstants.warning),
-                                  ],
-                                ),
-                                SizedBox(height: 8.0),
-                                Text(
-                                  'Merhaba GuideUp',
-                                  style: TextStyle(fontSize: 16.0),
-                                ),
-                              ],
-                            ),
-                          ],
-                        ),
-                      ),
-                    ),
-                  ),
-                ],
-              ),
-              Positioned(
-                bottom: 16.0,
-                right: 16.0,
-                child: FloatingActionButton(
-                  onPressed: () {
-                    print('FAB Butonuna Basıldı');
-                  },
-                  child: Icon(Icons.add),
                 ),
+              ),
+              SizedBox(height: 4.0),
+              FloatingActionButton(
+                onPressed: () {
+                  print('FAB Butonuna Basıldı');
+                },
+                child: Icon(Icons.add),
               ),
             ],
           ),
