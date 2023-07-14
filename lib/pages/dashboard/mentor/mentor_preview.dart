@@ -164,7 +164,7 @@ class _MentorPreviewState extends State<MentorPreview> {
                       const SizedBox(width: 8),
                       TextButton(
                         onPressed: () {
-                          Navigator.pushNamed(context, RouterConstants.mentorFeedbackPage);
+                          Navigator.pushNamed(context, RouterConstants.mentorComments);
                         },
                         child: Text(
                           'Yorumlar',
