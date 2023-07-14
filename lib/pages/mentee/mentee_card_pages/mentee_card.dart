@@ -8,24 +8,29 @@ import '../../../core/models/mentor/mentee_model.dart';
 
 class MenteeCard extends StatefulWidget {
   final Mentee mentee;
-  const MenteeCard({Key? key,required this.mentee}) : super(key: key);
+  const MenteeCard({Key? key, required this.mentee}) : super(key: key);
 
   @override
   State<MenteeCard> createState() => _MenteeCardState();
 }
 
 class _MenteeCardState extends State<MenteeCard> {
-
   final dateFormat = DateFormat('dd.MM.yyyy');
 
   @override
   Widget build(BuildContext context) {
     return Card(
       color: ColorConstants.theme1White,
-      child: Column(
-        children: [
-          ListTile(
-            subtitle: Column(
+      child: ListTile(
+        leading: CircleAvatar(
+          radius: 25,
+          backgroundColor: ColorConstants.itemBlack,
+          backgroundImage: UserInfoHelper.getProfilePictureByPath(widget.mentee.getPhoto()),
+        ),
+        title: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
@@ -35,33 +40,42 @@ class _MenteeCardState extends State<MenteeCard> {
                   textAlign: TextAlign.start,
                   style: GoogleFonts.nunito(
                     textStyle: const TextStyle(
-                      fontSize: 11,
+                      fontSize: 12,
                       fontStyle: FontStyle.italic,
                       decoration: TextDecoration.underline,
                       color: ColorConstants.theme2DarkBlue,
                     ),
                   ),
                 ),
+                SizedBox(height: 4.0),
                 Text(
-                  widget.mentee.getStartDate() !=null ? dateFormat.format(widget.mentee.getStartDate()!) :"",
+                  widget.mentee.getStartDate() != null ? dateFormat.format(widget.mentee.getStartDate()!) : "",
                   maxLines: 1,
                   softWrap: true,
                   style: GoogleFonts.nunito(
                     textStyle: const TextStyle(
-                      fontSize: 11,
+                      fontSize: 12,
                       color: ColorConstants.theme2DarkBlue,
                     ),
                   ),
-
                 ),
               ],
             ),
-            leading: CircleAvatar(
-              radius: 30,
-              backgroundImage: UserInfoHelper.getProfilePictureByPath(widget.mentee.getPhoto()),
+            Opacity(
+              opacity: 0.5,
+              child: Text(
+                'Mentee',
+                style: GoogleFonts.nunito(
+                  textStyle: const TextStyle(
+                    fontSize: 14,
+                    fontWeight: FontWeight.bold,
+                    color: ColorConstants.theme2DarkBlue,
+                  ),
+                ),
+              ),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }

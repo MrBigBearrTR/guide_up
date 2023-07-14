@@ -6,7 +6,6 @@ import 'package:guide_up/core/models/users/user_detail/user_detail_model.dart';
 import 'package:guide_up/core/utils/secure_storage_helper.dart';
 import 'package:guide_up/core/utils/user_info_helper.dart';
 import 'package:guide_up/repository/mentee/mentee_repository.dart';
-import 'package:guide_up/ui/material/custom_material.dart';
 
 import '../../../../core/models/mentor/mentor_model.dart';
 import '../../../../repository/mentor/mentor_repository.dart';
@@ -41,12 +40,9 @@ class _MentorFollowerPagesState extends State<MentorFollowerPages> {
   }
 
   String getMentorId() {
-
     if (mentor != null && mentor!.getId() != null) {
-
       return mentor!.getId()!;
     } else {
-
       return "";
     }
   }
@@ -99,7 +95,7 @@ class _MentorFollowerPagesState extends State<MentorFollowerPages> {
             SizedBox(height: 16.0),
             Expanded(
               child: Container(
-                decoration: CustomMaterial.backgroundBoxDecoration,
+                color: Colors.transparent, // Arka plan rengi olarak transparent
                 child: FutureBuilder(
                   builder: (context, snapshot) {
                     if (snapshot.connectionState == ConnectionState.waiting) {
@@ -121,7 +117,7 @@ class _MentorFollowerPagesState extends State<MentorFollowerPages> {
                     }
                   },
                   future:
-                      MenteeRepository().getMenteeListByMentorId(getMentorId()),
+                  MenteeRepository().getMenteeListByMentorId(getMentorId()),
                 ),
               ),
             ),
