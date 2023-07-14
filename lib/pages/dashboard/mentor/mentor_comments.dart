@@ -5,9 +5,15 @@ import 'package:guide_up/core/dto/mentor/comment/mentor_comment_card_view.dart';
 import 'package:guide_up/ui/material/custom_material.dart';
 import 'package:guide_up/core/models/mentor/mentor_commend_model.dart';
 import 'package:guide_up/service/mentor/mentor_comment_service.dart';
+import 'package:guide_up/core/constant/color_constants.dart';
+import 'package:guide_up/core/constant/router_constants.dart';
+import 'package:guide_up/core/dto/mentor/comment/mentor_comment_card_view.dart';
+import 'package:guide_up/ui/material/custom_material.dart';
+import 'package:guide_up/core/models/mentor/mentor_commend_model.dart';
+import 'package:guide_up/service/mentor/mentor_comment_service.dart';
 
 class MentorComments extends StatelessWidget {
-  final mentorCommentService = MentorCommentService();
+  const MentorComments({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -33,7 +39,7 @@ class MentorComments extends StatelessWidget {
                 child: Container(
                   decoration: CustomMaterial.backgroundBoxDecoration,
                   child: FutureBuilder<List<MentorCommentCardView>>(
-                    future: mentorCommentService.getListByMentorId('your_mentor_id'),
+                    future: MentorCommentService().getListByMentorId('your_mentor_id'),
                     builder: (context, snapshot) {
                       if (snapshot.connectionState == ConnectionState.waiting) {
                         return const Center(
@@ -62,7 +68,7 @@ class MentorComments extends StatelessWidget {
               SizedBox(height: 4.0),
               FloatingActionButton(
                 onPressed: () {
-                  print('FAB Butonuna Basıldı');
+                  Navigator.pushNamed(context, RouterConstants.mentorFeedbackPage);
                 },
                 child: Icon(Icons.add),
               ),

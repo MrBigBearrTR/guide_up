@@ -2,7 +2,16 @@ import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:google_fonts/google_fonts.dart';
+import 'package:guide_up/core/constant/color_constants.dart';
+import 'package:guide_up/core/constant/firestore_collectioon_constant.dart';
 import 'package:guide_up/core/constant/router_constants.dart';
+import  'package:guide_up/core/models/mentor/mentor_commend_model.dart';
+import 'package:guide_up/core/models/users/user_detail/user_detail_model.dart';
+import 'package:guide_up/core/utils/secure_storage_helper.dart';
+import 'package:guide_up/repository/mentor/mentor_comment_repository.dart';
+import 'package:guide_up/service/mentor/mentor_comment_service.dart';
+import 'package:http/http.dart';
 
 class MenteeFeedbackPage extends StatefulWidget {
   const MenteeFeedbackPage({Key? key}) : super(key: key);
@@ -18,22 +27,25 @@ class _MenteeFeedbackPageState extends State<MenteeFeedbackPage> {
 
   void submitFeedback() async {
     String userId = FirebaseAuth.instance.currentUser?.uid ?? '';
+    String mentorId = FirestoreCollectionConstant.mentor;
     String userName = showName ? FirebaseAuth.instance.currentUser?.displayName ?? '' : '';
 
     // Yorumu al
     String comment = _commentController.text.trim();
 
-    // Firebase Firestore veritabanına yorumu kaydet
-    await FirebaseFirestore.instance
-        .collection('feedbacks')
-        .add({
-      'userId': userId,
-      'userName': userName,
-      'rating': rating,
-      'comment': comment,
-    });
+    // MentorComment örneği oluştur
+    MentorComment mentorComment = MentorComment()
+      ..setId(FirebaseFirestore.instance.collection('mentorCommend').doc().id ) // Özel bir ID belirtin veya `.doc().id` kullanarak otomatik bir ID ataması yapabilirsiniz.
+      ..setMenteeId(userId)
+      ..setMentorId(mentorId)
+      ..setRate(rating.toInt())
+      ..setComment(comment)
+      ..setAnonymous(!showName);
 
-    // Geribildirimin başarıyla gönderildiğine dair kullanıcıya bildirim göster
+
+    await MentorCommentRepository().add(userId, mentorComment, mentorId, rating.toInt(), showName);
+
+
     showDialog(
       context: context,
       builder: (BuildContext context) {
@@ -97,8 +109,13 @@ class _MenteeFeedbackPageState extends State<MenteeFeedbackPage> {
 
               SizedBox(height: 16),
               Text(
-                'Yorum:',
-                style: TextStyle(fontSize: 18),
+                'Görüş ve Düşüncelerim',
+    style: GoogleFonts.nunito(
+    textStyle: const TextStyle(
+      fontSize: 20,
+      color: ColorConstants.theme2DarkBlue,
+              ),
+    ),
               ),
               TextFormField(
                 controller: _commentController,
@@ -111,8 +128,8 @@ class _MenteeFeedbackPageState extends State<MenteeFeedbackPage> {
                   hintText: 'Mentora hakkında düşüncelerinizi yazın...',
                 ),
               ),
-              SizedBox(height: 50),
-               Padding(
+              SizedBox(height: 10),
+              Padding(
                 padding: EdgeInsets.all(25.0),
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
@@ -133,12 +150,40 @@ class _MenteeFeedbackPageState extends State<MenteeFeedbackPage> {
                   ],
                 ),
               ),
-              SizedBox(height: 16),
-              ElevatedButton(
-                onPressed: () {
-                  submitFeedback();
-                },
-                child: Text('Gönder'),
+              const SizedBox(
+                height: 20,
+              ),
+              SizedBox(
+                width: 320,
+                child: ElevatedButton(
+                  onPressed: () {
+                    submitFeedback();
+                  },
+                  style: ElevatedButton.styleFrom(
+                      shadowColor: Colors.deepOrange,
+                      elevation: 18,
+                      padding: EdgeInsets.zero,
+                      shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(20))),
+                  child: Ink(
+                    decoration: BoxDecoration(
+                        gradient: const LinearGradient(
+                            colors: [Colors.deepOrange, Colors.orange]),
+                        borderRadius: BorderRadius.circular(20)),
+                    child: Container(
+                      width: 400,
+                      height: 40,
+                      alignment: Alignment.center,
+                      child: const Text(
+                        'Gönder ',
+                        style: TextStyle(
+                          fontSize: 25,
+                          color: Colors.white,
+                        ),
+                      ),
+                    ),
+                  ),
+                ),
               ),
             ],
           ),
