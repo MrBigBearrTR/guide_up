@@ -249,7 +249,7 @@ class _ExperienceMainPageState extends State<ExperienceMainPage> {
                         icon: const Icon(Icons.delete),
                         onPressed: () => _deleteExperience(experience),
                         color:
-                        ColorConstants.theme2Orange, // Silme butonu rengi
+                        ColorConstants.buttonPurple, // Silme butonu rengi
                       ),
                     ),
                   );

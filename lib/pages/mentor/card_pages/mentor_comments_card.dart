@@ -31,7 +31,7 @@ class _MentorCommentsCardState extends State<MentorCommentsCard> {
                   fontSize: 11,
                   fontStyle: FontStyle.italic,
                   decoration: TextDecoration.underline,
-                  color: ColorConstants.theme2DarkBlue,
+                  color: ColorConstants.background,
                 ),
               ),
             ),
@@ -59,7 +59,7 @@ class _MentorCommentsCardState extends State<MentorCommentsCard> {
                   style: GoogleFonts.nunito(
                     textStyle: const TextStyle(
                       fontSize: 11,
-                      color: ColorConstants.theme2DarkBlue,
+                      color: ColorConstants.background,
                     ),
                   ),
                 ),

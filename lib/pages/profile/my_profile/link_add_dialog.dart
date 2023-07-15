@@ -27,17 +27,17 @@ class _LinkAddDialogState extends State<LinkAddDialog> {
       title: Text(
         "+ Link Ekle",
         style: GoogleFonts.nunito(
-          color: ColorConstants.theme2Orange,
+          color: ColorConstants.buttonPurple,
         ),
       ),
       content: Column(
         mainAxisSize: MainAxisSize.min,
         children: [
           DropdownButton<EnLinkType>(
-            focusColor: ColorConstants.theme2Orange,
+            focusColor: ColorConstants.buttonPurple,
             value: selectedLinkType,
-            style: GoogleFonts.nunito(color: ColorConstants.theme2Orange),
-            dropdownColor: ColorConstants.theme2DarkBlue,
+            style: GoogleFonts.nunito(color: ColorConstants.buttonPurple),
+            dropdownColor: ColorConstants.background,
             isExpanded: true,
             onChanged: (EnLinkType? value) {
               selectedLinkType = value!;
@@ -55,19 +55,19 @@ class _LinkAddDialogState extends State<LinkAddDialog> {
           TextFormField(
             style: GoogleFonts.nunito(
               textStyle: const TextStyle(
-                color: ColorConstants.theme2Orange,
+                color: ColorConstants.buttonPurple,
               ),
             ),
             decoration: InputDecoration(
               enabledBorder: const OutlineInputBorder(
-                borderSide: BorderSide(color: ColorConstants.theme2Orange),
+                borderSide: BorderSide(color: ColorConstants.buttonPurple),
               ),
               focusedBorder: const OutlineInputBorder(
-                borderSide: BorderSide(color: ColorConstants.theme2Orange),
+                borderSide: BorderSide(color: ColorConstants.buttonPurple),
               ),
               labelText: "Link",
               labelStyle:
-                  GoogleFonts.nunito(color: ColorConstants.theme2Orange),
+                  GoogleFonts.nunito(color: ColorConstants.buttonPurple),
               border: const OutlineInputBorder(),
             ),
             onChanged: (value) {
@@ -76,7 +76,7 @@ class _LinkAddDialogState extends State<LinkAddDialog> {
           ),
         ],
       ),
-      backgroundColor: ColorConstants.theme2DarkBlue,
+      backgroundColor: ColorConstants.background,
       // Arka plan rengi olarak kullanıldı
 
       actions: [
@@ -89,14 +89,14 @@ class _LinkAddDialogState extends State<LinkAddDialog> {
                 error="Lütfen URL bilgisini doğru formatta giriniz.";
                 ScaffoldMessenger.of(context).showSnackBar(
                   SnackBar(
-                    backgroundColor: ColorConstants.theme2Orange,
+                    backgroundColor: ColorConstants.buttonPurple,
                     content: Text(
                       error,
                       style: GoogleFonts.nunito(
                         textStyle: const TextStyle(
                           fontSize: 12,
                           fontWeight: FontWeight.bold,
-                          color: ColorConstants.theme2Dark,
+                          color: ColorConstants.background,
                         ),
                       ),
                     ),
@@ -113,11 +113,11 @@ class _LinkAddDialogState extends State<LinkAddDialog> {
             }
           },
           style: ElevatedButton.styleFrom(
-              backgroundColor: ColorConstants.theme2DarkBlue),
+              backgroundColor: ColorConstants.background),
           child: Text(
             "Tamam",
             style: GoogleFonts.nunito(
-                color: ColorConstants.theme2Orange // Metin rengi
+                color: ColorConstants.buttonPurple // Metin rengi
                 ),
           ),
         ),

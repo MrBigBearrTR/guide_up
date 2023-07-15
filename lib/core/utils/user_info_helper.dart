@@ -37,32 +37,32 @@ class UserInfoHelper {
       case EnLinkType.linkedin:
         return const FaIcon(
           FontAwesomeIcons.linkedinIn,
-          color: ColorConstants.theme2Orange,
+          color: ColorConstants.buttonPurple,
         );
       case EnLinkType.github:
         return const FaIcon(
           FontAwesomeIcons.github,
-          color: ColorConstants.theme2Orange,
+          color: ColorConstants.buttonPurple,
         );
       case EnLinkType.youtube:
         return const FaIcon(
           FontAwesomeIcons.youtube,
-          color: ColorConstants.theme2Orange,
+          color: ColorConstants.buttonPurple,
         );
       case EnLinkType.twitter:
         return const FaIcon(
           FontAwesomeIcons.twitter,
-          color: ColorConstants.theme2Orange,
+          color: ColorConstants.buttonPurple,
         );
       case EnLinkType.instagram:
         return const FaIcon(
           FontAwesomeIcons.instagram,
-          color: ColorConstants.theme2Orange,
+          color: ColorConstants.buttonPurple,
         );
       case EnLinkType.personelPage:
         return const FaIcon(
           FontAwesomeIcons.blog,
-          color: ColorConstants.theme2Orange,
+          color: ColorConstants.buttonPurple,
         );
     }
   }

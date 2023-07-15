@@ -286,7 +286,7 @@ class _MenteeDashboardMainPageState extends State<MenteeDashboardMainPage> {
         );
       case EnCardType.favourite:
         return CircleAvatar(
-          backgroundColor: ColorConstants.theme2White,
+          backgroundColor: ColorConstants.textwhite,
           child: InkWell(
             onTap: () {
               Navigator.pushNamed(

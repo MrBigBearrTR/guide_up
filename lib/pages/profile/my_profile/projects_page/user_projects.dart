@@ -293,14 +293,14 @@ class _UserProjectPageState extends State<UserProjectPage> {
               style: GoogleFonts.nunito(
                 fontSize: 15,
                 //fontWeight: FontWeight.bold,
-                color: ColorConstants.theme2Orange,
+                color: ColorConstants.buttonPurple,
               ),
             ),
             DropdownButton<UserExperience>(
-              focusColor: ColorConstants.theme2Orange,
+              focusColor: ColorConstants.buttonPurple,
               value: selectedExperience,
-              style: GoogleFonts.nunito(color: ColorConstants.theme2Orange),
-              dropdownColor: ColorConstants.theme2DarkBlue,
+              style: GoogleFonts.nunito(color: ColorConstants.buttonPurple),
+              dropdownColor: ColorConstants.background,
               isExpanded: true,
               onChanged: (UserExperience? value) {
                 selectedExperience = value!;
