@@ -151,6 +151,8 @@ class RouteGenerator {
         return _createRoute(const GuideDetailPage(), settings);
       case RouterConstants.guideCommentPage:
         return _createRoute(const GuideCommentPage(), settings);
+      case RouterConstants.MenteeMyMentorPage:
+        return _createRoute(const GuideCommentPage(), settings);
 
       default:
         return _createRoute(const ErrorPage(), settings);

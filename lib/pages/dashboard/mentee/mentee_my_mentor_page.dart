@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:guide_up/pages/dashboard/mentee/card/mentee_favourite_card.dart';
+import 'package:guide_up/pages/dashboard/mentee/card/mentee_my_mentor_card.dart';
 
 import 'package:guide_up/service/mentor/mentor_service.dart';
 
@@ -9,16 +10,16 @@ import '../../../core/utils/secure_storage_helper.dart';
 import '../../../core/utils/user_helper.dart';
 import 'package:guide_up/core/utils/user_info_helper.dart';
 
-class MenteeFavouriteMentorPage extends StatefulWidget {
-  const MenteeFavouriteMentorPage({Key? key}) : super(key: key);
+class MenteeMyMentorPage extends StatefulWidget {
+  const MenteeMyMentorPage({Key? key}) : super(key: key);
 
   @override
-  State<MenteeFavouriteMentorPage> createState() =>
-      _MenteeFavouriteMentorPageState();
+  State<MenteeMyMentorPage> createState() =>
+      _MenteeMyMentorPageState();
 }
 
-class _MenteeFavouriteMentorPageState
-    extends State<MenteeFavouriteMentorPage> {
+class _MenteeMyMentorPageState
+    extends State<MenteeMyMentorPage> {
   UserDetail? userDetail;
 
   @override
@@ -50,7 +51,7 @@ class _MenteeFavouriteMentorPageState
       appBar: AppBar(
         centerTitle: true,
         title: const Text(
-          'Favorilerim',
+          'Mentorlarım',
           style: TextStyle(
             color: ColorConstants.appcolor1,
             fontSize: 25,
@@ -76,7 +77,7 @@ class _MenteeFavouriteMentorPageState
                     return ListView.builder(
                       itemBuilder: (context, index) {
                         final mentor = snapshot.data![index];
-                        return MenteeFavouriteCard(mentor: mentor);
+                        return MenteeMyMentorCard(mentor: mentor);
                       },
                       itemCount: snapshot.data!.length,
                       padding: const EdgeInsets.all(0),
@@ -85,7 +86,7 @@ class _MenteeFavouriteMentorPageState
                   }
                 },
                 future: MentorService()
-                .getMentorFavouriteListByUserId(getUserId()),
+                .getMenteeListByUserId(getUserId()),
               ),
         ),
       ),

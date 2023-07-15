@@ -276,7 +276,7 @@ class _MenteeDashboardMainPageState extends State<MenteeDashboardMainPage> {
           backgroundColor: ColorConstants.theme2White,
           child: InkWell(
             onTap: () {
-              Navigator.pushNamed(context, RouterConstants.myMentors);
+              Navigator.pushNamed(context, RouterConstants.MenteeMyMentorPage);
             },
             child: const Icon(
               Icons.timeline,
