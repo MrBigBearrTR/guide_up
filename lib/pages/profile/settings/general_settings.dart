@@ -64,7 +64,7 @@ class _GeneralSettingsState extends State<GeneralSettings> {
           Padding(
             padding: const EdgeInsets.only(right: 8.0),
             child: Image.asset(
-              'assets/logo/guideUpLogo.png', // Logo resminin yolunu buraya ekleyin
+              'assets/logo/guideUpLogo.png', // Logo
               width: 62,
               height: 62,
             ),
@@ -184,8 +184,7 @@ class _GeneralSettingsState extends State<GeneralSettings> {
           children: [
             TextButton(
               onPressed: () {
-                Navigator.pushNamed(
-                    context, RouterConstants.mentorFollowerPages);
+
               },
               style: ButtonStyle(
                 foregroundColor: MaterialStateProperty.all<Color>(ColorConstants.theme1DarkBlue), // Buton metin rengi
