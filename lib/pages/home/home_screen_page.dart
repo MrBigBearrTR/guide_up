@@ -56,10 +56,10 @@ class _HomeScreenState extends State<HomeScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: ColorConstants.theme1BrightCloudBlue,
+        backgroundColor: ColorConstants.darkBack,
         flexibleSpace: Container(
           decoration:  BoxDecoration(
-            color: ColorConstants.theme1BrightCloudBlue, // Sabit arkaplan rengi
+            color: ColorConstants.darkBack, // Sabit arkaplan rengi
             boxShadow: [BoxShadow(
               color: Colors.grey.withOpacity(0.2), // Gölge rengi
               spreadRadius: 5, // Gölge yayılma yarıçapı
@@ -72,7 +72,7 @@ class _HomeScreenState extends State<HomeScreen> {
         title: const Text(
           'G u i d e  U p',
           style: TextStyle(
-            color: ColorConstants.appcolor1,
+            color: ColorConstants.textwhite,
             fontSize: 25,
           ),
           textAlign: TextAlign.left,
@@ -90,7 +90,7 @@ class _HomeScreenState extends State<HomeScreen> {
               padding: const EdgeInsets.all(8.0),
               child: CircleAvatar(
                 radius: 20.0,
-                backgroundColor: ColorConstants.theme2Orange,
+                backgroundColor: ColorConstants.darkBack,
                 backgroundImage: UserInfoHelper.getProfilePicture(userDetail),
               ),
             ),
@@ -98,7 +98,7 @@ class _HomeScreenState extends State<HomeScreen> {
         ],
       ),
       body: Container(
-          color: ColorConstants.theme1White,
+          color: ColorConstants.darkBack,
           //decoration: CustomMaterial.backgroundBoxDecoration,
           child: SafeArea(
             child: ListView(
@@ -133,7 +133,9 @@ class _HomeScreenState extends State<HomeScreen> {
                         const Text(
                           'En Sevilen Mentorlar',
                           style: TextStyle(
-                              fontWeight: FontWeight.bold, fontSize: 20),
+                              color: ColorConstants.textwhite,
+                              fontWeight: FontWeight.bold, fontSize: 20
+                          ),
                         ),
                         TextButton(
                           onPressed: () {
@@ -141,10 +143,20 @@ class _HomeScreenState extends State<HomeScreen> {
                             navigationState
                                 .setPage(NavigationConstants.searchPageIndex);
                           },
-                          child: const Text(
-                            'Hepsini Gör',
-                            style: TextStyle(
-                              color: ColorConstants.info,
+                          child: ShaderMask(
+                            blendMode: BlendMode.srcATop,
+                            shaderCallback: (Rect bounds) {
+                              return const LinearGradient(
+                                colors: [ColorConstants.buttonPurple, ColorConstants.buttonPink],
+                              ).createShader(bounds);
+                            },
+                            child: const Text(
+                              'Hepsini Gör',
+                              style: TextStyle(
+                                fontSize: 16,
+                                fontWeight: FontWeight.bold,
+                                color: Colors.white,
+                              ),
                             ),
                           ),
                         )
@@ -192,6 +204,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     const Text(
                       'Yaklaşan Etkinlikler',
                       style: TextStyle(
+                        color: ColorConstants.textwhite,
                         fontWeight: FontWeight.bold,
                         fontSize: 20,
                       ),
@@ -222,6 +235,7 @@ class _HomeScreenState extends State<HomeScreen> {
                         Text(
                           'Senin için Önerilenler',
                           style: TextStyle(
+                            color: ColorConstants.textwhite,
                               fontWeight: FontWeight.bold, fontSize: 20),
                         ),
                       ],

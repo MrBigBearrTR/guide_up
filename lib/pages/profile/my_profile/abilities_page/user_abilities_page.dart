@@ -81,12 +81,12 @@ class _UserAbilitiesPageState extends State<UserAbilitiesPage> {
                   focusedBorder: const UnderlineInputBorder(
                     borderSide: BorderSide(
                         color:
-                            ColorConstants.theme2Orange), // Yatay çizgi rengi
+                            ColorConstants.buttonPurple), // Yatay çizgi rengi
                   ),
                   contentPadding: const EdgeInsets.symmetric(
                       vertical: 2.0), // Alt çizgiye yakın boşluk
                 ),
-                cursorColor: ColorConstants.theme2Orange, // İmleç rengi
+                cursorColor: ColorConstants.buttonPurple, // İmleç rengi
                 style: GoogleFonts.nunito(
                   color: ColorConstants.itemWhite,
                 ), // Girilen metnin rengi
@@ -185,7 +185,7 @@ class _UserAbilitiesPageState extends State<UserAbilitiesPage> {
             Navigator.pop(context);
           },
         ),
-        backgroundColor: ColorConstants.theme2White, // AppBar arka plan rengi
+        backgroundColor: ColorConstants.textwhite, // AppBar arka plan rengi
         actions: [
           Padding(
             padding: const EdgeInsets.only(right: 8.0),
@@ -284,14 +284,14 @@ class _UserAbilitiesPageState extends State<UserAbilitiesPage> {
                                 style: GoogleFonts.nunito(
                                   fontWeight: FontWeight.bold,
                                   color: ColorConstants
-                                      .theme2Orange, // metni rengi
+                                      .buttonPurple, // metni rengi
                                 ),
                               ),
                               trailing: IconButton(
                                 icon: const Icon(Icons.delete),
                                 onPressed: () => deleteAbility(ability),
                                 color: ColorConstants
-                                    .theme2Orange, // Silme butonu rengi
+                                    .buttonPurple, // Silme butonu rengi
                               ),
                             ),
                           );

@@ -262,14 +262,14 @@ class _MentorPreviewState extends State<MentorPreview> {
                                     ScaffoldMessenger.of(context).showSnackBar(
                                       SnackBar(
                                         backgroundColor:
-                                            ColorConstants.theme2Orange,
+                                            ColorConstants.buttonPurple,
                                         content: Text(
                                           'Hatalı linle ulaşılamadı. Link;\n${links.getLink()}',
                                           style: GoogleFonts.nunito(
                                             textStyle: const TextStyle(
                                               fontSize: 12,
                                               fontWeight: FontWeight.bold,
-                                              color: ColorConstants.theme2Dark,
+                                              color: ColorConstants.background,
                                             ),
                                           ),
                                         ),

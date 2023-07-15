@@ -91,6 +91,7 @@ class PostService {
     return postList;
   }
 
+
   Future<List<Post>> searchPostList(
       String text, List<Category> categoryList, int limit) async {
     List<Post> postList = [];
@@ -240,4 +241,6 @@ class PostService {
 
     return postCardViewList;
   }
+
 }
+

@@ -56,7 +56,7 @@ class _ChatMainPageState extends State<ChatMainPage> {
           conversationCardView.otherParticipantFullName,
           style: GoogleFonts.nunito(
             textStyle: const TextStyle(
-              color: ColorConstants.theme2Dark,
+              color: ColorConstants.darkBack,
               fontWeight: FontWeight.bold,
             ),
           ),
@@ -234,7 +234,7 @@ class _ChatMainPageState extends State<ChatMainPage> {
                       style: GoogleFonts.nunito(
                         textStyle: const TextStyle(
                           fontSize: 13,
-                          color: ColorConstants.theme2White,
+                          color: ColorConstants.textwhite,
                         ),
                       ),
                     ),
@@ -247,7 +247,7 @@ class _ChatMainPageState extends State<ChatMainPage> {
                       fontSize: 10,
                       color: timeIsSame
                           ? Colors.transparent
-                          : ColorConstants.theme2Dark,
+                          : ColorConstants.darkBack,
                     ),
                   ),
                 ),
@@ -295,7 +295,7 @@ class _ChatMainPageState extends State<ChatMainPage> {
                       fontSize: 10,
                       color: timeIsSame
                           ? Colors.transparent
-                          : ColorConstants.theme2Dark,
+                          : ColorConstants.darkBack,
                     ),
                   ),
                 ),

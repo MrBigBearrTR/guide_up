@@ -32,7 +32,7 @@ class _GuideCommentCardState extends State<GuideCommentCard> {
                 style: GoogleFonts.nunito(
                   textStyle: const TextStyle(
                     fontWeight: FontWeight.bold,
-                    color: ColorConstants.theme2Dark,
+                    color: ColorConstants.darkBack,
                   ),
                 ),
               ),
@@ -43,7 +43,7 @@ class _GuideCommentCardState extends State<GuideCommentCard> {
                 style: GoogleFonts.nunito(
                   textStyle: const TextStyle(
                     fontSize: 11,
-                    color: ColorConstants.theme2DarkBlue,
+                    color: ColorConstants.background,
                   ),
                 ),
               ),
@@ -89,14 +89,14 @@ class _GuideCommentCardState extends State<GuideCommentCard> {
                       } else {
                         ScaffoldMessenger.of(context).showSnackBar(
                           SnackBar(
-                            backgroundColor: ColorConstants.theme2Orange,
+                            backgroundColor: ColorConstants.buttonPurple,
                             content: Text(
                               'Üye olmayan kullanıcı beğenme yapamaz.Lütfen Giriş yapınız :)',
                               style: GoogleFonts.nunito(
                                 textStyle: const TextStyle(
                                   fontSize: 12,
                                   fontWeight: FontWeight.bold,
-                                  color: ColorConstants.theme2Dark,
+                                  color: ColorConstants.darkBack,
                                 ),
                               ),
                             ),
@@ -115,8 +115,8 @@ class _GuideCommentCardState extends State<GuideCommentCard> {
                                 ? Icons.favorite
                                 : Icons.favorite_border,
                             color: widget.commentCardView.isLikeUser
-                                ? ColorConstants.theme2Orange
-                                : ColorConstants.theme2Dark,
+                                ? ColorConstants.buttonPurple
+                                : ColorConstants.darkBack,
                           ),
                         ),
                         Text(
@@ -125,7 +125,7 @@ class _GuideCommentCardState extends State<GuideCommentCard> {
                             textStyle: const TextStyle(
                               fontSize: 12,
                               fontWeight: FontWeight.bold,
-                              color: ColorConstants.theme2DarkBlue,
+                              color: ColorConstants.background,
                             ),
                           ),
                         ),

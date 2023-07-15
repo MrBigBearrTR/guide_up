@@ -42,7 +42,7 @@ class _SearchSidePageState extends State<SearchSidePage> {
             Container(
               padding: EdgeInsets.fromLTRB(0, padding.top, 0, 20),
               decoration: BoxDecoration(
-                color: ColorConstants.theme2DarkBlue,
+                color: ColorConstants.background,
                 borderRadius: BorderRadius.circular(10),
                 boxShadow: [
                   BoxShadow(

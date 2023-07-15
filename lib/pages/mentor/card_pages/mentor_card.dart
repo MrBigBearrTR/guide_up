@@ -31,11 +31,11 @@ class _MentorCardState extends State<MentorCard> {
       },
       child: Container(
         decoration: BoxDecoration(
-          color: Colors.white,
+          gradient: LinearGradient(colors: [ColorConstants.buttonPink, ColorConstants.buttonPurple]),
           borderRadius: const BorderRadius.all(Radius.circular(10)),
           boxShadow: [
             BoxShadow(
-              color: Colors.grey.withOpacity(0.5),
+              color: ColorConstants.buttonPurple.withOpacity(0.75),
               //spreadRadius: 5,
               blurRadius: 7,
               offset: const Offset(0, 3),
@@ -93,7 +93,7 @@ class _MentorCardState extends State<MentorCard> {
                 'Bilişim Teknolojileri',
                 style: TextStyle(
                   fontSize: 8,
-                  color: ColorConstants.theme2Orange,
+                  color: ColorConstants.buttonPurple,
                 ),
               ),
             ),

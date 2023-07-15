@@ -126,7 +126,7 @@ class _GeneralSettingsState extends State<GeneralSettings> {
               color: ColorConstants.itemWhite, // Metin rengi
             ),
           ),
-          cursorColor: ColorConstants.theme2White, // İmleç rengi
+          cursorColor: ColorConstants.textwhite, // İmleç rengi
         ),
         const SizedBox(height: 8.0),
         TextField(
@@ -151,7 +151,7 @@ class _GeneralSettingsState extends State<GeneralSettings> {
               color: ColorConstants.itemWhite, // Metin rengi
             ),
           ),
-          cursorColor: ColorConstants.theme2White, // İmleç rengi
+          cursorColor: ColorConstants.textwhite, // İmleç rengi
         ),
         const SizedBox(height: 8.0),
         TextField(
@@ -176,7 +176,7 @@ class _GeneralSettingsState extends State<GeneralSettings> {
               color: ColorConstants.itemWhite, // Metin rengi
             ),
           ),
-          cursorColor: ColorConstants.theme2White, // İmleç rengi
+          cursorColor: ColorConstants.textwhite, // İmleç rengi
         ),
         const SizedBox(height: 1.0),
         Row(
@@ -205,7 +205,7 @@ class _GeneralSettingsState extends State<GeneralSettings> {
                 });
               },
               style: ButtonStyle(
-                backgroundColor: MaterialStateProperty.all<Color>(ColorConstants.theme2Orange), // Buton arkaplan rengi
+                backgroundColor: MaterialStateProperty.all<Color>(ColorConstants.buttonPurple), // Buton arkaplan rengi
                 foregroundColor: MaterialStateProperty.all<Color>(ColorConstants.itemWhite), // Buton yazı rengi
               ),
               child: Text('Şifreyi Yenile',
@@ -289,7 +289,7 @@ class _GeneralSettingsState extends State<GeneralSettings> {
               color: ColorConstants.itemWhite, // Metin rengi
             ),
           ),
-          cursorColor: ColorConstants.theme2White, // İmleç rengi
+          cursorColor: ColorConstants.textwhite, // İmleç rengi
         ),
       ],
     );
@@ -334,9 +334,9 @@ class _GeneralSettingsState extends State<GeneralSettings> {
               child: const Icon(Icons.brightness_4),
             ),
           ),
-          activeColor: ColorConstants.theme2Orange, // Koyu tema etkinleştirildiğindeki renk
+          activeColor: ColorConstants.buttonPurple, // Koyu tema etkinleştirildiğindeki renk
           activeTrackColor: ColorConstants.theme1DarkBlue, // Koyu tema etkinleştirildiğindeki renk
-          inactiveThumbColor: ColorConstants.theme2Orange, // Koyu tema devre dışı bırakıldığında başlığın rengi
+          inactiveThumbColor: ColorConstants.buttonPurple, // Koyu tema devre dışı bırakıldığında başlığın rengi
           inactiveTrackColor: ColorConstants.theme1CloudBlue, // Koyu tema devre dışı bırakıldığında iz sürücü rengi
         ),
 

@@ -72,8 +72,8 @@ class _GuideDetailPageState extends State<GuideDetailPage> {
                 Image.network(
                   _postCardView.photo!,
                   width: double.infinity,
-                  height: 200,
-                  fit: BoxFit.cover,
+                  height: double.infinity,
+                  fit: BoxFit.contain,
                 ),
               const SizedBox(height: 16),
               const Text(
@@ -98,7 +98,7 @@ class _GuideDetailPageState extends State<GuideDetailPage> {
                         style: GoogleFonts.nunito(
                           textStyle: const TextStyle(
                             fontWeight: FontWeight.bold,
-                            color: ColorConstants.theme2Dark,
+                            color: ColorConstants.darkBack,
                           ),
                         ),
                       ),
@@ -111,7 +111,7 @@ class _GuideDetailPageState extends State<GuideDetailPage> {
                           style: GoogleFonts.nunito(
                             textStyle: const TextStyle(
                               fontWeight: FontWeight.bold,
-                              color: ColorConstants.theme2Dark,
+                              color: ColorConstants.darkBack,
                             ),
                           ),
                         ),

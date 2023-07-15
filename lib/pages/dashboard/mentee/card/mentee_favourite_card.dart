@@ -89,7 +89,7 @@ class _MenteeFavouriteCardState extends State<MenteeFavouriteCard> {
                     'Bilişim Teknolojileri',
                     style: TextStyle(
                       fontSize: 12,
-                      color: ColorConstants.theme2Orange,
+                      color: ColorConstants.buttonPurple,
                     ),
                   ),
                 ),

@@ -24,7 +24,7 @@ class _DashboardChildMentorState extends State<DashboardChildMentor> {
           title: Text('Dashboardların',
               style: GoogleFonts.nunito(
                 textStyle: const TextStyle(
-                  color: ColorConstants.theme2Orange,
+                  color: ColorConstants.buttonPurple,
                   fontWeight: FontWeight.bold,
                   fontSize: 25,
                 ),
@@ -37,7 +37,7 @@ class _DashboardChildMentorState extends State<DashboardChildMentor> {
                 child: Text('Mentor',
                     style: GoogleFonts.nunito(
                       textStyle: const TextStyle(
-                        color: ColorConstants.theme2Dark,
+                        color: ColorConstants.darkBack,
                         fontWeight: FontWeight.bold,
                         fontSize: 15,
                       ),
@@ -48,7 +48,7 @@ class _DashboardChildMentorState extends State<DashboardChildMentor> {
                 child: Text('Mentee',
                     style: GoogleFonts.nunito(
                       textStyle: const TextStyle(
-                        color: ColorConstants.theme2Dark,
+                        color: ColorConstants.darkBack,
                         fontWeight: FontWeight.bold,
                         fontSize: 15,
                       ),

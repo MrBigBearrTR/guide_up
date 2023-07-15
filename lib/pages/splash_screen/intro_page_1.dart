@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:guide_up/core/constant/color_constants.dart';
 
 class IntroPage1 extends StatefulWidget {
   @override
@@ -39,7 +40,7 @@ class _IntroPage1State extends State<IntroPage1>
   @override
   Widget build(BuildContext context) {
     return Container(
-      color: Color(0XFFECECA),
+      color: ColorConstants.darkBack,
       child: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
@@ -69,6 +70,7 @@ class _IntroPage1State extends State<IntroPage1>
                 style: TextStyle(
                   fontSize: 24,
                   fontWeight: FontWeight.bold,
+                  color:  ColorConstants.itemWhite,
                 ),
               ),
             ),

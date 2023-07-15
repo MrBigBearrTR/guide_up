@@ -30,7 +30,7 @@ class ConversationCard extends StatelessWidget {
           style: GoogleFonts.nunito(
             textStyle: const TextStyle(
               fontWeight: FontWeight.bold,
-              color: ColorConstants.theme2Dark,
+              color: ColorConstants.darkBack,
             ),
           ),
         ),
@@ -41,7 +41,7 @@ class ConversationCard extends StatelessWidget {
           style: GoogleFonts.nunito(
             textStyle: const TextStyle(
               fontSize: 11,
-              color: ColorConstants.theme2DarkBlue,
+              color: ColorConstants.background,
             ),
           ),
         ),

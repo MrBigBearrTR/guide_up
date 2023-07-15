@@ -33,24 +33,24 @@ class _NavigatorChildUnMemberState extends State<NavigatorChildUnMember> {
       bottomNavigationBar: CurvedNavigationBar(
         key: navigationKey,
         index: _selectedIndex,
-        backgroundColor: ColorConstants.theme2White,
-        color: ColorConstants.theme2Dark,
+        backgroundColor: ColorConstants.textwhite,
+        color: ColorConstants.darkBack,
         height: 60,
         items: const <Widget>[
           Icon(
             Icons.home,
             size: 25,
-            color: ColorConstants.theme2White,
+            color: ColorConstants.textwhite,
           ),
           Icon(
             Icons.search,
             size: 25,
-            color: ColorConstants.theme2White,
+            color: ColorConstants.textwhite,
           ),
           Icon(
             Icons.diversity_1,
             size: 25,
-            color: ColorConstants.theme2White,
+            color: ColorConstants.textwhite,
           ),
         ],
         onTap: (index) {

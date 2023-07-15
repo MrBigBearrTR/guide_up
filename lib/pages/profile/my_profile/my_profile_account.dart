@@ -168,7 +168,7 @@ class _MyProfileAccountState extends State<MyProfileAccount> {
                       children: [
                         CircleAvatar(
                           radius: 60.0,
-                          backgroundColor: ColorConstants.theme2Orange,
+                          backgroundColor: ColorConstants.buttonPurple,
                           // Arka plan rengi
                           backgroundImage:
                               UserInfoHelper.getProfilePicture(userDetail),
@@ -389,13 +389,13 @@ class _MyProfileAccountState extends State<MyProfileAccount> {
                   ),
                   const SizedBox(height: 16.0),
                   DropdownButton<bool>(
-                    focusColor: ColorConstants.theme2Orange,
+                    focusColor: ColorConstants.buttonPurple,
                     value: _isMentor,
                     iconSize: 40,
                     style:
-                        GoogleFonts.nunito(color: ColorConstants.theme2Orange),
-                    dropdownColor: ColorConstants.theme2DarkBlue,
-                    iconEnabledColor: ColorConstants.theme2DarkBlue,
+                        GoogleFonts.nunito(color: ColorConstants.buttonPurple),
+                    dropdownColor: ColorConstants.background,
+                    iconEnabledColor: ColorConstants.background,
                     isExpanded: true,
                     onChanged: (bool? value) {
                       _isMentor = value!;
@@ -464,7 +464,7 @@ class _MyProfileAccountState extends State<MyProfileAccount> {
                         child: Text(
                           "+ Link Ekle",
                           style: GoogleFonts.nunito(
-                            color: ColorConstants.theme2Orange,
+                            color: ColorConstants.buttonPurple,
                           ),
                         ),
                       ),
@@ -477,7 +477,7 @@ class _MyProfileAccountState extends State<MyProfileAccount> {
                           return Container(
                             decoration: BoxDecoration(
                               border: Border.all(
-                                color: ColorConstants.theme2DarkBlue,
+                                color: ColorConstants.background,
                                 width: 1.0,
                               ),
                               borderRadius: BorderRadius.circular(4.0),
@@ -505,7 +505,7 @@ class _MyProfileAccountState extends State<MyProfileAccount> {
                                       },
                                       child: const Icon(
                                         Icons.delete,
-                                        color: ColorConstants.theme2DarkBlue,
+                                        color: ColorConstants.background,
                                       ),
                                     ),
                                   ],
@@ -535,7 +535,7 @@ class _MyProfileAccountState extends State<MyProfileAccount> {
                     child: Text(
                       "Eğitim Bilgileri",
                       style: GoogleFonts.nunito(
-                        color: ColorConstants.theme2DarkBlue,
+                        color: ColorConstants.background,
                         fontWeight: FontWeight.bold,
                       ),
                     ),
@@ -558,7 +558,7 @@ class _MyProfileAccountState extends State<MyProfileAccount> {
                     child: Text(
                       "Projelerim",
                       style: GoogleFonts.nunito(
-                        color: ColorConstants.theme2DarkBlue,
+                        color: ColorConstants.background,
                         fontWeight: FontWeight.bold,
                       ),
                     ),
@@ -581,7 +581,7 @@ class _MyProfileAccountState extends State<MyProfileAccount> {
                     child: Text(
                       "Tecrübelerim",
                       style: GoogleFonts.nunito(
-                        color: ColorConstants.theme2DarkBlue,
+                        color: ColorConstants.background,
                         fontWeight: FontWeight.bold,
                       ),
                     ),
@@ -604,7 +604,7 @@ class _MyProfileAccountState extends State<MyProfileAccount> {
                     child: Text(
                       "Yetenekler",
                       style: GoogleFonts.nunito(
-                        color: ColorConstants.theme2DarkBlue,
+                        color: ColorConstants.background,
                         fontWeight: FontWeight.bold,
                       ),
                     ),
@@ -627,7 +627,7 @@ class _MyProfileAccountState extends State<MyProfileAccount> {
                     child: Text(
                       "Lisanslar ve sertifikalar",
                       style: GoogleFonts.nunito(
-                        color: ColorConstants.theme2DarkBlue,
+                        color: ColorConstants.background,
                         fontWeight: FontWeight.bold,
                       ),
                     ),
@@ -665,8 +665,8 @@ class _MyProfileAccountState extends State<MyProfileAccount> {
                     } else {}
                   },
                   style: ElevatedButton.styleFrom(
-                    foregroundColor: ColorConstants.theme2Orange,
-                    backgroundColor: ColorConstants.theme2DarkBlue,
+                    foregroundColor: ColorConstants.buttonPurple,
+                    backgroundColor: ColorConstants.background,
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(20.0),
                     ),
@@ -689,7 +689,7 @@ class _MyProfileAccountState extends State<MyProfileAccount> {
                   height: 55,
                   decoration: const BoxDecoration(
                     shape: BoxShape.circle,
-                    color: ColorConstants.theme2DarkBlue,
+                    color: ColorConstants.background,
                   ),
                   child: InkWell(
                     onTap: () {
@@ -697,7 +697,7 @@ class _MyProfileAccountState extends State<MyProfileAccount> {
                     },
                     child: const Icon(
                       Icons.arrow_back_rounded,
-                      color: ColorConstants.theme2Orange,
+                      color: ColorConstants.buttonPurple,
                     ),
                   ),
                 ),
