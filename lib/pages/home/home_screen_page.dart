@@ -78,16 +78,6 @@ class _HomeScreenState extends State<HomeScreen> {
           textAlign: TextAlign.left,
         ),
         actions: [
-          IconButton(
-            onPressed: () {},
-            icon: const Icon(Icons.favorite),
-            color: ColorConstants.appcolor1,
-          ),
-          IconButton(
-            onPressed: () {},
-            icon: const Icon(Icons.notifications),
-            color: ColorConstants.appcolor1,
-          ),
           GestureDetector(
             onTap: () async {
               if (await UserService().checkUser()) {

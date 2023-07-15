@@ -35,18 +35,6 @@ class UserEducationInformationRepository {
     }
     return educationInformationList;
   }
-  Future<List<UserEducation>> getUserEducationInformationList() async {
-    List<UserEducation> educationInformationList = [];
-    var querySnapshot = await _userEducationInformationCollections.get();
-
-    for (var docSnapshot in querySnapshot.docs) {
-      UserEducation userEducation = UserEducation();
-      userEducation.toClass(docSnapshot.data());
-      educationInformationList.add(userEducation);
-    }
-
-    return educationInformationList;
-  }
 
 
   Future<void> update(UserEducation userEducationInformation) async {

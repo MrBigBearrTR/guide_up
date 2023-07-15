@@ -20,10 +20,19 @@ class ConversationService {
 
   createNewConversation(UserDetail userDetail, String secondParticipantUserId,
       String content) async {
-    Conversation conversation = Conversation();
-    conversation.setFirstParticipantUserId(userDetail.getUserId()!);
-    conversation.setSecondParticipantUserId(secondParticipantUserId);
-    conversation = await _conversationRepository.add(conversation);
+    Conversation? conversation =await _conversationRepository.getConversation(userDetail.getUserId()!, secondParticipantUserId);
+    if(conversation==null) {
+      conversation = Conversation();
+      conversation.setFirstParticipantUserId(userDetail.getUserId()!);
+      conversation.setSecondParticipantUserId(secondParticipantUserId);
+      conversation = await _conversationRepository.add(conversation);
+    }else{
+      if(conversation.isHiddenFromFirst() || conversation.isHiddenFromSecond()){
+        conversation.setHiddenFromFirst(false);
+        conversation.setHiddenFromSecond(false);
+        _conversationRepository.update(conversation);
+      }
+    }
 
     Messages messages = Messages();
     messages.setConversationId(conversation.getId()!);

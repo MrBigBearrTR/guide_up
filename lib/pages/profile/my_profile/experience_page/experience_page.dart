@@ -1,35 +1,39 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:guide_up/core/models/users/user_experience/user_experience_model.dart';
-import 'package:guide_up/core/utils/secure_storage_helper.dart';
-import 'package:guide_up/core/utils/user_info_helper.dart';
-import 'package:guide_up/repository/user/user_experience/user_experience_repository.dart';
+import 'package:guide_up/core/enumeration/enums/EnEmploymentType.dart';
+import 'package:guide_up/core/enumeration/enums/EnLocationType.dart';
+import 'package:guide_up/core/enumeration/extensions/ExEmploymentType.dart';
+import 'package:guide_up/core/enumeration/extensions/ExLocationType.dart';
 
 import '../../../../core/constant/color_constants.dart';
-import '../../../../core/constant/router_constants.dart';
-import '../../../../core/models/users/user_project/user_project_model.dart';
+import '../../../../core/models/users/user_experience/user_experience_model.dart';
 import '../../../../core/utils/control_helper.dart';
-import '../../../../repository/user/user_project/user_project_repository.dart';
+import '../../../../core/utils/secure_storage_helper.dart';
+import '../../../../core/utils/user_info_helper.dart';
+import '../../../../repository/user/user_experience/user_experience_repository.dart';
 
-class UserProjectPage extends StatefulWidget {
-  const UserProjectPage({Key? key}) : super(key: key);
+class ExperiencePage extends StatefulWidget {
+  const ExperiencePage({Key? key}) : super(key: key);
 
   @override
-  State<UserProjectPage> createState() => _UserProjectPageState();
+  State<ExperiencePage> createState() => _ExperiencePageState();
 }
 
-class _UserProjectPageState extends State<UserProjectPage> {
-  UserProject? userProject;
-  List<UserExperience> experienceList = [];
-  UserExperience? selectedExperience;
-  UserExperience emptyExperience = UserExperience();
+class _ExperiencePageState extends State<ExperiencePage> {
+  UserExperience? userExperience;
+  EnEmploymentType? selectedEmploymentType;
+  EnLocationType? selectedLocationType;
   DateTime startDate = DateTime.now();
   DateTime endDate = DateTime.now();
-  TextEditingController projectTitleController = TextEditingController();
-  TextEditingController startDateController = TextEditingController();
-  TextEditingController endDateController = TextEditingController();
+  TextEditingController companyNameController = TextEditingController();
+  TextEditingController jobTitleController = TextEditingController();
+  TextEditingController locationController = TextEditingController();
+  TextEditingController industryController = TextEditingController();
   TextEditingController descriptionController = TextEditingController();
   TextEditingController linkController = TextEditingController();
+
+  TextEditingController startDateController = TextEditingController();
+  TextEditingController endDateController = TextEditingController();
 
   String? userId;
 
@@ -44,11 +48,9 @@ class _UserProjectPageState extends State<UserProjectPage> {
 
   void getUserId() async {
     if (userId == null) {
-      selectedExperience = emptyExperience;
       String? tempUserId = await SecureStorageHelper().getUserId();
       if (tempUserId != null) {
         userId = tempUserId;
-        experienceList = await UserExperienceRepository().getList(userId!, 0);
         setState(() {});
       } else {
         // Kullanıcı oturum açmamışsa veya kimlik doğrulama kullanmıyorsanız,
@@ -109,24 +111,32 @@ class _UserProjectPageState extends State<UserProjectPage> {
     }
   }
 
-  void addUserProject(BuildContext contextMain) async {
-    String projectTitle = projectTitleController.text.trim();
+  void addUserExperience(BuildContext contextMain) async {
+    String companyName = companyNameController.text.trim();
+    String jobTitle = jobTitleController.text.trim();
+    String locationTitle = locationController.text.trim();
+    String industryTitle = industryController.text.trim();
     String startDateText = startDateController.text.trim();
     String endDateText = endDateController.text.trim();
     String description = descriptionController.text.trim();
     String link = linkController.text.trim();
-    String error="";
+    String error = "";
 
-    if (projectTitle.isEmpty || description.isEmpty || startDateText.isEmpty) {
-      error="deneyim kimliği, Proje adı, başlangıç tarihi  ve açıklama alanları boş bırakılamaz.";
-    }else if(link.isNotEmpty && !UserInfoHelper.hasValidUrl(link)){
-      error="Lütfen URL bilgisini doğru formatta giriniz.";
-
+    if (companyName.isEmpty ||
+        locationTitle.isEmpty ||
+        industryTitle.isEmpty ||
+        jobTitle.isEmpty ||
+        description.isEmpty ||
+        startDateText.isEmpty ||
+        selectedEmploymentType == null ||
+        selectedLocationType == null) {
+      error = "Lütfen Tüm alanları doldurunuz.";
+    } else if (link.isNotEmpty && !UserInfoHelper.hasValidUrl(link)) {
+      error = "Lütfen URL bilgisini doğru formatta giriniz.";
     }
-
     if (error.isNotEmpty) {
       showDialog(
-        context: context,
+        context: contextMain,
         builder: (BuildContext context) {
           return AlertDialog(
             title: Text(
@@ -161,29 +171,35 @@ class _UserProjectPageState extends State<UserProjectPage> {
       return;
     }
 
-    UserProject userProject = UserProject();
-    userProject.setUserId(userId!);
-    if (selectedExperience != null && selectedExperience!.getId() != null) {
-      userProject.setExperienceId(selectedExperience!.getId()!);
-    }
-    userProject.setProjectTitle(projectTitle);
-    userProject.setStartDate(startDate);
+    UserExperience userExperience = UserExperience();
+    userExperience.setUserId(userId!);
+    userExperience.setJobTitle(jobTitle);
+    userExperience.setCompanyName(companyName);
+    userExperience.setLocation(locationTitle);
+    userExperience.setEnLocationType(selectedLocationType!);
+    userExperience.setEnEmploymentType(selectedEmploymentType!);
+    userExperience.setIndustry(industryTitle);
+    userExperience.setStartDate(startDate);
     if (endDateText.isNotEmpty) {
-      userProject.setEndDate(endDate);
+      userExperience.setEndDate(endDate);
     }
-    userProject.setDescription(description);
-    userProject.setLink(link);
+    userExperience.setDescription(description);
+    userExperience.setLink(link);
 
     try {
-      await UserProjectRepository().add(userProject);
+      await UserExperienceRepository().add(userExperience);
 
       setState(() {
-        selectedExperience = emptyExperience;
-        projectTitleController.clear();
+        jobTitleController.clear();
+        companyNameController.clear();
+        locationController.clear();
+        industryController.clear();
         startDateController.clear();
         endDateController.clear();
         descriptionController.clear();
         linkController.clear();
+        selectedLocationType = null;
+        selectedEmploymentType = null;
       });
 
       // ignore: use_build_context_synchronously
@@ -198,7 +214,7 @@ class _UserProjectPageState extends State<UserProjectPage> {
               ),
             ),
             content: Text(
-              'Proje başarıyla eklendi.',
+              'Tecrübe başarıyla eklendi.',
               style: GoogleFonts.nunito(
                 color: ColorConstants.success,
               ),
@@ -222,9 +238,9 @@ class _UserProjectPageState extends State<UserProjectPage> {
         },
       );
 
-      print('Project added to Firebase: $userProject');
+      print('Experience added to Firebase: $userExperience');
     } catch (error) {
-      print('Failed to add project to Firebase: $error');
+      print('Failed to add experience to Firebase: $error');
     }
   }
 
@@ -234,7 +250,7 @@ class _UserProjectPageState extends State<UserProjectPage> {
       appBar: AppBar(
         backgroundColor: ColorConstants.itemWhite, // AppBar arka plan rengi
         title: Text(
-          'Proje',
+          'Tecrübe',
           style: GoogleFonts.nunito(
             // Yetenekler yazısının yazı tipi
             fontSize: 22,
@@ -248,10 +264,7 @@ class _UserProjectPageState extends State<UserProjectPage> {
               color: ColorConstants.theme1DarkBlue, // Kalem ikonu rengi
             ),
             onPressed: () {
-              Navigator.pushNamed(
-                context,
-                RouterConstants.userProjectList,
-              );
+              Navigator.pop(context);
             },
           ),
         ],
@@ -263,9 +276,9 @@ class _UserProjectPageState extends State<UserProjectPage> {
           children: [
             TextFormField(
               decoration: InputDecoration(
-                labelText: 'Proje Adı',
+                labelText: 'Başlık',
                 labelStyle: GoogleFonts.nunito(
-                  color: (projectTitleController.value.text.isNotEmpty)
+                  color: (jobTitleController.value.text.isNotEmpty)
                       ? ColorConstants.theme1DarkBlue
                       : ColorConstants.warningDark,
                 ),
@@ -274,14 +287,41 @@ class _UserProjectPageState extends State<UserProjectPage> {
                 ),
                 focusedBorder: OutlineInputBorder(
                   borderSide: BorderSide(
-                    color: (projectTitleController.value.text.isNotEmpty)
+                    color: (jobTitleController.value.text.isNotEmpty)
                         ? ColorConstants.theme1DarkBlue
                         : ColorConstants.warningDark,
                   ),
                   borderRadius: BorderRadius.circular(8.0),
                 ),
               ),
-              controller: projectTitleController,
+              controller: jobTitleController,
+              cursorColor: ColorConstants.theme1DarkBlue,
+              onChanged: (value) {
+                setState(() {});
+              },
+            ),
+            const SizedBox(height: 16.0),
+            TextFormField(
+              decoration: InputDecoration(
+                labelText: 'Firma Adı',
+                labelStyle: GoogleFonts.nunito(
+                  color: (companyNameController.value.text.isNotEmpty)
+                      ? ColorConstants.theme1DarkBlue
+                      : ColorConstants.warningDark,
+                ),
+                border: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(8.0),
+                ),
+                focusedBorder: OutlineInputBorder(
+                  borderSide: BorderSide(
+                    color: (companyNameController.value.text.isNotEmpty)
+                        ? ColorConstants.theme1DarkBlue
+                        : ColorConstants.warningDark,
+                  ),
+                  borderRadius: BorderRadius.circular(8.0),
+                ),
+              ),
+              controller: companyNameController,
               cursorColor: ColorConstants.theme1DarkBlue,
               onChanged: (value) {
                 setState(() {});
@@ -289,39 +329,38 @@ class _UserProjectPageState extends State<UserProjectPage> {
             ),
             const SizedBox(height: 16.0),
             Text(
-              "Deneyim : (isteğe bağlı)",
+              "istihdam Şekli :",
               style: GoogleFonts.nunito(
                 fontSize: 15,
                 //fontWeight: FontWeight.bold,
                 color: ColorConstants.theme2Orange,
               ),
             ),
-            DropdownButton<UserExperience>(
+            DropdownButton<EnEmploymentType>(
               focusColor: ColorConstants.theme2Orange,
-              value: selectedExperience,
+              value: selectedEmploymentType,
               style: GoogleFonts.nunito(color: ColorConstants.theme2Orange),
               dropdownColor: ColorConstants.theme2DarkBlue,
               isExpanded: true,
-              onChanged: (UserExperience? value) {
-                selectedExperience = value!;
+              onChanged: (EnEmploymentType? value) {
+                selectedEmploymentType = value!;
                 setState(() {});
               },
-              items: [
-                emptyExperience,
-                ...experienceList
-              ].map<DropdownMenuItem<UserExperience>>((UserExperience value) {
-                return DropdownMenuItem<UserExperience>(
+              items: EnEmploymentType.values
+                  .map<DropdownMenuItem<EnEmploymentType>>(
+                      (EnEmploymentType value) {
+                return DropdownMenuItem<EnEmploymentType>(
                   value: value,
-                  child: Text(value.getJobTitle() ?? "Seçiniz.."),
+                  child: Text(value.getDisplayname()),
                 );
               }).toList(),
             ),
             const SizedBox(height: 16.0),
             TextFormField(
               decoration: InputDecoration(
-                labelText: 'Açıklama',
+                labelText: 'Konum',
                 labelStyle: GoogleFonts.nunito(
-                  color: (descriptionController.value.text.isNotEmpty)
+                  color: (locationController.value.text.isNotEmpty)
                       ? ColorConstants.theme1DarkBlue
                       : ColorConstants.warningDark,
                 ),
@@ -330,18 +369,46 @@ class _UserProjectPageState extends State<UserProjectPage> {
                 ),
                 focusedBorder: OutlineInputBorder(
                   borderSide: BorderSide(
-                    color: (descriptionController.value.text.isNotEmpty)
+                    color: (locationController.value.text.isNotEmpty)
                         ? ColorConstants.theme1DarkBlue
                         : ColorConstants.warningDark,
                   ),
                   borderRadius: BorderRadius.circular(8.0),
                 ),
               ),
-              controller: descriptionController,
+              controller: locationController,
               cursorColor: ColorConstants.theme1DarkBlue,
               onChanged: (value) {
                 setState(() {});
               },
+            ),
+            const SizedBox(height: 16.0),
+            Text(
+              "Konum Türü :",
+              style: GoogleFonts.nunito(
+                fontSize: 15,
+                //fontWeight: FontWeight.bold,
+                color: ColorConstants.theme2Orange,
+              ),
+            ),
+            DropdownButton<EnLocationType>(
+              focusColor: ColorConstants.theme2Orange,
+              value: selectedLocationType,
+              style: GoogleFonts.nunito(color: ColorConstants.theme2Orange),
+              dropdownColor: ColorConstants.theme2DarkBlue,
+              isExpanded: true,
+              onChanged: (EnLocationType? value) {
+                selectedLocationType = value!;
+                setState(() {});
+              },
+              items: EnLocationType.values
+                  .map<DropdownMenuItem<EnLocationType>>(
+                      (EnLocationType value) {
+                return DropdownMenuItem<EnLocationType>(
+                  value: value,
+                  child: Text(value.getDisplayName()),
+                );
+              }).toList(),
             ),
             const SizedBox(height: 16.0),
             TextFormField(
@@ -412,7 +479,61 @@ class _UserProjectPageState extends State<UserProjectPage> {
             const SizedBox(height: 16.0),
             TextFormField(
               decoration: InputDecoration(
-                labelText: 'Proje linki (isteğe bağlı)',
+                labelText: 'Açıklama',
+                labelStyle: GoogleFonts.nunito(
+                  color: (descriptionController.value.text.isNotEmpty)
+                      ? ColorConstants.theme1DarkBlue
+                      : ColorConstants.warningDark,
+                ),
+                border: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(8.0),
+                ),
+                focusedBorder: OutlineInputBorder(
+                  borderSide: BorderSide(
+                    color: (descriptionController.value.text.isNotEmpty)
+                        ? ColorConstants.theme1DarkBlue
+                        : ColorConstants.warningDark,
+                  ),
+                  borderRadius: BorderRadius.circular(8.0),
+                ),
+              ),
+              controller: descriptionController,
+              cursorColor: ColorConstants.theme1DarkBlue,
+              onChanged: (value) {
+                setState(() {});
+              },
+            ),
+            const SizedBox(height: 16.0),
+            TextFormField(
+              decoration: InputDecoration(
+                labelText: 'Sektör',
+                labelStyle: GoogleFonts.nunito(
+                  color: (industryController.value.text.isNotEmpty)
+                      ? ColorConstants.theme1DarkBlue
+                      : ColorConstants.warningDark,
+                ),
+                border: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(8.0),
+                ),
+                focusedBorder: OutlineInputBorder(
+                  borderSide: BorderSide(
+                    color: (industryController.value.text.isNotEmpty)
+                        ? ColorConstants.theme1DarkBlue
+                        : ColorConstants.warningDark,
+                  ),
+                  borderRadius: BorderRadius.circular(8.0),
+                ),
+              ),
+              controller: industryController,
+              cursorColor: ColorConstants.theme1DarkBlue,
+              onChanged: (value) {
+                setState(() {});
+              },
+            ),
+            const SizedBox(height: 16.0),
+            TextFormField(
+              decoration: InputDecoration(
+                labelText: 'Tecrübe linki (isteğe bağlı)',
                 labelStyle: GoogleFonts.nunito(
                   color: (linkController.value.text.isNotEmpty)
                       ? ColorConstants.theme1DarkBlue
@@ -437,7 +558,7 @@ class _UserProjectPageState extends State<UserProjectPage> {
             const SizedBox(height: 16.0),
             ElevatedButton(
               onPressed: () {
-                addUserProject(context);
+                addUserExperience(context);
               },
               style: ElevatedButton.styleFrom(
                 backgroundColor:
@@ -457,15 +578,15 @@ class _UserProjectPageState extends State<UserProjectPage> {
   }
 
   void setValues() {
-    if (userProject!.getStartDate() != null) {
-      startDate = userProject!.getStartDate()!;
+    if (userExperience!.getStartDate() != null) {
+      startDate = userExperience!.getStartDate()!;
       startDateController.text = ControlHelper.checkInputValue(
-          UserInfoHelper.dateFormat.format(userProject!.getStartDate()!));
+          UserInfoHelper.dateFormat.format(userExperience!.getStartDate()!));
     }
-    if (userProject!.getEndDate() != null) {
-      endDate = userProject!.getEndDate()!;
+    if (userExperience!.getEndDate() != null) {
+      endDate = userExperience!.getEndDate()!;
       endDateController.text = ControlHelper.checkInputValue(
-          UserInfoHelper.dateFormat.format(userProject!.getEndDate()!));
+          UserInfoHelper.dateFormat.format(userExperience!.getEndDate()!));
     }
   }
 }

@@ -1,5 +1,10 @@
 import 'package:flutter/cupertino.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:guide_up/core/models/users/user_detail/user_detail_model.dart';
+import 'package:intl/intl.dart';
+
+import '../constant/color_constants.dart';
+import '../enumeration/enums/EnLinkType.dart';
 
 class UserInfoHelper {
 
@@ -25,5 +30,54 @@ class UserInfoHelper {
     } else {
       return false;
     }
+  }
+
+  static Widget getEnLinkTypeIcon(EnLinkType enLinkType) {
+    switch (enLinkType) {
+      case EnLinkType.linkedin:
+        return const FaIcon(
+          FontAwesomeIcons.linkedinIn,
+          color: ColorConstants.theme2Orange,
+        );
+      case EnLinkType.github:
+        return const FaIcon(
+          FontAwesomeIcons.github,
+          color: ColorConstants.theme2Orange,
+        );
+      case EnLinkType.youtube:
+        return const FaIcon(
+          FontAwesomeIcons.youtube,
+          color: ColorConstants.theme2Orange,
+        );
+      case EnLinkType.twitter:
+        return const FaIcon(
+          FontAwesomeIcons.twitter,
+          color: ColorConstants.theme2Orange,
+        );
+      case EnLinkType.instagram:
+        return const FaIcon(
+          FontAwesomeIcons.instagram,
+          color: ColorConstants.theme2Orange,
+        );
+      case EnLinkType.personelPage:
+        return const FaIcon(
+          FontAwesomeIcons.blog,
+          color: ColorConstants.theme2Orange,
+        );
+    }
+  }
+
+  static final dateFormat = DateFormat('dd.MM.yyyy');
+
+  static bool hasValidUrl(String value) {
+    String pattern = r'[\w-]+(\.[\w-]+)+([\w.,@?^=%&amp;:/+#-]*[\w@?^=%&amp;/+#-])?';
+    RegExp regExp = RegExp(pattern);
+    if (value.isEmpty) {
+      return false;
+    }
+    else if (!regExp.hasMatch(value)) {
+      return false;
+    }
+    return true;
   }
 }

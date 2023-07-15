@@ -34,9 +34,33 @@ class ConversationRepository extends GeneralRepository<Conversation> {
     return null;
   }
 
+  Future<Conversation?> getConversation(
+      String firstUserId, String secondUserId) async {
+    List<QueryDocumentSnapshot<Map<String, dynamic>>> list = [];
+
+    var query = await _conversationCollections
+        .where("firstParticipantUserId", isEqualTo: firstUserId)
+        .where("secondParticipantUserId", isEqualTo: secondUserId)
+        .get();
+    list.addAll(query.docs);
+
+    var query2 = await _conversationCollections
+        .where("firstParticipantUserId", isEqualTo: secondUserId)
+        .where("secondParticipantUserId", isEqualTo: firstUserId)
+        .get();
+    list.addAll(query2.docs);
+
+
+    if (list.isNotEmpty) {
+      return Conversation().toClass(list.first.data());
+    }
+
+    return null;
+  }
+
   @override
   Future<List<Conversation>> getList(String userId, int limit) async {
-    List<Conversation> categoryList = [];
+    List<Conversation> conversationList = [];
     List<QueryDocumentSnapshot<Map<String, dynamic>>> list = [];
 
     if (limit > 0) {
@@ -63,9 +87,9 @@ class ConversationRepository extends GeneralRepository<Conversation> {
       list.addAll(query2.docs);
     }
 
-    categoryList = convertResponseObjectToList(list.iterator);
+    conversationList = convertResponseObjectToList(list.iterator);
 
-    return categoryList;
+    return conversationList;
   }
 
   @override

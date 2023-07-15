@@ -1,17 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:guide_up/core/enumeration/enums/EnLinkType.dart';
 import 'package:guide_up/core/enumeration/extensions/ExLinkType.dart';
 import 'package:guide_up/core/utils/user_info_helper.dart';
+import 'package:guide_up/pages/profile/my_profile/link_add_dialog.dart';
 import 'package:guide_up/service/user/user_detail/user_detail_service.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:intl/intl.dart';
+import 'package:intl_phone_field/countries.dart';
 import 'package:intl_phone_field/intl_phone_field.dart';
 
 import '../../../core/constant/color_constants.dart';
 import '../../../core/constant/router_constants.dart';
 import '../../../core/models/users/user_detail/user_detail_model.dart';
-import '../../../core/models/users/user_detail/user_links_model.dart';
 import '../../../core/models/users/user_model.dart';
 import '../../../core/utils/control_helper.dart';
 import '../../../core/utils/secure_storage_helper.dart';
@@ -29,10 +29,10 @@ class MyProfileAccount extends StatefulWidget {
 class _MyProfileAccountState extends State<MyProfileAccount> {
   UserDetail? userDetail;
   UserModel? userModel;
-  List<UserLinks> userLinks = [];
   String profileImagePath = "";
   DateTime selectedDate = DateTime.now();
   final dateFormat = DateFormat('dd.MM.yyyy');
+  bool _isMentor = false;
   List<Map<String, String>> otherLinks = [];
   List<String> educationInfo = [];
   List<String> experienceInfo = [];
@@ -45,6 +45,7 @@ class _MyProfileAccountState extends State<MyProfileAccount> {
   final _usernameController = TextEditingController();
   final _emailController = TextEditingController();
   final _phoneController = TextEditingController();
+  Country? selectedPhoneCountry;
 
   // ignore: prefer_typing_uninitialized_variables
   late final _birthdayController;
@@ -65,15 +66,13 @@ class _MyProfileAccountState extends State<MyProfileAccount> {
       detail = null;
     } else {
       userDetail = detail;
+      _isMentor = userDetail!.isMentor();
       UserModel? model =
           await UserRepository().getUserByUserId(detail.getUserId()!);
       if (model == null) {
         userModel = null;
       } else {
-        List<UserLinks> links = await UserLinksRepository()
-            .getUserLinksByUserId(detail.getUserId()!);
         setState(() {
-          userLinks = links;
           userModel = model;
           setValues();
         });
@@ -121,92 +120,17 @@ class _MyProfileAccountState extends State<MyProfileAccount> {
   }
 
   void addOtherLink() {
-    String title = "";
-    String link = "";
-
     showDialog(
       context: context,
       builder: (BuildContext context) {
-        return AlertDialog(
-          title: Text(
-            "+ Link Ekle",
-            style: GoogleFonts.nunito(
-              color: ColorConstants.theme2Orange,
-            ),
-          ),
-          content: Column(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              TextFormField(
-                decoration: InputDecoration(
-                  enabledBorder: const OutlineInputBorder(
-                    borderSide: BorderSide(color: ColorConstants.theme2Orange),
-                  ),
-                  focusedBorder: const OutlineInputBorder(
-                    borderSide: BorderSide(color: ColorConstants.theme2Orange),
-                  ),
-                  labelText: "Başlık",
-                  labelStyle:
-                      GoogleFonts.nunito(color: ColorConstants.theme2Orange),
-                  border: const OutlineInputBorder(),
-                ),
-                onChanged: (value) {
-                  setState(() {
-                    title = value;
-                  });
-                },
-              ),
-              const SizedBox(height: 8.0),
-              TextFormField(
-                decoration: InputDecoration(
-                  enabledBorder: const OutlineInputBorder(
-                    borderSide: BorderSide(color: ColorConstants.theme2Orange),
-                  ),
-                  focusedBorder: const OutlineInputBorder(
-                    borderSide: BorderSide(color: ColorConstants.theme2Orange),
-                  ),
-                  labelText: "Link",
-                  labelStyle:
-                      GoogleFonts.nunito(color: ColorConstants.theme2Orange),
-                  border: const OutlineInputBorder(),
-                ),
-                onChanged: (value) {
-                  link = value;
-                },
-              ),
-            ],
-          ),
-          backgroundColor: ColorConstants.theme2DarkBlue,
-          // Arka plan rengi olarak kullanıldı
-
-          actions: [
-            ElevatedButton(
-              onPressed: () {
-                if (title.isNotEmpty && link.isNotEmpty) {
-                  UserLinks links = UserLinks();
-                  links.setLink(link);
-                  links.setEnLinkType(EnLinkType.personelPage);
-                  if (userDetail != null) {
-                    links.setUserId(userDetail!.getUserId()!);
-                  }
-                  UserLinksRepository().add(links);
-                  setState(() {});
-                  Navigator.pop(context);
-                }
-              },
-              style: ElevatedButton.styleFrom(
-                  backgroundColor: ColorConstants.theme2DarkBlue),
-              child: Text(
-                "Tamam",
-                style: GoogleFonts.nunito(
-                    color: ColorConstants.theme2Orange // Metin rengi
-                    ),
-              ),
-            ),
-          ],
+        return LinkAddDialog(
+          userDetail: userDetail!,
         );
       },
-    );
+    ).then((value) {
+      Future.delayed(const Duration(seconds: 2));
+      setState(() {});
+    });
   }
 
   void removeOtherLink(int index) {
@@ -254,6 +178,8 @@ class _MyProfileAccountState extends State<MyProfileAccount> {
                   ),
                   const SizedBox(height: 16.0),
                   TextFormField(
+                    minLines: 2,
+                    maxLines: 5,
                     decoration: InputDecoration(
                       labelText: 'Hakkımda',
                       labelStyle: GoogleFonts.nunito(
@@ -389,14 +315,16 @@ class _MyProfileAccountState extends State<MyProfileAccount> {
                   const SizedBox(height: 16.0),
                   IntlPhoneField(
                     decoration: InputDecoration(
-                      labelText: 'Telefon Numarası',  // Telefon numarası alanının etiketi
+                      labelText: 'Telefon Numarası',
+                      // Telefon numarası alanının etiketi
                       labelStyle: GoogleFonts.nunito(
                         color: (_phoneController.value.text.isNotEmpty)
                             ? ColorConstants.theme1DarkBlue
                             : ColorConstants.warningDark,
                       ),
                       border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(8.0),  // Kenarlık şeklini ayarla
+                        borderRadius: BorderRadius.circular(
+                            8.0), // Kenarlık şeklini ayarla
                       ),
                       focusedBorder: OutlineInputBorder(
                         borderSide: BorderSide(
@@ -404,14 +332,27 @@ class _MyProfileAccountState extends State<MyProfileAccount> {
                               ? ColorConstants.theme1DarkBlue
                               : ColorConstants.warningDark,
                         ),
-                        borderRadius: BorderRadius.circular(8.0),  // Fokuslanmış kenarlık şeklini ayarla
+                        borderRadius: BorderRadius.circular(
+                            8.0), // Fokuslanmış kenarlık şeklini ayarla
                       ),
                     ),
-                    controller: _phoneController,  // Telefon numarası değerini tutmak için bir controller atanır
-                    initialCountryCode: 'TR',  // İlk açıldığında görünecek ülke kodu
+                    controller: _phoneController,
+                    // Telefon numarası değerini tutmak için bir controller atanır
+                    initialCountryCode: 'TR',
+                    // İlk açıldığında görünecek ülke kodu
+                    onCountryChanged: (value) {
+                      selectedPhoneCountry = value;
+                      if (value.code != "TR") {
+                        ScaffoldMessenger.of(context).showSnackBar(
+                          SnackBar(
+                              content: Text(
+                                  "Türkiye dışındaki ülkeler şimdilik kayıt edilemiyor.")),
+                        );
+                      }
+                    },
                     onChanged: (phone) {
                       setState(() {
-                        _phoneController.text = phone.completeNumber;  // Telefon numarası değiştiğinde controller'ı güncelle
+                        //_phoneController.text = phone.completeNumber;  // Telefon numarası değiştiğinde controller'ı güncelle
                       });
                     },
                   ),
@@ -447,6 +388,28 @@ class _MyProfileAccountState extends State<MyProfileAccount> {
                     controller: _emailController,
                   ),
                   const SizedBox(height: 16.0),
+                  DropdownButton<bool>(
+                    focusColor: ColorConstants.theme2Orange,
+                    value: _isMentor,
+                    iconSize: 40,
+                    style:
+                        GoogleFonts.nunito(color: ColorConstants.theme2Orange),
+                    dropdownColor: ColorConstants.theme2DarkBlue,
+                    iconEnabledColor: ColorConstants.theme2DarkBlue,
+                    isExpanded: true,
+                    onChanged: (bool? value) {
+                      _isMentor = value!;
+                      setState(() {});
+                    },
+                    items:
+                        [true, false].map<DropdownMenuItem<bool>>((bool value) {
+                      return DropdownMenuItem<bool>(
+                        value: value,
+                        child: Text(value ? "Mentor" : "Mentee"),
+                      );
+                    }).toList(),
+                  ),
+                  const SizedBox(height: 16.0),
                   FutureBuilder(
                     builder: (context, snapshot) {
                       if (snapshot.connectionState == ConnectionState.waiting) {
@@ -467,14 +430,24 @@ class _MyProfileAccountState extends State<MyProfileAccount> {
                             itemBuilder: (context, index) {
                               final link = snapshot.data![index];
                               return ListTile(
+                                onTap: () {},
                                 title: Text(link.getLink()!),
                                 subtitle: Text(
                                     link.getEnLinkType()!.getDisplayName()),
-                                leading: const Icon(Icons.link),
+                                leading: UserInfoHelper.getEnLinkTypeIcon(
+                                    link.getEnLinkType()!),
+                                trailing: GestureDetector(
+                                  onTap: () {
+                                    UserLinksRepository().delete(link);
+                                    setState(() {});
+                                  },
+                                  child: Icon(Icons.delete),
+                                ),
                               );
                             },
                             itemCount: snapshot.data!.length,
                             padding: const EdgeInsets.all(0),
+                            physics: const NeverScrollableScrollPhysics(),
                           ),
                         );
                       }
@@ -546,102 +519,117 @@ class _MyProfileAccountState extends State<MyProfileAccount> {
                   ),
                   const SizedBox(height: 0.0),
                   TextButton(
-                    onPressed: () {Navigator.pushNamed(
-                        context, RouterConstants.userEducationInformationList);
+                    onPressed: () {
+                      Navigator.pushNamed(context,
+                          RouterConstants.userEducationInformationList);
                     },
                     style: TextButton.styleFrom(
-                      backgroundColor: ColorConstants.theme1PowderSkinOpacity, // Arkaplan rengi
+                      backgroundColor: ColorConstants.theme1PowderSkinOpacity,
+                      // Arkaplan rengi
                       padding: const EdgeInsets.all(20),
                       shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(4), // Kenar yarıçapı
+                        borderRadius:
+                            BorderRadius.circular(4), // Kenar yarıçapı
                       ),
                     ),
-                    child: Row(
-                      children: [
-                        Text(
-                          "Eğitim Bilgileri",
-                          style: GoogleFonts.nunito(
-                            color: ColorConstants.theme2DarkBlue,
-                            fontWeight: FontWeight.bold,
-                          ),
-                        ),
-                        const Spacer(),
-                      ],
+                    child: Text(
+                      "Eğitim Bilgileri",
+                      style: GoogleFonts.nunito(
+                        color: ColorConstants.theme2DarkBlue,
+                        fontWeight: FontWeight.bold,
+                      ),
                     ),
                   ),
                   const SizedBox(height: 8.0),
                   TextButton(
-                    onPressed: () {Navigator.pushNamed(
+                    onPressed: () {
+                      Navigator.pushNamed(
                           context, RouterConstants.userProjectList);
                     },
                     style: TextButton.styleFrom(
-                      backgroundColor: ColorConstants.theme1PowderSkinOpacity, // Arkaplan rengi
+                      backgroundColor: ColorConstants.theme1PowderSkinOpacity,
+                      // Arkaplan rengi
                       padding: const EdgeInsets.all(20),
                       shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(4), // Kenar yarıçapı
+                        borderRadius:
+                            BorderRadius.circular(4), // Kenar yarıçapı
                       ),
                     ),
-                    child: Row(
-                      children: [
-                        Text(
-                          "Projelerim",
-                          style: GoogleFonts.nunito(
-                            color: ColorConstants.theme2DarkBlue,
-                            fontWeight: FontWeight.bold,
-                          ),
-                        ),
-                        const Spacer(),
-                      ],
+                    child: Text(
+                      "Projelerim",
+                      style: GoogleFonts.nunito(
+                        color: ColorConstants.theme2DarkBlue,
+                        fontWeight: FontWeight.bold,
+                      ),
                     ),
                   ),
                   const SizedBox(height: 8.0),
                   TextButton(
-                    onPressed: () {Navigator.pushNamed(
-                        context, RouterConstants.userAbilities);
+                    onPressed: () {
+                      Navigator.pushNamed(
+                          context, RouterConstants.userExperienceMainPage);
                     },
                     style: TextButton.styleFrom(
-                      backgroundColor: ColorConstants.theme1PowderSkinOpacity, // Arkaplan rengi
+                      backgroundColor: ColorConstants.theme1PowderSkinOpacity,
+                      // Arkaplan rengi
                       padding: const EdgeInsets.all(20),
                       shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(4), // Kenar yarıçapı
+                        borderRadius:
+                            BorderRadius.circular(4), // Kenar yarıçapı
                       ),
                     ),
-                    child: Row(
-                      children: [
-                        Text(
-                          "Yetenekler",
-                          style: GoogleFonts.nunito(
-                            color: ColorConstants.theme2DarkBlue,
-                            fontWeight: FontWeight.bold,
-                          ),
-                        ),
-                        const Spacer(),
-                      ],
+                    child: Text(
+                      "Tecrübelerim",
+                      style: GoogleFonts.nunito(
+                        color: ColorConstants.theme2DarkBlue,
+                        fontWeight: FontWeight.bold,
+                      ),
                     ),
                   ),
                   const SizedBox(height: 8.0),
                   TextButton(
-                    onPressed: () {Navigator.pushNamed(
-                        context, RouterConstants.licensesAndCertificatesPage);
+                    onPressed: () {
+                      Navigator.pushNamed(
+                          context, RouterConstants.userAbilities);
                     },
                     style: TextButton.styleFrom(
-                      backgroundColor: ColorConstants.theme1PowderSkinOpacity, // Arkaplan rengi
+                      backgroundColor: ColorConstants.theme1PowderSkinOpacity,
+                      // Arkaplan rengi
                       padding: const EdgeInsets.all(20),
                       shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(4), // Kenar yarıçapı
+                        borderRadius:
+                            BorderRadius.circular(4), // Kenar yarıçapı
                       ),
                     ),
-                    child: Row(
-                      children: [
-                        Text(
-                          "Lisanslar ve sertifikalar",
-                          style: GoogleFonts.nunito(
-                            color: ColorConstants.theme2DarkBlue,
-                            fontWeight: FontWeight.bold,
-                          ),
-                        ),
-                        const Spacer(),
-                      ],
+                    child: Text(
+                      "Yetenekler",
+                      style: GoogleFonts.nunito(
+                        color: ColorConstants.theme2DarkBlue,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                  ),
+                  const SizedBox(height: 8.0),
+                  TextButton(
+                    onPressed: () {
+                      Navigator.pushNamed(
+                          context, RouterConstants.licensesAndCertificatesPage);
+                    },
+                    style: TextButton.styleFrom(
+                      backgroundColor: ColorConstants.theme1PowderSkinOpacity,
+                      // Arkaplan rengi
+                      padding: const EdgeInsets.all(20),
+                      shape: RoundedRectangleBorder(
+                        borderRadius:
+                            BorderRadius.circular(4), // Kenar yarıçapı
+                      ),
+                    ),
+                    child: Text(
+                      "Lisanslar ve sertifikalar",
+                      style: GoogleFonts.nunito(
+                        color: ColorConstants.theme2DarkBlue,
+                        fontWeight: FontWeight.bold,
+                      ),
                     ),
                   ),
                   const SizedBox(height: 50.0),
@@ -652,14 +640,29 @@ class _MyProfileAccountState extends State<MyProfileAccount> {
                 right: 0.0,
                 child: ElevatedButton(
                   onPressed: () async {
-                    userDetail!.setAbout(_aboutController.value.text);
-                    userDetail!.setName(_nameController.value.text);
-                    userDetail!.setSurname(_lastnameController.value.text);
-                    userModel!.setUsername(_usernameController.value.text);
-                    userDetail!.setBirthday(selectedDate);
-                    userDetail = await UserDetailService().update(userDetail!);
-                    userDetail!.setPhone(_phoneController.value.text);
-
+                    bool continueMethod = true;
+                    if (selectedPhoneCountry != null) {
+                      if (selectedPhoneCountry!.code != "TR") {
+                        continueMethod = false;
+                      }
+                    }
+                    if (continueMethod) {
+                      userDetail!.setAbout(_aboutController.value.text);
+                      userDetail!.setName(_nameController.value.text);
+                      userDetail!.setSurname(_lastnameController.value.text);
+                      userModel!.setUsername(_usernameController.value.text);
+                      userDetail!.setBirthday(selectedDate);
+                      userDetail!.setPhone(_phoneController.value.text);
+                      userDetail!.setMentor(_isMentor);
+                      try {
+                        userDetail =
+                            await UserDetailService().update(userDetail!);
+                      } catch (e) {
+                        ScaffoldMessenger.of(context).showSnackBar(
+                          SnackBar(content: Text(e.toString())),
+                        );
+                      }
+                    } else {}
                   },
                   style: ElevatedButton.styleFrom(
                     foregroundColor: ColorConstants.theme2Orange,
@@ -669,9 +672,10 @@ class _MyProfileAccountState extends State<MyProfileAccount> {
                     ),
                   ),
                   child: Padding(
-                    padding:
-                        const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
-                    child: Text("Kaydet",
+                    padding: const EdgeInsets.symmetric(
+                        horizontal: 16.0, vertical: 8.0),
+                    child: Text(
+                      "Kaydet",
                       style: GoogleFonts.nunito(),
                     ),
                   ),
@@ -725,8 +729,7 @@ class _MyProfileAccountState extends State<MyProfileAccount> {
   void setValues() {
     _aboutController.text =
         ControlHelper.checkInputValue(userDetail!.getAbout());
-    _nameController.text =
-        ControlHelper.checkInputValue(userDetail!.getName());
+    _nameController.text = ControlHelper.checkInputValue(userDetail!.getName());
     _lastnameController.text =
         ControlHelper.checkInputValue(userDetail!.getSurname());
     _emailController.text =

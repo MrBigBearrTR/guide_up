@@ -82,17 +82,9 @@ class _GuideHomePageState extends State<GuideHomePage> {
                 return ListView.builder(
                   itemBuilder: (context3, index) {
                     final postCardView = snapshot.data![index];
-                    return GestureDetector(
-                      onTap: () {
-                        // Navigate to the detailed view when the post is clicked
-                        Navigator.pushNamed(
-                            context, RouterConstants.guideDetailPage,
-                            arguments: postCardView);
-                      },
-                      child: GuideCard(
-                        postCardView: postCardView,
-                        userId: _userId,
-                      ),
+                    return GuideCard(
+                      postCardView: postCardView,
+                      userId: _userId,
                     );
                   },
                   itemCount: snapshot.data!.length,

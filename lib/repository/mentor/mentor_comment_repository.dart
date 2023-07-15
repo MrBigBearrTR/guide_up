@@ -12,7 +12,7 @@ class MentorCommentRepository {
         .collection(FirestoreCollectionConstant.mentorComment);
   }
 
-  Future<MentorComment> add(String userId, MentorComment mentorComment, String mentorId, int rating, bool showName) async {
+  Future<MentorComment> add(String userId, MentorComment mentorComment) async {
     mentorComment.dbCheck(userId);
 
     var process = await _mentorCommentCollections.add(mentorComment.toMap());

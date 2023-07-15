@@ -5,7 +5,6 @@ class MentorFavourite extends GeneralFields {
   String? _id;
   String? _userId;
   String? _mentorId;
-  int? _rate;
 
   String? getId() {
     return _id;
@@ -31,14 +30,6 @@ class MentorFavourite extends GeneralFields {
     _mentorId = postId;
   }
 
-  int? getRate() {
-    return _rate;
-  }
-
-  void setRate(int rate) {
-    _rate = rate;
-  }
-
   Map<String, dynamic> toMap() {
     Map<String, dynamic> map = toGeneralMap();
     map['id'] = getId();
@@ -47,7 +38,7 @@ class MentorFavourite extends GeneralFields {
     return map;
   }
 
-  toClass(Map<String, dynamic> map) {
+  MentorFavourite toClass(Map<String, dynamic> map) {
     toGeneralClass(map);
 
     if (ControlHelper.checkMapValue(map, 'id')) {
@@ -59,5 +50,6 @@ class MentorFavourite extends GeneralFields {
     if (ControlHelper.checkMapValue(map, 'mentorId')) {
       setMentorId(map['mentorId']);
     }
+     return this;
   }
 }

@@ -31,6 +31,20 @@ class MentorFavouriteRepository {
     return null;
   }
 
+  Future<MentorFavourite?> getMentorFavouriteByUserIdAndMentorId(
+      String userId, String mentorId) async {
+    var query = await _mentorFavouriteCollection
+        .where("userId", isEqualTo: userId)
+        .where("mentorId", isEqualTo: mentorId)
+        .where("isActive", isEqualTo: true)
+        .get();
+
+    if (query.docs.isNotEmpty) {
+      return MentorFavourite().toClass(query.docs.first.data());
+    }
+    return null;
+  }
+
   Future<List<MentorFavourite>> getMentorFavouriteListByUserId(
       String userId) async {
     List<MentorFavourite> mentorFavouriteList = [];
@@ -69,6 +83,11 @@ class MentorFavouriteRepository {
     await _mentorFavouriteCollection
         .doc(mentorFavourite.getId()!)
         .update(mentorFavourite.toMap());
+  }
+
+  Future delete(MentorFavourite mentorFavourite) async {
+    mentorFavourite.setActive(false);
+    update(mentorFavourite);
   }
 
   List<MentorFavourite> convertResponseObjectToList(

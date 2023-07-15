@@ -18,12 +18,15 @@ class RouterConstants{
   static const String userProjectList="/userProjectList";
   static const String userEducationInformationPage="/userEducationInformationPage";
   static const String userEducationInformationList="/userEducationInformationList";
+  static const String userExperiencePage="/userExperiencePage";
+  static const String userExperienceMainPage="/userExperienceMainPage";
+  static const String licensesAndCertificatesPage="/licensesAndCertificatesPage";
+  static const String licenseAndCertificateAddPage="/licenseAndCertificateAddPage";
   static const String helpAndSupport="/helpAndSupport";
   static const String aboutUs="/aboutUs";
   static const String messagesPage="/messagesPage";
-  static const String licensesAndCertificatesPage="/licensesAndCertificatesPage";
+
   static const String mentorPreview = '/mentorPreview';
-  static const String licenseAndCertificateAddPage="/licenseAndCertificateAddPage";
   static const String mentorFeedbackPage ="/mentorFeedbackPage";
   static const String mentorComments = '/mentorComments';
 

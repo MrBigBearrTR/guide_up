@@ -1,7 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+
 import '../../../core/constant/firestore_collectioon_constant.dart';
 import '../../../core/models/users/user_detail/user_links_model.dart';
-import '../../../core/utils/secure_storage_helper.dart';
 
 class UserLinksRepository {
   late final CollectionReference<Map<String, dynamic>> userlinksCollections;
@@ -14,8 +14,10 @@ class UserLinksRepository {
   Future<List<UserLinks>> getUserLinksByUserId(String userId) async {
     List<UserLinks> userLinksList = [];
 
-    var query =
-        await userlinksCollections.where("userId", isEqualTo: userId).get();
+    var query = await userlinksCollections
+        .where("userId", isEqualTo: userId)
+        .where("isActive", isEqualTo: true)
+        .get();
 
     Iterator<QueryDocumentSnapshot<Map<String, dynamic>>> it =
         query.docs.iterator;
@@ -31,13 +33,7 @@ class UserLinksRepository {
   }
 
   Future<UserLinks> add(UserLinks links) async {
-    String? userId = await SecureStorageHelper().getUserId();
-    if (userId != null) {
-      links.dbCheck(userId);
-      if (links.getUserId() != null) {
-        links.setUserId(userId);
-      }
-    }
+    links.dbCheck(links.getUserId()!);
 
     var process = await userlinksCollections.add(links.toMap());
 
@@ -45,5 +41,10 @@ class UserLinksRepository {
     await userlinksCollections.doc(process.id).update(links.toMap());
 
     return links;
+  }
+
+  Future delete(UserLinks links) async {
+    links.setActive(false);
+    await userlinksCollections.doc(links.getId()!).update(links.toMap());
   }
 }

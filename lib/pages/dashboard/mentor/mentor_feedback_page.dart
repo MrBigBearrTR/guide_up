@@ -1,23 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:guide_up/core/constant/color_constants.dart';
-import 'package:guide_up/core/constant/firestore_collectioon_constant.dart';
-import 'package:guide_up/core/constant/router_constants.dart';
-import  'package:guide_up/core/models/mentor/mentor_commend_model.dart';
-import 'package:guide_up/core/models/users/user_detail/user_detail_model.dart';
-import 'package:guide_up/core/utils/secure_storage_helper.dart';
+import 'package:guide_up/core/models/mentor/mentor_commend_model.dart';
 import 'package:guide_up/repository/mentor/mentor_comment_repository.dart';
-import 'package:guide_up/service/mentor/mentor_comment_service.dart';
-import 'package:http/http.dart';
+
+import '../../../core/models/mentor/mentee_model.dart';
 
 class MenteeFeedbackPage extends StatefulWidget {
   const MenteeFeedbackPage({Key? key}) : super(key: key);
 
   @override
-  _MenteeFeedbackPageState createState() => _MenteeFeedbackPageState();
+  State<MenteeFeedbackPage> createState() => _MenteeFeedbackPageState();
 }
 
 class _MenteeFeedbackPageState extends State<MenteeFeedbackPage> {
@@ -25,64 +19,61 @@ class _MenteeFeedbackPageState extends State<MenteeFeedbackPage> {
   bool showName = false;
   final TextEditingController _commentController = TextEditingController();
 
-  void submitFeedback() async {
-    String userId = FirebaseAuth.instance.currentUser?.uid ?? '';
-    String mentorId = FirestoreCollectionConstant.mentor;
-    String userName = showName ? FirebaseAuth.instance.currentUser?.displayName ?? '' : '';
-
-    // Yorumu al
-    String comment = _commentController.text.trim();
+  void submitFeedback(BuildContext context) async {
 
     // MentorComment örneği oluştur
-    MentorComment mentorComment = MentorComment()
-      ..setId(FirebaseFirestore.instance.collection('mentorCommend').doc().id ) // Özel bir ID belirtin veya `.doc().id` kullanarak otomatik bir ID ataması yapabilirsiniz.
-      ..setMenteeId(userId)
-      ..setMentorId(mentorId)
-      ..setRate(rating.toInt())
-      ..setComment(comment)
-      ..setAnonymous(!showName);
+    MentorComment mentorComment = MentorComment();
+    mentorComment.setMenteeId(_mentee.getId()!);
+    mentorComment.setMentorId(_mentee.getMentorId()!);
+    mentorComment.setRate(rating.round());
+    mentorComment.setComment(_commentController.text.trim());
+    mentorComment.setAnonymous(showName);
 
-
-    await MentorCommentRepository().add(userId, mentorComment, mentorId, rating.toInt(), showName);
-
-
-    showDialog(
-      context: context,
-      builder: (BuildContext context) {
-        return AlertDialog(
-          title: Text('Geribildirim Gönderildi'),
-          content: Text('Mentore geribildiriminiz başarıyla gönderildi.'),
-          actions: [
-            TextButton(
-              child: Text('Tamam'),
-              onPressed: () {
-                Navigator.pushNamed(context, RouterConstants.mentorFeedbackPage);
-              },
-            ),
-          ],
-        );
-      },
-    );
+    MentorCommentRepository()
+        .add(_mentee.getUserId()!, mentorComment)
+        .then((value) {
+      showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return AlertDialog(
+            title: const Text('Geribildirim Gönderildi'),
+            content:
+                const Text('Mentore geribildiriminiz başarıyla gönderildi.'),
+            actions: [
+              TextButton(
+                child: const Text('Tamam'),
+                onPressed: () {
+                  Navigator.pop(context);
+                },
+              ),
+            ],
+          );
+        },
+      );
+    });
   }
+
+  late Mentee _mentee;
 
   @override
   Widget build(BuildContext context) {
+    _mentee = ModalRoute.of(context)!.settings.arguments as Mentee;
     return Container(
       alignment: Alignment.center,
       child: Scaffold(
         appBar: AppBar(
-          title: Text('Mentor Geribildirimi'),
+          title: const Text('Mentor Geribildirimi'),
         ),
         body: Padding(
-          padding: EdgeInsets.all(16.0),
+          padding: const EdgeInsets.all(16.0),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              Text(
+              const Text(
                 'Değerlendirme Yapın',
                 style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
               ),
-              SizedBox(height: 16),
+              const SizedBox(height: 16),
               RatingBar.builder(
                 initialRating: rating,
                 minRating: 0,
@@ -90,8 +81,8 @@ class _MenteeFeedbackPageState extends State<MenteeFeedbackPage> {
                 direction: Axis.horizontal,
                 allowHalfRating: true,
                 itemCount: 5,
-                itemPadding: EdgeInsets.symmetric(horizontal: 4.0),
-                itemBuilder: (context, _) => Icon(
+                itemPadding: const EdgeInsets.symmetric(horizontal: 4.0),
+                itemBuilder: (context, _) => const Icon(
                   Icons.star,
                   color: Colors.amber,
                 ),
@@ -101,21 +92,20 @@ class _MenteeFeedbackPageState extends State<MenteeFeedbackPage> {
                   });
                 },
               ),
-              SizedBox(height: 16),
+              const SizedBox(height: 16),
               Text(
                 'Yıldız Derecelendirmesi: $rating',
-                style: TextStyle(fontSize: 18),
+                style: const TextStyle(fontSize: 18),
               ),
-
-              SizedBox(height: 16),
+              const SizedBox(height: 16),
               Text(
                 'Görüş ve Düşüncelerim',
-    style: GoogleFonts.nunito(
-    textStyle: const TextStyle(
-      fontSize: 20,
-      color: ColorConstants.theme2DarkBlue,
-              ),
-    ),
+                style: GoogleFonts.nunito(
+                  textStyle: const TextStyle(
+                    fontSize: 20,
+                    color: ColorConstants.theme2DarkBlue,
+                  ),
+                ),
               ),
               TextFormField(
                 controller: _commentController,
@@ -123,14 +113,14 @@ class _MenteeFeedbackPageState extends State<MenteeFeedbackPage> {
                   // Yorumu işlemek için gereken işlemleri gerçekleştirin
                 },
                 maxLines: 3,
-                decoration: InputDecoration(
+                decoration: const InputDecoration(
                   border: OutlineInputBorder(),
                   hintText: 'Mentora hakkında düşüncelerinizi yazın...',
                 ),
               ),
-              SizedBox(height: 10),
+              const SizedBox(height: 10),
               Padding(
-                padding: EdgeInsets.all(25.0),
+                padding: const EdgeInsets.all(25.0),
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
@@ -144,7 +134,7 @@ class _MenteeFeedbackPageState extends State<MenteeFeedbackPage> {
                             });
                           },
                         ),
-                        Text('İsminiz Gözüksün'),
+                        const Text('İsmim Görünmesin'),
                       ],
                     ),
                   ],
@@ -157,7 +147,7 @@ class _MenteeFeedbackPageState extends State<MenteeFeedbackPage> {
                 width: 320,
                 child: ElevatedButton(
                   onPressed: () {
-                    submitFeedback();
+                    submitFeedback(context);
                   },
                   style: ElevatedButton.styleFrom(
                       shadowColor: Colors.deepOrange,

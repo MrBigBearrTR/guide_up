@@ -36,6 +36,9 @@ class MenteeRepository {
     var query = await _menteeCollection
         .where("userId", isEqualTo: userId)
         .where("mentorId", isEqualTo: mentorId)
+        //.where("isApproval", isEqualTo: true)
+        .where("isActive", isEqualTo: true)
+        .orderBy("createDate", descending: false)
         .get();
 
     if (query.docs.isNotEmpty) {
@@ -96,7 +99,7 @@ class MenteeRepository {
   Future<List<Mentee>> getMenteeListByMentorId(String mentorId) async {
     List<Mentee> menteeList = [];
     var query =
-    await _menteeCollection.where("mentorId", isEqualTo: mentorId).get();
+        await _menteeCollection.where("mentorId", isEqualTo: mentorId).get();
 
     if (query.docs.isNotEmpty) {
       menteeList = convertResponseObjectToList(query.docs.iterator);
@@ -107,7 +110,7 @@ class MenteeRepository {
   Future<int> getMenteeListCountByMentorId(String mentorId) async {
     int listCount = 0;
     var query =
-    await _menteeCollection.where("mentorId", isEqualTo: mentorId).get();
+        await _menteeCollection.where("mentorId", isEqualTo: mentorId).get();
 
     if (query.docs.isNotEmpty) {
       listCount = query.docs.length;

@@ -13,6 +13,16 @@ class CategoryRepository {
         .collection(FirestoreCollectionConstant.category);
   }
 
+  Future<Category?> get(String id) async {
+    var query = await categoryCollections.doc(id).get();
+
+    if (query.data() != null) {
+      return Category().toClass(query.data()!);
+    }
+    return null;
+  }
+
+
   Future<List<Category>> getMainCategoryList() async {
     List<Category> categoryList = [];
 

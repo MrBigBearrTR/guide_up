@@ -8,6 +8,7 @@ class FirestoreCollectionConstant {
   static const String userAbilities = "userAbilities";
   static const String userProject = "userProject";
   static const String userLicence = "userLicence";
+  static const String userExperience = "userExperience";
   static const String userEducationInformation = "userEducationInformation";
 
 

@@ -6,6 +6,7 @@ import '../../../../core/constant/color_constants.dart';
 import '../../../../core/constant/router_constants.dart';
 import '../../../../core/enumeration/extensions/ExLanguage.dart';
 import '../../../../core/models/users/user_education/user_education_model.dart';
+import '../../../../core/utils/user_info_helper.dart';
 import '../../../../repository/user/user_education/user_education_repository.dart';
 
 class UserEducationInformationPage extends StatefulWidget {
@@ -113,9 +114,16 @@ class _UserEducationInformationPageState extends State<UserEducationInformationP
     String description = descriptionController.text.trim();
     String link=linkController.text.trim();
     String language = enlanguageController.text.trim();
-
+    String error="";
 
     if (school.isEmpty || startDateText.isEmpty || description.isEmpty) {
+      error="deneyim kimliği, Proje adı, başlangıç tarihi  ve açıklama alanları boş bırakılamaz.";
+    }else if(link.isNotEmpty && !UserInfoHelper.hasValidUrl(link)){
+      error="Lütfen URL bilgisini doğru formatta giriniz.";
+
+    }
+
+    if (error.isNotEmpty) {
       showDialog(
         context: context,
         builder: (BuildContext context) {
@@ -127,7 +135,7 @@ class _UserEducationInformationPageState extends State<UserEducationInformationP
               ),
             ),
             content: Text(
-              'Okul adı, başlangıç tarihi ve açıklama alanları boş bırakılamaz.',
+              error,
               style: GoogleFonts.nunito(
                 color: ColorConstants.itemWhite,
               ),

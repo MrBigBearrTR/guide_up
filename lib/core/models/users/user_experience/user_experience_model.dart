@@ -8,7 +8,7 @@ import 'package:guide_up/core/models/general/general_fields_model.dart';
 import '../../../enumeration/extensions/ExLanguage.dart';
 import '../../../utils/control_helper.dart';
 
-/// [@author MrBigBear] 
+/// [@author MrBigBear]
 class UserExperience extends GeneralFields {
   String? _id;
   String? _userId;
@@ -160,7 +160,7 @@ class UserExperience extends GeneralFields {
     return map;
   }
 
-  toClass(Map<String, dynamic> map) {
+  UserExperience toClass(Map<String, dynamic> map) {
     toGeneralClass(map);
 
     if (ControlHelper.checkMapValue(map, 'id')) {

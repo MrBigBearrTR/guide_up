@@ -1,22 +1,22 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:guide_up/repository/user/user_experience/user_experience_repository.dart';
+import 'package:guide_up/core/enumeration/extensions/ExEmploymentType.dart';
 
 import '../../../../core/constant/color_constants.dart';
 import '../../../../core/constant/router_constants.dart';
-import '../../../../core/models/users/user_project/user_project_model.dart';
+import '../../../../core/models/users/user_experience/user_experience_model.dart';
 import '../../../../core/utils/secure_storage_helper.dart';
 import '../../../../core/utils/user_info_helper.dart';
-import '../../../../repository/user/user_project/user_project_repository.dart';
+import '../../../../repository/user/user_experience/user_experience_repository.dart';
 
-class UserProjectList extends StatefulWidget {
-  const UserProjectList({Key? key}) : super(key: key);
+class ExperienceMainPage extends StatefulWidget {
+  const ExperienceMainPage({Key? key}) : super(key: key);
 
   @override
-  State<UserProjectList> createState() => _UserProjectListState();
+  State<ExperienceMainPage> createState() => _ExperienceMainPageState();
 }
 
-class _UserProjectListState extends State<UserProjectList> {
+class _ExperienceMainPageState extends State<ExperienceMainPage> {
   String? userId;
 
   @override
@@ -39,14 +39,14 @@ class _UserProjectListState extends State<UserProjectList> {
     }
   }
 
-  void _deleteProject(UserProject project) async {
+  void _deleteExperience(UserExperience experience) async {
     showDialog(
       context: context,
       builder: (BuildContext context) {
         return AlertDialog(
-          title: Text('Proje Bilgisini Sil',
+          title: Text('Tecrübe Bilgisini Sil',
               style: GoogleFonts.nunito(color: ColorConstants.itemWhite)),
-          content: Text('Bu projeyi silmek istediğinizden emin misiniz?',
+          content: Text('Bu tecrübe kaydınızı silmek istediğinizden emin misiniz?',
               style: GoogleFonts.nunito(color: ColorConstants.itemWhite)),
           actions: [
             TextButton(
@@ -59,14 +59,12 @@ class _UserProjectListState extends State<UserProjectList> {
             TextButton(
               onPressed: () async {
                 try {
-                  await UserProjectRepository().delete(project);
+                  await UserExperienceRepository().delete(experience);
 
                   setState(() {});
 
-                  print(
-                      'Project added to Firebase: ${project.getProjectTitle() ?? "Unknown project"}');
                 } catch (error) {
-                  print('Failed to delete project from Firebase: $error');
+                  print('Failed to delete experience from Firebase: $error');
                 }
                 // ignore: use_build_context_synchronously
                 Navigator.of(context).pop();
@@ -86,7 +84,7 @@ class _UserProjectListState extends State<UserProjectList> {
     return Scaffold(
       appBar: AppBar(
         title: Text(
-          'Projeler',
+          'Tecrübeleriniz',
           style: GoogleFonts.nunito(
             // Yetenekler yazısının yazı tipi
             fontSize: 22,
@@ -109,7 +107,7 @@ class _UserProjectListState extends State<UserProjectList> {
               color: ColorConstants.theme1DarkBlue, // Kalem ikonu rengi
             ),
             onPressed: () {
-              Navigator.pushNamed(context, RouterConstants.userProjectPage)
+              Navigator.pushNamed(context, RouterConstants.userExperiencePage)
                   .then((value) {
                 setState(() {});
               });
@@ -117,9 +115,9 @@ class _UserProjectListState extends State<UserProjectList> {
           ),
         ],
       ),
-      body: FutureBuilder<List<UserProject>>(
+      body: FutureBuilder<List<UserExperience>>(
         future:
-            UserProjectRepository().getUserProjectListByUserId(userId ?? ""),
+        UserExperienceRepository().getList(userId ?? "",0),
         builder: (context, snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {
             return const Center(
@@ -131,7 +129,7 @@ class _UserProjectListState extends State<UserProjectList> {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Text(
-                    'Projelerinizi şu an listeleyemiyoruz.',
+                    'Tecrübelerinizi şu an listeleyemiyoruz.',
                     style: GoogleFonts.nunito(),
                   ),
                   Padding(
@@ -163,7 +161,7 @@ class _UserProjectListState extends State<UserProjectList> {
                     TextButton(
                       onPressed: () {
                         Navigator.pushNamed(
-                                context, RouterConstants.userProjectPage)
+                            context, RouterConstants.userExperiencePage)
                             .then((value) {
                           setState(() {});
                         });
@@ -177,7 +175,7 @@ class _UserProjectListState extends State<UserProjectList> {
                             ColorConstants.theme2DarkOpacity20),
                       ),
                       child: Text(
-                        'Proje kaydınız bulunamadı. Eklemeye ne dersiniz?',
+                        'Tecrübe kaydınız bulunamadı. Eklemeye ne dersiniz?',
                         style: GoogleFonts.nunito(),
                         textAlign: TextAlign.center,
                       ),
@@ -189,74 +187,58 @@ class _UserProjectListState extends State<UserProjectList> {
               return ListView.builder(
                 itemCount: snapshot.data!.length,
                 itemBuilder: (context, index) {
-                  final project = snapshot.data![index];
+                  final experience = snapshot.data![index];
                   return Card(
                     color: ColorConstants.theme1DarkBlue, // Eklenen tablo rengi
                     elevation: 2, // Card'ın gölgelendirme seviyesi
                     margin:
-                        const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+                    const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
                     child: ListTile(
                       subtitle: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Text(
-                            'Proje Adı: ${project.getProjectTitle() ?? ""}',
+                            'Firma Adı: ${experience.getCompanyName() ?? ""}',
                             style: GoogleFonts.nunito(
                               color: ColorConstants.itemWhite,
                             ),
                           ),
-                          if (project.getExperienceId() != null)
-                            FutureBuilder(
-                              future: UserExperienceRepository()
-                                  .get(project.getExperienceId()!),
-                              builder: (context, snapshot) {
-                                if (snapshot.hasData) {
-                                  return Text(
-                                    'Deneyim: ${snapshot.data!.getJobTitle() ?? ""}',
-                                    style: GoogleFonts.nunito(
-                                      color: ColorConstants.itemWhite,
-                                    ),
-                                  );
-                                } else {
-                                  return Text(
-                                    'Deneyim: ',
-                                    style: GoogleFonts.nunito(
-                                      color: ColorConstants.itemWhite,
-                                    ),
-                                  );
-                                }
-                              },
+                          Text(
+                            'iş: ${experience.getJobTitle() ?? ""}',
+                            style: GoogleFonts.nunito(
+                              color: ColorConstants.itemWhite,
                             ),
-                          if (project.getExperienceId() == null)
+                          ),
+                          if (experience.getEnEmploymentType()!= null)
                             Text(
-                              'Deneyim: ',
+                              'İstihdam Türü: ${experience.getEnEmploymentType()!.getDisplayname()}',
                               style: GoogleFonts.nunito(
                                 color: ColorConstants.itemWhite,
                               ),
                             ),
-                          if (project.getDescription()?.isNotEmpty == true)
+                          if (experience.getDescription()?.isNotEmpty == true)
                             Text(
-                              'Açıklama: ${project.getDescription()}',
+                              'Açıklama: ${experience.getDescription()}',
                               style: GoogleFonts.nunito(
                                 color: ColorConstants.itemWhite,
                               ),
                             ),
                           Text(
-                            'Başlangıç Tarihi: ${project.getStartDate() != null ? UserInfoHelper.dateFormat.format(project.getStartDate()!) : ""}',
+                            'Başlangıç Tarihi: ${experience.getStartDate() != null ? UserInfoHelper.dateFormat.format(experience.getStartDate()!) : ""}',
                             style: GoogleFonts.nunito(
                               color: ColorConstants.itemWhite,
                             ),
                           ),
-                          if (project.getEndDate() != null)
+                          if (experience.getEndDate() != null)
                             Text(
-                              'Bitiş Tarihi: ${project.getEndDate() != null ? UserInfoHelper.dateFormat.format(project.getEndDate()!) : ""}',
+                              'Bitiş Tarihi: ${experience.getEndDate() != null ? UserInfoHelper.dateFormat.format(experience.getEndDate()!) : ""}',
                               style: GoogleFonts.nunito(
                                 color: ColorConstants.itemWhite,
                               ),
                             ),
-                          if (project.getLink()?.isNotEmpty == true)
+                          if (experience.getLink()?.isNotEmpty == true)
                             Text(
-                              'Bağlantı: ${project.getLink() ?? ""}',
+                              'Bağlantı: ${experience.getLink() ?? ""}',
                               style: GoogleFonts.nunito(
                                 color: ColorConstants.itemWhite,
                               ),
@@ -265,9 +247,9 @@ class _UserProjectListState extends State<UserProjectList> {
                       ),
                       trailing: IconButton(
                         icon: const Icon(Icons.delete),
-                        onPressed: () => _deleteProject(project),
+                        onPressed: () => _deleteExperience(experience),
                         color:
-                            ColorConstants.theme2Orange, // Silme butonu rengi
+                        ColorConstants.theme2Orange, // Silme butonu rengi
                       ),
                     ),
                   );

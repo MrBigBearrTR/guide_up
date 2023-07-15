@@ -28,6 +28,11 @@ class _GuideCardState extends State<GuideCard> {
       child: Column(
         children: [
           ListTile(
+            onTap: () {
+              Navigator.pushNamed(
+                  context, RouterConstants.guideDetailPage,
+                  arguments: widget.postCardView);
+            },
             title: Text(
               widget.postCardView.topic ?? "",
               style: GoogleFonts.nunito(

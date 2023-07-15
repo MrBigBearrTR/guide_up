@@ -1,5 +1,7 @@
 import 'package:guide_up/core/models/general/general_fields_model.dart';
 
+import '../../utils/control_helper.dart';
+
 /// [@author MrBigBear]
 class Category extends GeneralFields {
   String? _id;
@@ -38,17 +40,18 @@ class Category extends GeneralFields {
     return map;
   }
 
-  toClass(Map<String, dynamic> map) {
+  Category toClass(Map<String, dynamic> map) {
     toGeneralClass(map);
 
-    if (map.containsKey('id')) {
+    if (ControlHelper.checkMapValue(map, 'id')) {
       setId(map['id']);
     }
-    if (map.containsKey('name')) {
+    if (ControlHelper.checkMapValue(map, 'name')) {
       setName(map['name']);
     }
-    if (map.containsKey('mainCategory') && map['mainCategory']!=null) {
+    if (ControlHelper.checkMapValue(map, 'mainCategory')) {
       setMainCategory(map['mainCategory']);
     }
+    return this;
   }
 }

@@ -3,7 +3,6 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:guide_up/core/constant/color_constants.dart';
 import 'package:guide_up/core/constant/router_constants.dart';
 import 'package:guide_up/core/models/mentor/mentee_model.dart';
-import 'package:guide_up/core/models/mentor/mentor_favourite_model.dart';
 import 'package:guide_up/core/models/users/user_detail/user_detail_model.dart';
 import 'package:guide_up/core/utils/secure_storage_helper.dart';
 import 'package:guide_up/repository/mentee/mentee_repository.dart';
@@ -158,7 +157,7 @@ class _MenteeDashboardMainPageState extends State<MenteeDashboardMainPage> {
               'Yorumlarım',
               style: TextStyle(fontSize: 20),
             ),
-             Expanded(
+            Expanded(
               child: FutureBuilder(
                 builder: (context, snapshot) {
                   if (snapshot.connectionState == ConnectionState.waiting) {
@@ -287,31 +286,9 @@ class _MenteeDashboardMainPageState extends State<MenteeDashboardMainPage> {
         );
       case EnCardType.favourite:
         return CircleAvatar(
-          backgroundColor: const Color.fromARGB(255, 25, 20, 20),
+          backgroundColor: ColorConstants.theme2White,
           child: InkWell(
             onTap: () {
-              //Fav mentor nesneleri
-              MentorFavourite mentor1 = MentorFavourite();
-              //Helin Güler
-              mentor1.setId('KvlPcnqNXhrkFlZWgILD');
-              mentor1.setUserId('rtTYc0vV0d7tGIfRh9lW');
-              mentor1.setMentorId('E0WHTDbpa3q7mwnzITZh');
-              mentor1.setRate(5);
-
-              //Kerem Uzuner
-              mentor1.setId('rU6GRGvovQsblsQuXaeR');
-              mentor1.setUserId('1O7SHUlYl7J39FyI3Kch');
-              mentor1.setMentorId('ZeyMyRkhDr2tXo5jEzww');
-              mentor1.setRate(5);
-
-              //Ali Yalçın
-              mentor1.setId('Jw25Si89JWMvMosPi5Ll');
-              mentor1.setUserId('hWWvrRWX8if981bEJZGw');
-              mentor1.setMentorId('rzBmc8UuMlDSUTpyA3PJ');
-              mentor1.setRate(5);
-              
-              MentorFavouriteRepository().add(mentor1);
-
               Navigator.pushNamed(
                   context, RouterConstants.menteeFavouriteMentorPage);
             },
@@ -349,6 +326,7 @@ class _MenteeDashboardMainPageState extends State<MenteeDashboardMainPage> {
         );
     }
   }
+
   String getMenteeId() {
     if (mentee != null) {
       return mentee!.getId()!;
